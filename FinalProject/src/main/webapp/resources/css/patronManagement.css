@@ -1,0 +1,89 @@
+@CHARSET "UTF-8";
+
+
+
+.management-brand{
+	
+	
+	padding: 12px 0;
+    margin-left: 340px;
+	
+	
+}
+
+
+.brand-inline{
+	
+	position: relative;
+    padding-left: 32px;
+	margin-left:540px;
+	
+}
+
+
+.brand-inline li{
+	
+	   position:absolute;
+	   margin-left:305px;
+	   margin-top:-50px;
+}
+
+.li2{
+	
+	
+	margin-left: 450px !important;
+	
+}
+
+
+.container2{
+	
+	width:70%;
+	margin-top:100px;
+	height:100px;
+	margin-left:auto;
+	margin-right:auto;
+	
+	
+}
+
+.tab{
+	
+	background:white;
+	width:90%;
+	height:100px;
+	margin-left:auto;
+	margin-right:auto;
+	
+}
+
+.tab img{
+	background:yellow;
+	margin: 15px 15px;
+	
+	
+}
+
+
+.patron-name{
+	
+	position:absolute;
+	margin-top:-65px;
+	margin-left:200px;
+	
+	
+}
+.patron-content{
+	
+	positon:absolute;
+	margin-top:-65px; 
+	margin-left:300px;
+	
+}
+
+.out{
+    position: absolute;
+    margin-left: 780px;
+    margin-top: -23px;
+	
+}

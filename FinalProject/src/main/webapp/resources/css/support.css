@@ -1,0 +1,198 @@
+@CHARSET "UTF-8";
+
+
+.support-frame{
+	
+	width:80%;
+	height:700px;
+	margin-left:auto;
+	margin-right:auto;
+	padding-top:50px;
+	
+}
+
+.profile-frame{
+	margin-top:50px;
+	width:12%;
+	height:200px;
+	border: 0.02px #B0C4DE solid;
+	margin-left: 50px;
+	top: 100px;
+	padding-top: 65px;
+	padding-left:110px;
+}
+.check-money{
+	
+	width:20%;
+	height:50px;
+	margin-left:50px;
+	text-align:center;
+	padding-top:15px;
+	border: 0.02px #B0C4DE solid;
+	border-top:none;
+}
+
+
+.service{
+	border: 0.02px #B0C4DE solid;
+	border-top:none;
+	padding-top:30px;
+	margin-left:50px;
+	padding-bottom:30px;
+	width:20%;
+	text-align:center;
+	
+	
+}
+
+.service-text{
+	
+	margin:1rem;
+	
+	
+}
+
+.strong-text{
+	
+	font-weight:700;
+	
+}
+
+.explain-frame{
+	
+	
+	
+	margin-left: 300px;
+    margin-top: -550px;
+	overflow:hidden;
+	width:80%;
+	height:500px;
+	
+	
+}
+.explain-frame h2{
+	
+	margin-left:100px;
+	
+}
+.chice-frame{
+	margin-left:100px;
+	border-top: 0.02px #B0C4DE solid;
+	width:90%;
+	height:500px;
+	z-index:1;
+	
+	
+}
+.chice-frame h3{
+	
+	font-weight:50;
+	float:center;
+}
+
+
+.check-amount{
+	width:10%;
+	display:inline-block;
+	margin-left: 140px;
+	border: 0.5px solid;
+	padding: 10px;
+		
+}
+
+.highlight{
+	
+	margin-bottom:40px;
+}
+
+
+.highlight-inbox{
+	
+	width:40%;
+	color:blue;
+	
+} 
+
+
+
+.price-check{
+	
+	width:150%;
+	display:inline;
+	
+}
+
+.price-check span{
+	
+	 
+	border-bottom:1px solid black;
+	
+	
+}
+
+.month-check{
+	
+	
+	width:130%;
+}
+
+
+
+.total-price-wrap{
+	
+	margin-right:260px;
+	margin-top:180px;
+	float:right;
+	display:block;
+	width:30%;
+	height:100px;
+}
+
+.total-price-frame{
+	
+	width:40%;
+	height:40px;
+	margin-left:60px;
+	margin-top:50px;
+	float:left;
+	text-align:center;
+	display:inline;
+}
+
+.check-btn-frame{
+	margin-top:50px;
+	float:left;
+	width:40%;
+	height:60px;
+	position:absolute;
+}
+
+.total-price{
+	
+	float:right;
+	display:contents;
+	padding:20px;
+	color:blue;
+	margin-right:50px;
+}
+
+
+.total-price-word{
+	
+	paddding:10px;
+	
+	float:left;
+	
+}
+
+
+.next-btn{
+	margin-right:430px;
+	border:none;
+	background:purple;
+	color:white;
+	float:right;
+	
+}
+
+

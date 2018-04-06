@@ -11,6 +11,6 @@
 
 		<h1>View단 폴더생성완료 , 기능단필</h1>
 	<jsp:forward page="WEB-INF/views/login/loginForm.jsp"/>
-<h1>fgfg</h1>
+<h1>얄루</h1>
 </body>
 </html>

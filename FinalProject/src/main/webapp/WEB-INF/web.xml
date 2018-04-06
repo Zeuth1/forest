@@ -20,20 +20,109 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<!-- Processes application requests -->
+	<!-- 로그인서블릿 -->
 	<servlet>
 		<servlet-name>loginServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/config/servlet-context.xml</param-value>
+			<param-value>/WEB-INF/config/login-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 		
 	<servlet-mapping>
 		<servlet-name>loginServlet</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>*.lo</url-pattern>
 	</servlet-mapping>
+	
+	
+	
+	
+	
+	
+		<!-- 메인게시판 서블릿 -->
+	<servlet>
+		<servlet-name>mainServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/main-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>mainServlet</servlet-name>
+		<url-pattern>*.ma</url-pattern>
+	</servlet-mapping>
+	
+		<!-- 마이보드서블릿 -->
+	<servlet>
+		<servlet-name>myboardServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/myboard-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>myboardServlet</servlet-name>
+		<url-pattern>*.my</url-pattern>
+	</servlet-mapping>
+	
+		<!-- 셋팅서블릿 -->
+	<servlet>
+		<servlet-name>settingServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/setting-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>settingServlet</servlet-name>
+		<url-pattern>*.set</url-pattern>
+	</servlet-mapping>
+	
+		<!-- 도움! -->
+	<servlet>
+		<servlet-name>helpCenterServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/helpCenter-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>helpCenterServlet</servlet-name>
+		<url-pattern>*.help</url-pattern>
+	</servlet-mapping>
+		
+		<!-- 관리자서블릿 -->
+	<servlet>
+		<servlet-name>managerServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/manager-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>managerServlet</servlet-name>
+		<url-pattern>*.man</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	
 
 </web-app>

@@ -5,7 +5,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <head></head>
 <body class="not-logged-in">
-<jsp:include page="../common/header.jsp"/>
+  <jsp:include page="../common/modal.jsp"/>
   
   
 <div id="status-bar"></div>

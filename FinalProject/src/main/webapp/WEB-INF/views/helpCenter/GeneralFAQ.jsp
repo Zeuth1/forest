@@ -7,7 +7,7 @@
 <head>
 <body class="">
 
-<jsp:include page="common/header.jsp"/>
+<jsp:include page="../common/header.jsp"/>
 
   <div class="category-container">
     <div class="category-content">
@@ -99,7 +99,7 @@
 
   </main>
 
-   <jsp:include page="common/footer.jsp"/>
+   <jsp:include page="../common/footer.jsp"/>
 
 </body>
 </html>

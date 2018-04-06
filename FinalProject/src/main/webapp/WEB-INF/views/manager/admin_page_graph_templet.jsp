@@ -32,7 +32,7 @@
 
 <body>
 
-	<jsp:include page="/admin_sidebar.jsp" />
+	<jsp:include page="admin_sidebar.jsp" />
 	<div id=container class="well-lg">
 		<h2 align="center">ADMIN PAGE -</h2>
 		<hr>

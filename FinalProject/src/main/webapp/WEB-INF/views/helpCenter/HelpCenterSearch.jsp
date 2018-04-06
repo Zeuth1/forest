@@ -7,7 +7,7 @@
 <head>
 <body class="">
 
-<jsp:include page="common/header.jsp"/>
+<jsp:include page="../common/header.jsp"/>
  
   <main role="main">
     <div class="container-divider"></div>
@@ -121,7 +121,7 @@
 
   </main>
 
-  <jsp:include page="common/footer.jsp"/>
+  <jsp:include page="../common/footer.jsp"/>
 
 </body>
 </html>

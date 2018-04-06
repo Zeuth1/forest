@@ -7,7 +7,7 @@
 <head>
 <body class="">
 
-	<jsp:include page="common/header.jsp" />
+	<jsp:include page="../common/header.jsp" />
 
 	<main class="main-content slide-left" id="main-content" role="main">
 	<article class="post" id="main">
@@ -97,7 +97,7 @@
 	 
 
 
-	<jsp:include page="common/footer.jsp" />
+	<jsp:include page="../common/footer.jsp" />
 
 </body>
 </html>

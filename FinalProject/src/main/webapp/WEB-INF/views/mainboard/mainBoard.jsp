@@ -67,7 +67,7 @@
   </head>
   <body>
   
-    <jsp:include page="menubar.jsp"/>
+    <jsp:include page="../common/menubar.jsp"/>
    
   <c:set var="src1" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/cinderella.jpg" scope="request"/>
   <c:set var="src2" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/rapunzel.jpg" scope="request"/>

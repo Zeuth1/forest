@@ -7,7 +7,7 @@
 <head>
 <body class="">
 
-<jsp:include page="common/MainHeader.jsp"/>
+<jsp:include page="../common/MainHeader.jsp"/>
 
 <div class="container">
   <section class="section knowledge-base">
@@ -88,7 +88,7 @@
 
   </main>
 
-  <jsp:include page="common/footer.jsp"/>
+  <jsp:include page="../common/footer.jsp"/>
 
 </body>
 </html>

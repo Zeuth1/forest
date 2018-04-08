@@ -73,7 +73,7 @@
   
     <jsp:include page="../common/menubar.jsp"/>
    
-  <c:set var="src1" value="/forest/tree/apple-2788662_1280.jpg" scope="request"/>
+  <c:set var="src1" value="/tree/apple-2788662_1280.jpg" scope="request"/>
   <c:set var="src2" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/rapunzel.jpg" scope="request"/>
   <c:set var="src3" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/belle.jpg" scope="request"/>
   <c:set var="src4" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/mulan_2.jpg" scope="request"/>
@@ -95,7 +95,7 @@
     <div id="columns">
       
       <figure>
-        <img src="${ src1 }">  
+        <img src="/tree/apple-2788662_1280.jpg">  
         <figcaption title="${ figcaption1 }">${ figcaption1 }</figcaption>
       </figure>
       

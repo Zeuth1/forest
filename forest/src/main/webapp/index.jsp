@@ -8,11 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< HEAD
+
   <h1>요시!</h1>
-=======
+
   <h1>gdgd</h1>
->>>>>>> Junghoon
   <button type="button" onclick="location.href='mainBoard.ma'">메인보드로</button>
 </body>
 </html>

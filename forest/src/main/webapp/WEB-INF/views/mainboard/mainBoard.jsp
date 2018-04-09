@@ -6,7 +6,6 @@
   <head>
     <style>
       #columns{
-<<<<<<< HEAD
         width:95%;
         column-width:235px;
         column-gap:0px;
@@ -16,7 +15,7 @@
       #columns figure{
         
         display:inline-block;
-=======
+
         
         column-width:235px;
         column-gap:0px;
@@ -27,7 +26,6 @@
       }
       #columns figure{
         display: inline-block;
->>>>>>> Junghoon
         margin-bottom: 1px;
         margin-top:1px;
         margin-left:1px;
@@ -35,10 +33,7 @@
         padding:10px;
         border-radius:10px; 
         width:230px;
-<<<<<<< HEAD
-        
-=======
->>>>>>> Junghoon
+
       }
       #columns figure:hover{
         cursor:pointer;
@@ -46,18 +41,12 @@
       }
       
       #columns figure img{
-<<<<<<< HEAD
-    
-=======
->>>>>>> Junghoon
+
         width:230px;
         border-radius:10px;
       }
       #columns figure figcaption{
-<<<<<<< HEAD
-        
-=======
->>>>>>> Junghoon
+
         display: -webkit-box; 
         display: -ms-flexbox; 
         display: box; 
@@ -66,21 +55,18 @@
         overflow:hidden; 
         vertical-align:top; 
         text-overflow: ellipsis; 
-<<<<<<< HEAD
+
         word-break:break-all;       
-=======
+
         word-break:break-all; 
         -webkit-box-orient:vertical; 
         -webkit-line-clamp:3;
->>>>>>> Junghoon
+
         font-weight:bold;
         width:210px;
         margin-left:auto;
         margin-right:auto;
-<<<<<<< HEAD
 
-=======
->>>>>>> Junghoon
       }
       
       .overlay {
@@ -92,13 +78,11 @@
 		 background-color: rgba(0,0,0, 0.4);
 		 overflow-x: scroll;
       }
-      
-<<<<<<< HEAD
+
       .fig{
         display:inline;
       }
-=======
->>>>>>> Junghoon
+
       
     
     </style>
@@ -107,11 +91,11 @@
   
     <jsp:include page="../common/menubar.jsp"/>
    
-<<<<<<< HEAD
+
   <c:set var="src1" value="/tree/apple-2788662_1280.jpg" scope="request"/>
-=======
+
   <c:set var="src1" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/cinderella.jpg" scope="request"/>
->>>>>>> Junghoon
+
   <c:set var="src2" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/rapunzel.jpg" scope="request"/>
   <c:set var="src3" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/belle.jpg" scope="request"/>
   <c:set var="src4" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/mulan_2.jpg" scope="request"/>
@@ -131,7 +115,6 @@
   <c:set var="figcaption9" value="Tiana wearing the <i>robe de style</i> of the 1920¡¯s'"/>
     
     <div id="columns">
-<<<<<<< HEAD
       
       <figure>
         <img src="/tree/apple-2788662_1280.jpg">  
@@ -140,93 +123,57 @@
       
       
       
-=======
+
       <figure>
         <img src="${ src1 }">  
         <figcaption title="${ figcaption1 }">${ figcaption1 }</figcaption>
       </figure>
       
->>>>>>> Junghoon
+
       <figure>
         <img src="${ src2 }">  
         <figcaption title="${ figcaption2 }">${ figcaption2 }</figcaption>
       </figure>
-<<<<<<< HEAD
-     
-      
-=======
->>>>>>> Junghoon
+
       
       <figure>
         <img src="${ src3 }">  
         <figcaption title="${ figcaption3 }">${ figcaption3 }</figcaption>
       </figure>
-<<<<<<< HEAD
-     
-      
-=======
->>>>>>> Junghoon
+
       
       <figure>
         <img src="${ src4 }">  
         <figcaption title="${ figcaption4 }">${ figcaption4 }</figcaption>
       </figure>
-<<<<<<< HEAD
-    
-      
-     
-=======
-      
->>>>>>> Junghoon
+
       <figure>
         <img src="${ src5 }">  
         <figcaption title="${ figcaption5 }">${ figcaption5 }</figcaption>
       </figure>
-<<<<<<< HEAD
-    
-      
-=======
->>>>>>> Junghoon
+
       
       <figure>
         <img src="${ src6 }">  
         <figcaption title="${ figcaption6 }">${ figcaption6 }</figcaption>
       </figure>
-<<<<<<< HEAD
-    
-      
-=======
->>>>>>> Junghoon
-      
+
       <figure>
         <img src="${ src7 }">  
         <figcaption title="${ figcaption7 }">${ figcaption7 }</figcaption>
       </figure>
-<<<<<<< HEAD
-     
-      
-=======
->>>>>>> Junghoon
-      
+
       <figure>
         <img src="${ src8 }">  
         <figcaption title="${ figcaption8 }">${ figcaption8 }</figcaption>
       </figure>
       
-<<<<<<< HEAD
-      
-      
-=======
->>>>>>> Junghoon
+
       <figure>
         <img src="${ src9 }">  
         <figcaption title="${ figcaption9 }">${ figcaption9 }</figcaption>
       </figure>
-<<<<<<< HEAD
-     
-=======
-      
->>>>>>> Junghoon
+
       
       
     </div>

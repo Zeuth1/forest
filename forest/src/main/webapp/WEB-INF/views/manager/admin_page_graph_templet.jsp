@@ -19,8 +19,38 @@
 <link href="https://fonts.googleapis.com/css?family=Press+Start+2P"
 	rel="stylesheet">
 <!--  -->
+<<<<<<< HEAD
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/resources/css/contain.css" />
+=======
+<style type="text/css">
+#container {
+	width: 82.5%;
+	height: 100%;
+	border: 3px solid white;
+	margin-left: 12.5%;
+	margin-top:-51%;
+	border-radius: 10px;
+	border: 1px solid gray;
+}
+
+#searchbar {
+	margin-top: -20px;
+}
+
+#board_table {
+	background: white;
+}
+
+#board_table th {
+	text-align: center;
+}
+
+#addData tr:hover {
+	background: snow;
+}
+</style>
+>>>>>>> Junghoon
 <!--Load the AJAX API-->
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>

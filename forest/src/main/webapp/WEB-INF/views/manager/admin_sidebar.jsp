@@ -15,10 +15,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!--  -->
-<<<<<<< HEAD
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/resources/css/sidebar.css" />
-=======
 <style type="text/css">
 html, body {
 	width: 100%;
@@ -53,11 +49,11 @@ html, body {
 	color: white;
 	margin-left: 1%;
 }
-#tie{
-	background: teal;
+
+h4, h5 {
+	font-family: 'Source Sans Pro', sans-serif;
 }
 </style>
->>>>>>> Junghoon
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
@@ -65,14 +61,6 @@ html, body {
 <body>
 	<div id=sidebar>
 		<div id=title align="center">
-<<<<<<< HEAD
-			<h3>ADMIN PAGE</h3>
-		</div>
-
-		<div id=divbutton>
-			<hr>
-			<h4>회원관리</h4>
-=======
 			<br>
 			<h3>ADMIN PAGE</h3>
 			<br>
@@ -84,20 +72,13 @@ html, body {
 		<!--  -->
 		<div id=divbutton>
 			<h4>&nbsp;회원관리 ▼</h4>
->>>>>>> Junghoon
 			<hr>
 			<div id=divlist>
 				<div>
 					<h5>
-<<<<<<< HEAD
-						<a href="<%=request.getContextPath()%>/member/member_search.jsp">[정보조회]</a>
-					</h5>
-=======
 						<a href="a_memberSearchView.ad">[정보조회]</a>
 					</h5>
-				<div id="tie">
-				</div>	
->>>>>>> Junghoon
+					<div id="tie"></div>
 				</div>
 				<div>
 					<h5>
@@ -115,30 +96,16 @@ html, body {
 					</h5>
 				</div>
 			</div>
-<<<<<<< HEAD
-
-		</div>
-
-
-		<div id=divbutton>
-			<hr>
-			<h4>결제관리</h4>
-=======
 		</div>
 
 		<!--  -->
 		<div id=divbutton>
 			<h4>&nbsp;게시판관리 ▼</h4>
->>>>>>> Junghoon
 			<hr>
 			<div id=divlist>
 				<div>
 					<h5>
-<<<<<<< HEAD
-						<a href="<%=request.getContextPath()%>/money/money_donation.jsp">[후원내역조회]</a>
-=======
 						<a href="a_moneyDonationView.ad">[후원내역조회]</a>
->>>>>>> Junghoon
 					</h5>
 				</div>
 				<div>
@@ -153,11 +120,6 @@ html, body {
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-		<div id=divbutton>
-			<hr>
-			<h4>통계관리</h4>
-=======
 
 		<!--  -->
 		<div id=divbutton>
@@ -185,19 +147,15 @@ html, body {
 		<!--  -->
 		<div id=divbutton>
 			<h4>&nbsp;통계관리 ▼</h4>
->>>>>>> Junghoon
 			<hr>
 			<div id=divlist>
 				<div>
 					<h5>
-<<<<<<< HEAD
-=======
 						<a href="a_chartMainView.ad">[요약]</a>
 					</h5>
 				</div>
 				<div>
 					<h5>
->>>>>>> Junghoon
 						<a href="<%=request.getContextPath()%>/money/money_donation.jsp">[연령별]</a>
 					</h5>
 				</div>
@@ -213,10 +171,7 @@ html, body {
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-=======
 
->>>>>>> Junghoon
 	</div>
 	<script type="text/javascript">
 		$("#divbutton ").click(function() {

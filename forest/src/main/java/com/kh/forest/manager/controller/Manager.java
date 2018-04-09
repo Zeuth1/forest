@@ -17,19 +17,19 @@ public class Manager {
 	/* 맴버 */
 	@RequestMapping("a_memberSearchView.man")
 	public String a_memberSearchView() {
-		return "manager/member/member_search";
+		return "/member/member_search";
 	}
 
 	/* 결제 */
 	@RequestMapping("a_moneyDonationView.man")
 	public String a_moneyDonationView() {
-		return "manager/money/money_donation";
+		return "/money/money_donation";
 	}
 
 	/* 차트 */
 	@RequestMapping("a_chartMainView.man")
 	public String a_chartMainView() {
-		return "manager/chart/chart_main";
+		return "/chart/chart_main";
 	}
 
 	// <서비스 부분>
@@ -41,7 +41,7 @@ public class Manager {
 
 		ArrayList<Member> list = as.a_memberSerchAll();
 
-		return "manager/chart/chart_main";
+		return "/chart/chart_main";
 	}
 
 }

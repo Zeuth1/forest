@@ -12,6 +12,6 @@
   <h1>요시!</h1>
 
   <h1>gdgd</h1>
-  <button type="button" onclick="location.href='mainBoard.ma'">메인보드로</button>
+  <button type="button" onclick="location.href='a_memberSearchView.man'">메인보드로</button>
 </body>
 </html>

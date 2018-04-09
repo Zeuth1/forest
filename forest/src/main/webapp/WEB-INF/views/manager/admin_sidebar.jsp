@@ -25,8 +25,8 @@ html, body {
 	width: 10%;
 	height: 100%;
 	display: inline-block;
-	background: SteelBlue;
-	color: white;
+	background: #1a2226;
+	color: #8aa4af;
 	font-weight: bold;
 }
 
@@ -76,7 +76,7 @@ h4, h5 {
 			<div id=divlist>
 				<div>
 					<h5>
-						<a href="a_memberSearchView.ad">[정보조회]</a>
+						<a href="a_memberSearchView.man">[정보조회]</a>
 					</h5>
 					<div id="tie"></div>
 				</div>
@@ -105,17 +105,17 @@ h4, h5 {
 			<div id=divlist>
 				<div>
 					<h5>
-						<a href="a_moneyDonationView.ad">[후원내역조회]</a>
+						<a href="a_moneyDonationView.man">[공지사항조회]</a>
 					</h5>
 				</div>
 				<div>
 					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_return.jsp">[환급신청내역조회]</a>
+						<a href="<%=request.getContextPath()%>/money/money_return.jsp">[게시판조회]</a>
 					</h5>
 				</div>
 				<div>
 					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_account.jsp">[계좌인증조회]</a>
+						<a href="<%=request.getContextPath()%>/money/money_account.jsp">[게시판삭제/복구]</a>
 					</h5>
 				</div>
 			</div>
@@ -128,7 +128,7 @@ h4, h5 {
 			<div id=divlist>
 				<div>
 					<h5>
-						<a href="a_moneyDonation.ad">[후원내역조회]</a>
+						<a href="a_moneyDonation.man">[후원내역조회]</a>
 					</h5>
 				</div>
 				<div>
@@ -151,7 +151,7 @@ h4, h5 {
 			<div id=divlist>
 				<div>
 					<h5>
-						<a href="a_chartMainView.ad">[요약]</a>
+						<a href="a_chartMainView.man">[요약]</a>
 					</h5>
 				</div>
 				<div>

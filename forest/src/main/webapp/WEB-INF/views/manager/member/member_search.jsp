@@ -45,6 +45,10 @@
 #addData tr:hover {
 	background: snow;
 }
+
+body {
+	background: #edf1f5;
+}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -82,15 +86,19 @@
 	<!-- 스크립트(ajax,jquery) 작성부분 -->
 	<script>
 		function memberSerchAll() {
-			var onclick="check";
+			var onclick = "check";
+			var addData = $("#addData");
 			$.ajax({
-				uri:"a_memberSerchAll.man",
-				type:"get",
-				data:{
-					onclick:onclick
+				uri : "a_memberSerchAll.man",
+				type : "get",
+				data : {
+					onclick : onclick
 				},
-				success:function(data){
-					
+				success : function(data) {
+					addData.html="";
+					for (var i = 0; i < data.length; i++) {
+						addData.html=data[i].user_no;
+					}
 				}
 			});
 		}

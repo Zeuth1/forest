@@ -50,6 +50,9 @@
 	width: 600px;
 	height: 400px;
 }
+body{
+	background: #edf1f5;
+}
 </style>
 <!--Load the AJAX API-->
 <script type="text/javascript"

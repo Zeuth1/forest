@@ -272,14 +272,14 @@
 	  <c:set var="src8" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/ariel.jpg" scope="request"/>
 	  <c:set var="src9" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/tiana.jpg" scope="request"/>
 	  <c:set var="figcaption1" value="Cinderella wearing European fashion of the mid-1860'"/>
-	  <c:set var="figcaption2" value="Rapunzel, clothed in 1820’s period fashion'"/>
-	  <c:set var="figcaption3" value="Belle, based on 1770’s French court fashion'"/>
+	  <c:set var="figcaption2" value="Rapunzel, clothed in 1820��s period fashion'"/>
+	  <c:set var="figcaption3" value="Belle, based on 1770��s French court fashion'"/>
 	  <c:set var="figcaption4" value="Mulan, based on the Ming Dynasty period'"/>
 	  <c:set var="figcaption5" value="Sleeping Beauty, based on European fashions in 1485'"/>
 	  <c:set var="figcaption6" value="Pocahontas based on 17th century Powhatan costume'"/>
 	  <c:set var="figcaption7" value="Snow White, based on 16th century German fashion'"/>
-	  <c:set var="figcaption8" value="Ariel wearing an evening gown of the 1890’s'"/>
-	  <c:set var="figcaption9" value="Tiana wearing the <i>robe de style</i> of the 1920’s'"/>
+	  <c:set var="figcaption8" value="Ariel wearing an evening gown of the 1890��s'"/>
+	  <c:set var="figcaption9" value="Tiana wearing the <i>robe de style</i> of the 1920��s'"/>
   
   <div class="background"></div>
   <div id="detail">
@@ -287,23 +287,23 @@
         <img src="${ param.src }">  
       </figure>
       <i class="fas fa-chevron-left" id="pre"></i>
-      <div id="homeBtn">메인으로 돌아가기</div>
+      <div id="homeBtn">硫��몄�쇰� ����媛�湲�</div>
       <div id="modifyBtn"><i class="fas fa-ellipsis-h" id="modify"></i></div>
-      <div id="storeBtn"><i class="fas fa-thumbtack" style="font-size:15px; padding-right:5px;"></i>저장</div>
+      <div id="storeBtn"><i class="fas fa-thumbtack" style="font-size:15px; padding-right:5px;"></i>����</div>
       <div id="downed"><i class="fas fa-thumbtack" style="font-size:15px; padding-right:5px; top:10px;"></i>1,873</div>
-      <div id="goBoardBtn" onclick="location.href='#'"><p id="goBoard">더 많은 트리 보기</p></div>
+      <div id="goBoardBtn" onclick="location.href='#'"><p id="goBoard">�� 留��� �몃━ 蹂닿린</p></div>
       <span id="description">
         <img src="${ src1 }" id="profile"> 
       	<p id="des">
-      	  <a href="#">유민수</a> 님이 <a href="#">사람들</a>에 저장함
+      	  <a href="#">��誘쇱��</a> ���� <a href="#">�щ����</a>�� ���ν��
       	  <br>${ param.figcaption }dddddddddddddddddd
       	</p>
-      	<p id="comment">댓글 3개 모두보기</p>
+      	<p id="comment">��湲� 3媛�紐⑤��蹂닿린</p>
       </span>
   </div>   
   
   
-      <h2>작가 보드의 다른 트릐</h2>
+      <h2>fj</h2>
     
     <div id="columns">
       <figure>
@@ -490,7 +490,7 @@
         <img src="${ src9 }">  
         <figcaption title="${ figcaption9 }">${ figcaption9 }</figcaption>
       </figure>
-      
+      </div>
       
       <script>
       $(function(){

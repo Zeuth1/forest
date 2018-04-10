@@ -7,24 +7,15 @@
     <style>
       #columns{
         width:95%;
+        height:3000px;
         column-width:235px;
         column-gap:0px;
         margin-top:80px;
         
       }
-      #columns figure{
-        
-        display:inline-block;
 
-        
-        column-width:235px;
-        column-gap:0px;
-        margin-top:80px;
-        margin-left:70px;
-        margin-right:70px;
-        align:center;
-      }
       #columns figure{
+      
         display: inline-block;
         margin-bottom: 1px;
         margin-top:1px;
@@ -61,27 +52,14 @@
         word-break:break-all; 
         -webkit-box-orient:vertical; 
         -webkit-line-clamp:3;
-
+        font-size:14px;
         font-weight:bold;
         width:210px;
         margin-left:auto;
         margin-right:auto;
 
       }
-      
-      .overlay {
-		 position: fixed;
-		 display: none;
-		 z-index: 1000;
-		 width: 100%; height: 100%;
-		 left: 0; top: 0;
-		 background-color: rgba(0,0,0, 0.4);
-		 overflow-x: scroll;
-      }
-
-      .fig{
-        display:inline;
-      }
+     
 
       
     
@@ -92,10 +70,10 @@
     <jsp:include page="../common/menubar.jsp"/>
    
 
+
+
   <c:set var="src1" value="/tree/apple-2788662_1280.jpg" scope="request"/>
-
   <c:set var="src1" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/cinderella.jpg" scope="request"/>
-
   <c:set var="src2" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/rapunzel.jpg" scope="request"/>
   <c:set var="src3" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/belle.jpg" scope="request"/>
   <c:set var="src4" value="//s3-us-west-2.amazonaws.com/s.cdpn.io/4273/mulan_2.jpg" scope="request"/>
@@ -114,9 +92,10 @@
   <c:set var="figcaption8" value="Ariel wearing an evening gown of the 1890¡¯s'"/>
   <c:set var="figcaption9" value="Tiana wearing the <i>robe de style</i> of the 1920¡¯s'"/>
     
-    <div id="columns">
+    <div id="columns">q
+    
       
-      <figure>
+      <%-- <figure>
         <img src="/tree/apple-2788662_1280.jpg">  
         <figcaption title="${ figcaption1 }">${ figcaption1 }</figcaption>
       </figure>
@@ -173,6 +152,8 @@
         <img src="${ src9 }">  
         <figcaption title="${ figcaption9 }">${ figcaption9 }</figcaption>
       </figure>
+       --%>
+      
 
       
       

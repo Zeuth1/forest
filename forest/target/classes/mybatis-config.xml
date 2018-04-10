@@ -7,7 +7,8 @@
 		<typeAlias alias="Member" type="com.kh.forest.manager.model.vo.Member"/>
 	</typeAliases>
 	<mappers>
-		<mapper resource="mappers/manager-mapper.xml"/>
+		<mapper resource="mapper/manager-mapper.xml"/>
+		<mapper resource="mapper/mainBoard-mapper.xml"/>
 	</mappers>
 
 </configuration>

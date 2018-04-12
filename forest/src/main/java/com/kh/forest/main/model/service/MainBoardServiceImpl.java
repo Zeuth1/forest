@@ -1,5 +1,7 @@
 package com.kh.forest.main.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,9 @@ public class MainBoardServiceImpl implements MainBoardService{
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public void test() {
+	public ArrayList test() {
 		// TODO Auto-generated method stub
-		md.test(sqlSession);
+		return md.test(sqlSession);
 	}
 	
 	

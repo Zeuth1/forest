@@ -1,5 +1,7 @@
 package com.kh.forest.main.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +18,10 @@ public class MainBoard {
 	
 	@RequestMapping(value="mainBoard.ma", method=RequestMethod.GET)
 	public ModelAndView mainBoard(ModelAndView mv){
-		System.out.println("dfdf");
-		ms.test();
+		ArrayList treeList = ms.test();
+		
+		System.out.println(treeList);
+		mv.addObject("treeList", treeList);
 		mv.setViewName("mainBoard");
 		return mv;
 	}

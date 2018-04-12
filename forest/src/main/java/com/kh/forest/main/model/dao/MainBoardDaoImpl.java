@@ -1,5 +1,7 @@
 package com.kh.forest.main.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,9 +13,10 @@ public class MainBoardDaoImpl implements MainBoardDao{
 	private SqlSessionTemplate sqlSessison;
 
 	@Override
-	public void test(SqlSessionTemplate sqlSession) {
-		String user = sqlSessison.selectOne("Mainboard.test");
-		System.out.println(user);
+	public ArrayList test(SqlSessionTemplate sqlSession) {
+		ArrayList treeList = (ArrayList)sqlSessison.selectList("Mainboard.test");
+		
+		return treeList;
 		
 	}
 	

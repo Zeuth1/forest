@@ -1,7 +1,9 @@
 package com.kh.forest.main.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 public interface MainBoardDao {
-	public void test(SqlSessionTemplate sqlSession);
+	public ArrayList test(SqlSessionTemplate sqlSession);
 }

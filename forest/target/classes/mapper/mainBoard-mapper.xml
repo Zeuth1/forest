@@ -14,12 +14,27 @@
   
   <select id="test" resultMap="treeResultMap">
     SELECT R2.*
-FROM(SELECT ROWNUM RNUM, R1.* 
-     FROM(SELECT TREE_NO, TREE_AFTER, TREE_TAG
-          FROM TREE 
-          ORDER BY DBMS_RANDOM.VALUE) R1) R2
-WHERE RNUM BETWEEN 1 AND 24
+    FROM(SELECT ROWNUM RNUM, R1.* 
+         FROM(SELECT TREE_NO, TREE_AFTER, TREE_TAG
+              FROM TREE 
+              ORDER BY DBMS_RANDOM.VALUE) R1) R2
+    WHERE RNUM BETWEEN 1 AND 42
     
+  </select>
+  
+  <select id="paging" parameterType="java.util.List" resultMap="treeResultMap">
+    SELECT R2.*
+    FROM(SELECT ROWNUM RNUM, R1.* 
+         FROM(SELECT TREE_NO, TREE_AFTER, TREE_TAG
+              FROM TREE 
+              WHERE TREE_NO NOT IN 
+              <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                #{item}
+              </foreach>
+              ORDER BY DBMS_RANDOM.VALUE) R1) R2
+    WHERE RNUM BETWEEN 1 AND 42
+     
+      
   </select>
 
 </mapper>

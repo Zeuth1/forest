@@ -5,56 +5,41 @@
 <html>
   <head>
     <style>
-      #columns{
+      .columns{
         width:93%;
-        height:3000px;
-        column-width:235px;
+        margin-top:80px;															
         column-gap:0px;
         margin-top:80px;
         margin-right:auto;
         margin-left:auto;
-        
       }
 
-      #columns figure{
-      
-        display: inline-block;
-        margin-bottom: 1px;
-        margin-top:1px;
-        margin-bottom:15px;
-        margin-left:1px;
-        margin-right:1px;
-        padding:7px;
+      .columns .figure{
+        vertical-align:top;
+        margin-left:3px;
+        margin-right:3px;
+        display:inline-block;
+        padding:8px;
         border-radius:10px; 
         width:230px;
-
       }
-      #columns figure:hover{
+      
+      .columns .figure:hover{
         cursor:pointer;
         background: rgba(80,80,80,0.1);
       }
       
-      #columns figure img{
-
+      .columns .figure img{
         width:230px;
         border-radius:10px;
       }
-      #columns figure figcaption{
-
-        display: -webkit-box; 
-        display: -ms-flexbox; 
-        display: box; 
+      
+      .columns .figure p{
         margin-top:1px; 
         max-height:80px; 
         overflow:hidden; 
-        vertical-align:top; 
         text-overflow: ellipsis; 
-
-        word-break:break-all;       
-
-        word-break:break-all; 
-        -webkit-box-orient:vertical; 
-        -webkit-line-clamp:3;
+        word-break:break-all;
         font-size:14px;
         font-weight:bold;
         width:210px;
@@ -69,31 +54,69 @@
   
     <jsp:include page="../common/menubar.jsp"/>
     
-    <div id="columns">
-     <form>
-       <c:forEach var="item" items="${ treeList }">
-         <figure>
-           <img src="/tree/${ item.treeAfter }"/>
-           <figcaption title="${ item.treeNo }">${ item.treeTag }</figcaption>
-         </figure>
-         <input type="hidden" value="${ item.treeNo }"/>
-       </c:forEach>
-     </form>
+    <div class="columns">
      
-      <%-- <figure>
-        <img src="/tree/apple-2788662_1280.jpg">  
-        <figcaption title="${ figcaption1 }">${ figcaption1 }</figcaption>
-      </figure> --%>
-      
+       <c:forEach var="item" items="${ treeList }">
+         <div class="figure">
+           <img src="/tree/${ item.treeAfter }"/>
+           <p>${ item.treeTag }</p>
+           <input type="hidden" value="${ item.treeNo }"/>
+         </div>
+  
+       </c:forEach>
+     
     </div>
     <script>
       $(function(){
-    	 $('figure').on('click', function(){
+    	 $('.figure').on('click', function(){
     		 
     		location.href="detail.jsp?src=" + $(this).children().eq(0).attr('src') + "&figcaption=" + $(this).children().eq(1).attr('title');
     	 });
       });
-      
+     
+      $(document).scroll(function(){
+    	 if( $(window).scrollTop() >= ( $(document).height() - $(window).height()-1 ) ){
+		     
+    		 var treeArr = new Array();
+    		 
+		     for(var i = 0; i < $('input[type=hidden]').length; i++){
+		    	 treeArr.push($('.columns').children().eq(i).children().eq(2).attr("value"));
+		     }
+		     
+		     $.ajax({
+    			url:"paging.ma",
+    			type:"POST",
+    			data:JSON.stringify(treeArr),
+    			dataType:"json", 
+    			contentType:"application/json",
+    			success:function(data){
+    				console.log(data.treeList);
+    				
+    				if(data.treeList !== null){
+    				
+    				var arr = data.treeList;
+    				
+    				console.log(arr);
+    				
+    				console.log(arr[1].treeTag);
+    				
+    				console.log(arr.length)
+    					
+    				for(var i = 0; i < arr.length; i++){
+    					
+	    				$('.columns').append('<div class=' + '"figure"' +'><img src=' + '"/tree/' + arr[i].treeAfter + '"/><p>' + arr[i].treeTag + '</p><input type = ' + '"hidden"' + 'value = "' + arr[i].treeNo + '"/></div>');                                        
+	    				
+    				}
+    				
+    				
+    			}
+
+    		 }		
+    		 
+		     });
+    	 }
+      });
+     
     </script>
   </body>
 </html>

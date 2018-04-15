@@ -35,7 +35,7 @@
     z-index:3;
   }
   
-  #outline{
+  /* #outline{
     position:absolute;
     left:90px;
     top:15px;
@@ -46,7 +46,7 @@
     visibility:hidden;
     z-index:2;
     
-  }
+  } */
   
   #plane{
     position:absolute;
@@ -299,7 +299,7 @@
     <p id="name">dddddddddd</p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
     <i class="fas fa-comment-dots" id="alert" style="color:rgba(80,80,80,0.3)" onclick="alert()"></i>
     <div id="menuCap"><i class="fas fa-bars" id="menu" style="color:rgba(80,80,80,0.3)"></i></div>
-    <div id="outline" style="z-index:-1;"></div>
+    <!-- <div id="outline" style="z-index:-1;"></div> -->
     <input type="text" id="searchBar" placeholder="검색" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="z-index:3;">
     <div id="alertNav"></div>
     <div id="menuNav">
@@ -315,15 +315,11 @@
     <div class="overlay"></div>
     
   <script>
-    /* $('#searchBar').click(function(){
-    	$('#outline').css('visibility','visible');   	
-    }); */
-    
     $('#searchBar').mousedown(function(){
     	$('#outline').css('visibility','visible');  
     	$('.overlay').css('display','block');
     });
-    
+    /* 
     
     $(document).on('click', function(e){
     	console.log($(e.target));
@@ -331,7 +327,7 @@
     		$('#outline').css('visibility','hidden');
     	}
     	
-    });
+    }); */
     
     $('#menuCap').click(function(){
     	$('#alertNav').css('display','none');

@@ -5,24 +5,35 @@
 <html>
   <head>
     <style>
-      .columns{
-        width:93%;
-        margin-top:80px;															
-        column-gap:0px;
+      .column-container{
+        display:flex;
         margin-top:80px;
+        width:91%;
+        margin-left:auto;
+        margin-right:auto;
+      }
+      
+      .columns{
+        display:flex;
+        flex-direction:column;															
+        justify-content:flex-start;
+        
         margin-right:auto;
         margin-left:auto;
       }
+      
 
       .columns .figure{
-        vertical-align:top;
-        margin-left:3px;
-        margin-right:3px;
-        display:inline-block;
-        padding:8px;
+        margin-bottom:10px;
         border-radius:10px; 
-        width:230px;
+       
+        padding-top:8px;
+        padding-right:8px;
+        padding-left:8px;
+        padding-bottom:0.1px;
+ 
       }
+    
       
       .columns .figure:hover{
         cursor:pointer;
@@ -53,36 +64,124 @@
   <body>
   
     <jsp:include page="../common/menubar.jsp"/>
-    
-    <div class="columns">
+    <div class="column-container">
+    <div class="columns container1">
      
-       <c:forEach var="item" items="${ treeList }">
-         <div class="figure">
+       <c:forEach var="item" items="${ treeList }" begin="1" end="7">
+         <div class="figure" id="${ item.treeNo }">
            <img src="/tree/${ item.treeAfter }"/>
            <p>${ item.treeTag }</p>
-           <input type="hidden" value="${ item.treeNo }"/>
          </div>
   
        </c:forEach>
      
     </div>
+    
+    <div class="columns container2">
+     
+       <c:forEach var="item" items="${ treeList }" begin="8" end="14">
+         <div class="figure" id="${ item.treeNo }">
+           <img src="/tree/${ item.treeAfter }"/>
+           <p>${ item.treeTag }</p>
+         </div>
+  
+       </c:forEach>
+     
+    </div>
+    
+    <div class="columns container3">
+     
+       <c:forEach var="item" items="${ treeList }" begin="15" end="21">
+         <div class="figure" id="${ item.treeNo }">
+           <img src="/tree/${ item.treeAfter }"/>
+           <p>${ item.treeTag }</p>
+         </div>
+  
+       </c:forEach>
+     
+    </div>
+    
+    <div class="columns container4">
+     
+       <c:forEach var="item" items="${ treeList }" begin="22" end="28">
+         <div class="figure" id="${ item.treeNo }">
+           <img src="/tree/${ item.treeAfter }"/>
+           <p>${ item.treeTag }</p>
+         </div>
+  
+       </c:forEach>
+     
+    </div>
+    
+    <div class="columns container5">
+     
+       <c:forEach var="item" items="${ treeList }" begin="29" end="35">
+         <div class="figure" id="${ item.treeNo }">
+           <img src="/tree/${ item.treeAfter }"/>
+           <p>${ item.treeTag }</p>
+         </div>
+  
+       </c:forEach>
+     
+    </div>
+    
+    <div class="columns container6">
+     
+       <c:forEach var="item" items="${ treeList }" begin="36" end="42">
+         <div class="figure" id="${ item.treeNo }">
+           <img src="/tree/${ item.treeAfter }"/>
+           <p>${ item.treeTag }</p>
+         </div>
+  
+       </c:forEach>
+     
+    </div>
+    </div>
     <script>
-      $(function(){
-    	 $('.figure').on('click', function(){
-    		 
-    		location.href="detail.jsp?src=" + $(this).children().eq(0).attr('src') + "&figcaption=" + $(this).children().eq(1).attr('title');
-    	 });
+      $(document).on('click','.figure',function(){
+    	  console.log($(this).attr('id'));
+    	  location.href="detail.ma?treeNo=" + $(this).attr('id');
       });
+    	 
+     $(document).on('click', '.container1', function(){
+    	 for(var i = 0; i < $(this).length; i++){
+    	 console.log($('.container1').children().length);
+    	 }
+     })
+     
+     var itemNum = 0;
      
       $(document).scroll(function(){
-    	 if( $(window).scrollTop() >= ( $(document).height() - $(window).height()-1 ) ){
+    	 if( $(window).scrollTop() + $(window).height() >= $(document).height() - 1 ){
 		     
     		 var treeArr = new Array();
     		 
-		     for(var i = 0; i < $('input[type=hidden]').length; i++){
-		    	 treeArr.push($('.columns').children().eq(i).children().eq(2).attr("value"));
+		     for(var i = 0; i < $('.container1').children().length; i++){
+		    	 treeArr.push($('.container1').children().eq(i).attr("id"));
 		     }
 		     
+		     for(var i = 0; i < $('.container2').children().length; i++){
+		    	 treeArr.push($('.container2').children().eq(i).attr("id"));
+		     }
+		     
+		     for(var i = 0; i < $('.container3').children().length; i++){
+		    	 treeArr.push($('.container3').children().eq(i).attr("id"));
+		     }
+		     
+		     for(var i = 0; i < $('.container4').children().length; i++){
+		    	 treeArr.push($('.container4').children().eq(i).attr("id"));
+		     }
+		     
+		     for(var i = 0; i < $('.container5').children().length; i++){
+		    	 treeArr.push($('.container5').children().eq(i).attr("id"));
+		     }
+		     
+		     for(var i = 0; i < $('.container6').children().length; i++){
+		    	 treeArr.push($('.container6').children().eq(i).attr("id"));
+		     }
+		     
+			 
+			
 		     $.ajax({
     			url:"paging.ma",
     			type:"POST",
@@ -90,23 +189,21 @@
     			dataType:"json", 
     			contentType:"application/json",
     			success:function(data){
-    				console.log(data.treeList);
+    				itemNum = data.treeList.length;
     				
     				if(data.treeList !== null){
     				
     				var arr = data.treeList;
     				
-    				console.log(arr);
-    				
-    				console.log(arr[1].treeTag);
-    				
-    				console.log(arr.length)
+    				  for(var  j = 0; j < 7; j++){  
     					
-    				for(var i = 0; i < arr.length; i++){
-    					
-	    				$('.columns').append('<div class=' + '"figure"' +'><img src=' + '"/tree/' + arr[i].treeAfter + '"/><p>' + arr[i].treeTag + '</p><input type = ' + '"hidden"' + 'value = "' + arr[i].treeNo + '"/></div>');                                        
-	    				
-    				}
+	    				for(var i = 1; i < 7; i++){
+	    				    
+		    				$('<div class="figure" id="' + arr[(j * 6) + (i - 1)].treeNo + '"><img src="/tree/' + 
+		    						arr[(j * 6) + (i - 1)].treeAfter + '"/><p>' + arr[(j * 6) + (i -1)].treeTag + '</p></div>').appendTo($('.container' + i ) );                                      
+		    				
+	    				}
+    				  }
     				
     				
     			}

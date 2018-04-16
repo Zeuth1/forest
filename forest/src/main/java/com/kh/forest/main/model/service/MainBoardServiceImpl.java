@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.forest.main.model.dao.MainBoardDao;
+import com.kh.forest.main.model.vo.Detail;
 import com.kh.forest.main.model.vo.Tree;
 
 @Service
@@ -31,6 +32,15 @@ public class MainBoardServiceImpl implements MainBoardService{
 		List<Tree> treeList = md.paging(sqlSession, treeArr);
 	
 		return treeList;
+	}
+
+	@Override
+	public Detail detail(String treeNo) {
+		
+		
+		Detail detail = md.detail(sqlSession, treeNo);
+		
+		return detail;
 	}
 	
 	

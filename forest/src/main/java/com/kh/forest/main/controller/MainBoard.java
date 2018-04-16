@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.forest.main.model.service.MainBoardService;
+import com.kh.forest.main.model.vo.Detail;
 import com.kh.forest.main.model.vo.Tree;
 
 import net.sf.json.JSONArray;
@@ -47,17 +48,13 @@ public class MainBoard {
 	
 	@RequestMapping(value="paging.ma", method=RequestMethod.POST)
 	public @ResponseBody String paging(HttpServletResponse response, @RequestBody String JSONTreeArr_str){
-		System.out.println(JSONTreeArr_str);
+		System.out.println("받은 이미지들" + JSONTreeArr_str);
 		JSONParser jsonParser = new JSONParser();
 		
 		List<Tree> treeList = null;
 		
 		try {
 			List<String> JSONTreeArr = (List<String>)jsonParser.parse(JSONTreeArr_str);
-			
-			for(String tree : JSONTreeArr){
-				System.out.print(tree);
-			}
 			
 			treeList = ms.paging(JSONTreeArr);
 			
@@ -70,6 +67,8 @@ public class MainBoard {
 			
 		JSONArray jsonArray = JSONArray.fromObject(treeList);
 		
+		System.out.println("거른 후 보낸 이미지들 : " + jsonArray);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("treeList", jsonArray);
@@ -79,6 +78,22 @@ public class MainBoard {
 		return jsonObject.toString();
 		
 		
+	}
+	
+	@RequestMapping(value="detail.ma", method=RequestMethod.GET)
+	public ModelAndView detail(ModelAndView mv, @RequestParam("treeNo") String treeNo){
+		System.out.println("첫번째 받음");
+		
+		System.out.println(treeNo);
+		
+		Detail detail = ms.detail(treeNo);
+		
+		System.out.println(detail);
+		
+		mv.addObject("detail", detail);
+		
+		mv.setViewName("detail");
+		return mv;
 	}
 	
 }

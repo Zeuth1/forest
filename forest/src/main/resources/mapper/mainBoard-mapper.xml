@@ -10,6 +10,18 @@
     <result column="TREE_TAG" property="treeTag"/>
   </resultMap>
   
+  <resultMap id="detailMap" type="Detail">
+    <id column="TREE_NO" property="treeNo"/>
+    <result column="TREE_AFTER" property="treeAfter"/>
+    <result column="USER_ID" property="userId"/>
+    <result column="TREE_TAG" property="treeTag"/>
+    <result column="TREE_TYPE" property="treeType"/>
+    <result column="TREE_DATE" property="treeDate"/>
+    <result column="BOARD_TITLE" property="boardTitle"/>
+    <result column="TREE_COUNT" property="treeCtn"/>
+    
+  </resultMap>
+  
   
   
   <select id="test" resultMap="treeResultMap">
@@ -35,6 +47,16 @@
     WHERE RNUM BETWEEN 1 AND 42
      
       
+  </select>
+  
+  <select id="detail" parameterType="java.lang.String" resultMap="detailMap">
+    SELECT T.TREE_NO, T.TREE_AFTER, M.USER_ID, T.TREE_TAG, T.TREE_TYPE, T.TREE_DATE, B.BOARD_TITLE, COUNT(S.TREE_NO) TREE_COUNT
+    FROM TREE T
+    LEFT JOIN MEMBER M ON(T.USER_NO = M.USER_NO)
+    LEFT JOIN STORE S ON(T.TREE_NO = S.TREE_NO)
+    LEFT JOIN BOARD B ON(S.BOARD_NO = B.BOARD_NO)
+    GROUP BY (T.TREE_NO, T.TREE_AFTER, M.USER_ID, T.TREE_TAG, T.TREE_TYPE, T.TREE_DATE, B.BOARD_TITLE)
+    HAVING T.TREE_NO = #{treeNo}
   </select>
 
 </mapper>

@@ -6,6 +6,8 @@
 	<typeAliases>
 		<typeAlias alias="Member" type="com.kh.forest.manager.model.vo.Member"/>
 		<typeAlias alias="Tree" type="com.kh.forest.main.model.vo.Tree"/>
+		<typeAlias alias="Detail" type="com.kh.forest.main.model.vo.Detail"/>
+		
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/manager-mapper.xml"/>

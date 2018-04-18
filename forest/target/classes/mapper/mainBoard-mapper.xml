@@ -58,5 +58,13 @@
     GROUP BY (T.TREE_NO, T.TREE_AFTER, M.USER_ID, T.TREE_TAG, T.TREE_TYPE, T.TREE_DATE, B.BOARD_TITLE)
     HAVING T.TREE_NO = #{treeNo}
   </select>
+  
+  <select id="search" parameterType="java.lang.String" resultType="java.lang.String">
+ 
+    SELECT TREE_TAG
+    FROM TREE
+    WHERE TREE_TAG LIKE '%#' || #{searchWord} || '%'
+  
+  </select>
 
 </mapper>

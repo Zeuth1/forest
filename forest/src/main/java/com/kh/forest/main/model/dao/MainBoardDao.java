@@ -1,6 +1,7 @@
 package com.kh.forest.main.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -14,5 +15,7 @@ public interface MainBoardDao {
 	public List<Tree> paging(SqlSessionTemplate sqlSession, List<String> treeArr);
 	
 	public Detail detail(SqlSessionTemplate sqlSession, String treeNo);
+	
+	public HashMap<String, String> observe(SqlSessionTemplate sqlSession, String searchWord);
 	
 }

@@ -1,7 +1,10 @@
 package com.kh.forest.main.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,52 @@ public class MainBoardDaoImpl implements MainBoardDao{
 		System.out.println(detail);
 		
 		return detail;
+	}
+
+	@Override
+	public HashMap<String, String> observe(SqlSessionTemplate sqlSession, String searchWord) {
+		
+		List<String> searchResultList =  (List)sqlSession.selectList("Mainboard.search", searchWord);
+		ArrayList<String> observeList = new ArrayList<String>();
+		
+		TreeSet<String> setter = new TreeSet<String>();
+		
+		HashMap<String, String> observeResultList = new HashMap<String, String>();
+		
+		for(String searchResult : searchResultList){
+			if(searchResult.contains("#" + searchWord)){
+			
+			String[] splinter = searchResult.split("#");
+			
+				for(String splited : splinter){
+					if(splited.contains(searchWord)){
+					setter.add("#" + splited);
+					}
+				}
+			
+			
+			}
+		}
+		
+		for(String splited : setter){
+			System.out.println(splited);
+			observeList.add(splited);
+		}
+		
+		for(String observeResult : observeList){
+			int num = 0;
+			for(String searchResult : searchResultList){
+				if( (searchResult + "#").contains(observeResult + "#") ){
+					num++;
+				}
+			}
+			observeResultList.put(observeResult, num + "");
+			
+		}
+		
+		return observeResultList;
+		
+		
 	}
 	
 	

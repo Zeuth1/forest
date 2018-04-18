@@ -1,7 +1,11 @@
 package com.kh.forest.main.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +45,13 @@ public class MainBoardServiceImpl implements MainBoardService{
 		Detail detail = md.detail(sqlSession, treeNo);
 		
 		return detail;
+	}
+
+	@Override
+	public HashMap<String, String> observe(String searchWord) {
+		HashMap<String, String> observeResultList = md.observe(sqlSession, searchWord);
+		
+		return observeResultList;
 	}
 	
 	

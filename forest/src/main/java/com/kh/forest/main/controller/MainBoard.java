@@ -96,4 +96,32 @@ public class MainBoard {
 		return mv;
 	}
 	
+	@RequestMapping(value="search.ma", method=RequestMethod.POST)
+	public @ResponseBody String search(@RequestBody String word){
+		JSONParser jsonParser = new JSONParser();
+		JSONObject json = new JSONObject();
+		
+		try {
+			String searchWord = (String)jsonParser.parse(word);
+			
+			
+			HashMap<String, String> observeResultList = ms.observe(searchWord);
+			
+			
+			for(Map.Entry<String, String> entry : observeResultList.entrySet()){
+				String key = entry.getKey();
+				String value = entry.getValue();
+				
+				json.put(key, value);
+			}
+			
+			System.out.println(json);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return json.toString();
+	}
 }

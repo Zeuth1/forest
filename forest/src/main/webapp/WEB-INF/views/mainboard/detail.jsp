@@ -232,6 +232,7 @@
       <div id="description">
       
         <div id="goBoardBtn" onclick="location.href='#'"><p id="goBoardText">${ detail.userId }의 보드 더보기</p></div>
+        
         <div class="uploadInfo">
 	        <img src="/tree/${ detail.treeAfter }" id="profile"> 
 	      	<p id="uploadDetail">
@@ -251,7 +252,7 @@
     </div>   
 
   
-      <h2>fj</h2>
+      <h3 style="margin-left:20%;">유사한 트리 더 보기</h3>
       
       
       <script>

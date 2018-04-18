@@ -1,6 +1,7 @@
 package com.kh.forest.main.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.kh.forest.main.model.vo.Detail;
@@ -12,4 +13,6 @@ public interface MainBoardService {
 	public List<Tree> paging(List<String> treeArr);
 	
 	public Detail detail(String treeNo);
+	
+	public HashMap<String, String> observe(String searchWord);
 }

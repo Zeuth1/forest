@@ -1,39 +1,62 @@
 package com.kh.forest.common;
 
+import java.sql.Date;
+
+import org.springframework.stereotype.Component;
+
+@Component
 public class Member {
 	
 	
 	public Member(){}
-	public Member(int mNo, String mId, String mPwd, String mName, String mBirth, String mGender, String mPhone,
-			String mEmail, String mStatus, String mLevel) {
+
+	private int mNo;
+	private String mId;//
+	private String mPwd;//
+	private String mName;
+	private String mBirth;
+	private String mNickName;
+	private String mGender;
+	private String mPhone;
+	private String mEmail;
+	private String mStatus;
+	private String mLevel;
+	private Date mEnrollDate;
+	
+	public Member(int mNo, String mId, String mPwd, String mName, String mBirth, String mNickName, String mGender,
+			String mPhone, String mEmail, String mStatus, String mLevel, Date mEnrollDate) {
 		super();
 		this.mNo = mNo;
 		this.mId = mId;
 		this.mPwd = mPwd;
 		this.mName = mName;
 		this.mBirth = mBirth;
+		this.mNickName = mNickName;
 		this.mGender = mGender;
 		this.mPhone = mPhone;
 		this.mEmail = mEmail;
 		this.mStatus = mStatus;
 		this.mLevel = mLevel;
+		this.mEnrollDate = mEnrollDate;
+	}
+	public String getmNickName() {
+		return mNickName;
+	}
+	public void setmNickName(String mNickName) {
+		this.mNickName = mNickName;
 	}
 	@Override
 	public String toString() {
 		return "Member [mNo=" + mNo + ", mId=" + mId + ", mPwd=" + mPwd + ", mName=" + mName + ", mBirth=" + mBirth
 				+ ", mGender=" + mGender + ", mPhone=" + mPhone + ", mEmail=" + mEmail + ", mStatus=" + mStatus
-				+ ", mLevel=" + mLevel + "]";
+				+ ", mLevel=" + mLevel + ", mEnrollDate=" + mEnrollDate + "]";
 	}
-	private int mNo;
-	private String mId;
-	private String mPwd;
-	private String mName;
-	private String mBirth;
-	private String mGender;
-	private String mPhone;
-	private String mEmail;
-	private String mStatus;
-	private String mLevel;
+	public Date getmEnrollDate() {
+		return mEnrollDate;
+	}
+	public void setmEnrollDate(Date mEnrollDate) {
+		this.mEnrollDate = mEnrollDate;
+	}
 	public int getmNo() {
 		return mNo;
 	}

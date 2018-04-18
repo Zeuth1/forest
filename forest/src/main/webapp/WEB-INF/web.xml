@@ -13,10 +13,16 @@
 	  <param-name>contextConfigLocation</param-name>
 	  <param-value>
 	    classpath:root-context.xml
+	    /WEB-INF/config/spring-security.xml 
 	  </param-value>
 	</context-param>
 	
-
+	<jsp-config>
+<jsp-property-group>
+<url-pattern>*.jsp</url-pattern>
+<el-ignored>false</el-ignored>
+</jsp-property-group>
+</jsp-config>
 
 	<listener>
 

@@ -9,37 +9,38 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.forest.manager.model.service.AdminService;
-import com.kh.forest.manager.model.vo.Member;
+import com.kh.forest.manager.model.vo.Mem;
+
 
 @Controller
 public class Manager {
-	// <ºä ÂÊ ºÎºÐ>
-	/* ¸É¹ö */
+	// <ï¿½ï¿½ ï¿½ï¿½ ï¿½Îºï¿½>
+	/* ï¿½É¹ï¿½ */
 	@RequestMapping("a_memberSearchView.man")
 	public String a_memberSearchView() {
 		return "manager/member/member_search";
 	}
 
-	/* °áÁ¦ */
+	/* ï¿½ï¿½ï¿½ï¿½ */
 	@RequestMapping("a_moneyDonationView.man")
 	public String a_moneyDonationView() {
 		return "manager/money/money_donation";
 	}
 
-	/* Â÷Æ® */
+	/* ï¿½ï¿½Æ® */
 	@RequestMapping("a_chartMainView.man")
 	public String a_chartMainView() {
 		return "manager/chart/chart_main";
 	}
 
-	// <¼­ºñ½º ºÎºÐ>
+	// <ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½>
 	@Autowired
 	private AdminService as;
 
 	@RequestMapping("a_memberSerchAll.man")
 	public String a_memberSerchAll(HttpServletResponse response) {
 
-		ArrayList<Member> list = as.a_memberSerchAll();
+		ArrayList<Mem> list = as.a_memberSerchAll();
 
 		return "manager/chart/chart_main";
 	}

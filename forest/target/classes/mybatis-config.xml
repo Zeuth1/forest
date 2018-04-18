@@ -4,14 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="Member" type="com.kh.forest.manager.model.vo.Member"/>
+		<typeAlias alias="Mem" type="com.kh.forest.manager.model.vo.Mem"/>
 		<typeAlias alias="Tree" type="com.kh.forest.main.model.vo.Tree"/>
 		<typeAlias alias="Detail" type="com.kh.forest.main.model.vo.Detail"/>
+		<typeAlias type="com.kh.forest.common.Member" alias="Member"/>
+		
 		
 	</typeAliases>
 	<mappers>
-		<mapper resource="mapper/manager-mapper.xml"/>
-		<mapper resource="mapper/mainBoard-mapper.xml"/>
+		<mapper resource="mappers/manager-mapper.xml"/>
+		<mapper resource="mappers/mainBoard-mapper.xml"/>
+		<mapper resource="mappers/member-mappers.xml"/>
+		<mapper resource="mappers/tree-mappers.xml"/>
 	</mappers>
 
 </configuration>

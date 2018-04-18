@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <style>
   #all{
     position:fixed;
@@ -140,7 +143,7 @@
   
   
   
-    #alertNav {
+  #alertNav {
     top:70px;
     margin-left:76%;
     position: fixed;
@@ -295,7 +298,7 @@
 	    <p id="home" onclick="location.href='#'">홈</p>
 	    <div class="userInfo">
 		    <i class="fas fa-user" id="pic" style="color:white"></i>
-		    <p id="name">dddddddddd</p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
+		    <p id="name"></p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
 	    </div>
 	    
 	    

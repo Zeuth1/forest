@@ -5,7 +5,7 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 @Component
-public class Member implements Serializable{
+public class Mem implements Serializable{
 
 	/**
 	 * 
@@ -23,7 +23,7 @@ public class Member implements Serializable{
 	private String ulevel;
 	private Date enrolldate;
 	
-	public Member() {
+	public Mem() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -118,21 +118,7 @@ public class Member implements Serializable{
 				+ ", ulevel=" + ulevel + ", enrolldate=" + enrolldate + "]";
 	}
 
-	public Member(int user_no, String user_id, String user_pwd, String gender, String phone, Date birthday,
-			String email, String status, String ulevel, Date enrolldate) {
-		super();
-		this.user_no = user_no;
-		this.user_id = user_id;
-		this.user_pwd = user_pwd;
-		this.gender = gender;
-		this.phone = phone;
-		this.birthday = birthday;
-		this.email = email;
-		this.status = status;
-		this.ulevel = ulevel;
-		this.enrolldate = enrolldate;
-	}
-
+	
 	
 	
 	

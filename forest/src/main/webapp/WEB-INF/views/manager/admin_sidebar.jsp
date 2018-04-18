@@ -15,10 +15,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!--  -->
-<<<<<<< HEAD
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/resources/css/sidebar.css" />
-=======
 <style type="text/css">
 html, body {
 	width: 100%;
@@ -29,8 +25,8 @@ html, body {
 	width: 10%;
 	height: 100%;
 	display: inline-block;
-	background: SteelBlue;
-	color: white;
+	background: #1a2226;
+	color: #8aa4af;
 	font-weight: bold;
 }
 
@@ -48,16 +44,22 @@ html, body {
 	display: none;
 }
 
-#divlist div:hover {
+#submenu:hover {
 	background: LightBlue;
-	color: white;
+	color: black;
 	margin-left: 1%;
 }
-#tie{
-	background: teal;
+
+#submenu {
+	border-bottom: 1px solid;
+	border-top: 1px solid;
+	border-left: 3px solid yellowgreen;
+}
+
+h4, h5 {
+	font-family: 'Source Sans Pro', sans-serif;
 }
 </style>
->>>>>>> Junghoon
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
@@ -65,14 +67,6 @@ html, body {
 <body>
 	<div id=sidebar>
 		<div id=title align="center">
-<<<<<<< HEAD
-			<h3>ADMIN PAGE</h3>
-		</div>
-
-		<div id=divbutton>
-			<hr>
-			<h4>회원관리</h4>
-=======
 			<br>
 			<h3>ADMIN PAGE</h3>
 			<br>
@@ -84,99 +78,78 @@ html, body {
 		<!--  -->
 		<div id=divbutton>
 			<h4>&nbsp;회원관리 ▼</h4>
->>>>>>> Junghoon
 			<hr>
 			<div id=divlist>
-				<div>
+				<div id=submenu>
 					<h5>
-<<<<<<< HEAD
-						<a href="<%=request.getContextPath()%>/member/member_search.jsp">[정보조회]</a>
+						<a href="a_memberSearchView.man">&nbsp;[정보조회/수정]</a>
 					</h5>
-=======
-						<a href="a_memberSearchView.ad">[정보조회]</a>
-					</h5>
-				<div id="tie">
-				</div>	
->>>>>>> Junghoon
+					<div id="tie"></div>
 				</div>
-				<div>
+				<div id=submenu>
 					<h5>
-						<a href="<%=request.getContextPath()%>/member/member_report.jsp">[신고조회]</a>
+						<a href="<%=request.getContextPath()%>/member/member_report.jsp">&nbsp;[등급조회/수정]</a>
 					</h5>
 				</div>
-				<div>
+				<div id=submenu>
 					<h5>
-						<a href="<%=request.getContextPath()%>/member/member_judge.jsp">[제재조회]</a>
+						<a href="<%=request.getContextPath()%>/member/member_report.jsp">&nbsp;[신고조회/수정]</a>
 					</h5>
 				</div>
-				<div>
+				<div id=submenu>
 					<h5>
-						<a href="<%=request.getContextPath()%>/member/member_QR.jsp">[탈퇴/복구]</a>
+						<a href="<%=request.getContextPath()%>/member/member_judge.jsp">&nbsp;[제재조회/수정]</a>
+					</h5>
+				</div>
+				<div id=submenu>
+					<h5>
+						<a href="<%=request.getContextPath()%>/member/member_QR.jsp">&nbsp;[탈퇴/복구]</a>
 					</h5>
 				</div>
 			</div>
-<<<<<<< HEAD
-
-		</div>
-
-
-		<div id=divbutton>
-			<hr>
-			<h4>결제관리</h4>
-=======
 		</div>
 
 		<!--  -->
 		<div id=divbutton>
 			<h4>&nbsp;게시판관리 ▼</h4>
->>>>>>> Junghoon
 			<hr>
 			<div id=divlist>
-				<div>
+				<div id=submenu>
 					<h5>
-<<<<<<< HEAD
-						<a href="<%=request.getContextPath()%>/money/money_donation.jsp">[후원내역조회]</a>
-=======
-						<a href="a_moneyDonationView.ad">[후원내역조회]</a>
->>>>>>> Junghoon
+						<a href="a_moneyDonationView.man">[공지사항조회]</a>
 					</h5>
 				</div>
-				<div>
+				<div id=submenu>
 					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_return.jsp">[환급신청내역조회]</a>
+						<a href="<%=request.getContextPath()%>/money/money_return.jsp">&nbsp;[게시판조회]</a>
 					</h5>
 				</div>
-				<div>
+				<div id=submenu>
 					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_account.jsp">[계좌인증조회]</a>
+						<a href="<%=request.getContextPath()%>/money/money_account.jsp">&nbsp;[게시판삭제/복구]</a>
 					</h5>
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-		<div id=divbutton>
-			<hr>
-			<h4>통계관리</h4>
-=======
 
 		<!--  -->
 		<div id=divbutton>
 			<h4>&nbsp;결제관리 ▼</h4>
 			<hr>
 			<div id=divlist>
-				<div>
+				<div id=submenu>
 					<h5>
-						<a href="a_moneyDonation.ad">[후원내역조회]</a>
+						<a href="a_moneyDonationView.man">&nbsp;[후원내역조회]</a>
 					</h5>
 				</div>
-				<div>
+				<div id=submenu>
 					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_return.jsp">[환급신청내역조회]</a>
+						<a href="<%=request.getContextPath()%>/money/money_return.jsp">&nbsp;[환급신청내역조회]</a>
 					</h5>
 				</div>
-				<div>
+				<div id=submenu>
 					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_account.jsp">[계좌인증조회]</a>
+						<a href="<%=request.getContextPath()%>/money/money_account.jsp">&nbsp;[계좌인증조회]</a>
 					</h5>
 				</div>
 			</div>
@@ -185,38 +158,46 @@ html, body {
 		<!--  -->
 		<div id=divbutton>
 			<h4>&nbsp;통계관리 ▼</h4>
->>>>>>> Junghoon
 			<hr>
 			<div id=divlist>
-				<div>
+				<div id=submenu>
 					<h5>
-<<<<<<< HEAD
-=======
-						<a href="a_chartMainView.ad">[요약]</a>
+						<a href="a_chartMainView.man">&nbsp;[요약]</a>
 					</h5>
 				</div>
-				<div>
+				<div id=submenu>
 					<h5>
->>>>>>> Junghoon
-						<a href="<%=request.getContextPath()%>/money/money_donation.jsp">[연령별]</a>
+						<a href="a_chartAgeView.man">&nbsp;[연령별]</a>
 					</h5>
 				</div>
-				<div>
+				<div id=submenu>
 					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_return.jsp">[작가별]</a>
+						<a href="<%=request.getContextPath()%>/money/money_return.jsp">&nbsp;[작가별]</a>
 					</h5>
 				</div>
-				<div>
+				<div id=submenu>
 					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_account.jsp">[성별]</a>
+						<a href="a_chartGenderView.man">&nbsp;[성별]</a>
 					</h5>
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-=======
-
->>>>>>> Junghoon
+		<div id=divbutton>
+			<h4>&nbsp;접속관리 ▼</h4>
+			<hr>
+			<div id=divlist>
+				<div id=submenu>
+					<h5>
+						<a href="a_chartMainView.man">&nbsp;[회원접속정보]</a>
+					</h5>
+				</div>
+				<div id=submenu>
+					<h5>
+						<a href="<%=request.getContextPath()%>/money/money_donation.jsp">&nbsp;[관리자접속정보]</a>
+					</h5>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script type="text/javascript">
 		$("#divbutton ").click(function() {

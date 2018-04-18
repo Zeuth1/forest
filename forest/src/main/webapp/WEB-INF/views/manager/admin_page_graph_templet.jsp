@@ -19,10 +19,6 @@
 <link href="https://fonts.googleapis.com/css?family=Press+Start+2P"
 	rel="stylesheet">
 <!--  -->
-<<<<<<< HEAD
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/resources/css/contain.css" />
-=======
 <style type="text/css">
 #container {
 	width: 82.5%;
@@ -50,7 +46,6 @@
 	background: snow;
 }
 </style>
->>>>>>> Junghoon
 <!--Load the AJAX API-->
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>

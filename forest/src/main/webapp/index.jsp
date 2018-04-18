@@ -12,7 +12,7 @@
 
   <button type="button" onclick="location.href='mainBoard.ma'">메인보드로</button>
   <a href="login.lo">로그인</a>
-  
+  <button type="button" onclick="location.href='a_memberSearchView.man'">메인보드로</button>
   
   
 </body>

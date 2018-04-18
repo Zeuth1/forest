@@ -8,6 +8,8 @@
 		<typeAlias alias="Tree" type="com.kh.forest.main.model.vo.Tree"/>
 		<typeAlias alias="Detail" type="com.kh.forest.main.model.vo.Detail"/>
 		<typeAlias type="com.kh.forest.common.Member" alias="Member"/>
+		<typeAlias type="com.kh.forest.common.Donate" alias="Donate"/>
+		<typeAlias type="com.kh.forest.manager.model.vo.RankGender" alias="RankGender"/>
 		
 		
 	</typeAliases>
@@ -16,6 +18,8 @@
 		<mapper resource="mappers/mainBoard-mapper.xml"/>
 		<mapper resource="mappers/member-mappers.xml"/>
 		<mapper resource="mappers/tree-mappers.xml"/>
+		<mapper resource="mappers/donate-mapper.xml"/>
+		<mapper resource="mappers/chart-mapper.xml"/>
 	</mappers>
 
 </configuration>

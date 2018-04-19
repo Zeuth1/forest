@@ -2,7 +2,13 @@ package com.kh.forest.login.controller;
 
 
 
+import java.io.IOException;
+import java.net.URL;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.forest.common.Member;
 import com.kh.forest.login.model.service.LoginService;
+
+import net.sf.json.JSONObject;
 
 
 
@@ -184,18 +193,33 @@ public class Login {
 		return mv;
 	}
 	@RequestMapping(value="sessionMaker.lo", method=RequestMethod.GET)
-    public String sessionMaker(ModelAndView mv, @RequestParam(value="mid")String mId, HttpServletRequest request, HttpSession session){
+    public String sessionMaker(ModelAndView mv, @RequestParam(value="mid")String mId, HttpSession session){
 		System.out.println("도착");
 		Member m = ls.sessionMaker(mId);
 		
 		System.out.println(m);
+		
 		session.setAttribute("loginUser", m);
 		
+		return "forward:/mainBoard.ma";
 		
-		String context = request.getContextPath();
-		String boardRoot = context + "/mainBoard.ma";
+	}
+	
+	@RequestMapping(value="logout.lo", method=RequestMethod.GET)
+	public ModelAndView logout(ModelAndView mv, SessionStatus status){
 		
-		return "redirect:/mainBoard.ma";
+		status.setComplete();
+		System.out.println("로그아웃 처리됨");
+		
+		mv.setViewName("/loginForm");
+		return mv;		
+	}
+	
+	@RequestMapping(value="wrongAccess.lo", method=RequestMethod.GET)
+	public String wrongAccess(ModelAndView mv, HttpServletRequest request){
+		
+		return "redirect:/";
+		
 	}
 	
 	

@@ -20,7 +20,7 @@ public class LoginDaoImpl implements LoginDao {
 	@Override
 	public String getaName() {
 			
-		String aName=sqlSession.selectOne("Tree.selectPic");	
+		String aName=sqlSession.selectOne("Tree.selectPic");
 		return aName;
 	}
 

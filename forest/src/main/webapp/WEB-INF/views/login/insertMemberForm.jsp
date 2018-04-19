@@ -17,7 +17,7 @@
 	
 		<form action="insertMember.lo" method="post" id="login-Form2">
 		 <div class="background" >
-		<img  id="background" src="resources/images/${ aName }" style="position:absolute; width:100%;height:100%; margin-left:-880px;">
+		<img  id="background" src="/tree/${ aName }" style="position:absolute; width:100%;height:100%; margin-left:-880px;"/>
 		
 		<div class="login-form" id="login-form">
 			<div class="logo">
@@ -149,7 +149,7 @@
 				method:"post",
 				success : function (data) { 
 					console.log(data.aName);
-					$("#background").attr("src","resources/images/"+data.aName).fadeOut(700).stop(true,true).fadeIn(1200);
+					$("#background").attr("src","/tree/"+data.aName).fadeOut(700).stop(true,true).fadeIn(1200);
 						
 				}
 			});

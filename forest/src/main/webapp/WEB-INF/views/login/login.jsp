@@ -188,7 +188,7 @@ body {overflow:hidden}
 <div class="background" >
 	<button class="enter-site" id="enter-site" onclick="location.href='enter.lo'">회원가입</button>
 
-	<img  id="background" src="resources/images/${ aName }" style="position:absolute; width:100%;height:100%; margin-left:-880px;">
+	<img  id="background" src="/tree/${ aName }" style="position:absolute; width:100%;height:100%; margin-left:-880px;"/>
 	
 
 	<div class="login-form" id="login-form">
@@ -241,7 +241,7 @@ body {overflow:hidden}
 					method:"post",
 					success : function (data) { 
 						console.log(data.aName);
-						$("#background").attr("src","resources/images/"+data.aName).fadeOut(700).stop(true,true).fadeIn(1200);
+						$("#background").attr("src","/tree/"+data.aName).fadeOut(700).stop(true,true).fadeIn(1200);
 							
 					}
 				});
@@ -270,7 +270,7 @@ body {overflow:hidden}
 					type:"post",
 					data:{mId:id, mPwd:pwd},
 					success:function(data){
-						alert(data.result);
+						
 						if(data.result !=0) alert("아이디/비밀번호를 다시 확인 해 주세요.")
 						else location.href="sessionMaker.lo?mid=" + id;
 					},

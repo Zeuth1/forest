@@ -17,7 +17,7 @@
 	<button class="enter-site"  onclick="location.href='enter.lo'">회원가입</button>
 	<button class="enter-site2"  onclick="location.href='gotomain.lo'">로그인</button>
 	
-	<img  id="background" class="background" src="resources/images/${ aName }" >
+	<img  id="background" class="background" src="/tree/${ aName }"/>
 			<div class="find-id-wrap">
 				<div class="find-id" >
 						<h3>비밀번호 변경</h3>
@@ -57,7 +57,7 @@ $(function(){
 			method:"post",
 			success : function (data) { 
 				console.log(data.aName);
-				$("#background").attr("src","resources/images/"+data.aName).fadeOut(700).stop(true,true).fadeIn(1200);
+				$("#background").attr("src","/tree/"+data.aName).fadeOut(700).stop(true,true).fadeIn(1200);
 					
 			}
 		});

@@ -92,7 +92,7 @@
   }  
     
   #home{
-    margin-left:1%;
+    margin-left:1.5%;
     padding:15px;
     padding-top:9px;
     padding-bottom:9px;
@@ -127,8 +127,9 @@
   }
   
   #alertIcon{
-    align-self:center;
-    margin-left:1.8%;
+    position:absolute;
+    right:70px;
+    top:15px;
     font-size:25px;
     padding:15px;
     padding-top:9px;
@@ -184,7 +185,9 @@
   }	 
   
   #menuIcon{
-    align-self:center;
+   position:absolute;
+    right:18px;
+    top:15px;
     padding:15px;
     padding-top:9px;
     padding-bottom:9px;
@@ -298,7 +301,7 @@
 	    <p id="home" onclick="location.href='#'">홈</p>
 	    <div class="userInfo">
 		    <i class="fas fa-user" id="pic" style="color:white"></i>
-		    <p id="name"></p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
+		    <p id="name">${ sessionScope.loginUser.mNickName  }</p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
 	    </div>
 	    
 	    

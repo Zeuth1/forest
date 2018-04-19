@@ -62,7 +62,7 @@
 	
 	</select>
 	
-	<select id="sessionMember" resultType="Member" parameterType="java.lang.String">
+	<select id="sessionMember" resultMap="memberResultSet" parameterType="java.lang.String">
 	
 			SELECT*FROM MEMBER WHERE USER_ID=#{mId} AND STATUS='Y'
 		

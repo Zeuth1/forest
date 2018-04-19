@@ -188,7 +188,9 @@ public class Login {
 		System.out.println("도착");
 		Member m = ls.sessionMaker(mId);
 		
+		System.out.println(m);
 		session.setAttribute("loginUser", m);
+		
 		
 		String context = request.getContextPath();
 		String boardRoot = context + "/mainBoard.ma";

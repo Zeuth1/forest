@@ -312,25 +312,34 @@
     
     
   </div>
-        <div class="searchNav">
-          <p style="margin-left:20px; margin-top:10px; font-size:12px;">최근 검색 기록</p>
-          	
-        </div>
-	    <div id="alertNav"></div>
-	    <div id="menuNav">
-	    
-	      <table>
-	        <tr><td id="t1">프로필 수정</td></tr>
-	        <tr><td>후원자 조회</td></tr>
-	        <tr><td>후원내역 조회</td></tr>
-	        <tr><td>게시판</td></tr>
-	        <tr><td id="t5">로그아웃</td></tr>
-	      </table>
-	    </div> 
+  <div class="searchNav">
+    <p style="margin-left:20px; margin-top:10px; font-size:12px;">최근 검색 기록</p>
+    	
+  </div>
+  <div id="alertNav"></div>
+  <div id="menuNav">
+    <table>
+      <tr><td id="t1">프로필 수정</td></tr>
+      <tr><td id="t2">후원자 조회</td></tr>
+      <tr><td id="t3">후원내역 조회</td></tr>
+      <tr><td id="t4">게시판</td></tr>
+      <tr><td id="t5">로그아웃</td></tr>
+    </table>
+  </div> 
   
-    
+  <c:if test="${ sessionScope.loginUser == null }">
+    <script>
+      location.href="wrongAccess.lo";
+    </script>
+  </c:if>
+  
+  <c:if test="${ sessionScope.loginUser.mLevel == 1 }">
+    <script>
+      console.log('관리자님 환영합니다!');
+    </script>
+  </c:if>
+   
   <script>
-    
      $('#searchBar').on('click', function(){
     	
     	$('.overlay').css('display','block');
@@ -419,6 +428,14 @@
     	}, delta)
     	
     }    
+    
+    $('#t4').on('click', function(){
+    	location.href="helpCenter.help";
+    })
+    
+    $('#t5').on('click', function(){
+    	location.href="logout.lo";
+    })
     
   </script> 
 </body>

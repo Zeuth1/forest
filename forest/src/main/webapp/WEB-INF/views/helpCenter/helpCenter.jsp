@@ -15,21 +15,21 @@
       <ul class="blocks-list">
 
             <li class="blocks-item">
-              <a href='GeneralFAQ.jsp' class="blocks-item-link">
+              <a href='GeneralFAQ.help' class="blocks-item-link">
                 <h4 class="blocks-item-title">일반 문의</h4>
                 <p class="blocks-item-description"></p>
               </a>
             </li>
 
             <li class="blocks-item">
-              <a href='AuthorFAQ.jsp' class="blocks-item-link">
+              <a href='AuthorFAQ.help' class="blocks-item-link">
                 <h4 class="blocks-item-title">작가 문의</h4>
                 <p class="blocks-item-description"></p>
               </a>
             </li>
   
             <li class="blocks-item">
-              <a href='ReaderFAQ.jsp' class="blocks-item-link">
+              <a href='ReaderFAQ.help' class="blocks-item-link">
                 <h4 class="blocks-item-title">독자 문의</h4>
                 <p class="blocks-item-description"></p>
               </a>

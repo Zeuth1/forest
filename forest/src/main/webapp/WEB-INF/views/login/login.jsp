@@ -272,7 +272,10 @@ body {overflow:hidden}
 					success:function(data){
 						
 						if(data.result !=0) alert("아이디/비밀번호를 다시 확인 해 주세요.")
-						else location.href="sessionMaker.lo?mid=" + id;
+						else{
+							location.href="sessionMaker.lo?mid=" + id;
+							
+						}
 					},
 					error:function(data){
 						

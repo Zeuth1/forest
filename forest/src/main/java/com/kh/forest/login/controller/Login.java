@@ -193,9 +193,11 @@ public class Login {
 		return mv;
 	}
 	@RequestMapping(value="sessionMaker.lo", method=RequestMethod.GET)
-    public String sessionMaker(ModelAndView mv, @RequestParam(value="mid")String mId, HttpSession session){
+    public String sessionMaker(ModelAndView mv, @RequestParam(value="mid")String mId, HttpServletRequest request, HttpSession session){
 		System.out.println("도착");
 		Member m = ls.sessionMaker(mId);
+		
+		session = request.getSession();
 		
 		System.out.println(m);
 		
@@ -206,8 +208,9 @@ public class Login {
 	}
 	
 	@RequestMapping(value="logout.lo", method=RequestMethod.GET)
-	public ModelAndView logout(ModelAndView mv, SessionStatus status){
+	public ModelAndView logout(ModelAndView mv, SessionStatus status, HttpServletRequest request){
 		
+		request.getSession().removeAttribute("loginUser");
 		status.setComplete();
 		System.out.println("로그아웃 처리됨");
 		

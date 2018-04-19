@@ -47,6 +47,12 @@
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
+	<aop:config proxy-target-class="true">
+	<aop:pointcut id="serviceMethod" expression="execution(* com.kh.forest..*ServiceImpl.*(..))"/>
+	<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
+	</aop:config>
+	
+	
 </beans>
 
 	

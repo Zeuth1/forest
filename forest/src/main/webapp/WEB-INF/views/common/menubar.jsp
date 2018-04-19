@@ -283,7 +283,7 @@
   
  
 </style>	
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR" http-equiv="Pragma" content="no-cache" http-equiv="Cache-Control" content="no-cache">
 <title>Insert title here</title>
 </head>
 <body>
@@ -319,6 +319,10 @@
   <div id="alertNav"></div>
   <div id="menuNav">
     <table>
+      <c:if test="${ sessionScope.loginUser.mLevel == 1 }">
+        <tr><td id="t0">관리자 페이지</td></tr>
+        <script> $('#menuNav').css('height','153px')</script>
+      </c:if>
       <tr><td id="t1">프로필 수정</td></tr>
       <tr><td id="t2">후원자 조회</td></tr>
       <tr><td id="t3">후원내역 조회</td></tr>
@@ -430,11 +434,16 @@
     }    
     
     $('#t4').on('click', function(){
-    	location.href="helpCenter.help";
+    	window.location.href="helpCenter.help";
     })
     
     $('#t5').on('click', function(){
     	location.href="logout.lo";
+    
+    })
+    
+    $('#t0').on('click', function(){
+    	location.href="a_memberSearchView.man";
     })
     
   </script> 

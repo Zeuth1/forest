@@ -24,7 +24,7 @@ import com.kh.forest.helpcenter.model.vo.PageInfo;
 import com.kh.forest.helpcenter.model.vo.SearchCondition;
 
 @Controller
-public class helpCenter {
+public class Helpcenter {
 
 	@Autowired
 	private HelpService hs;

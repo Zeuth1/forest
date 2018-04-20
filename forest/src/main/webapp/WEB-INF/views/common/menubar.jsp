@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="EUC-KR" import="com.kh.forest.common.Member"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -301,7 +300,7 @@
 	    <p id="home" onclick="location.href='#'">홈</p>
 	    <div class="userInfo">
 		    <i class="fas fa-user" id="pic" style="color:white"></i>
-		    <p id="name">${ sessionScope.loginUser.mNickName  }</p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
+		    <p id="name">${ sessionScope.loginUser.mNickName }</p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
 	    </div>
 	    
 	    
@@ -329,21 +328,18 @@
       <tr><td id="t4">게시판</td></tr>
       <tr><td id="t5">로그아웃</td></tr>
     </table>
-  </div> 
-  
+  </div>
+   
   <c:if test="${ sessionScope.loginUser == null }">
     <script>
-      location.href="wrongAccess.lo";
+      location.href="login.lo";
     </script>
-  </c:if>
-  
-  <c:if test="${ sessionScope.loginUser.mLevel == 1 }">
-    <script>
-      console.log('관리자님 환영합니다!');
-    </script>
-  </c:if>
+  </c:if> 
    
   <script>
+    
+  
+  
      $('#searchBar').on('click', function(){
     	
     	$('.overlay').css('display','block');
@@ -422,8 +418,9 @@
 	      			
 	      			
 	      			success:function(data){
-	      				
 	      				console.log(data);
+	      				$('.searchNav')
+	      				
 	      			}
     			  
     		  });
@@ -434,7 +431,7 @@
     }    
     
     $('#t4').on('click', function(){
-    	window.location.href="helpCenter.help";
+    	location.href="helpCenter.help";
     })
     
     $('#t5').on('click', function(){

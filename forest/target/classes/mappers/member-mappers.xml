@@ -18,8 +18,9 @@
 		<result property="mEmail" column="EMAIL"/>
 		<result property="mStatus" column="STATUS"/>
 		<result property="mLevel" column="USER_LEVEL"/>
-		<result property="mEnrollDate" column="ENROLL_DATE"/>
+		<!-- <result property="mEnrollDate" column="ENROLL_DATE"/> -->
 		<result property="mNickName" column="NICK_NAME"/>
+		<result property="mSocialId" column="SOCIAL_ID"/>
 	</resultMap>
 	
 	
@@ -41,7 +42,7 @@
 	
 	<insert id="insertMember" parameterType="Member">
 	
-		INSERT INTO MEMBER VALUES(SEQ_MNO.NEXTVAL,#{mId},#{mPwd},#{mBirth},#{mGender},#{mPhone},#{mEmail},'Y','0',SYSDATE,#{mName},#{mNickName})
+		INSERT INTO MEMBER VALUES(SEQ_MNO.NEXTVAL,#{mId},#{mPwd},#{mBirth},#{mGender},#{mPhone},#{mEmail},'Y','0', '20180101',#{mName},#{mNickName},null)
 
 	</insert>
 	

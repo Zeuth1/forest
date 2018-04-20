@@ -30,7 +30,6 @@ import net.sf.json.JSONObject;
 
 
 @Controller
-@SessionAttributes("loginUser")
 public class Login {
 	
 	
@@ -132,15 +131,17 @@ public class Login {
 		return mv;
 	}
 	
-	@RequestMapping(value="checkMember.lo", method=RequestMethod.POST)
-	public ModelAndView memberCheck(ModelAndView mv,String mId, String mPwd){
+	@RequestMapping(value="checkMember.lo")
+	public ModelAndView memberCheck(HttpSession session, ModelAndView mv, @RequestParam(value="mId")String mId, @RequestParam(value="mPwd")String mPwd){
 		
 		int result=ls.checkMember(mId,mPwd);
 		
+		if(result == 0){
+			Member m = ls.sessionMaker(mId);
+			session.setAttribute("loginUser", m);
+		}
 		
-		mv.addObject("result",result);
-		
-		
+		mv.addObject("result", result);
 		
 		mv.setViewName("jsonView");
 		return mv;
@@ -192,37 +193,16 @@ public class Login {
 		
 		return mv;
 	}
-	@RequestMapping(value="sessionMaker.lo", method=RequestMethod.GET)
-    public String sessionMaker(ModelAndView mv, @RequestParam(value="mid")String mId, HttpServletRequest request, HttpSession session){
-		System.out.println("도착");
-		Member m = ls.sessionMaker(mId);
-		
-		session = request.getSession();
-		
-		System.out.println(m);
-		
-		session.setAttribute("loginUser", m);
-		
-		return "forward:/mainBoard.ma";
-		
-	}
 	
 	@RequestMapping(value="logout.lo", method=RequestMethod.GET)
-	public ModelAndView logout(ModelAndView mv, SessionStatus status, HttpServletRequest request){
+	public ModelAndView logout(ModelAndView mv, HttpSession session){
 		
-		request.getSession().removeAttribute("loginUser");
-		status.setComplete();
+		session.invalidate();
+		
 		System.out.println("로그아웃 처리됨");
 		
 		mv.setViewName("/loginForm");
 		return mv;		
-	}
-	
-	@RequestMapping(value="wrongAccess.lo", method=RequestMethod.GET)
-	public String wrongAccess(ModelAndView mv, HttpServletRequest request){
-		
-		return "redirect:/";
-		
 	}
 	
 	

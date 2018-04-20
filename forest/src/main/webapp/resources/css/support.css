@@ -1,0 +1,142 @@
+@CHARSET "UTF-8";
+
+
+.total-wrap{
+	
+	width:80%;
+	height: 800px;
+	
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:90px;	
+	
+	
+	
+}
+
+.total-left{
+	margin-left:60px;
+	width:25%;
+	height: 100%;
+
+	float:left;	
+	
+}
+.total-right{
+	
+	width:50%;
+	height:100%;
+	
+	float:right;
+	margin-right:180px;
+}
+
+.profile-wrap{
+	
+	width:100%;
+	height:40%;
+	
+	
+	
+}
+
+.profile{
+	
+	
+	width:80%;
+	margin-left:auto;
+	margin-right:auto;
+	height:70%;
+	
+	text-align:center;  
+	
+}
+
+
+.profile-photo{
+	
+	margin-top:50px;
+	
+	
+}
+
+
+.price-wrap{
+	
+	width:100%;
+	height:10%;
+
+	text-align:center;
+}
+
+.price-wrap2{
+	
+	width:30%;
+	height:50%;
+	
+	margin-left:auto;
+	margin-right:auto;
+	
+}
+
+.price-wrap font{
+	
+	margin-top:15px;
+	
+	
+}
+
+
+.benefit-wrap{
+	
+	margin-left:auto;
+	margin-right:auto;
+	width:80%;
+	height:50%;
+
+	
+}
+.choice-wrap{
+	
+	width:100%;
+	height:80%;
+
+	
+}
+.notice-wrap{
+	
+	margin-left:auto;
+	margin-right:auto;
+	width:95%;
+	height:60px;
+
+	
+}
+.price-choice{
+	
+	width:95%;
+	height:40%;
+
+	margin-left:auto;
+	margin-right:auto;
+	
+}
+
+.right-price-wrap{
+	
+	float:left;
+	border:1px solid gray;
+	width:30%;
+	height:60%; 
+	margin-right:8px;
+	
+
+}
+
+.pickme{
+	
+	margin-left:15px; 
+	border:none;
+
+	
+}

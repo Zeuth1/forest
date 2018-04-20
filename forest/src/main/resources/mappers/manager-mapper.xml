@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="Member">
+	<resultMap id="managerResultSet" type="Member">
+
+		<id property="mNo" column="USER_NO" />
+		<result property="mId" column="USER_ID" />
+		<result property="mPwd" column="USER_PWD" />
+		<result property="mBirth" column="BIRTHDAY" />
+		<result property="mName" column="USER_NAME" />
+		<result property="mGender" column="GENDER" />
+		<result property="mPhone" column="PHONE" />
+		<result property="mEmail" column="EMAIL" />
+		<result property="mStatus" column="STATUS" />
+		<result property="mLevel" column="USER_LEVEL" />
+		<result property="mEnrollDate" column="ENROLL_DATE" />
+		<result property="mNickName" column="NICK_NAME" />
+
+	</resultMap>
+
+	<select id="CountMemeber" resultType="_int">
+		select count(*) from member
+	</select>
+
+	<select id="SearchMemberAll" resultMap="managerResultSet"
+		resultType="Member">
+		select * from member
+	</select>
+
+	<select id="SearchMemberOneId" resultMap="managerResultSet"
+		resultType="Member">
+		select * from member where USER_ID=#{mId}
+
+	</select>
+	<select id="SearchMemberOneName" resultMap="managerResultSet"
+		resultType="Member">
+		select * from member where USER_NAME=#{mName}
+
+	</select>
+	<select id="SearchMemberOneGender" resultMap="managerResultSet"
+		resultType="Member">
+		select * from member where GENDER=#{mGender}
+
+	</select>
+
+</mapper>
+   

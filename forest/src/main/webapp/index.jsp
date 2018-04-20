@@ -10,9 +10,7 @@
 </head>
 <body>
 
-  <button type="button" onclick="location.href='mainBoard.ma'">메인보드로</button>
-  
-  
+  <jsp:forward page="login.lo"/>
   
   
 </body>

@@ -2,10 +2,10 @@ package com.kh.forest.manager.model.dao;
 
 import java.util.ArrayList;
 
-import com.kh.forest.manager.model.vo.Member;
+import com.kh.forest.manager.model.vo.Mem;
 
 public interface A_MemberDao {
 
-	ArrayList<Member> a_memberSerchAll();
+	ArrayList<Mem> a_memberSerchAll();
 
 }

@@ -40,6 +40,8 @@
 
 #board_table th {
 	text-align: center;
+	background: gray;
+	color: white;
 }
 
 #addData tr:hover {
@@ -63,7 +65,11 @@
 		<table id=board_table class="table table-bordered">
 			<tr>
 				<!-- <th>삽입부분 -->
-				<th>데이터 드가야됨</th>
+				<th>DONATE_NO</th>
+				<th>GIVER_NO</th>
+				<th>TAKER_NO</th>
+				<th>DONATE_DATE</th>
+				<th>DONATE_AMOUNT</th>
 			</tr>
 			<!-- 테이블 줄 데이터 추가 부분 -->
 			<tbody id=addData>

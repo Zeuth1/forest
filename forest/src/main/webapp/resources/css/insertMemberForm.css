@@ -1,0 +1,266 @@
+@CHARSET "UTF-8";
+
+
+
+.background{
+	
+	 width:100%;
+	height:100%;
+	  text-align:center;
+	
+	position:absolute;
+	
+}
+
+.login-form{
+	
+	
+	background-color: #ffffff;
+   	opacity:0.95;
+	width:17%;
+	height:45%;
+	border-radius:5px;
+    margin-left:auto;
+	margin-right:auto;
+	margin-top:150px;
+	padding-top:20px;
+	
+	
+}
+
+.first-wrap{
+
+	
+}
+
+
+.logo{
+	
+	width:90%;
+	height:20%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:9px;
+	
+	
+}
+body {overflow:hidden}
+
+
+.social-login{
+	
+	background:#f3f3f3;
+	color:black;
+	font-size:8px;
+	padding-top:9px;
+	padding-bottom:9px;
+	width:90%;
+	height:100px;
+	margin-top:5px;
+	margin-left:15px;
+	
+	
+	
+}
+.enterPhone{
+	margin-top:30px;
+	padding:10px;
+	padding-right:80px;
+    border-radius: 5px 5px 0 0;
+	
+}
+.enterpassword{
+	
+	padding:10px;
+	padding-right:80px;
+	border-radius: 0 0  5px 5px;
+}
+
+.nextbtn{
+	
+	background:#3385ff;
+	color:white;
+	border:none;
+	margin-top:10px;
+	padding: 10px 113px;
+	margin-bottom:5px;
+	border-radius: 5px;
+	
+	
+}
+
+
+.naver{
+	margin-top:10px;
+	display:block;
+	float:left;
+	width:30%;
+	height:50%;
+	
+	margin-left:15px;
+	
+}
+.facebook{
+	
+	margin-top:10px;
+	display:block;
+	float:left;
+	width:30%;
+	height:50%;
+	
+	
+}
+.check-phone, .check-pwd{
+	
+	color:white;
+	margin-left:20px;
+	width:80%;
+	padding:10px 10px; 
+	border:none;
+	background:rgba(0,0,0,.3); 
+	font-size:12px;
+	margin-top:3px;
+	border-radius:3px;
+}
+
+
+
+
+.google{
+	
+		margin-top:10px;
+	display:block;;
+	float:right;
+	width:30%;
+	height:50%;
+	
+	margin-right:10px;
+	
+	
+}
+.nick-name{
+	
+	border-radius:5px;
+	margin-top:3px;
+	width:100%;
+	margin-left:auto;
+	margin-right:auto;
+	height:13%;
+	
+	
+	
+}
+
+.gender{
+	
+	border-radius:5px;
+	
+	width:100%;
+	margin-left:auto;
+	margin-right:auto;
+	height:10%;
+	
+	
+}
+
+.second-wrap{
+	
+	margin-left:auto;
+	margin-right:auto;
+	width:80%;
+	height:100%;
+	text-align:left;
+	font-size:13px;
+	font-weight:600;
+}
+
+.birth{
+	
+	border-radius:5px;
+
+	width:100%;
+	margin-left:auto;
+	margin-right:auto;
+	height:10%;
+	
+	
+}
+.sign-up-btn{
+	width:100%;
+	padding:15px;
+	border:none;
+	background:#3385ff;
+	
+	
+}
+
+
+
+
+.input-name-wrap{
+	margin-left:auto;
+	margin-right:auto;
+	width:100%;
+	
+	
+}
+
+.input-name{
+	border-radius:5px;
+	width:100%;
+	height:30px;
+	border:0.1em solid #ccc;
+	
+	
+	
+}
+
+.input-name-wrap p{
+	
+	position:absolute;
+	margin-top:-9px;
+	
+}
+
+.gender-box{
+	
+	padding-top:20px;
+	width:50%;
+	margin-left:auto;
+	margin-right:auto;
+	height:30%;
+	
+	
+}
+
+.gender-box input:checked{
+	
+	background-color:#25c6ff;
+	
+}
+select {
+
+    -webkit-appearance: none;  /* 네이티브 외형 감추기 */
+    -moz-appearance: none;
+    appearance: none;
+    background: url(이미지 경로) no-repeat 95% 50%;  /* 화살표 모양의 이미지 */
+}
+
+/* IE 10, 11의 네이티브 화살표 숨기기 */
+select::-ms-expand {
+    display: none;
+}
+
+select {
+
+    width: 40px; /* 원하는 너비설정 */
+    padding: .8em .5em; /* 여백으로 높이 설정 */
+    font-family: inherit;  /* 폰트 상속 */
+    background: url('이미지 경로') no-repeat 95% 50%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+    border: 1px solid #999;
+    border-radius: 0px; /* iOS 둥근모서리 제거 */
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */
+    -moz-appearance: none;
+    appearance: none;
+}
+

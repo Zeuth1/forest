@@ -61,7 +61,7 @@ public class MainBoardDaoImpl implements MainBoardDao{
 			String[] splinter = searchResult.split("#");
 			
 				for(String splited : splinter){
-					if(splited.contains(searchWord)){
+					if(("#" + splited).contains("#" + searchWord)){
 					setter.add("#" + splited);
 					}
 				}

@@ -1,185 +1,361 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE>
+    
+<!DOCTYPE html >
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/insertMemberForm.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-<style>
-	@media (min-width: 768px) {
-    .omb_row-sm-offset-3 div:first-child[class*="col-"] {
-        margin-left: 25%;
-    }
-}
-
-.omb_login .omb_authTitle {
-    text-align: center;
-	line-height: 300%;
-}
-	
-.omb_login .omb_socialButtons a {
-	color: white; // In yourUse @body-bg 
-	opacity:0.9;
-}
-.omb_login .omb_socialButtons a:hover {
-    color: white;
-	opacity:1;    	
-}
-.omb_login .omb_socialButtons .omb_btn-facebook {background: #3b5998;}
-.omb_login .omb_socialButtons .omb_btn-twitter {background: #00aced;}
-.omb_login .omb_socialButtons .omb_btn-google {background: #c32f10;}
-
-
-.omb_login .omb_loginOr {
-	position: relative;
-	font-size: 1.5em;
-	color: #aaa;
-	margin-top: 1em;
-	margin-bottom: 1em;
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
-}
-.omb_login .omb_loginOr .omb_hrOr {
-	background-color: #cdcdcd;
-	height: 1px;
-	margin-top: 0px !important;
-	margin-bottom: 0px !important;
-}
-.omb_login .omb_loginOr .omb_spanOr {
-	display: block;
-	position: absolute;
-	left: 50%;
-	top: -0.6em;
-	margin-left: -1.5em;
-	background-color: white;
-	width: 3em;
-	text-align: center;
-}			
-
-.omb_login .omb_loginForm .input-group.i {
-	width: 2em;
-}
-
-
-	
-/* @media (min-width: 768px) {
-    .omb_login .omb_forgotPwd {
-        text-align: right;
-		/* margin-top:10px; */
-		position:right;
- 	}		
-} */
-</style>
 </head>
-<body>
-	<jsp:include page="../common/menubar.jsp"/>
-	<div class="container">
-    
+<body>	
 
-    <div class="omb_login">
-    	<h3 class="omb_authTitle">회원가입</h3>
-
-		<div class="row omb_row-sm-offset-3 omb_loginOr">
-			<div class="col-xs-12 col-sm-6">
-				<hr class="omb_hrOr">
-				<span class="omb_spanOr"></span>
+	
+		<form action="insertMember.lo" method="post" id="login-Form2">
+		 <div class="background" >
+		<img  id="background" src="/tree/${ aName }" style="position:absolute; width:100%;height:100%; margin-left:-880px;"/>
+		
+		<div class="login-form" id="login-form">
+			<div class="logo">
+				<img  src="<%=request.getContextPath()%>/resources/images/logo.png" style="width:30%; height:auto; ">
 			</div>
-		</div>
-
-		<div class="row omb_row-sm-offset-3">
-			<div class="col-xs-12 col-sm-6">	
-			    <form class="omb_loginForm" action="#" autocomplete="off" method="post">
-			    
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<input type="text" class="form-control" name="username" placeholder="아이디 입력">
-					</div>
-					
-					<span class="help-block"></span>
-					<br>
-					
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-						<input  type="password" class="form-control" name="password" placeholder="비밀번호 입력">
-					</div>
-                    <br>
-                    <!-- 서블릿 호출후 DB에 일치하는 아이디가 없을시 -->
-                    <div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<input type="text" class="form-control" name="userNickname" placeholder="닉네임 입력">
-					</div>
-					
-					<div class="radio">
-      				<input type="radio" id="male" name="gender"><label for="male">남성</label>
-      				<input type="radio" id="female" name="gender"><label for="female">여성</label>
-    				</div>
-    				
-    				<div class="table">
-    					<table cellpadding="0" cellspacing="0" style="border:0px;">
-						<tbody>
-							<tr>
-								<td>
-									<select class="form-control" style="width:90px;" name="year">
-							  			<option>1915</option><option>1916</option><option>1917</option><option>1918</option><option>1919</option><option>1920</option><option>1921</option><option>1922</option><option>1923</option><option>1924</option><option>1925</option><option>1926</option><option>1927</option><option>1928</option><option>1929</option><option>1930</option><option>1931</option><option>1932</option><option>1933</option><option>1934</option><option>1935</option><option>1936</option><option>1937</option><option>1938</option><option>1939</option><option>1940</option><option>1941</option><option>1942</option><option>1943</option><option>1944</option><option>1945</option><option>1946</option><option>1947</option><option>1948</option><option>1949</option><option>1950</option><option>1951</option><option>1952</option><option>1953</option><option>1954</option><option>1955</option><option>1956</option><option>1957</option><option>1958</option><option>1959</option><option>1960</option><option>1961</option><option>1962</option><option>1963</option><option>1964</option><option>1965</option><option>1966</option><option>1967</option><option>1968</option><option>1969</option><option>1970</option><option>1971</option><option>1972</option><option>1973</option><option>1974</option><option>1975</option><option>1976</option><option>1977</option><option>1978</option><option>1979</option><option>1980</option><option>1981</option><option>1982</option><option>1983</option><option selected="">1984</option><option>1985</option><option>1986</option><option>1987</option><option>1988</option><option>1989</option><option>1990</option><option>1991</option><option>1992</option><option>1993</option><option>1994</option><option>1995</option><option>1996</option><option>1997</option><option>1998</option><option>1999</option><option>2000</option><option>2001</option><option>2002</option><option>2003</option><option>2004</option><option>2005</option><option>2006</option><option>2007</option><option>2008</option><option>2009</option><option>2010</option><option>2011</option><option>2012</option><option>2013</option><option>2014</option><option>2015</option><option>2016</option><option>2017</option><option>2018</option>
-									</select>
-								</td>
-								<td>
-									<select class="form-control" style="width:80px;" name="month">
-							  			<option selected="">01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option>
-									</select>
-								</td>
-								<td>
-									<select class="form-control" style="width:80px;" name="day">
-							  			<option selected="">01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option>
-									</select>
-								</td>
-							</tr>
-						</tbody>
-						</table>
-    				</div>
-    				
-                    
-					<button class="btn btn-lg btn-primary btn-block" type="submit" onclick="#">다음</button>
-				</form>
+			
+			
+			<div class="first-wrap" id="first-wrap">
+		<input  class="enterPhone" id="id" placeholder="휴대폰 번호" maxlength="11" name="mId">
+			<input type="password" class="enterpassword" id="password" placeholder="비밀 번호"  maxlength="20" name="mPwd">
+			 
+			<button class="nextbtn" id="check-btn" onclick="checknext();" type="button">다음</button>
+			<div class="check-phone" id="check-phone">휴대폰 번호를 제대로 입력해주세요.</div>
+			<div class="check-pwd" id="check-pwd">비밀번호는 3글자 이상입니다.</div>
+			
+			
+			
+			<div class="social-login">
+				가지고 있는 계정으로 시작하기
+				<br>
+				<br>
+				<div class="naver">
+					<img src="<%=request.getContextPath()%>/resources/images/naver.png" style="width:75%; height:auto; border-radius:5px; cursor:pointer;">
+				</div>
+				<div class="google">
+					<img src="<%=request.getContextPath()%>/resources/images/google.png" style="width:80%; height:auto; border-radius:5px; cursor:pointer;">
+				 </div>
+				<div class="facebook">
+					<img src="<%=request.getContextPath()%>/resources/images/facebook.jpg" style="width:62%; height:auto; border-radius:5px;cursor:pointer;" >
+				</div>
+			
+			</div> 
+		</div>	
+		 <div class="second-wrap" id="second-wrap">
+			이메일
+			<div class="nick-name">
+				<input type="email" id="email" class="input-name" placeholder=" 이메일" name="mEmail">
+				<div class="input-name-wrap" style="margin-left:5px;" >
+				<hr>
+				<p style="font-weight:100;">아이디/비밀번호 찾기 시 이용됩니다.</p>	
+				</div>
+				<p id="wrong-email" style="color:red; margin-top:15px;">이메일 주소를 제대로 입력하여 주세요.</p>
+				<p id="wrong-email2" style="color:red; margin-top:15px;">이메일이 중복됩니다.</p>
 			</div>
-    	</div>
-    	
-    	<div class="row omb_row-sm-offset-3 omb_loginOr">
-			<div class="col-xs-12 col-sm-6">
-				<hr class="omb_hrOr">
-				<span class="omb_spanOr">or</span>
+			
+			이름
+			<div class="nick-name">
+				<input type="text" class="input-name" id="mName" placeholder=" 이름" name="mName">
+				<div class="input-name-wrap" style="margin-left:5px;">
+				<hr>
+				<p style="font-weight:100;">후원/후원 받기 시 사용될 이름입니다.</p>	
+				</div>
+				<p id="wrong-name" style="color:red; margin-top:15px;">이름을 제대로 입력해 주세요.</p>
 			</div>
+			
+			닉네임
+			<div class="nick-name">
+				<input type="text" class="input-name" id="mNickName" placeholder=" 닉네임" name="mNickName">
+				<div class="input-name-wrap" style="margin-left:5px;">
+				<hr>
+				<p style="font-weight:100;">사이트 내에서 사용될 이름입니다.</p>	
+				</div>
+				<p id="wrong-nick" style="color:red; margin-top:15px;">중복된 닉네임입니다.</p>
+				<p id="wrong-nick2" style="color:red; margin-top:15px;">닉네임은 세글자 이상입니다.</p>	
+				<p id="wrong-nick3" style="color:red; margin-top:15px;">닉네임이 중복됩니다.</p>	
+			</div>
+			<br>
+			성별
+			<div class="gender"> 
+			 	 
+				<div class="gender-box" >
+					<input type="radio"  value="M"   name="mGender">남자
+					<input type="radio"  value="F"  style="margin-left:15px;" name="mGender">여자
+				</div>
+				<p id="wrong-gender" style="color:red; margin-top:15px;">성별을 체크해 주세요</p>
+			</div>
+			생일
+			<div class="birth" style="margin-top:20px;">
+					
+					
+				<select id="year" title="select-year" style="width:80px;padding-left:35px" name="year">
+					<option selected="selected">년</option>
+					<c:forEach begin="0" end="100" var="year">
+						<option>${ 2018-year }</option>
+					</c:forEach>
+				</select>
+			
+				<select id="month" style="width:80px; padding-left:50px;" name="month">
+					<option selected="selected">월</option>
+					<c:forEach begin="1" end="9" var="month" >
+					  	<option>0${month }</option>
+					</c:forEach>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+				</select>
+				
+				<select id="day"  style="width:55px; padding-left:20px;" name="day">
+				
+					<option selected="selected">일</option>
+					<c:forEach begin="1" end="9" var="day">
+						<option>0${day }</option>
+					</c:forEach>
+					<c:forEach begin="10" end="31" var="day">
+						<option>${day }</option>
+					</c:forEach>
+				</select>
+				<p id="wrong-birth" style="color:red; margin-top:15px;">생년월일을 제대로 입력해주세요.</p>	
+			</div>
+				<button type="button" class="sign-up-btn" onclick="signUp()" >가입하기</button>
+			</div> 
+			<input style='display:none
+			' name="mBirth" id="birth-">
 		</div>
-    	
-    	<div class="row omb_row-sm-offset-3 omb_socialButtons">
-    	    <div class="col-xs-4 col-sm-2">
-		        <a href="#" class="btn btn-lg btn-block omb_btn-facebook">
-			        <i class="fa fa-facebook visible-xs"></i>
-			        <span class="hidden-xs">Facebook</span>
-		        </a>
-	        </div>
-        	<div class="col-xs-4 col-sm-2">
-		        <a href="#" class="btn btn-lg btn-block omb_btn-twitter">
-			        <i class="fa fa-twitter visible-xs"></i>
-			        <span class="hidden-xs">Twitter</span>
-		        </a>
-	        </div>	
-        	<div class="col-xs-4 col-sm-2">
-		        <a href="#" class="btn btn-lg btn-block omb_btn-google">
-			        <i class="fa fa-google-plus visible-xs"></i>
-			        <span class="hidden-xs">Google+</span>
-		        </a>
-	        </div>	
-		</div>
+		
 	</div>
-        </div>
+	</form>
+	
+	<script>
+	
+	
+	$(function(){
+		var date=new Date();
+		timer = setInterval( function () {
+		
+			
+			$.ajax ({
+				url : "changePic.lo",
+				method:"post",
+				success : function (data) { 
+					console.log(data.aName);
+					$("#background").attr("src","/tree/"+data.aName).fadeOut(700).stop(true,true).fadeIn(1200);
+						
+				}
+			});
+
+		},10000);
+		
+	});
+	
+	
+	
+	$(function(){
+		
+		 $("#check-phone").hide();
+		$("#check-pwd").hide(); 
+		$("#second-wrap").hide();
+		$("#wrong-email").hide();
+		$("#wrong-email2").hide();
+		$("#wrong-nick").hide();
+		$("#wrong-birth").hide();
+		$("#wrong-gender").hide();
+		$("#wrong-nick2").hide();
+		$("#wrong-nick3").hide();
+		$("#wrong-name").hide();
+	})	
+	
+	
+ 	
+		
+	function checknext(){
+		$(".first-wrap").animate({left:'-150px;'})
+		var check=  /^(01[016789]{1})([0-9]{3,4})([0-9]{4})$/;
+		var id=$("#id").val();
+		var pwd=$("#password").val();
+		console.log(id);
+		
+		if(check.test(id)&& pwd.length>=3){
+			$("#first-wrap").hide();
+			$("#login-form").animate({"height":"89%"});
+			$("#check-phone").hide();
+			$("#check-pwd").hide(); 
+			$("#second-wrap").fadeIn(); 	
+			$("#login-form").css("margin-top","40px");
+			$(".logo").css("height","15%");
+		}
+		if(!check.test(id)){
+				
+			if(pwd.length>=3){
+				
+				$("#check-phone").show();
+				$("#check-pwd").hide(); 
+				$("#login-form").css("height","55%");
+				
+			}else{
+				
+				 $("#check-phone").show();
+				$("#check-pwd").show(); 
+				$("#login-form").css("height","58%");
+			}
+				
+		}
+		if(pwd.length<3){
+				
+				if(check.test(id)){
+					
+					$("#check-phone").hide();
+					$("#check-pwd").show(); 
+					$("#login-form").css("height","55%");
+				}
+				
+		}
+			
+			
+	
+		
+		
+		
+	}
+	function signUp(){
+		
+		
+		var id=$("#id").val();
+		var pwd=$("#password").val();
+		
+		
+		var mailExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		var email=$("#email").val();
+	
+		var nameExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+		var name=$("#mName").val();
+		var birthExp= /^[0-9]{6}$/;
+		
+		var nick=$("#mNickName").val();
+		var gender=$('input:radio[name="mGender"]').is(":checked") ;
+		var birth=$("#year").val().substring(2,4)+$("#month").val()+$("#day").val();
+			$("#birth-").val(birth);
+	
+		
+		
+		
+		if(mailExp.test(email) && nameExp.test(name) && nick.length>=3 &&gender==true && birthExp.test(birth) ){
+			
+			var email=$("#email").val();
+			var nick=$("#mNickName").val();
+			var check= [email,nick]; 
+			$.ajax({
+			
+				url: "checkContent.lo",
+				type:"post",
+				data:{email:email, nick:nick	},
+				
+				
+				success:function(data){
+					
+					alert(data.message);
+					if(data.message==0){
+						
+						$("#login-Form2").submit();
+						
+						
+					}
+				    if(data.message==1){
+				    	$("#wrong-email2").show();
+				    	$("#wrong-nick3").hide();
+					    
+				    }
+					if(data.message==2)
+						{
+						$("#wrong-nick3").show();
+						 $("#wrong-email2").hide();
+						
+						}
+					if(data.message==3){    
+						$("#wrong-nick3").show();
+					    $("#wrong-email2").show();
+					}
+					
+				},
+				error:function(data){
+					alert("실패");
+				}
+				
+			})
+			
+			
+			
+			
+		}
+		if(!mailExp.test(email)){
+			
+			$("#wrong-email").show();
+			$("#wrong-nick3").hide();
+			 $("#wrong-email2").hide();
+			
+		
+		}else{
+			
+			$("#wrong-email").hide();
+		}
+		
+		
+		if(!nameExp.test(name)){
+			$("#wrong-nick3").hide();
+			 $("#wrong-email2").hide();
+			$("#wrong-name").show();
+			
+		}else{
+			
+			$("#wrong-name").hide();
+			
+		}
+		if(nick.length<3){
+			$("#wrong-nick3").hide();
+			 $("#wrong-email2").hide();
+			$("#wrong-nick2").show();
+			
+		}else{
+			
+			$("#wrong-nick2").hide();
+		}
+		
+		if(gender==false){
+			$("#wrong-nick3").hide();
+			 $("#wrong-email2").hide();
+			$("#wrong-gender").show();
+			
+		}else{
+			
+			$("#wrong-gender").hide();
+			
+		}
+		if(!birthExp.test(birth)){
+			$("#wrong-nick3").hide();
+			 $("#wrong-email2").hide();
+			$("#wrong-birth").show();
+		}else{
+			
+			$("#wrong-birth").hide();
+		}
+		
+	}
+	
+	
+	</script>
+
+
+
+
 </body>
 </html>

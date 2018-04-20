@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="Chart">
+	<resultMap id="RankGenderResultSet" type="RankGender">
+
+		<id property="rankId" column="rankByVal" />
+		<result property="rankName" column="name" />
+		<result property="rankAmuont" column="amount" />
+
+	</resultMap>
+
+	<select id="rank3byMaleValue" resultMap="RankGenderResultSet">
+		SELECT
+		rankByVal,amount,name
+		FROM(select rank()over(ORDER BY
+		sum(DONATE_AMOUNT) desc) as
+		rankByVal,sum(DONATE_AMOUNT) as
+		amount,m.USER_NAME as name
+		from donate d join member m
+		on(m.USER_NO=d.taker_no)
+		GROUP BY m.USER_NAME, m.GENDER
+		having
+		m.GENDER='M')
+		where rankByVal in (1,2,3)
+		ORDER by 1
+	</select>
+
+	<select id="rank3byFemaleValue" resultMap="RankGenderResultSet">
+		SELECT
+		rankByVal,amount,name
+		FROM(select rank()over(ORDER BY
+		sum(DONATE_AMOUNT) desc) as
+		rankByVal,sum(DONATE_AMOUNT) as
+		amount,m.USER_NAME as name
+		from donate d join member m
+		on(m.USER_NO=d.taker_no)
+		GROUP BY m.USER_NAME, m.GENDER
+		having
+		m.GENDER='F')
+		where rankByVal in (1,2,3)
+		ORDER by 1
+	</select>
+
+	<select id="CountMale" resultType="_int">
+		SELECT COUNT(*) from member
+		where GENDER='M'
+
+	</select>
+
+	<select id="CountFemale" resultType="_int">
+		SELECT COUNT(*) from member
+		where GENDER='F'
+
+	</select>
+
+	<select id="CountAge10" resultType="_int">
+
+		select
+		count(to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(BIRTHDAY,'rrrr-mm-dd'))))
+		from member
+		where
+		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(BIRTHDAY,'rrrr-mm-dd'))) BETWEEN 10 and 20
+	</select>
+
+	<select id="CountAge20" resultType="_int">
+
+		select
+		count(to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(BIRTHDAY,'rrrr-mm-dd'))))
+		from member
+		where
+		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(BIRTHDAY,'rrrr-mm-dd'))) BETWEEN 20 and 29
+	</select>
+
+	<select id="CountAge30" resultType="_int">
+
+		select
+		count(to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(BIRTHDAY,'rrrr-mm-dd'))))
+		from member
+		where
+		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(BIRTHDAY,'rrrr-mm-dd'))) BETWEEN 30 and 39
+	</select>
+
+	<select id="CountAge40" resultType="_int">
+
+		select
+		count(to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(BIRTHDAY,'rrrr-mm-dd'))))
+		from member
+		where
+		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(BIRTHDAY,'rrrr-mm-dd'))) BETWEEN 40 and 49
+	</select>
+
+	<select id="CountAge50" resultType="_int">
+
+		select
+		count(to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(BIRTHDAY,'rrrr-mm-dd'))))
+		from member
+		where
+		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(BIRTHDAY,'rrrr-mm-dd'))) BETWEEN 50 and 59
+	</select>
+	<select id="CountAge60over" resultType="_int">
+
+		select
+		count(to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(BIRTHDAY,'rrrr-mm-dd'))))
+		from member
+		where
+		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(BIRTHDAY,'rrrr-mm-dd'))) BETWEEN 60 and 99
+	</select>
+
+	<update id="MemberUpdate">
+		update MEMBER SET
+		USER_PWD=#{mPwd},PHONE=#{mPhone},EMAIL=#{mEmail},USER_LEVEL=#{mLevel},NICK_NAME=#{mNickName}
+		where USER_NO=#{mNo}
+	</update>
+<!-- 연령별 작가 -->
+
+	<select id="RankAge10ByWriter">
+		count(d.giver_no),m2.USER_NAME
+		FROM DONATE d
+		join MEMBER m1 on (d.giver_no=m1.user_no)
+		join MEMBER m2 on (d.taker_no=m2.user_no)
+		GROUP BY m2.USER_NAME,m1.BIRTHDAY
+		having
+		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
+		BETWEEN 10 and 19;
+
+	</select>
+	<select id="RankAge20ByWriter">
+		count(d.giver_no),m2.USER_NAME
+		FROM DONATE d
+		join
+		MEMBER m1 on (d.giver_no=m1.user_no)
+		join MEMBER m2 on
+		(d.taker_no=m2.user_no)
+		GROUP BY m2.USER_NAME,m1.BIRTHDAY
+		having
+		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
+		BETWEEN 20 and 29;
+
+	</select>
+	<select id="RankAge30ByWriter">
+		count(d.giver_no),m2.USER_NAME
+		FROM DONATE d
+		join
+		MEMBER m1 on (d.giver_no=m1.user_no)
+		join MEMBER m2 on
+		(d.taker_no=m2.user_no)
+		GROUP BY m2.USER_NAME,m1.BIRTHDAY
+		having
+		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
+		BETWEEN 30 and 39;
+
+	</select>
+	<select id="RankAge40ByWriter">
+		count(d.giver_no),m2.USER_NAME
+		FROM DONATE d
+		join
+		MEMBER m1 on (d.giver_no=m1.user_no)
+		join MEMBER m2 on
+		(d.taker_no=m2.user_no)
+		GROUP BY m2.USER_NAME,m1.BIRTHDAY
+		having
+		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
+		BETWEEN 40 and 49;
+
+	</select>
+	<select id="RankAge50ByWriter">
+		count(d.giver_no),m2.USER_NAME
+		FROM DONATE d
+		join
+		MEMBER m1 on (d.giver_no=m1.user_no)
+		join MEMBER m2 on
+		(d.taker_no=m2.user_no)
+		GROUP BY m2.USER_NAME,m1.BIRTHDAY
+		having
+		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
+		BETWEEN 50 and 59;
+
+	</select>
+	<select id="RankAge60overByWriter">
+		count(d.giver_no),m2.USER_NAME
+		FROM DONATE d
+		join
+		MEMBER m1 on (d.giver_no=m1.user_no)
+		join MEMBER m2 on
+		(d.taker_no=m2.user_no)
+		GROUP BY m2.USER_NAME,m1.BIRTHDAY
+		having
+		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
+		BETWEEN 60 and 99;
+
+	</select>
+
+</mapper>
+
+ 

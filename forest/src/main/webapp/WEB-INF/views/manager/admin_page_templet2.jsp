@@ -19,12 +19,7 @@
 <link href="https://fonts.googleapis.com/css?family=Press+Start+2P"
 	rel="stylesheet">
 <!--  -->
-<<<<<<< HEAD
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/resources/css/contain.css" />
-=======
 
->>>>>>> Junghoon
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
@@ -34,11 +29,7 @@
 
 	<jsp:include page="admin_sidebar.jsp" />
 	<div id=container class="well-lg">
-<<<<<<< HEAD
-		<h2 align="center">ADMIN PAGE - </h2>
-=======
 		<h2 align="center">ADMIN PAGE -</h2>
->>>>>>> Junghoon
 		<hr>
 
 

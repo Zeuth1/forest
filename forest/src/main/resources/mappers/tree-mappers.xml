@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+  
+  
+  <mapper namespace="Tree">
+	<resultMap id="TreeResultSet" type="Tree">
+	
+		<id property="tNo" column="TREE_NO"/>
+		<result property="mNo" column="USER_NO"/>
+		<result property="bName" column="TREE_BEFORE"/>
+		<result property="aName" column="TREE_AFTER"/>
+		<result property="tag" column="TREE_TAG"/>
+		<result property="tType" column="TREE_TYPE"/>
+		<result property="tDate" column="TREE_DATE"/>
+
+
+
+	
+	</resultMap>
+	
+	<select id="selectPic" resultType="java.lang.String">
+			SELECT TREE_AFTER FROM(SELECT TREE_AFTER FROM TREE WHERE TREE_TYPE = 'L' ORDER BY DBMS_RANDOM.RANDOM) WHERE ROWNUM=1
+	
+	</select>
+	
+	
+	</mapper>

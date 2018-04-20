@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <style>
   #all{
     position:fixed;
@@ -89,7 +92,7 @@
   }  
     
   #home{
-    margin-left:1%;
+    margin-left:1.5%;
     padding:15px;
     padding-top:9px;
     padding-bottom:9px;
@@ -124,8 +127,9 @@
   }
   
   #alertIcon{
-    align-self:center;
-    margin-left:1.8%;
+    position:absolute;
+    right:70px;
+    top:15px;
     font-size:25px;
     padding:15px;
     padding-top:9px;
@@ -140,7 +144,7 @@
   
   
   
-    #alertNav {
+  #alertNav {
     top:70px;
     margin-left:76%;
     position: fixed;
@@ -181,7 +185,9 @@
   }	 
   
   #menuIcon{
-    align-self:center;
+   position:absolute;
+    right:18px;
+    top:15px;
     padding:15px;
     padding-top:9px;
     padding-bottom:9px;
@@ -277,7 +283,7 @@
   
  
 </style>	
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR" http-equiv="Pragma" content="no-cache" http-equiv="Cache-Control" content="no-cache">
 <title>Insert title here</title>
 </head>
 <body>
@@ -295,7 +301,7 @@
 	    <p id="home" onclick="location.href='#'">홈</p>
 	    <div class="userInfo">
 		    <i class="fas fa-user" id="pic" style="color:white"></i>
-		    <p id="name">dddddddddd</p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
+		    <p id="name">${ sessionScope.loginUser.mNickName  }</p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
 	    </div>
 	    
 	    
@@ -306,25 +312,38 @@
     
     
   </div>
-        <div class="searchNav">
-          <p style="margin-left:20px; margin-top:10px; font-size:12px;">최근 검색 기록</p>
-          	
-        </div>
-	    <div id="alertNav"></div>
-	    <div id="menuNav">
-	    
-	      <table>
-	        <tr><td id="t1">프로필 수정</td></tr>
-	        <tr><td>후원자 조회</td></tr>
-	        <tr><td>후원내역 조회</td></tr>
-	        <tr><td>게시판</td></tr>
-	        <tr><td id="t5">로그아웃</td></tr>
-	      </table>
-	    </div> 
+  <div class="searchNav">
+    <p style="margin-left:20px; margin-top:10px; font-size:12px;">최근 검색 기록</p>
+    	
+  </div>
+  <div id="alertNav"></div>
+  <div id="menuNav">
+    <table>
+      <c:if test="${ sessionScope.loginUser.mLevel == 1 }">
+        <tr><td id="t0">관리자 페이지</td></tr>
+        <script> $('#menuNav').css('height','153px')</script>
+      </c:if>
+      <tr><td id="t1">프로필 수정</td></tr>
+      <tr><td id="t2">후원자 조회</td></tr>
+      <tr><td id="t3">후원내역 조회</td></tr>
+      <tr><td id="t4">게시판</td></tr>
+      <tr><td id="t5">로그아웃</td></tr>
+    </table>
+  </div> 
   
-    
+  <c:if test="${ sessionScope.loginUser == null }">
+    <script>
+      location.href="wrongAccess.lo";
+    </script>
+  </c:if>
+  
+  <c:if test="${ sessionScope.loginUser.mLevel == 1 }">
+    <script>
+      console.log('관리자님 환영합니다!');
+    </script>
+  </c:if>
+   
   <script>
-    
      $('#searchBar').on('click', function(){
     	
     	$('.overlay').css('display','block');
@@ -413,6 +432,19 @@
     	}, delta)
     	
     }    
+    
+    $('#t4').on('click', function(){
+    	window.location.href="helpCenter.help";
+    })
+    
+    $('#t5').on('click', function(){
+    	location.href="logout.lo";
+    
+    })
+    
+    $('#t0').on('click', function(){
+    	location.href="a_memberSearchView.man";
+    })
     
   </script> 
 </body>

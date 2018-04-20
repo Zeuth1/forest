@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <style>
@@ -21,21 +22,42 @@
       min-height:200px;
   }
   #MyImage{
-     border-radius: 50%;
-    width: 200px;
+  	border-radius: 50%;
+    width: 200px; 
     height: 200px;
     position: relative;
     display: inline-block;
     float:right;
     margin-top:200px;
+    top:50px;
   }
   .selectmenu{
-     margin-right:950px;
+  	margin-right:950px;
   }
   .lockImages{
-     width:40px;
-     height:40px;
+  	width:40px;
+  	height:40px;
   }
+    input {
+  	  border: 2px solid #7BA7AB;
+  	  border-radius: 5px;
+ 	  outline: none;
+	  color: #9E9C9C;
+	}
+	input:active,input:hover{
+		background: #F9F0DA;
+	}
+	#boardImages{
+		margin:10px;
+		width:370px;
+		height:200px;
+	}
+	.col-sm-4{
+		
+		width:380px;
+		height:260px;
+	}
+	
   </style>
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -45,106 +67,115 @@
 <title>Insert title here</title>
 </head>
 <body>
-   <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>                        
-            </button>
-            <a class="navbar-brand" href="#">Logo</a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Projects</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+	<jsp:include page="../common/menubar.jsp"/>
 
-      <div>
-          <div class="carousel-inner" role="listbox">
-            <div class="item active">
-               <div class="carousel-caption">
-                  <p style="font-size:50px">ÅÂÇö ±è</p>
-                  <p>ÆÈ·Î¿ö:1</p>
-                  <p>ÆÈ·ÎÀ®:1</p>
-               </div>
-                  <img>
-                   <div class="carousel-caption">
-                     <img src="images/±èÅÂÇö4.jpg" id="MyImage">
-              </div>      
-            </div>
-          </div>
-      </div>
-        <br>
-      <div class="container text-center">    
-        <div class="selectmenu">
-        <button class="btn btn-default">º¸µå</button>
-        <button class="btn btn-default" onclick="location.href='/test/views/fin.jsp'">ÇÉ</button>
-        <button class="btn btn-default">³» º¸µå</button>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-sm-4" onclick="gomodal();">
-            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="º¸µå¸¸µé±â">
-            <p>º¸µå¸¸µé±â</p>
-          </div>
-          <div class="col-sm-4"> 
-            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="º¸µå¸¸µé±â">
-            <p></p>    
-          </div>
-        </div>
-        <hr>
-      <div class="row">
-         <div align="center">
-            <p style="margin-right:490px"><img class="lockImages" src="images/Lock.jpg"><label>ºñ¹Ğº¸µå!</label></p>
-            <label>È¸¿ø´Ô°ú È¸¿ø´ÔÀÌ ÃÊ´ëÇÑ »ç¶÷µé¸¸ÀÌ ÀÌ º¸µåµéÀ» º¼ ¼öÀÖ½À´Ï´Ù. </label> <label><a>ÀÚ¼¼È÷¾Ë¾Æº¸±â</a></label>
-         </div>
-      </div>
-      <hr>
-      <div class="col-sm-4" onclick="gomodal();">
-            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="º¸µå¸¸µé±â">
-            <p>ºñ¹Ğº¸µå ¸¸µé±â</p>
-         </div>
-      </div><br>
-      
-      
-      <hr>
-      <footer class="container-fluid text-center">
-          <p>Footer Text</p>
-      </footer>
+		<div>
+  		  <div class="carousel-inner" role="listbox">
+   		   <div class="item active">
+   		   	<div class="carousel-caption">
+   		   		<p style="font-size:50px">íƒœí˜„ ê¹€</p>
+   		   		<p>íŒ”ë¡œì›Œ:1</p>
+   		   		<p>íŒ”ë¡œìœ™:1</p>
+   		   	</div>
+   		   		<img>
+   		   		 <div class="carousel-caption">
+      		   		<img src="" id="MyImage" style="cursor: pointer;">
+    		    </div>      
+    		  </div>
+  		  </div>
+		</div>
+  		<br>
+		<div class="container text-center">    
+ 		 <div class="selectmenu">
+ 		 <button class="btn btn-default">ë³´ë“œ</button>
+ 		 <button class="btn btn-default" onclick="location.href='myBoardFin.my'">í•€</button>
+ 		 <button class="btn btn-default">ë‚´ ë³´ë“œ</button>
+ 	
+ 		 </div>
+ 		 	<div>
+ 		 		<select class="btn btn-default" style="float:right" >
+ 			 		<option>ê°€ë‚˜ë‹¤ìˆœ</option>
+ 			 		<option>ìµœì‹ í•­ëª©ìˆœ</option>
+ 			 		<option>ì˜¤ë˜ëœí•­ëª©ìˆœ</option>
+ 				</select>
+ 		 	</div>
+ 		 <br>
+  		<div class="row">
+  		  <div class="col-sm-4" onclick="gomodal();">
+    		  <img id="boardImages" src="images/addimages.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="ë³´ë“œë§Œë“¤ê¸°">
+    		  <label>ë³´ë“œë§Œë“¤ê¸°!</label><p>í˜¹ì‹œëª¨ë¥´ë‹ˆí•œì¤„ë”ì—¬ìœ ë¥¼..</p>
+   		 </div>
+   		 <div class="col-sm-4" onclick="detailboard();" > 
+   		   <img id="boardImages" src="images/test.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="ë³´ë“œë§Œë“¤ê¸°">
+    		  <label>ì„¤í˜„...ê·¸ë…€ëŠ”...</label>    
+   		 </div>
+   		 <div class="col-sm-4"> 
+   		   <img id="boardImages" src="images/test.jpg" class="img-responsive" style="width:100%; cursor: pointer;" alt="ë³´ë“œë§Œë“¤ê¸°">
+    		  <label>ì´ì˜ë‹¹</label>
+    		  <p>ë„ˆë„ëª¨ë¥´ë‹ˆì—¬ìœ ë¥¼</p>
+   		 </div>
+   		 <div class="col-sm-4"> 
+   		   <img id="boardImages" src="images/test.jpg" class="img-responsive" style="width:100%" alt="ë³´ë“œë§Œë“¤ê¸°">
+    		  <p></p>    
+   		 </div>
+   		 <div class="col-sm-4"> 
+   		   <img id="boardImages"src="images/test.jpg" class="img-responsive" style="width:100%" alt="ë³´ë“œë§Œë“¤ê¸°">
+    		  <p></p>    
+   		 </div>
+   		 <div class="col-sm-4"> 
+   		   <img id="boardImages" src="images/test.jpg" class="img-responsive" style="width:100%" alt="ë³´ë“œë§Œë“¤ê¸°">
+    		  <p></p>    
+   		 </div>
+   		 
+ 		 </div>
+ 		 <hr>
+		<div class="row">
+			<div align="center">
+				<p style="margin-right:490px"><img class="lockImages" src="images/Lock.jpg"><label>ë¹„ë°€ë³´ë“œ!</label></p>
+				<label>íšŒì›ë‹˜ê³¼ íšŒì›ë‹˜ì´ ì´ˆëŒ€í•œ ì‚¬ëŒë“¤ë§Œì´ ì´ ë³´ë“œë“¤ì„ ë³¼ ìˆ˜ìˆìŠµë‹ˆë‹¤. </label> <label><a style="cursor: pointer">ìì„¸íˆì•Œì•„ë³´ê¸°</a></label>
+			</div>
+		</div>
+		<hr>
+		<div class="col-sm-4" onclick="gomodal();">
+    		  <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%;cursor: pointer;" alt="ë³´ë“œë§Œë“¤ê¸°">
+    		  <p>ë¹„ë°€ë³´ë“œ ë§Œë“¤ê¸°</p>
+   		</div>
+		</div><br>
+		
+		
+		<hr>
+		<footer class="container-fluid text-center">
+ 			<p>Footer Text</p>
+		</footer>
 
 
 
-      
+		
 <div class="modal" id="testModal" tabindex="-1" role="dialog">
-   <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-         <div class="modal-body">
-            <h1>º¸µå¸¸µé±â</h1>
-            <hr>
-            ÀÌ¸§:<textarea></textarea>
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal">¸¸µé±â</button>
-            <button type="button" class="btn" data-dismiss="modal">´İ±â</button>
-         </div>
-      </div>
-   </div>
+	<div class="modal-dialog modal-sm" style="width:350px; height:150px;">
+		<div class="modal-content" >
+			<div class="modal-body" style="width:350px; height:150px;">
+				<h1>ë³´ë“œë§Œë“¤ê¸°</h1>
+				<hr>
+				ì´ë¦„: <input type="text" id="input">
+			</div>
+			<div class="modal-footer" style="width:350px; height:70px;">
+				<button type="button" class="btn" data-dismiss="modal"style="border: 2px solid #7BA7AB;border-radius: 5px;outline: none;">ë§Œë“¤ê¸°</button>
+				<button type="button" class="btn" data-dismiss="modal"style="border: 2px solid #7BA7AB;border-radius: 5px;outline: none;">ë‹«ê¸°</button>
+			</div>
+		</div>
+	</div>
 </div>
+
 <br><br><br><br><br><br><br><br><br><br>
+
 <script>
-   function gomodal(){
-      $("#testModal").modal();
-   }
+	function gomodal(){
+		$("#testModal").modal();
+	}
+	function detailboard(){
+		location.href="myBoardDetail.my";
+	}
 </script>
 </body>
 </html>

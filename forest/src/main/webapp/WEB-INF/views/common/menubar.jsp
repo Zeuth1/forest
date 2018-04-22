@@ -71,7 +71,23 @@
    
   .searchNav{
     display:flex;
+    flex-direction:column;
     
+    top:60px;
+    position:fixed;
+    width:1200px;
+    
+    background:white;
+    border-radius:6px;
+    
+    margin-left:4.7%;
+    display:none;
+    
+  }
+  
+  .searchResultNav{
+    display:flex;
+    flex-direction:column;
     top:60px;
     position:fixed;
     width:1200px;
@@ -240,25 +256,25 @@
 	left: 187px;
   }	
 
-  table{
+  #menuNav table{
     position:absolute;
     top:-1.5px;
     left:-2px;
     width:234px;
   }
   
-  tr{
+  #manuNav tr{
     width:270px;
     height:20px;
     
   }
   
-  tr:hover{
+  #menuNav tr:hover{
     background:rgba(80,80,80,0.1);
     cursor:pointer;
   }
   
-  td{    
+  #menuNav td{    
     width:295px;
     font-weight: bolder;
     font-size:large;
@@ -269,12 +285,12 @@
     padding-left:15px;
   }
   
-  tr #t1{
+  #menuNav tr #t1{
     border-top-left-radius:5px;
     border-top-right-radius:5px;
   }
   
-  tr #t5{
+  #menuNav tr #t5{
     border-bottom-left-radius:5px;
     border-bottom-right-radius:5px;
   }
@@ -315,6 +331,13 @@
     <p style="margin-left:20px; margin-top:10px; font-size:12px;">최근 검색 기록</p>
     	
   </div>
+  
+  <div class="searchResultNav">
+    <p style="margin-left:20px; margin-top:10px; font-size:12px;">검색 결과</p>    	
+    <table class='searchResultTable'></table>
+  </div>
+  
+  
   <div id="alertNav"></div>
   <div id="menuNav">
     <table>
@@ -419,11 +442,24 @@
 	      			
 	      			success:function(data){
 	      				console.log(data);
-	      				$('.searchNav')
+	      				$('.searchNav').css('display','none');
+	      				
+	      					
+	      				$('.searchResultTable').remove();
+	      				$('<table class="searchResultTable">').appendTo('.searchResultNav');
+	      				$.each(data, function(key, value){
+	      					$('<tr><td>' + key + '</td><td>' + value + '</td><tr>').appendTo('.searchResultTable');
+		      				
+	      				});
+	      				$('.searchResultNav').css('display','flex');
 	      				
 	      			}
     			  
     		  });
+    			
+    		}else{
+    			$('.searchResultNav').css('display','none');
+    			$('.searchNav').css('display','flex');
     			
     		}
     	}, delta)

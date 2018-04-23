@@ -40,7 +40,6 @@ public class MainBoard {
 	public ModelAndView mainBoard(ModelAndView mv){
 		ArrayList treeList = ms.test();
 		
-		System.out.println(treeList);
 		mv.addObject("treeList", treeList);
 		mv.setViewName("mainBoard");
 		return mv;
@@ -48,7 +47,6 @@ public class MainBoard {
 	
 	@RequestMapping(value="paging.ma", method=RequestMethod.POST)
 	public @ResponseBody String paging(HttpServletResponse response, @RequestBody String JSONTreeArr_str){
-		System.out.println("받은 이미지들" + JSONTreeArr_str);
 		JSONParser jsonParser = new JSONParser();
 		
 		List<Tree> treeList = null;
@@ -67,7 +65,6 @@ public class MainBoard {
 			
 		JSONArray jsonArray = JSONArray.fromObject(treeList);
 		
-		System.out.println("거른 후 보낸 이미지들 : " + jsonArray);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -82,13 +79,7 @@ public class MainBoard {
 	
 	@RequestMapping(value="detail.ma", method=RequestMethod.GET)
 	public ModelAndView detail(ModelAndView mv, @RequestParam("treeNo") String treeNo){
-		System.out.println("첫번째 받음");
-		
-		System.out.println(treeNo);
-		
 		Detail detail = ms.detail(treeNo);
-		
-		System.out.println(detail);
 		
 		mv.addObject("detail", detail);
 		
@@ -96,8 +87,8 @@ public class MainBoard {
 		return mv;
 	}
 	
-	@RequestMapping(value="search.ma", method=RequestMethod.POST)
-	public @ResponseBody String search(@RequestBody String word){
+	@RequestMapping(value="observe.ma", method=RequestMethod.POST)
+	public @ResponseBody String observe(@RequestBody String word){
 		JSONParser jsonParser = new JSONParser();
 		JSONObject json = new JSONObject();
 		
@@ -115,7 +106,6 @@ public class MainBoard {
 				json.put(key, value);
 			}
 			
-			System.out.println(json);
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -123,5 +113,10 @@ public class MainBoard {
 		}
 		
 		return json.toString();
+	}
+	
+	@RequestMapping(value="search.ma", method=RequestMethod.GET)
+	public void search(){
+		System.out.println("hi!");
 	}
 }

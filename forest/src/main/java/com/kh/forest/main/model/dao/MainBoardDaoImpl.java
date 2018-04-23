@@ -2,6 +2,8 @@ package com.kh.forest.main.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.forest.main.model.vo.Detail;
+import com.kh.forest.main.model.vo.SortByValue;
 import com.kh.forest.main.model.vo.Tree;
 
 @Repository
@@ -41,8 +44,6 @@ public class MainBoardDaoImpl implements MainBoardDao{
 	public Detail detail(SqlSessionTemplate sqlSession, String treeNo) {
 		
 		Detail detail = (Detail)sqlSession.selectOne("Mainboard.detail", treeNo);
-		
-		System.out.println(detail);
 		
 		return detail;
 	}
@@ -78,7 +79,6 @@ public class MainBoardDaoImpl implements MainBoardDao{
 		
 		for(String splited : setter){
 			//set에서 중복 검사 후 list에 다시 주입
-			System.out.println(splited);
 			observeList.add(splited);
 		}
 		
@@ -96,9 +96,21 @@ public class MainBoardDaoImpl implements MainBoardDao{
 			
 		}
 		
-		sortByValue(observeResultList)
+		//map을 value에 대해서 내림차순 정렬
+		SortByValue sort = new SortByValue();
 		
-		return observeResultList;
+	    Iterator it = sort.sortByValue(observeResultList).iterator();
+	    
+	    LinkedHashMap<String, String> observeSortResultList = new LinkedHashMap<String, String>();
+	    
+	    while(it.hasNext()){
+	    	String key = (String)it.next();
+	    	String value = (String)observeResultList.get(key);
+	    	
+	    	observeSortResultList.put(key, value);
+	    }
+		
+		return observeSortResultList;
 		
 		
 	}

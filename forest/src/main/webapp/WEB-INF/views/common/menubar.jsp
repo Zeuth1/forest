@@ -88,6 +88,7 @@
   .searchResultNav{
     display:flex;
     flex-direction:column;
+    
     top:60px;
     position:fixed;
     width:1200px;
@@ -100,9 +101,30 @@
     
   }
   
+  .searchItem{
+    display:flex;
+    align-items:center;
+    marin-left:20px;
+  }
+  
+  .searchItem:hover{
+    background:rgba(80,80,80,0.1);
+    cursor:pointer;
+  }
+  
+  .searchItem img{
+   width:50px;
+   height:50px;
+   margin-left:15px;
+   margin-right:15px;
+   border-radius:50%;
+   border:1px solid rgba(80,80,80,0.2);
+  }
+  
+  
   
   .userInfo{
-  display:flex;
+    display:flex;
     justify-content:center;
   }  
     
@@ -303,13 +325,13 @@
 </head>
 <body>
   <div class="overlay"></div>
-  
-  <div id="all">
+    <div id="all">
+    
     <i class="fas fa-plane" id="planeIcon" onclick="location.href='#'"></i>
     
     
 	    <i class="fas fa-search" id="searchIcon" style="color:rgba(80,80,80,0.3); font-size:20px;"></i>
-	    <input type="text" id="searchBar" onkeyup="searchStart()" placeholder="검색" autocomplete="off"
+	    <input type="text" id="searchBar" onkeyup="searchStart()" onclick="searchStart()" placeholder="검색" autocomplete="off"
 	           autocorrect="off" autocapitalize="off" spellcheck="false">
     
     
@@ -324,14 +346,13 @@
 	    <i class="fas fa-bars" id="menuIcon" style="color:rgba(80,80,80,0.3)"></i>
 	 
 	    
-    
+   
     
   </div>
   <div class="searchNav">
     <p style="margin-left:20px; margin-top:10px; font-size:12px;">최근 검색 기록</p>
     	
   </div>
-  
   <div class="searchResultNav">
     <p style="margin-left:20px; margin-top:10px; font-size:12px;">검색 결과</p>    	
     <table class='searchResultTable'></table>
@@ -358,6 +379,8 @@
       location.href="login.lo";
     </script>
   </c:if> 
+  
+   
    
   <script>
     
@@ -374,7 +397,6 @@
     }); 
     
     $(document).on('click', function(e){
-    	console.log($(e.target));
     	if( ! $(e.target).is($('#searchBar')) && ! $(e.target).is( $('.searchNav') ) ){
     		$('.overlay').css('display','none');
     		$('#searchBar').css("border","4px solid white").css("border-radius","8px");
@@ -397,14 +419,20 @@
     			$('.searchNav').css("display","none")
     		}
     	}
+    	
+    	if( ! $(e.target).is($('.searchResultNav')) && ! $(e.target).is($('#searchBar')) ){
+    		if( $('.searchResultNav').css('display','flex')){
+    			$('.searchResultNav').css("display","none")
+    			
+    		}
+    	}
     		
     	
     	
     });    
 
     $(document).on('click', function(e){
-    	console.log($(e.target));
-    		if(  $(e.target).is($('#menuIcon')) || $(e.target).parent().is($('#menuIcon')) ) {
+    	    if(  $(e.target).is($('#menuIcon')) || $(e.target).parent().is($('#menuIcon')) ) {
     		    if( $('#menuNav').attr("display","none")){
         		    $('#menuNav').css("display","block");
         		}
@@ -416,7 +444,17 @@
         		}
     		}
     		
-    	});	
+    		if(  $(e.target).parent().is($('.searchItem')) || $(e.target).is('.searchItem') ){
+    			if( $(e.target).parent().is($('.searchItem')) ) {
+    				location.href="search.ma?item=" + ( $(e.target).parent().attr('id') );
+    			}
+    			if( $(e.target).is('.searchItem') ) {
+    				location.href="search.ma?item=" + console.log( $(e.target).attr('id') );
+    			}
+    			
+    		}
+    		
+    	});		
     
     
     var delta = 500;
@@ -425,33 +463,39 @@
     
     
     function searchStart(){
+    	$('.searchResultNav').css('display','flex');
     	clearTimeout( timer );
     	timer = setTimeout( function searchStart(){
     		var word = $('#searchBar').val();
     		var wordJ = JSON.stringify(word);
-    		console.log(wordJ);
+    		var num = 0;
     		
     		if(word != ''){
     		  $.ajax({
-	    			url:"search.ma",
+	    			url:"observe.ma",
 	      			type:"POST",
 	      			data:wordJ,
 	      			dataType:"json", 
 	    			contentType:"application/json",
 	      			
 	      			
-	      			success:function(data){
-	      				console.log(data);
+	      			success:function(data){	      	
 	      				$('.searchNav').css('display','none');
 	      				
 	      					
-	      				$('.searchResultTable').remove();
-	      				$('<table class="searchResultTable">').appendTo('.searchResultNav');
+	      				$('.searchItem').remove();
 	      				$.each(data, function(key, value){
-	      					$('<tr><td>' + key + '</td><td>' + value + '</td><tr>').appendTo('.searchResultTable');
+	      					if(num == 5) return false;
+	      					
+	      					num++;
+	      				
+	      					var searchItem = $('<div class="searchItem">');
+	      					$('<img src="${ pageContext.request.contextPath }/resources/images/2000px-Number_sign.svg.png">').appendTo(searchItem);
+	      					$('<p>' + key + '<br>게시물 ' + value + ' 개</p>').appendTo(searchItem);
+	      					searchItem.attr('id',key);
+	      				    searchItem.appendTo('.searchResultNav');
 		      				
 	      				});
-	      				$('.searchResultNav').css('display','flex');
 	      				
 	      			}
     			  
@@ -478,6 +522,8 @@
     $('#t0').on('click', function(){
     	location.href="a_memberSearchView.man";
     })
+    
+    
     
   </script> 
 </body>

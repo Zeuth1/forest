@@ -51,7 +51,7 @@ public class MainBoardDaoImpl implements MainBoardDao{
 	@Override
 	public HashMap<String, String> observe(SqlSessionTemplate sqlSession, String searchWord) {
 		
-		List<String> searchResultList =  (List)sqlSession.selectList("Mainboard.search", searchWord);
+		List<String> searchResultList =  (List)sqlSession.selectList("Mainboard.observe", searchWord);
 		//검색어로 시작하는 단어가 포함된 트리태그들을 모두 저장 
 		
 		ArrayList<String> observeList = new ArrayList<String>();
@@ -112,6 +112,24 @@ public class MainBoardDaoImpl implements MainBoardDao{
 		
 		return observeSortResultList;
 		
+		
+	}
+
+	@Override
+	public ArrayList<Tree> search(SqlSessionTemplate sqlSession, String item) {
+		
+		ArrayList<Tree> searchResultListBefore = (ArrayList)sqlSession.selectList("Mainboard.search", "#" + item);
+		
+		ArrayList<Tree> searchResultListAfter = new ArrayList<Tree>();
+		
+		for(Tree tree : searchResultListBefore){
+			if( (tree.getTreeTag() + "#").contains("#" + item + "#") ){
+			    searchResultListAfter.add(tree);
+			}
+			
+		}
+		
+		return searchResultListAfter;
 		
 	}
 	

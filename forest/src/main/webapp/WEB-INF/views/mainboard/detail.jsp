@@ -256,13 +256,6 @@
       
       
       <script>
-      $('img').on('click', function(){
-    		 
-     		location.href="detail.jsp?src=" + $(this).attr('src') + "&figcaption=" + $(this).siblings().eq(0).attr('title');
-     		
-     	 });
-      
-     
       
       $('#homeBtn').click(function(){
       	window.history.back();

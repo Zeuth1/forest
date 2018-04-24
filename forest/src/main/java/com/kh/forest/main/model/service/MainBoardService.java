@@ -15,4 +15,6 @@ public interface MainBoardService {
 	public Detail detail(String treeNo);
 	
 	public HashMap<String, String> observe(String searchWord);
+	
+	public ArrayList<Tree> search(String item);
 }

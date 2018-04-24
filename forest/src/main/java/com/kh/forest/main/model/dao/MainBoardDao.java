@@ -18,4 +18,6 @@ public interface MainBoardDao {
 	
 	public HashMap<String, String> observe(SqlSessionTemplate sqlSession, String searchWord);
 	
+	public ArrayList<Tree> search(SqlSessionTemplate sqlSession, String item);
+	
 }

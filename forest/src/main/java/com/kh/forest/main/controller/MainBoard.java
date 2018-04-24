@@ -2,12 +2,17 @@ package com.kh.forest.main.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpUtils;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -115,8 +120,45 @@ public class MainBoard {
 		return json.toString();
 	}
 	
-	@RequestMapping(value="search.ma", method=RequestMethod.GET)
-	public void search(){
-		System.out.println("hi!");
+	@RequestMapping(value="searchPage")
+	public ModelAndView searchPage(ModelAndView mv, @RequestParam("item")String item){
+		mv.addObject("item", item);
+		mv.setViewName("searchBoard");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="search.ma", method=RequestMethod.POST)
+	public @ResponseBody String search(ModelAndView mv,@RequestBody String item){
+		ArrayList<Tree> searchResultList = null;
+		
+		System.out.println(item);
+		
+		JSONParser parser = new JSONParser();
+		
+		try {
+			String itemAfter = (String)parser.parse(item);
+			searchResultList = ms.search(itemAfter);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		for(Tree search : searchResultList){
+			System.out.println(search);
+		}
+		
+		
+		
+		JSONArray array = JSONArray.fromObject(searchResultList);
+		
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		
+		hashMap.put("treeList", array);
+		
+		JSONObject object = JSONObject.fromObject(hashMap);
+		
+		return object.toString();
 	}
 }

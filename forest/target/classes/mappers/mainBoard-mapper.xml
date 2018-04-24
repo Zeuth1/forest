@@ -59,12 +59,22 @@
     HAVING T.TREE_NO = #{treeNo}
   </select>
   
-  <select id="search" parameterType="java.lang.String" resultType="java.lang.String">
+  <select id="observe" parameterType="java.lang.String" resultType="java.lang.String">
  
     SELECT TREE_TAG
     FROM TREE
     WHERE TREE_TAG LIKE '%#' || #{searchWord} || '%'
   
+  </select>
+  
+  <select id="search" parameterType="java.lang.String" resultMap="treeResultMap">
+    SELECT R2.*
+    FROM(SELECT ROWNUM RNUM, R1.* 
+         FROM(SELECT TREE_NO, TREE_AFTER, TREE_TAG
+              FROM TREE 
+              WHERE TREE_TAG LIKE '%' || #{item} || '%'
+              ORDER BY TREE_DATE DESC) R1) R2
+    WHERE RNUM BETWEEN 1 AND 42
   </select>
 
 </mapper>

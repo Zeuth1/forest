@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR" import="com.kh.forest.common.Member"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="com.kh.forest.common.Member"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -327,18 +327,18 @@
   <div class="overlay"></div>
     <div id="all">
     
-    <i class="fas fa-plane" id="planeIcon" onclick="location.href='#'"></i>
+    <i class="fas fa-plane" id="planeIcon" onclick="location.href='mainBoard.ma'"></i>
     
     
 	    <i class="fas fa-search" id="searchIcon" style="color:rgba(80,80,80,0.3); font-size:20px;"></i>
-	    <input type="text" id="searchBar" onkeyup="searchStart()" onclick="searchStart()" placeholder="°Ë»ö" autocomplete="off"
+	    <input type="text" id="searchBar" onkeyup="searchStart()" onclick="searchStart()" placeholder="ê²€ìƒ‰" autocomplete="off"
 	           autocorrect="off" autocapitalize="off" spellcheck="false">
     
     
-	    <p id="home" onclick="location.href='#'">È¨</p>
+	    <p id="home" onclick="location.href='mainBoard.ma'">í™ˆ</p>
 	    <div class="userInfo">
 		    <i class="fas fa-user" id="pic" style="color:white"></i>
-		    <p id="name">${ sessionScope.loginUser.mNickName }</p> <!-- ÇÑ±Û °ø¹é¾øÀÌ 8ÀÚ, ¿µ¾î ÃÖ´ë 13ÀÚ -->
+		    <p id="name">${ sessionScope.loginUser.mNickName }</p> <!-- í•œê¸€ ê³µë°±ì—†ì´ 8ì, ì˜ì–´ ìµœëŒ€ 13ì -->
 	    </div>
 	    
 	    
@@ -350,11 +350,11 @@
     
   </div>
   <div class="searchNav">
-    <p style="margin-left:20px; margin-top:10px; font-size:12px;">ÃÖ±Ù °Ë»ö ±â·Ï</p>
+    <p style="margin-left:20px; margin-top:10px; font-size:12px;">ìµœê·¼ ê²€ìƒ‰ ê¸°ë¡</p>
     	
   </div>
   <div class="searchResultNav">
-    <p style="margin-left:20px; margin-top:10px; font-size:12px;">°Ë»ö °á°ú</p>    	
+    <p style="margin-left:20px; margin-top:10px; font-size:12px;">ê²€ìƒ‰ ê²°ê³¼</p>    	
     <table class='searchResultTable'></table>
   </div>
   
@@ -363,14 +363,14 @@
   <div id="menuNav">
     <table>
       <c:if test="${ sessionScope.loginUser.mLevel == 1 }">
-        <tr><td id="t0">°ü¸®ÀÚ ÆäÀÌÁö</td></tr>
+        <tr><td id="t0">ê´€ë¦¬ì í˜ì´ì§€</td></tr>
         <script> $('#menuNav').css('height','153px')</script>
       </c:if>
-      <tr><td id="t1">ÇÁ·ÎÇÊ ¼öÁ¤</td></tr>
-      <tr><td id="t2">ÈÄ¿øÀÚ Á¶È¸</td></tr>
-      <tr><td id="t3">ÈÄ¿ø³»¿ª Á¶È¸</td></tr>
-      <tr><td id="t4">°Ô½ÃÆÇ</td></tr>
-      <tr><td id="t5">·Î±×¾Æ¿ô</td></tr>
+      <tr><td id="t1">í”„ë¡œí•„ ìˆ˜ì •</td></tr>
+      <tr><td id="t2">í›„ì›ì ì¡°íšŒ</td></tr>
+      <tr><td id="t3">í›„ì›ë‚´ì—­ ì¡°íšŒ</td></tr>
+      <tr><td id="t4">ê²Œì‹œíŒ</td></tr>
+      <tr><td id="t5">ë¡œê·¸ì•„ì›ƒ</td></tr>
     </table>
   </div>
    
@@ -432,6 +432,7 @@
     });    
 
     $(document).on('click', function(e){
+    	
     	    if(  $(e.target).is($('#menuIcon')) || $(e.target).parent().is($('#menuIcon')) ) {
     		    if( $('#menuNav').attr("display","none")){
         		    $('#menuNav').css("display","block");
@@ -446,10 +447,16 @@
     		
     		if(  $(e.target).parent().is($('.searchItem')) || $(e.target).is('.searchItem') ){
     			if( $(e.target).parent().is($('.searchItem')) ) {
-    				location.href="search.ma?item=" + ( $(e.target).parent().attr('id') );
+    				var item = $(e.target).parent().attr('id').split('#')[1];
+    				
+    				location.href="searchPage.ma?item=" + item;
+    				
     			}
     			if( $(e.target).is('.searchItem') ) {
-    				location.href="search.ma?item=" + console.log( $(e.target).attr('id') );
+    				var item = $(e.target).attr('id').split('#')[1];
+    				
+    				location.href="searchPage.ma?item=" + item;
+    			  
     			}
     			
     		}
@@ -491,7 +498,7 @@
 	      				
 	      					var searchItem = $('<div class="searchItem">');
 	      					$('<img src="${ pageContext.request.contextPath }/resources/images/2000px-Number_sign.svg.png">').appendTo(searchItem);
-	      					$('<p>' + key + '<br>°Ô½Ã¹° ' + value + ' °³</p>').appendTo(searchItem);
+	      					$('<p>' + key + '<br>ê²Œì‹œë¬¼ ' + value + ' ê°œ</p>').appendTo(searchItem);
 	      					searchItem.attr('id',key);
 	      				    searchItem.appendTo('.searchResultNav');
 		      				

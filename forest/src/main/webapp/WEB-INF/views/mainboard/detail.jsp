@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-<% if( request.getSession().getAttribute("loginUser") == null) %> <script> location.href="wrongAccess.lo";</script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -232,12 +231,12 @@
       
       <div id="description">
       
-        <div id="goBoardBtn" onclick="location.href='#'"><p id="goBoardText">${ detail.userId }의 보드 더보기</p></div>
+        <div id="goBoardBtn" onclick="location.href='#'"><p id="goBoardText">${ detail.mNickName }의 보드 더보기</p></div>
         
         <div class="uploadInfo">
 	        <img src="/tree/${ detail.treeAfter }" id="profile"> 
 	      	<p id="uploadDetail">
-	      	  <a href="#">${ detail.userId }</a> 님이 <a href="#">${ detail.boardTitle }</a>에 저장함
+	      	  <a href="#">${ detail.mNickName }</a> 님이 <a href="#">${ detail.boardTitle }</a>에 저장함
 	      	  <br>${ detail.treeTag }
 	      	</p>
       	</div>
@@ -257,13 +256,6 @@
       
       
       <script>
-      $('img').on('click', function(){
-    		 
-     		location.href="detail.jsp?src=" + $(this).attr('src') + "&figcaption=" + $(this).siblings().eq(0).attr('title');
-     		
-     	 });
-      
-     
       
       $('#homeBtn').click(function(){
       	window.history.back();

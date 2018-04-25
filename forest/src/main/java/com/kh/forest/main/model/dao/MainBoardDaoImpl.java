@@ -2,6 +2,8 @@ package com.kh.forest.main.model.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.forest.main.model.vo.Detail;
+import com.kh.forest.main.model.vo.SortByValue;
 import com.kh.forest.main.model.vo.Tree;
 
 @Repository
@@ -42,15 +45,13 @@ public class MainBoardDaoImpl implements MainBoardDao{
 		
 		Detail detail = (Detail)sqlSession.selectOne("Mainboard.detail", treeNo);
 		
-		System.out.println(detail);
-		
 		return detail;
 	}
 
 	@Override
 	public HashMap<String, String> observe(SqlSessionTemplate sqlSession, String searchWord) {
 		
-		List<String> searchResultList =  (List)sqlSession.selectList("Mainboard.search", searchWord);
+		List<String> searchResultList =  (List)sqlSession.selectList("Mainboard.observe", searchWord);
 		//검색어로 시작하는 단어가 포함된 트리태그들을 모두 저장 
 		
 		ArrayList<String> observeList = new ArrayList<String>();
@@ -78,7 +79,6 @@ public class MainBoardDaoImpl implements MainBoardDao{
 		
 		for(String splited : setter){
 			//set에서 중복 검사 후 list에 다시 주입
-			System.out.println(splited);
 			observeList.add(splited);
 		}
 		
@@ -96,10 +96,40 @@ public class MainBoardDaoImpl implements MainBoardDao{
 			
 		}
 		
-		sortByValue(observeResultList)
+		//map을 value에 대해서 내림차순 정렬
+		SortByValue sort = new SortByValue();
 		
-		return observeResultList;
+	    Iterator it = sort.sortByValue(observeResultList).iterator();
+	    
+	    LinkedHashMap<String, String> observeSortResultList = new LinkedHashMap<String, String>();
+	    
+	    while(it.hasNext()){
+	    	String key = (String)it.next();
+	    	String value = (String)observeResultList.get(key);
+	    	
+	    	observeSortResultList.put(key, value);
+	    }
 		
+		return observeSortResultList;
+		
+		
+	}
+
+	@Override
+	public ArrayList<Tree> search(SqlSessionTemplate sqlSession, String item) {
+		
+		ArrayList<Tree> searchResultListBefore = (ArrayList)sqlSession.selectList("Mainboard.search", "#" + item);
+		
+		ArrayList<Tree> searchResultListAfter = new ArrayList<Tree>();
+		
+		for(Tree tree : searchResultListBefore){
+			if( (tree.getTreeTag() + "#").contains("#" + item + "#") ){
+			    searchResultListAfter.add(tree);
+			}
+			
+		}
+		
+		return searchResultListAfter;
 		
 	}
 	

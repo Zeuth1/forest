@@ -2,12 +2,17 @@ package com.kh.forest.main.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpUtils;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -40,7 +45,6 @@ public class MainBoard {
 	public ModelAndView mainBoard(ModelAndView mv){
 		ArrayList treeList = ms.test();
 		
-		System.out.println(treeList);
 		mv.addObject("treeList", treeList);
 		mv.setViewName("mainBoard");
 		return mv;
@@ -48,7 +52,6 @@ public class MainBoard {
 	
 	@RequestMapping(value="paging.ma", method=RequestMethod.POST)
 	public @ResponseBody String paging(HttpServletResponse response, @RequestBody String JSONTreeArr_str){
-		System.out.println("받은 이미지들" + JSONTreeArr_str);
 		JSONParser jsonParser = new JSONParser();
 		
 		List<Tree> treeList = null;
@@ -67,7 +70,6 @@ public class MainBoard {
 			
 		JSONArray jsonArray = JSONArray.fromObject(treeList);
 		
-		System.out.println("거른 후 보낸 이미지들 : " + jsonArray);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -82,13 +84,7 @@ public class MainBoard {
 	
 	@RequestMapping(value="detail.ma", method=RequestMethod.GET)
 	public ModelAndView detail(ModelAndView mv, @RequestParam("treeNo") String treeNo){
-		System.out.println("첫번째 받음");
-		
-		System.out.println(treeNo);
-		
 		Detail detail = ms.detail(treeNo);
-		
-		System.out.println(detail);
 		
 		mv.addObject("detail", detail);
 		
@@ -96,8 +92,8 @@ public class MainBoard {
 		return mv;
 	}
 	
-	@RequestMapping(value="search.ma", method=RequestMethod.POST)
-	public @ResponseBody String search(@RequestBody String word){
+	@RequestMapping(value="observe.ma", method=RequestMethod.POST)
+	public @ResponseBody String observe(@RequestBody String word){
 		JSONParser jsonParser = new JSONParser();
 		JSONObject json = new JSONObject();
 		
@@ -115,7 +111,6 @@ public class MainBoard {
 				json.put(key, value);
 			}
 			
-			System.out.println(json);
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -123,5 +118,47 @@ public class MainBoard {
 		}
 		
 		return json.toString();
+	}
+	
+	@RequestMapping(value="searchPage")
+	public ModelAndView searchPage(ModelAndView mv, @RequestParam("item")String item){
+		mv.addObject("item", item);
+		mv.setViewName("searchBoard");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="search.ma", method=RequestMethod.POST)
+	public @ResponseBody String search(ModelAndView mv,@RequestBody String item){
+		ArrayList<Tree> searchResultList = null;
+		
+		System.out.println(item);
+		
+		JSONParser parser = new JSONParser();
+		
+		try {
+			String itemAfter = (String)parser.parse(item);
+			searchResultList = ms.search(itemAfter);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		for(Tree search : searchResultList){
+			System.out.println(search);
+		}
+		
+		
+		
+		JSONArray array = JSONArray.fromObject(searchResultList);
+		
+		Map<String, Object> hashMap = new HashMap<String, Object>();
+		
+		hashMap.put("treeList", array);
+		
+		JSONObject object = JSONObject.fromObject(hashMap);
+		
+		return object.toString();
 	}
 }

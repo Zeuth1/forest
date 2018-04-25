@@ -53,6 +53,13 @@ public class MainBoardServiceImpl implements MainBoardService{
 		
 		return observeResultList;
 	}
+
+	@Override
+	public ArrayList<Tree> search(String item) {
+		ArrayList<Tree> searchResultList = md.search(sqlSession, item);
+		
+		return searchResultList;
+	}
 	
 	
 	

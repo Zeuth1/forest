@@ -24,7 +24,7 @@ import com.kh.forest.helpcenter.model.vo.PageInfo;
 import com.kh.forest.helpcenter.model.vo.SearchCondition;
 
 @Controller
-public class helpCenter {
+public class Helpcenter {
 
 	@Autowired
 	private HelpService hs;
@@ -45,13 +45,13 @@ public class helpCenter {
 	public ModelAndView helpCenter(ModelAndView mv, Member loginUser) {
 		try {
 
-			String USER_ID = "admin";
-			String USER_PWD = "admin";
+			//String USER_ID = "admin";
+			//String USER_PWD = "admin";
 			int USER_NO = 1;
 
 			loginUser.setmNo(USER_NO);
-			loginUser.setmId(USER_ID);
-			loginUser.setmPwd(USER_PWD);
+			//loginUser.setmId(USER_ID);
+			//loginUser.setmPwd(USER_PWD);
 
 			
 			mv.setViewName("/helpCenter");

@@ -31,9 +31,9 @@
       INSERT INTO NOTICE (NOTICE_NO, USER_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_PWD)
       VALUES(SEQ_NOTICE.NEXTVAL, #{USER_NO}, #{NOTICE_TITLE}, #{NOTICE_CONTENT}, SYSDATE, #{NOTICE_PWD})
    </insert>
-  
+   
  	<select id="selectNotice" resultMap="noticeResultSet" parameterType="Notice">
-			SELECT N.NOTICE_NO, N.NOTICE_TITLE, M.USER_ID, N.NOTICE_DATE
+			SELECT N.NOTICE_NO, N.NOTICE_TITLE, M.USER_NAME, N.NOTICE_DATE
 			FROM NOTICE N
      		JOIN MEMBER M ON(M.USER_NO=N.USER_NO)
 			ORDER BY N.NOTICE_NO DESC
@@ -48,10 +48,9 @@
 	</select>
 	 
    
- 	
-	
+ 	 
 	 	<select id="selectSearchResultList" resultMap="noticeResultSet" parameterType="Notice">
-			SELECT N.NOTICE_NO, N.NOTICE_TITLE, M.USER_ID, N.NOTICE_DATE 
+			SELECT N.NOTICE_NO, N.NOTICE_TITLE, M.USER_NAME, N.NOTICE_DATE 
 			FROM NOTICE N
 			JOIN MEMBER M ON(M.USER_NO=N.USER_NO)
 			<choose>
@@ -70,10 +69,9 @@
 			SELECT COUNT(*) 
 			FROM NOTICE 
 	</select>
-	
 	 
 	 <select id="recoverSelectNotice" resultMap="noticeResultSet" parameterType="Notice">
-			SELECT N.NOTICE_NO, N.NOTICE_TITLE, M.USER_ID, N.NOTICE_DATE
+			SELECT N.NOTICE_NO, N.NOTICE_TITLE, M.USER_NAME, N.NOTICE_DATE
 			FROM NOTICE N
       		JOIN MEMBER M ON(M.USER_NO=N.USER_NO)
 			ORDER BY N.NOTICE_NO DESC

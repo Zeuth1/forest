@@ -24,7 +24,7 @@ import com.kh.forest.helpcenter.model.vo.PageInfo;
 import com.kh.forest.helpcenter.model.vo.SearchCondition;
 
 @Controller
-public class Helpcenter {
+public class helpCenter {
 
 	@Autowired
 	private HelpService hs;
@@ -42,9 +42,24 @@ public class Helpcenter {
 	// 1 메인 로딩 (get) (매개변수 x) // 헬프센터 메인은 디비에서 가져올 것 없음. 완료
 	// 세션에 정보 저장
 	@RequestMapping(value = "helpCenter.help", method = RequestMethod.GET)
-	public ModelAndView helpCenter(ModelAndView mv) {
-		mv.setViewName("/helpCenter");
+	public ModelAndView helpCenter(ModelAndView mv, Member loginUser, HttpSession session) {
+		try {
 
+			String USER_ID = "admin";
+			String USER_PWD = "admin";
+			int USER_NO = 1;
+
+			loginUser.setmNo(USER_NO);
+			loginUser.setmId(USER_ID);
+			loginUser.setmPwd(USER_PWD);
+
+			session.setAttribute("loginUser", loginUser);
+			mv.setViewName("/helpCenter");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
 		return mv;
 	}
 

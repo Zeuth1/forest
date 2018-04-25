@@ -369,7 +369,7 @@
       <tr><td id="t1">프로필 수정</td></tr>
       <tr><td id="t2">후원자 조회</td></tr>
       <tr><td id="t3">후원내역 조회</td></tr>
-      <tr><td id="t4">게시판</td></tr>
+      <tr><td id="t4">고객 센터</td></tr>
       <tr><td id="t5">로그아웃</td></tr>
     </table>
   </div>

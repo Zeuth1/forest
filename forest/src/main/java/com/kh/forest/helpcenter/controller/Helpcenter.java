@@ -42,7 +42,7 @@ public class helpCenter {
 	// 1 메인 로딩 (get) (매개변수 x) // 헬프센터 메인은 디비에서 가져올 것 없음. 완료
 	// 세션에 정보 저장
 	@RequestMapping(value = "helpCenter.help", method = RequestMethod.GET)
-	public ModelAndView helpCenter(ModelAndView mv, Member loginUser, HttpSession session) {
+	public ModelAndView helpCenter(ModelAndView mv, Member loginUser) {
 		try {
 
 			String USER_ID = "admin";
@@ -53,7 +53,7 @@ public class helpCenter {
 			loginUser.setmId(USER_ID);
 			loginUser.setmPwd(USER_PWD);
 
-			session.setAttribute("loginUser", loginUser);
+			
 			mv.setViewName("/helpCenter");
 
 		} catch (Exception e) {
@@ -80,8 +80,7 @@ public class helpCenter {
 
 	// 3 문의 등록 폼 제출 & 리다이렉트하여 문의 등록 리스트 호출(post) // 인서트와 셀렉트 따로
 	@RequestMapping(value = "PersonalInquiryList.help", method = RequestMethod.POST)
-	public String PersonalInquiryList(String NOTICE_TITLE, String NOTICE_CONTENT, String NOTICE_PWD,
-			HttpSession session, Notice notice) {
+	public String PersonalInquiryList(String NOTICE_TITLE, String NOTICE_CONTENT, String NOTICE_PWD, Notice notice) {
 
 		String USER_NO = "1";
 

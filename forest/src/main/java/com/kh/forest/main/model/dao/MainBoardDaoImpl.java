@@ -1,5 +1,6 @@
 package com.kh.forest.main.model.dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.forest.main.model.vo.Detail;
+import com.kh.forest.main.model.vo.History;
 import com.kh.forest.main.model.vo.SortByValue;
 import com.kh.forest.main.model.vo.Tree;
 
@@ -116,21 +118,45 @@ public class MainBoardDaoImpl implements MainBoardDao{
 	}
 
 	@Override
-	public ArrayList<Tree> search(SqlSessionTemplate sqlSession, String item) {
+	public ArrayList<Tree> search(SqlSessionTemplate sqlSession, String item, int mno){ 
 		
-		ArrayList<Tree> searchResultListBefore = (ArrayList)sqlSession.selectList("Mainboard.search", "#" + item);
 		
-		ArrayList<Tree> searchResultListAfter = new ArrayList<Tree>();
+		History history = new History();
+		ArrayList<Tree> searchResultListAfter = null;
+		ArrayList<Tree> searchResultListBefore = null;
 		
-		for(Tree tree : searchResultListBefore){
-			if( (tree.getTreeTag() + "#").contains("#" + item + "#") ){
-			    searchResultListAfter.add(tree);
+		history.setMno(mno + "");
+		history.setItem(item);
+		
+		try{
+			sqlSession.insert("Mainboard.historyInsert", history);
+		}finally{
+			
+			searchResultListBefore = (ArrayList)sqlSession.selectList("Mainboard.search", "#" + item);
+			
+			searchResultListAfter = new ArrayList<Tree>();
+			
+			for(Tree tree : searchResultListBefore){
+				if( (tree.getTreeTag() + "#").contains("#" + item + "#") ){
+					searchResultListAfter.add(tree);
+				}
+				
 			}
 			
+			return searchResultListAfter;
 		}
 		
-		return searchResultListAfter;
 		
+		
+	}
+
+	@Override
+	public ArrayList<String> history(SqlSessionTemplate sqlSession, int mno) {
+		ArrayList<String> historyList = (ArrayList)sqlSession.selectList("Mainboard.history", mno + "");
+		
+		
+		
+		return historyList;
 	}
 	
 	

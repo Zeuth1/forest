@@ -29,6 +29,7 @@
     FROM(SELECT ROWNUM RNUM, R1.* 
          FROM(SELECT TREE_NO, TREE_AFTER, TREE_TAG
               FROM TREE 
+              WHERE TREE_TYPE = 'A'
               ORDER BY DBMS_RANDOM.VALUE) R1) R2
     WHERE RNUM BETWEEN 1 AND 42
     
@@ -39,7 +40,8 @@
     FROM(SELECT ROWNUM RNUM, R1.* 
          FROM(SELECT TREE_NO, TREE_AFTER, TREE_TAG
               FROM TREE 
-              WHERE TREE_NO NOT IN 
+              WHERE TREE_TYPE = 'A'
+              AND TREE_NO NOT IN 
               <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
                 #{item}
               </foreach>
@@ -72,9 +74,24 @@
     FROM(SELECT ROWNUM RNUM, R1.* 
          FROM(SELECT TREE_NO, TREE_AFTER, TREE_TAG
               FROM TREE 
-              WHERE TREE_TAG LIKE '%' || #{item} || '%'
+              WHERE TREE_TYPE = 'A'
+              AND TREE_TAG LIKE '%' || #{item} || '%'
               ORDER BY TREE_DATE DESC) R1) R2
     WHERE RNUM BETWEEN 1 AND 42
   </select>
-
+  
+  <insert id="historyInsert">
+    INSERT INTO HISTORY
+    VALUES(SEQ_HNO.NEXTVAL, #{mno}, #{item}, SYSDATE)
+  </insert>
+  
+  <select id="history" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT H2.SEARCH_TAG
+	FROM(SELECT ROWNUM RNUM, H1.*
+	     FROM(SELECT SEARCH_TAG
+		      FROM HISTORY
+			  WHERE USER_NO = #{mno}
+			  ORDER BY HISTORY.HISTORY_DATE DESC)H1)H2
+	WHERE RNUM BETWEEN 1 AND 5
+  </select>
 </mapper>

@@ -72,7 +72,6 @@
   .searchNav{
     display:flex;
     flex-direction:column;
-    
     top:60px;
     position:fixed;
     width:1200px;
@@ -83,6 +82,22 @@
     margin-left:4.7%;
     display:none;
     
+  }
+  
+  .history{
+    display:flex;
+    height:40px;
+    align-items:center;
+    
+  }
+  
+  .history p{
+    margin-left:20px;
+  }
+  
+  .history:hover{
+    background:rgba(80,80,80,0.1);
+    cursor:pointer;
   }
   
   .searchResultNav{
@@ -121,15 +136,9 @@
    border:1px solid rgba(80,80,80,0.2);
   }
   
-  
-  
-  .userInfo{
-    display:flex;
-    justify-content:center;
-  }  
-    
   #home{
-    margin-left:1.5%;
+    margin-left:20px;
+    margin-right:20px;
     padding:15px;
     padding-top:9px;
     padding-bottom:9px;
@@ -144,21 +153,27 @@
     cursor:pointer;
   }
   
-  
- 
-  #name{
-    
-    padding-left:45px;
-    padding-right:20px;
-    padding-top:10px;
-    padding-bottom:10px;
+  .userInfo{
+    display:flex;
+    align-self:center;
+    height:30px;
+    padding-left:10px;
+    padding-right:40px;
+    padding-top:5px;
+    padding-bottom:5px;
     border-radius:25px;
     font-weight: bolder;
-    font-size:medium;
     color: rgba(80,80,80,0.5);
-  }
+  }  
   
-  #name:hover{
+  .userInfo img{
+    align-self:center;
+    margin-right:5px;
+    width:25px;
+    height:25px;
+  }
+   
+  .userInfo:hover{
     background:rgba(80,80,80,0.1);
     cursor:pointer;
   }
@@ -337,8 +352,8 @@
     
 	    <p id="home" onclick="location.href='mainBoard.ma'">홈</p>
 	    <div class="userInfo">
-		    <i class="fas fa-user" id="pic" style="color:white"></i>
-		    <p id="name">${ sessionScope.loginUser.mNickName }</p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
+		    <img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png"/>
+		    <p style="font-weight:bolder; font-size:medium; align-self:center;">${ sessionScope.loginUser.mNickName }</p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
 	    </div>
 	    
 	    
@@ -383,7 +398,9 @@
    
    
   <script>
-    
+    $(function(){
+    	
+    })
   
   
      $('#searchBar').on('click', function(){
@@ -424,6 +441,7 @@
     		if( $('.searchResultNav').css('display','flex')){
     			$('.searchResultNav').css("display","none")
     			
+    			
     		}
     	}
     		
@@ -461,6 +479,17 @@
     			
     		}
     		
+    		if( $(e.target).parent().is($('.history')) || $(e.target).is('.history')){
+    			if( $(e.target).parent().is($('.history')) ){
+    				var item = $(e.target).text();
+    				location.href="searchPage.ma?item=" + item;
+    			}
+    			if( $(e.target).is('.history') ){
+    				var item = $(e.target).children().text();
+    				location.href="searchPage.ma?item=" + item;
+    			}
+    		}
+    		
     	});		
     
     
@@ -470,7 +499,6 @@
     
     
     function searchStart(){
-    	$('.searchResultNav').css('display','flex');
     	clearTimeout( timer );
     	timer = setTimeout( function searchStart(){
     		var word = $('#searchBar').val();
@@ -478,6 +506,7 @@
     		var num = 0;
     		
     		if(word != ''){
+			  
     		  $.ajax({
 	    			url:"observe.ma",
 	      			type:"POST",
@@ -507,8 +536,27 @@
 	      			}
     			  
     		  });
+    	    $('.searchResultNav').css('display','flex');
     			
-    		}else{
+    		}else{    			
+    		    $.ajax({
+    		    	url:"history.ma",
+    		    	type:"POST",
+    		    	dataType:"json",
+    		    	contentType:"application/json",
+    		    	success:function(data){
+    		    		$('.history').remove();
+    		    		
+    		    		var arr = data.historyList;
+    		    		
+    		    		for(var i = 0; i < arr.length; i++){
+    		    			var  history = $('<div class="history">')
+    		    			$('<p style="font-size:15px; margin-bottom:10px; font-weight:bolder">' + arr[i] + '</p>').appendTo(history);
+    		    			history.appendTo('.searchNav');
+    		    		}
+    		    	}
+    		    	
+    		    });
     			$('.searchResultNav').css('display','none');
     			$('.searchNav').css('display','flex');
     			
@@ -529,6 +577,8 @@
     $('#t0').on('click', function(){
     	location.href="a_memberSearchView.man";
     })
+    
+    
     
     
     

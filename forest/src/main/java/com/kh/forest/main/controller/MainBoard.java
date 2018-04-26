@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUtils;
 
 import org.json.simple.parser.JSONParser;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.forest.common.Member;
 import com.kh.forest.main.model.service.MainBoardService;
 import com.kh.forest.main.model.vo.Detail;
 import com.kh.forest.main.model.vo.Tree;
@@ -129,8 +131,11 @@ public class MainBoard {
 	}
 	
 	@RequestMapping(value="search.ma", method=RequestMethod.POST)
-	public @ResponseBody String search(ModelAndView mv,@RequestBody String item){
+	public @ResponseBody String search(ModelAndView mv,@RequestBody String item, HttpSession session){
 		ArrayList<Tree> searchResultList = null;
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		int mno = m.getmNo();
 		
 		System.out.println(item);
 		
@@ -138,7 +143,7 @@ public class MainBoard {
 		
 		try {
 			String itemAfter = (String)parser.parse(item);
-			searchResultList = ms.search(itemAfter);
+			searchResultList = ms.search(itemAfter, mno);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -156,6 +161,24 @@ public class MainBoard {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		
 		hashMap.put("treeList", array);
+		
+		JSONObject object = JSONObject.fromObject(hashMap);
+		
+		return object.toString();
+	}
+	
+	@RequestMapping(value="history.ma", method=RequestMethod.POST)
+	public @ResponseBody String history(HttpSession session){
+		Member m = (Member)session.getAttribute("loginUser");
+		int mno = m.getmNo(); 
+		
+		ArrayList<String> historyList = ms.history(mno);
+		
+		JSONArray array = JSONArray.fromObject(historyList);
+		
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		
+		hashMap.put("historyList", array);
 		
 		JSONObject object = JSONObject.fromObject(hashMap);
 		

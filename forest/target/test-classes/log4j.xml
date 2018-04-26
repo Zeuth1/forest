@@ -10,12 +10,12 @@
 		</layout>
 	</appender>
 	
-	<!-- Application Loggers -->
+	<!-- Application Loggers
 	<logger name="com.kh.forest">
 		<level value="info" />
 	</logger>
 	
-	<!-- 3rdparty Loggers -->
+	
 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>	
@@ -32,10 +32,10 @@
 		<level value="info" />
 	</logger>
 
-	<!-- Root Logger -->
+	
 	<root>
 		<priority value="info" />
 		<appender-ref ref="console" />
-	</root>
+	</root> -->
 	
 </log4j:configuration>

@@ -55,10 +55,18 @@ public class MainBoardServiceImpl implements MainBoardService{
 	}
 
 	@Override
-	public ArrayList<Tree> search(String item) {
-		ArrayList<Tree> searchResultList = md.search(sqlSession, item);
+	public ArrayList<Tree> search(String item, int mno) {
+		ArrayList<Tree> searchResultList = md.search(sqlSession, item, mno);
 		
 		return searchResultList;
+	}
+
+	@Override
+	public ArrayList<String> history(int mno) {
+		ArrayList<String> historyList = md.history(sqlSession, mno);
+		
+		
+		return historyList;
 	}
 	
 	

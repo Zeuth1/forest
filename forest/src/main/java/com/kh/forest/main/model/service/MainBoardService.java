@@ -16,5 +16,7 @@ public interface MainBoardService {
 	
 	public HashMap<String, String> observe(String searchWord);
 	
-	public ArrayList<Tree> search(String item);
+	public ArrayList<Tree> search(String item, int mno);
+	
+	public ArrayList<String> history(int mno);
 }

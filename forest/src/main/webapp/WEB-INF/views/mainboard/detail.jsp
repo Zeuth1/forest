@@ -140,7 +140,7 @@
      flex-direction:column;
      margin-top:2%;
      width:480px;
-     height:500px;
+     
    }
    
    #goBoardText{
@@ -176,7 +176,7 @@
      border-bottom:1px solid rgba(80,80,80,0.2);
    }
    
-   #profile{
+   .profile{
      width:50px;
      height:50px;
      border-radius:100%;
@@ -200,11 +200,14 @@
      color:black;
    }
    
-   #commentary{
-     border-bottom:1px solid rgba(80, 80, 80, 0.3);
-     margin-top:40px;
+   .commentary{
+   display:flex;
+   flex-direction:column;
+     
+     margin-top:10px;
      font-size:17px;
-     height:40px;
+     width:450px;
+     height:500px;
    }
    
     
@@ -234,18 +237,27 @@
         <div id="goBoardBtn" onclick="location.href='#'"><p id="goBoardText">${ detail.mNickName }의 보드 더보기</p></div>
         
         <div class="uploadInfo">
-	        <img src="/tree/${ detail.treeAfter }" id="profile"> 
+	        <img src="/tree/${ detail.treeAfter }" class="profile"> 
 	      	<p id="uploadDetail">
 	      	  <a href="#">${ detail.mNickName }</a> 님이 <a href="#">${ detail.boardTitle }</a>에 저장함
 	      	  <br>${ detail.treeTag }
 	      	</p>
       	</div>
       
+	    <div class="commentary">
+	      <p>댓글 5개</p>
+	      <div id="write" style="display:flex">
+	        <img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png"/ class="profile">
+	        <textArea placeholder="공개 댓글 추가..." style="max-height:300px; width:400px"></textArea>
+	      </div>
+	      
+	      <div class="commentaryBoard">
+	      
+	      </div>
+	    </div>
+      
       </div>
       
-      <div id="commentary">
-      
-      </div>
         
     
     

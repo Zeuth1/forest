@@ -5,10 +5,10 @@
 <html>
 <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
+/*     .navbar {
       margin-bottom: 0;
       border-radius: 0;
-    }
+    } */
     
     /* Add a gray background color and some padding to the footer */
     footer {
@@ -79,7 +79,7 @@
    		   	</div>
    		   		<img>
    		   		 <div class="carousel-caption">
-      		   		<img src="" id="MyImage" style="cursor: pointer;">
+      		   		<img src="<%=request.getContextPath() %>/resources/images/profile.jpg" id="MyImage" style="cursor: pointer;">
     		    </div>      
     		  </div>
   		  </div>
@@ -102,28 +102,30 @@
  		 <br>
   		<div class="row">
   		  <div class="col-sm-4" onclick="gomodal();">
-    		  <img id="boardImages" src="images/addimages.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
-    		  <label>보드만들기!</label><p>혹시모르니한줄더여유를..</p>
+    		  <img id="boardImages" src="<%=request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
+    		  <a data-toggle="modal" href="boardAddForm.my" data-target="#testModal" role="button" data-backdrop="static">
+					<p>보드추가하기</p>
+			    </a><p>혹시모르니한줄더여유를..</p>
    		 </div>
    		 <div class="col-sm-4" onclick="detailboard();" > 
-   		   <img id="boardImages" src="images/test.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
+   		   <img id="boardImages" src="<%=request.getContextPath() %>/resources/images/test.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
     		  <label>설현...그녀는...</label>    
    		 </div>
    		 <div class="col-sm-4"> 
-   		   <img id="boardImages" src="images/test.jpg" class="img-responsive" style="width:100%; cursor: pointer;" alt="보드만들기">
+   		   <img id="boardImages" src="<%=request.getContextPath() %>/resources/images/test.jpg" class="img-responsive" style="width:100%; cursor: pointer;" alt="보드만들기">
     		  <label>이쁘당</label>
     		  <p>너도모르니여유를</p>
    		 </div>
    		 <div class="col-sm-4"> 
-   		   <img id="boardImages" src="images/test.jpg" class="img-responsive" style="width:100%" alt="보드만들기">
+   		   <img id="boardImages" src="<%=request.getContextPath() %>/resources/images/test.jpg" class="img-responsive" style="width:100%" alt="보드만들기">
     		  <p></p>    
    		 </div>
    		 <div class="col-sm-4"> 
-   		   <img id="boardImages"src="images/test.jpg" class="img-responsive" style="width:100%" alt="보드만들기">
+   		   <img id="boardImages"src="<%=request.getContextPath() %>/resources/images/test.jpg" class="img-responsive" style="width:100%" alt="보드만들기">
     		  <p></p>    
    		 </div>
    		 <div class="col-sm-4"> 
-   		   <img id="boardImages" src="images/test.jpg" class="img-responsive" style="width:100%" alt="보드만들기">
+   		   <img id="boardImages" src="<%=request.getContextPath() %>/resources/images/test.jpg" class="img-responsive" style="width:100%" alt="보드만들기">
     		  <p></p>    
    		 </div>
    		 
@@ -131,7 +133,7 @@
  		 <hr>
 		<div class="row">
 			<div align="center">
-				<p style="margin-right:490px"><img class="lockImages" src="images/Lock.jpg"><label>비밀보드!</label></p>
+				<p style="margin-right:490px"><img class="lockImages" src="<%=request.getContextPath() %>/resources/images/Lock.jpg"><label>비밀보드!</label></p>
 				<label>회원님과 회원님이 초대한 사람들만이 이 보드들을 볼 수있습니다. </label> <label><a style="cursor: pointer">자세히알아보기</a></label>
 			</div>
 		</div>
@@ -152,9 +154,9 @@
 
 		
 <div class="modal" id="testModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog modal-sm" style="width:350px; height:150px;">
+	<div class="modal-dialog modal-sm" style="width:700px; height:600px;">
 		<div class="modal-content" >
-			<div class="modal-body" style="width:350px; height:150px;">
+			<div class="modal-body" style="width:700px; height:600px;">
 				<h1>보드만들기</h1>
 				<hr>
 				이름: <input type="text" id="input">
@@ -170,9 +172,7 @@
 <br><br><br><br><br><br><br><br><br><br>
 
 <script>
-	function gomodal(){
-		$("#testModal").modal();
-	}
+
 	function detailboard(){
 		location.href="myBoardDetail.my";
 	}

@@ -207,12 +207,29 @@
      margin-top:10px;
      font-size:17px;
      width:450px;
-     height:500px;
+     margin-bottom:20px;
    }
    
+   textArea{
+  
+     font-family: 'Nanum Gothic', sans-serif;
+     width:380px;
+     margin-left:20px;
     
+     resize:none;
+     border-bottom:1px solid black;
+     border-top:0px;
+     border-right:0px;
+     border-left:0px; 
+   } 
+   
+   textArea:focus{
+     outline:none;
+   }
   
 </style>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
+<script src="http://lib.inmu.net/autosize.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -245,10 +262,14 @@
       	</div>
       
 	    <div class="commentary">
-	      <p>댓글 5개</p>
+	      <p style="margin-top:5px; margin-bottom:20px">댓글 5개</p>
 	      <div id="write" style="display:flex">
 	        <img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png"/ class="profile">
-	        <textArea placeholder="공개 댓글 추가..." style="max-height:300px; width:400px"></textArea>
+	        <form class="form">
+	        <textArea placeholder="공개 댓글 추가..." rows="1"></textArea>
+	        <button type="submit">댓글</button>
+	        <button type="button" onclick="erase()">CANCLE</button>
+	        </form>
 	      </div>
 	      
 	      <div class="commentaryBoard">
@@ -269,9 +290,19 @@
       
       <script>
       
+		autosize(document.querySelectorAll("textArea"));
+
+      function erase(){
+    	  $('textArea').val('');
+    	  $('textArea').height(18);
+    	 
+      };
       $('#homeBtn').click(function(){
       	window.history.back();
       })
+      
+      
+      
       
     </script>
       

@@ -63,7 +63,7 @@
    		   		</div>
 			</div>
 			<div style="float:left; width:300px; height:250px;">
-				<img id="MyImage" src="images/test.jpg" style="width:260px; height:250px; border-radius:50%; padding-top: 5px;padding-bottom: 5px;cursor: pointer;;">
+				<img id="MyImage" src="<%=request.getContextPath() %>/resources/images/test.jpg" style="width:260px; height:250px; border-radius:50%; padding-top: 5px;padding-bottom: 5px;cursor: pointer;;">
 			</div>
 		</div>
 		
@@ -77,13 +77,13 @@
  		 <br>
   		<div class="row">
   		  <div class="col-sm-4">
-    		  <img src="images/addimages.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
+    		  <img src="<%=request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
     		  	<a data-toggle="modal" href="finAddForm.my" data-target="#testModal" role="button" data-backdrop="static">
 					<p>핀추가하기</p>
 			    </a>
    		 </div>
    		 <div class="col-sm-4"> 
-   		   <img id="boardImages" src="images/test.jpg" class="img-responsive" style="width:100%; cursor: pointer;" alt="보드만들기">
+   		   <img id="boardImages" src="<%=request.getContextPath() %>/resources//images/test.jpg" class="img-responsive" style="width:100%; cursor: pointer;" alt="보드만들기">
     		  <label>이쁘당</label>
     		  <p>너도모르니여유를</p>
    		 </div>	 

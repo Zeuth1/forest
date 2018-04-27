@@ -578,7 +578,9 @@
     	location.href="a_memberSearchView.man";
     })
     
-    
+    $('.userInfo').on('click', function(){
+    	location.href="myBoard.my";
+    })
     
     
     

@@ -20,7 +20,7 @@ public class MyBoard {
 	@RequestMapping(value="myBoard.my", method=RequestMethod.GET)
 	public ModelAndView myboard(ModelAndView mv){
 		System.out.println("1.마이보드로!");
-		mv.setViewName("myBoard");
+		mv.setViewName("myboard");
 		
 		return mv;
 	}
@@ -47,6 +47,12 @@ public class MyBoard {
 	public ModelAndView finAddForm(ModelAndView mv){
 		System.out.println("핀만들기");
 		mv.setViewName("finAddForm");
+		return mv;
+	}
+	@RequestMapping(value="boardAddForm.my", method=RequestMethod.GET)
+	public ModelAndView boardAddForm(ModelAndView mv){
+		System.out.println("핀만들기");
+		mv.setViewName("boardAddForm");
 		return mv;
 	}
 }

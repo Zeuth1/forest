@@ -59,7 +59,7 @@
 	
 	<select id="sessionMember" resultMap="memberResultSet" parameterType="java.lang.String">
 	
-			SELECT*FROM MEMBER WHERE USER_ID=#{mId} AND STATUS='Y'
+			SELECT USER_NO, USER_ID, GENDER, PHONE, EMAIL, STATUS, USER_LEVEL, USER_NAME, NICK_NAME, SOCIAL_ID  FROM MEMBER WHERE USER_ID= #{mId} AND STATUS='Y'
 		
 	</select>
 	
@@ -83,8 +83,8 @@
 
 	
 	<select id="sessionMember2" resultMap="memberResultSet" parameterType="java.lang.String">
+			SELECT USER_NO, USER_ID, GENDER, PHONE, EMAIL, STATUS, USER_LEVEL, USER_NAME, NICK_NAME, SOCIAL_ID  FROM MEMBER WHERE SOCIAL_ID = #{social_id} AND STATUS='Y'
 			
-			SELECT*FROM MEMBER WHERE SOCIAL_ID=#{social_id} AND STATUS='Y'	
 	
 	</select>
 	

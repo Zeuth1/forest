@@ -12,6 +12,7 @@
   
   <resultMap id="detailMap" type="Detail">
     <id column="TREE_NO" property="treeNo"/>
+    <result column="USER_NO" property="mno"/>
     <result column="TREE_AFTER" property="treeAfter"/>
     <result column="NICK_NAME" property="mNickName"/>
     <result column="TREE_TAG" property="treeTag"/>
@@ -19,8 +20,18 @@
     <result column="TREE_DATE" property="treeDate"/>
     <result column="BOARD_TITLE" property="boardTitle"/>
     <result column="TREE_COUNT" property="treeCtn"/>
-    
   </resultMap>
+  
+  <resultMap id="commentaryMap" type="Commentary">
+    <id column="COMMENT_NO" property="comment_no"></id>
+    <result column="COMMENT_CONTENT" property="comment_content"></result>
+    <result column="NOTICE_NO" property="notice_no"></result>
+    <result column="TREE_NO" property="tree_no"></result>
+    <result column="NICK_NAME" property="nick_name"></result>
+    <result column="COMMENT_DATE" property="comment_date"></result>
+    <result column="TREE_AFTER" property="tree_after"></result>
+  </resultMap>
+    
   
   
   
@@ -29,7 +40,8 @@
     FROM(SELECT ROWNUM RNUM, R1.* 
          FROM(SELECT TREE_NO, TREE_AFTER, TREE_TAG
               FROM TREE 
-              WHERE TREE_TYPE = 'A'
+              WHERE (TREE_TYPE = 'A'
+              OR TREE_TYPE = 'L')
               ORDER BY DBMS_RANDOM.VALUE) R1) R2
     WHERE RNUM BETWEEN 1 AND 42
     
@@ -40,7 +52,8 @@
     FROM(SELECT ROWNUM RNUM, R1.* 
          FROM(SELECT TREE_NO, TREE_AFTER, TREE_TAG
               FROM TREE 
-              WHERE TREE_TYPE = 'A'
+              WHERE (TREE_TYPE = 'A'
+              OR TREE_TYPE = 'L')
               AND TREE_NO NOT IN 
               <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
                 #{item}
@@ -52,12 +65,12 @@
   </select>
   
   <select id="detail" parameterType="java.lang.String" resultMap="detailMap">
-    SELECT T.TREE_NO, T.TREE_AFTER, M.NICK_NAME, T.TREE_TAG, T.TREE_TYPE, T.TREE_DATE, B.BOARD_TITLE, COUNT(S.TREE_NO) TREE_COUNT
+    SELECT T.USER_NO, T.TREE_NO, T.TREE_AFTER, M.NICK_NAME, T.TREE_TAG, T.TREE_TYPE, T.TREE_DATE, B.BOARD_TITLE, COUNT(S.TREE_NO) TREE_COUNT
     FROM TREE T
     LEFT JOIN MEMBER M ON(T.USER_NO = M.USER_NO)
     LEFT JOIN STORE S ON(T.TREE_NO = S.TREE_NO)
     LEFT JOIN BOARD B ON(S.BOARD_NO = B.BOARD_NO)
-    GROUP BY (T.TREE_NO, T.TREE_AFTER, M.NICK_NAME, T.TREE_TAG, T.TREE_TYPE, T.TREE_DATE, B.BOARD_TITLE)
+    GROUP BY (T.USER_NO, T.TREE_NO, T.TREE_AFTER, M.NICK_NAME, T.TREE_TAG, T.TREE_TYPE, T.TREE_DATE, B.BOARD_TITLE)
     HAVING T.TREE_NO = #{treeNo}
   </select>
   
@@ -93,5 +106,48 @@
 			  WHERE USER_NO = #{mno}
 			  ORDER BY HISTORY.HISTORY_DATE DESC)H1)H2
 	WHERE RNUM BETWEEN 1 AND 5
+  </select>
+  
+  <select id="commentaryListCount" parameterType="java.lang.String" resultType="_int">
+    SELECT COUNT(COMMENT_NO)
+    FROM COMMENTARY
+    WHERE TREE_NO = #{treeNo}
+  </select>
+  
+  <select id="commentaryList" parameterType="java.lang.String" resultMap="commentaryMap">
+    SELECT C2.*
+FROM
+(SELECT ROWNUM RNUM, C1.*
+FROM
+(SELECT C.COMMENT_NO, C.COMMENT_CONTENT, M.NICK_NAME, T.TREE_AFTER, TO_CHAR(C.COMMENT_DATE, 'YYYY-MM-DD-HH24-MI') COMMENT_DATE
+    FROM COMMENTARY C
+    JOIN MEMBER M ON (C.USER_NO = M.USER_NO)
+    JOIN TREE T ON(M.NICK_NAME = T.TREE_TAG)
+    WHERE C.TREE_NO = #{treeNo}
+    ORDER BY COMMENT_DATE DESC)C1)C2
+WHERE RNUM BETWEEN #{commentCountStart} AND #{commentCountEnd}
+  </select>
+  
+  <select id="getProfile" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT TREE_AFTER
+    FROM TREE
+    WHERE TREE_TAG = #{ mno }
+  </select>
+  
+  <insert id="commentaryInsert">
+    INSERT INTO COMMENTARY
+    VALUES(SEQ_CNO.NEXTVAL, #{content}, NULL, #{treeNo}, #{userNo}, SYSDATE)
+  </insert> 
+  
+  <select id="insertedComment" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT COMMENT_NO
+	FROM
+	(SELECT ROWNUM RNUM, C1.*
+	FROM
+	(SELECT COMMENT_NO 
+	FROM COMMENTARY 
+	WHERE USER_NO = #{uesrNo}
+	ORDER BY COMMENT_DATE DESC )C1)C2
+	WHERE RNUM = 1
   </select>
 </mapper>

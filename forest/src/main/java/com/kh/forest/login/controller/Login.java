@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.javassist.compiler.ast.Symbol;
@@ -74,7 +75,7 @@ public class Login {
 	
 	
 	
-	@RequestMapping(value="login.lo",method=RequestMethod.GET)
+	@RequestMapping(value="login.lo")
 	public ModelAndView enterLogin(ModelAndView mv){
 		
 		
@@ -102,7 +103,7 @@ public class Login {
 		return mv;
 		
 	}
-	@RequestMapping(value="checkContent.lo" , produces = "application/plain; charset=utf8" ,method=RequestMethod.POST)
+	@RequestMapping(value="checkContent.lo" , produces = "application/plain; charset=utf8")
 	public ModelAndView checkNick(ModelAndView mv, String nick){
 		
 		
@@ -122,7 +123,7 @@ public class Login {
 		return mv;
 	}
 	
-	@RequestMapping(value="insertMember.lo", method=RequestMethod.POST)
+	@RequestMapping(value="insertMember.lo")
 	public ModelAndView checkNick(Member m,ModelAndView mv){
 		
 		m.setmPwd(passwordEncoder.encode(m.getmPwd()));
@@ -136,7 +137,7 @@ public class Login {
 		return mv;
 		}
 	
-	@RequestMapping(value="gotomain.lo", method=RequestMethod.GET)
+	@RequestMapping(value="gotomain.lo")
 	public ModelAndView login(ModelAndView mv){
 	
 		String aName =ls.getaName();
@@ -148,7 +149,7 @@ public class Login {
 		return mv;
 	}
 	
-	@RequestMapping(value="checkMember.lo", method=RequestMethod.POST)
+	@RequestMapping(value="checkMember.lo")
 	public ModelAndView memberCheck(HttpSession session,ModelAndView mv,String mId, String mPwd){
 		
 		int result=ls.checkMember(mId,mPwd);
@@ -170,7 +171,7 @@ public class Login {
 		return mv;
 	}
 	
-	@RequestMapping(value="find.lo", method=RequestMethod.GET)
+	@RequestMapping(value="find.lo")
 	public ModelAndView find(ModelAndView mv){
 		
 		String aName =ls.getaName();
@@ -181,7 +182,7 @@ public class Login {
 		
 	}
 	
-	@RequestMapping(value="checkPhone.lo", method=RequestMethod.POST)
+	@RequestMapping(value="checkPhone.lo")
 	public ModelAndView checkPhone(ModelAndView mv ,String id){
 	
 		int check = ls.checkPhone(id);
@@ -192,7 +193,7 @@ public class Login {
 		return mv;
 	}
 	
-	@RequestMapping(value="checkPwd.lo", method=RequestMethod.GET)
+	@RequestMapping(value="checkPwd.lo")
 	public ModelAndView changePwd(ModelAndView mv,String mId){
 		String aName= ls.getaName();
 		mv.addObject("aName",aName);
@@ -201,7 +202,7 @@ public class Login {
 		
 		return mv;
 	}
-	@RequestMapping(value="changePwd.lo", method=RequestMethod.POST)
+	@RequestMapping(value="changePwd.lo")
 	public ModelAndView changepass(ModelAndView mv, String mId, String mPwd){
 		
 		m.setmPwd(passwordEncoder.encode(mPwd));
@@ -215,6 +216,17 @@ public class Login {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value="logout.lo")
+	public ModelAndView logout(ModelAndView mv, HttpSession session){
+		
+		session.invalidate();
+		mv.setViewName("/loginForm");
+		
+		return mv;
+		
+	}
+	
 	public class GoogleAuthorizationCodeTokenV4Request extends GoogleAuthorizationCodeTokenRequest {
 		
 		
@@ -272,7 +284,7 @@ public class Login {
 		System.out.println(mv);
 		return mv;
 	}
-	@RequestMapping(value="naver.lo",method=RequestMethod.POST)
+	@RequestMapping(value="naver.lo")
 	public ModelAndView naverLogin(HttpSession session, ModelAndView mv,@RequestParam(value="clientId",required=true) String clientId){
 	
 		int check=ls.compareId(clientId);
@@ -287,7 +299,7 @@ public class Login {
 		
 		return mv;
 	}
-	@RequestMapping(value="checkMail",method=RequestMethod.POST)
+	@RequestMapping(value="checkMail")
 	public ModelAndView checkMail(ModelAndView mv, String email){
 		
 		int result = ls.checkMail(email);

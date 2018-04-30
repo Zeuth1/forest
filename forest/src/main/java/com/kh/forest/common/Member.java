@@ -144,6 +144,7 @@ public class Member {
 
 	public void setsocialId(String socialId) {
 		this.socialId = socialId;
+
 	}
 
 	@Override

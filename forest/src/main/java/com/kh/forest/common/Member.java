@@ -138,12 +138,13 @@ public class Member {
 		this.mEnrollDate = mEnrollDate;
 	}
 
-	public String getmSocialId() {
+	public String getsocialId() {
 		return socialId;
 	}
 
-	public void setmSocialId(String mSocialId) {
-		this.socialId = mSocialId;
+	public void setsocialId(String socialId) {
+		this.socialId = socialId;
+
 	}
 
 	@Override

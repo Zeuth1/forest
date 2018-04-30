@@ -29,7 +29,7 @@ public class Setting {
 		
 		
 		mv.addObject("loginUser",m);
-		mv.setViewName("/myPage");
+		mv.setViewName("/cashView");
 		
 		return mv;
 	}

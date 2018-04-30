@@ -88,11 +88,18 @@
 		<h1>후원 정보조회</h1>
 		<div class="giver-wrap">
 		<button id="giveMoney" class="giveMoney" onclick="giveMoney();">내가 참여한 후원</button><button id="takeMoney" class="takeMoney" onclick="takeMoney();">내가 받은 후원</button>
+			<div class="switch-wrap">
+			<p>후원내역보기</p>	
+			<label class="switch">
+			  <input type="checkbox">
+			  <span class="slider"></span>
+			</label>
+			</div>
 		<hr>
 		</div>	
 		
 		
-		<div class="look-up-wrap">
+		<div class="look-up-wrap" id="tab1">
 			<div class="division-wrap">
 				후원구분  
 				<select>
@@ -105,13 +112,64 @@
 			<div class="term-set-wrap">
 				기간설정 <button>1개월</button><button>3개월</button><button>6개월</button><button>1년</button><button>2년</button>
 				<input type="text" id="datepicker" style="margin-left:10px;" class="datepicker">~<input type="text" id="datepicker2" class="datepicker">
+				<button class="search">검색</button>
 				<br>
+				
+			<br>
 			
 			</div>		
-				<table class="table-wrap">
+				<table class="table-wrap" id="table-wrap1">
 					<thead>
 					 <tr>
-						<th class="first">후원월</th>
+						<th class="first">후원자</th>
+						<th>구분</th>
+						<th>결제방법</th>
+						<th>후원일자</th>
+						<th>후원금액</th>
+					 </tr>
+					</thead>
+			<c:choose>
+				<c:when test="${empty donate.donateNo }">
+					<tbody>
+						<tr>
+						
+							<td  colspan="5"style="text-align:center; padding: 15px; font-weight:200; font-size:14px; ">
+						납부완료된 후원 내역이 없습니다.
+							<td>
+						</tr>
+					</tbody>
+				</c:when>
+				<c:otherwise>
+					<!--이부분 작성  -->
+				</c:otherwise>	
+					
+			</c:choose>
+					
+				</table>
+		</div>
+		
+		<div class="look-up-wrap" id="tab2">
+			<div class="division-wrap">
+				후원구분  
+				<select>
+					<option selected="selected">전체보기</option>
+					<option>일시후원</option>
+					<option>정기결제</option>
+				</select>
+				※ 최근 2년간의 정보가 조회 가능합니다.
+			</div>
+			<div class="term-set-wrap">
+				기간설정 <button>1개월</button><button>3개월</button><button>6개월</button><button>1년</button><button>2년</button>
+				<input type="text" id="datepicker" style="margin-left:10px;" class="datepicker">~<input type="text" id="datepicker2" class="datepicker">
+				<button class="search">검색</button>
+				<br>
+			
+			<br>
+			</div>		
+				<table class="table-wrap" id="table-wrap2">
+					<thead>
+					 <tr>
+						<th class="first">후원자</th>
 						<th>구분</th>
 						<th>결제방법</th>
 						<th>후원일자</th>
@@ -139,28 +197,51 @@
 		</div>
 		
 		
+		
 	</div>
+	<div style="width:100%; height:5%;  position:fixed;  margin-top:800px;">
+		
+		<button class="cancel-btn">취소</button><button class="enter-btn">설정저장</button>
+		
+	</div>	
 </div>
 
 	<script>
 		function giveMoney(){
 			
+			$("#tab2").hide();
+			$("#tab1").show();
 			$("#giveMoney").css({"background":"#3399ff","color":"white"});
 			$("#takeMoney").css({"background":"white","color":"black"});
 			
 		}
 		
 		function takeMoney(){
-			
+			$("#tab2").show();
+			$("#tab1").hide();
 			$("#takeMoney").css({"background":"#3399ff","color":"white"});
 			$("#giveMoney").css({"background":"white","color":"black"});
 			
 		}
 	
+		function showContent(){
+			
+			$("#table-wrap1").toggle();
+			
+		}
+	</script>
+	
+	<script>
+	
+		$(function(){
+			
+			$("#tab2").toggle();
+			
+			
+		});
+		
 	
 	</script>
 
-
-<div style="width:100%; height:5%;  position:fixed; background:yellow; margin-top:800px;"></div>	
 </body>
 </html>

@@ -25,9 +25,15 @@
 		<input type="hidden" name="mEmail">
 
 </form>
-
-
-<body>
+	<c:choose>
+	  <c:when test="${empty logOut}">
+	<input type="hidden" id="logoutNum" value="0">	
+	  </c:when>
+	  <c:otherwise>
+	<input type="hidden" id="logoutNum" value="${logOut }">	
+	</c:otherwise>		
+	</c:choose>  
+	  
 
 
 
@@ -51,7 +57,7 @@
 				가지고 있는 계정으로 시작하기
 				<br>
 				<br>
-				<div id="naverIdLogin"  ></div>
+				<div id="naverIdLogin"></div>
 				<div  class="g-signin2" data-onsuccess="onSignIn" style="width:184.96px; margin-left:auto; margin-right:auto; margin-top:10px;">
 					
 							
@@ -112,7 +118,7 @@
 		  var Email= profile.getEmail();
 		  var Name= profile.getName();
 		  var xhr = new XMLHttpRequest();
-		  
+		  var log = $("#logoutNum").val();
 		  xhr.onreadystatechange = function() { // 요청에 대한 콜백
 			  if (xhr.readyState === xhr.DONE) { // 요청이 완료되면
 			    if (xhr.status === 200) {
@@ -129,8 +135,8 @@
 						
 			    		}
 			    	else{
-			    		
-			    		location.href="mainBoard.ma";
+			    		$("#logoutNum").val(response.logOut);
+			    		if($("#logoutNum").val()==1) location.href="mainBoard.ma";
 			    		
 			    		
 			    	}
@@ -144,8 +150,10 @@
 		  xhr.open('POST', 'google.lo');
 		  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		
-		  xhr.send('idtoken=' + id_token);
-		 
+		  xhr.send('idtoken='+id_token +'&log='+log);
+			 
+		 /*  xhr.send('idtoken=' + id_token +'log='+log);
+		  */
 		}
 		
 	
@@ -182,11 +190,14 @@
 	/* 설정정보를 초기화하고 연동을 준비 */
 	naverLogin.init();
 	
+
+	
 	window.addEventListener('load', function () {
 		naverLogin.getLoginStatus(function (status) {
 			if (status) {
 				/* (5) 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
 					var mEmail=naverLogin.user.getEmail();
+					var log=$("#logoutNum").val();
 					if( mEmail == undefined || mEmail == null) {
 					alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
 							console.log("이게안된다는건가?");
@@ -198,9 +209,8 @@
 						
 						url:"naver.lo",
 						method:"post",
-						data:{clientId:clientId},
+						data:{clientId:clientId,log:log},
 						success:function(data){
-							console.log(data);
 							if(data.check==0){
 								
 								$("input[name=socialId]").val(naverLogin.clientId);
@@ -209,7 +219,8 @@
 								$("#socialLogin").submit();
 							}else{
 								
-								location.href="mainBoard.ma";
+								$("#logoutNum").val(data.logOut);
+								if($("#logoutNum").val()==2) location.href="mainBoard.ma";
 								
 							}
 							
@@ -229,24 +240,8 @@
 	});
 	
 	
-	$(function(){
-		console.log("되는건가!!")
-		moveBgAround();
-		
-	});
 	
-	function moveBgAround() {
-		var x = Math.floor(Math.random()*401);
-		var y = Math.floor(Math.random()*401);
-		
-		var time = Math.floor(Math.random()*1001) + 2000;
 	
-		$('.background').animate({
-			backgroundPosition: '(' + (x * -1) + 'px ' + (y * -1) + 'px)'
-		}, time, "swing", function() {
-			moveBgAround();
-		});
-	}
 	
 </script>
 

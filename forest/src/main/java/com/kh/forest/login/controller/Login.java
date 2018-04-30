@@ -5,21 +5,15 @@ package com.kh.forest.login.controller;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
-import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.javassist.compiler.ast.Symbol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.api.client.json.JsonFactory;
@@ -29,7 +23,6 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.LowLevelHttpRequest;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.kh.forest.common.Email;
 import com.kh.forest.common.Member;
@@ -219,7 +212,9 @@ public class Login {
 	
 	@RequestMapping(value="logout.lo")
 	public ModelAndView logout(ModelAndView mv, HttpSession session){
-		
+		String aName= ls.getaName();
+		mv.addObject("aName",aName);
+		mv.addObject("logOut",3);
 		session.invalidate();
 		mv.setViewName("/loginForm");
 		
@@ -240,7 +235,7 @@ public class Login {
 		
 	}
 	@RequestMapping(value="google.lo")
-	public ModelAndView googleLogin(HttpSession session,ModelAndView mv,@RequestParam(value="idtoken",required= true) String idTokenString ) throws GeneralSecurityException, IOException{
+	public ModelAndView googleLogin(HttpSession session,ModelAndView mv,@RequestParam(value="idtoken",required= true) String idTokenString ,@RequestParam(value="log",required= true) int log) throws GeneralSecurityException, IOException{
 		
 	
 		
@@ -251,7 +246,7 @@ public class Login {
 			      .setAudience(Collections.singletonList("569688176866-2fhuueq4kb1pddacn6jlomi8q5siqd48.apps.googleusercontent.com"))
 			      .build();
 		
-		
+		System.out.println("int"+log);
 		
 		GoogleIdToken idToken =verifier.verify(idTokenString);
 
@@ -264,11 +259,21 @@ public class Login {
 		  int check=ls.compareId(userId);
 		  if(check!=0) {
 			  
-			  Member m = ls.sessionMaker2(userId);
-		      session.setAttribute("loginUser", m);
-			  
+			if(log==0) {
+				  mv.addObject("logOut",1);
+				  Member m = ls.sessionMaker2(userId);
+			      session.setAttribute("loginUser", m);
+				
+			}
+			else if(log==3) mv.addObject("logOut",5);
+			else if(log==5){
+				  Member m = ls.sessionMaker2(userId);
+			      session.setAttribute("loginUser", m);
+			  	  mv.addObject("logOut",1);
+			}else if(log==4) mv.addObject("logOut",3);
+			   		
 		  }
-		  
+		
 		  mv.addObject("mEmail",email);
 		  mv.addObject("mName",name);
 		  mv.addObject("check",check);
@@ -285,18 +290,28 @@ public class Login {
 		return mv;
 	}
 	@RequestMapping(value="naver.lo")
-	public ModelAndView naverLogin(HttpSession session, ModelAndView mv,@RequestParam(value="clientId",required=true) String clientId){
+	public ModelAndView naverLogin(HttpSession session, ModelAndView mv,@RequestParam(value="clientId",required=true) String clientId,int log){
 	
 		int check=ls.compareId(clientId);
+		System.out.println("log?"+log);
 		
 		if(check !=0){
-		Member m = ls.sessionMaker2(clientId);
-		session.setAttribute("loginUser", m);		
+			if(log==0){
+				Member m = ls.sessionMaker2(clientId);
+				session.setAttribute("loginUser", m);
+				mv.addObject("logOut",2);
+			}
+			else if(log==3) mv.addObject("logOut",4);
+			else if(log==4){
+				Member m = ls.sessionMaker2(clientId);
+				session.setAttribute("loginUser", m);
+				mv.addObject("logOut",2);
+			}else if(log==5) mv.addObject("logOut",3);
 		}
 		
 		mv.addObject("check",check);
 		mv.setViewName("jsonView");
-		
+		System.out.println(mv);
 		return mv;
 	}
 	@RequestMapping(value="checkMail")

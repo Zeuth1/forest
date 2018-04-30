@@ -56,7 +56,7 @@
 	<jsp:include page="../common/menubar.jsp"/>
 		<div id="main" style="width:1278.4; height:250px; border-top:1px solid; border-bottom:1px solid; border-style:inset;">
 			<div style="float:left; width:900px; height:250px;" align="center">
-					<p style="font-size:70px">태현 김</p>
+					<p style="font-size:70px">${ sessionScope.loginUser.mNickName  }</p>
    		   		<div>
    		   			<label onclick="" id="follower">팔로워:1</label>
    		   			<label onclick="" style="margin-left:50px;" id="follower">팔로윙:1</label>

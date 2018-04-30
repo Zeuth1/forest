@@ -88,7 +88,7 @@
   		  <div class="carousel-inner" role="listbox">
    		   <div class="item active">
    		   	<div class="carousel-caption">
-   		   		<p style="font-size:50px">설 현 !</p>
+   		   		<p style="font-size:50px">${ sessionScope.loginUser.mNickName  }</p>
    		   		<p>1핀</p>
    		   		<p></p>
    		   	</div>

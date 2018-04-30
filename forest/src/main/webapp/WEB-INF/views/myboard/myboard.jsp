@@ -60,9 +60,9 @@
 	
   </style>
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
@@ -73,7 +73,7 @@
   		  <div class="carousel-inner" role="listbox">
    		   <div class="item active">
    		   	<div class="carousel-caption">
-   		   		<p style="font-size:50px">태현 김</p>
+   		   		<p style="font-size:50px">${ sessionScope.loginUser.mNickName  }</p>
    		   		<p>팔로워:1</p>
    		   		<p>팔로윙:1</p>
    		   	</div>
@@ -153,7 +153,7 @@
 
 
 		
-<div class="modal" id="testModal" tabindex="-1" role="dialog">
+<!-- <div class="modal" id="testModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-sm" style="width:700px; height:600px;">
 		<div class="modal-content" >
 			<div class="modal-body" style="width:700px; height:600px;">
@@ -167,7 +167,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 
 <br><br><br><br><br><br><br><br><br><br>
 

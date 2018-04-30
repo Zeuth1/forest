@@ -15,6 +15,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.forest.common.Commentary;
+import com.kh.forest.common.CommentaryModel;
 import com.kh.forest.main.model.vo.Detail;
 import com.kh.forest.main.model.vo.History;
 import com.kh.forest.main.model.vo.SortByValue;
@@ -158,6 +160,49 @@ public class MainBoardDaoImpl implements MainBoardDao{
 		
 		return historyList;
 	}
+
+	@Override
+	public ArrayList<Commentary> commentaryList(SqlSessionTemplate sqlSession, String treeNo, String commentCount) {
+		HashMap<String, String> hash = new HashMap<String, String>();
+		
+		hash.put("treeNo", treeNo);
+		hash.put("commentCountStart", Integer.parseInt(commentCount) + 1 + "");
+		hash.put("commentCountEnd", Integer.parseInt(commentCount) + 20 + "");
+		
+		ArrayList<Commentary> commentaryList = (ArrayList)sqlSession.selectList("Mainboard.commentaryList", hash);
+		
+		return commentaryList;
+	}
+
+	@Override
+	public String getProfile(SqlSessionTemplate sqlSession, String mno) {
+		String profile = sqlSession.selectOne("Mainboard.getProfile", mno);
+		
+		return profile;
+	}
+
+	@Override
+	public void commentaryInsert(SqlSessionTemplate sqlSession, CommentaryModel model) throws Exception{
+		int cno = sqlSession.insert("Mainboard.commentaryInsert", model);
+		
+		System.out.println(cno);
+	}
+	
+	@Override
+	public String insertedComment(SqlSessionTemplate sqlSession, String userNo) {
+		String commentNo = sqlSession.selectOne("Mainboard.insertedComment", userNo);
+		
+		return commentNo;
+	}
+
+	@Override
+	public int commentaryListCount(SqlSessionTemplate sqlSession, String treeNo) {
+		int commentaryListCount = sqlSession.selectOne("Mainboard.commentaryListCount", treeNo);
+		
+		
+		return commentaryListCount;
+	}
+
 	
 	
 }

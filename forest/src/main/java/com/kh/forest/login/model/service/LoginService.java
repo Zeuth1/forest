@@ -16,7 +16,16 @@ public interface LoginService {
 
 	void changePwd(Member m);
 
+	int compareId(String userId);
+
 	Member sessionMaker(String mId);
+
+	Member sessionMaker2(String userId);
+
+	int checkMail(String email);
+
+	
+	
 	
 	
 	

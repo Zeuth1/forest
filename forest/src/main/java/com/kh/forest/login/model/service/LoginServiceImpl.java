@@ -75,14 +75,42 @@ public class LoginServiceImpl implements LoginService {
 
 
 	@Override
-	public Member sessionMaker(String mId) {
+	public int compareId(String userId) {
+
+		int check=ld.compareId(userId);
 		
-		Member m = ld.sessionMaker(mId);
+		return check;
+	}
+
+
+	@Override
+	public Member sessionMaker(String mId) {
+	      Member m = ld.sessionMaker(mId);
+	      
+	      return m;
+	}
+
+
+	@Override
+	public Member sessionMaker2(String userId) {
+		
+		
+		Member m =ld.sessionMaker2(userId);
 		
 		return m;
 	}
-	
-	
+
+
+	@Override
+	public int checkMail(String email) {
+
+		int result = ld.checkMail(email);
+		
+		return result;
+	}
+
+
+
 
 
 	

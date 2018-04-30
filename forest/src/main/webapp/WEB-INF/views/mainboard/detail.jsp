@@ -361,7 +361,7 @@
 	      	</p>
       	</div>
       
-	    
+	    	
 	    
       </div>
 	    <div class="commentary">
@@ -437,11 +437,16 @@
 			  dataType:"json",
 			  contentType:"application/json",
 			  success:function(data){
-				  loginUserProfile = '/tree/' + data.profile;
 				  
 				   if(data.profile !== null){
+				      loginUserProfile = '/tree/' + data.profile;
 					  $('#loginUserProfile').attr('src', loginUserProfile);
 				  }
+				   else{
+					   loginUserProfile = "${ pageContext.request.contextPath }/resources/images/default-user-image.png";
+					   $('#loginUserProfile').attr('src', loginUserProfile);
+				   } 
+				   
 			  }
 			  
 		  })
@@ -525,7 +530,14 @@
 						  for(var i = 0; i < arr.length; i++){
 					  		var comment = $('<div class="comment" style="display:flex; margin-top:15px; margin-bottom:10px;" " id="' + arr[i].comment_no + '">');
 					  		
-					  		var img = $('<img class="userProfile" src="/tree/' + arr[i].tree_after + '">');
+					  		if(arr[i].tree_after !== ""){
+					  		var img = $('<img class="userProfile" src="/tree/' + arr[i].tree_after + '">'); 
+					  		}else{
+					  			var img = $('<img class="userProfile" src="${ pageContext.request.contextPath }/resources/images/default-user-image.png">');
+					  				
+					  		}
+					  		
+					  		
 					  		var info = $('<div style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:10px;"><div style="display:flex;" flex-direction:row">' +
 					  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
 					  		             '<p class="commentDate">' + arr[i].comment_date + '</p></div>' + 
@@ -581,7 +593,13 @@
 								  for(var i = 0; i < arr.length; i++){
 							  		var comment = $('<div class="comment" style="display:flex; margin-top:15px; margin-bottom:10px;" " id="' + arr[i].comment_no + '">');
 							  		
-							  		var img = $('<img class="userProfile" src="/tree/' + arr[i].tree_after + '">');
+							  		if(arr[i].tree_after !== ""){
+								  		var img = $('<img class="userProfile" src="/tree/' + arr[i].tree_after + '">'); 
+								  		}else{
+								  			var img = $('<img class="userProfile" src="${ pageContext.request.contextPath }/resources/images/default-user-image.png">');
+								  				
+								  		}
+							  		
 							  		var info = $('<div style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:10px;"><div style="display:flex;" flex-direction:row">' +
 							  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
 							  		             '<p class="commentDate">' + arr[i].comment_date + '</p></div>' + 
@@ -593,6 +611,7 @@
 							  		$(comment).appendTo($('.commentaryBoard'));
 								  }
 							 
+								  
 							  }
 						  }
 					      
@@ -624,24 +643,24 @@
     		  data:data,
     		  type:"POST",   		  
     		  success:function(data){
-    			  if(data != "error"){
+    			  if(data !== "error"){
     				  console.log('insertion has succeed');
     				    console.log(data)
     				    
     				     //댓글 갯수 업데이트 
-		  $.ajax({
-			  url:"commentaryListCount.ma",
-			  type:"POST",
-			  data:JSON.stringify('${detail.treeNo}'),
-			  dataType:'json',
-			  contentType:'application/json',
-			  success:function(data){
-				  console.log(data);
-				  $('#commentCount').text('댓글 ' + data + '개');
-			  },
-		      
-			  
-		  })
+						  $.ajax({
+							  url:"commentaryListCount.ma",
+							  type:"POST",
+							  data:JSON.stringify('${detail.treeNo}'),
+							  dataType:'json',
+							  contentType:'application/json',
+							  success:function(data){
+								  console.log(data);
+								  $('#commentCount').text('댓글 ' + data + '개');
+							  },
+						      
+							  
+						  })
     				  
     				    //가라로 보여지는 부분
     				    var comment = $('<div class="comment" style="display:flex; margin-top:15px; margin-bottom:10px; id="' + data + '">');

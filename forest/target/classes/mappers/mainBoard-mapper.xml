@@ -116,16 +116,17 @@
   
   <select id="commentaryList" parameterType="java.lang.String" resultMap="commentaryMap">
     SELECT C2.*
-FROM
-(SELECT ROWNUM RNUM, C1.*
-FROM
-(SELECT C.COMMENT_NO, C.COMMENT_CONTENT, M.NICK_NAME, T.TREE_AFTER, TO_CHAR(C.COMMENT_DATE, 'YYYY-MM-DD-HH24-MI') COMMENT_DATE
-    FROM COMMENTARY C
-    JOIN MEMBER M ON (C.USER_NO = M.USER_NO)
-    JOIN TREE T ON(M.NICK_NAME = T.TREE_TAG)
-    WHERE C.TREE_NO = #{treeNo}
-    ORDER BY COMMENT_DATE DESC)C1)C2
-WHERE RNUM BETWEEN #{commentCountStart} AND #{commentCountEnd}
+	FROM
+	(SELECT ROWNUM RNUM, C1.*
+	FROM
+	(SELECT C.COMMENT_NO, C.COMMENT_CONTENT, M.NICK_NAME, T.TREE_AFTER, TO_CHAR(C.COMMENT_DATE, 'YYYY-MM-
+	DD-HH24-MI') COMMENT_DATE
+	    FROM COMMENTARY C
+	    JOIN MEMBER M ON (C.USER_NO = M.USER_NO)
+	    LEFT JOIN TREE T ON(M.NICK_NAME = T.TREE_TAG)
+	    WHERE C.TREE_NO = #{treeNo}
+	    ORDER BY COMMENT_DATE DESC)C1)C2
+	WHERE RNUM BETWEEN #{commentCountStart} AND #{commentCountEnd}
   </select>
   
   <select id="getProfile" parameterType="java.lang.String" resultType="java.lang.String">

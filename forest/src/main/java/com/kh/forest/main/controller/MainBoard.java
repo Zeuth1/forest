@@ -220,8 +220,17 @@ public class MainBoard {
 	@RequestMapping(value="commentaryList.ma", method=RequestMethod.POST)
 	public @ResponseBody String commentaryList(@RequestBody HashMap<String, String> hash){
 		
+		System.out.println("hi");
+		
+		System.out.println(hash.get("treeNo"));
+		
+		System.out.println(hash.get("commentCount"));
+		
 		ArrayList<Commentary> commentaryList = ms.commentaryList(hash.get("treeNo"), hash.get("commentCount"));
 		
+		for(Commentary c : commentaryList){
+			System.out.println(c);
+		}
 		
 		JSONArray array = JSONArray.fromObject(commentaryList);
 		

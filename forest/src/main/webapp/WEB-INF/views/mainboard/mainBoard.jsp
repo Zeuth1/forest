@@ -41,6 +41,7 @@
       
       .columns .figure img{
         width:230px;
+        
         border-radius:10px;
       }
       
@@ -138,8 +139,10 @@
     </div>
     </div>
     <script>
+      
     
     
+      
       $(document).on('click','.figure',function(){
     	  console.log($(this).attr('id'));
     	  location.href="detail.ma?treeNo=" + $(this).attr('id');

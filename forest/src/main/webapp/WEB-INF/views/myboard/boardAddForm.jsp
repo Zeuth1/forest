@@ -12,7 +12,7 @@
 
 				<div style="width:300px; height:400px; float:left;">
 					<!-- 이미지영역에 업로드할 파일들!!! -->
-					<img src="../images/test.jpg" style="width:290px; height:400px;">
+					<img src="<%=request.getContextPath() %>/resources/images/test.jpg" style="width:290px; height:400px;">
 				</div>
 				
 				<div style="width:300px; height:300px; float:left; overflow-y: scroll">

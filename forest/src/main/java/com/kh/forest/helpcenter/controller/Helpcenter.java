@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.forest.common.Commentary;
 import com.kh.forest.common.Member;
 import com.kh.forest.helpcenter.model.exception.HelpException;
 import com.kh.forest.helpcenter.model.service.HelpService;
 import com.kh.forest.helpcenter.model.service.sha512;
-import com.kh.forest.helpcenter.model.vo.Commentary;
+
 import com.kh.forest.helpcenter.model.vo.Notice;
 import com.kh.forest.helpcenter.model.vo.PageInfo;
 import com.kh.forest.helpcenter.model.vo.SearchCondition;

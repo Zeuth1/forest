@@ -177,7 +177,7 @@ public class MainBoard {
 		int mno = m.getmNo(); 
 		
 		ArrayList<String> historyList = ms.history(mno);
-		
+		 
 		JSONArray array = JSONArray.fromObject(historyList);
 		
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();

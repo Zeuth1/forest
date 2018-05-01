@@ -2,106 +2,15 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Notice">
-	<resultMap id="noticeResultSet" type="Notice">
-		<id property="NOTICE_NO" column="NOTICE_NO"/>
-		<result property="USER_NO" column="USER_NO"/>
-		<result property="NOTICE_TITLE" column="NOTICE_TITLE"/>
-		<result property="NOTICE_CONTENT" column="NOTICE_CONTENT"/>
-		<result property="NOTICE_DATE" column="NOTICE_DATE"/>
-		<result property="NOTICE_PWD" column="NOTICE_PWD"/>
-		<result property="NOTICE_PWD" column="NOTICE_PWD"/>
-		
+
+<mapper namespace="Help">
+
+
+	<!-- 리턴타입은 help -->
+	<resultMap id="helpResultSet" type="Help">
+
+
 	</resultMap>
- 
-
-	<select id="searchResultListCount" resultType="_int">
-			SELECT COUNT(*) 
-			FROM NOTICE 
-			<if test="title !=null">
-				WHERE NOTICE_TITLE LIKE '%' || #{title} || '%'
-			</if>
-			<if test="content !=null">
-				WHERE NOTICE_CONTENT LIKE '%' || #{content} || '%'
-			</if>
-	</select>
 
 
-	<insert id="insertNotice">   	
-      INSERT INTO NOTICE (NOTICE_NO, USER_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, NOTICE_PWD)
-      VALUES(SEQ_NOTICE.NEXTVAL, #{USER_NO}, #{NOTICE_TITLE}, #{NOTICE_CONTENT}, SYSDATE, #{NOTICE_PWD})
-   </insert>
-  
- 	<select id="selectNotice" resultMap="noticeResultSet" parameterType="Notice">
-			SELECT N.NOTICE_NO, N.NOTICE_TITLE, M.USER_ID, N.NOTICE_DATE
-			FROM NOTICE N
-     		JOIN MEMBER M ON(M.USER_NO=N.USER_NO)
-			ORDER BY N.NOTICE_NO DESC
-	</select>
- 
- 
-	 <select id="selectComparePassword" resultMap="noticeResultSet" parameterType="Notice">
-			SELECT * 
-			FROM NOTICE 
-			WHERE NOTICE_PWD=#{NOTICE_PWD} 
-			AND NOTICE_NO=#{NOTICE_NO}
-	</select>
-	 
-   
- 	
-	
-	 	<select id="selectSearchResultList" resultMap="noticeResultSet" parameterType="Notice">
-			SELECT N.NOTICE_NO, N.NOTICE_TITLE, M.USER_ID, N.NOTICE_DATE 
-			FROM NOTICE N
-			JOIN MEMBER M ON(M.USER_NO=N.USER_NO)
-			<choose>
-				<when test="title != null">
-				WHERE N.NOTICE_TITLE LIKE '%' || #{title} || '%'
-				</when>
-				
-				<otherwise>
-				WHERE N.NOTICE_CONTENT LIKE '%' || #{content} || '%'
-				</otherwise>
-			</choose>
-			ORDER BY N.NOTICE_NO DESC 
-	</select>
-	 
-	 <select id="selectListCount" resultType="_int">
-			SELECT COUNT(*) 
-			FROM NOTICE 
-	</select>
-	
-	 
-	 <select id="recoverSelectNotice" resultMap="noticeResultSet" parameterType="Notice">
-			SELECT N.NOTICE_NO, N.NOTICE_TITLE, M.USER_ID, N.NOTICE_DATE
-			FROM NOTICE N
-      		JOIN MEMBER M ON(M.USER_NO=N.USER_NO)
-			ORDER BY N.NOTICE_NO DESC
-	</select>
-	
-	<select id="helpDetailSelectList" resultMap="noticeResultSet" parameterType="Notice">
-			SELECT * 
-			FROM NOTICE 
-			WHERE NOTICE_NO=#{NOTICE_NO} 
-	</select>
-	
- 	<select id="updateDetailSelectList" resultMap="noticeResultSet" parameterType="Notice">
-			SELECT * 
-			FROM NOTICE 
-			WHERE NOTICE_NO=#{NOTICE_NO} 
-	</select>
-
-	
-	<update id="updateDetailComplete">
-			UPDATE NOTICE set 
-			NOTICE_CONTENT=#{NOTICE_CONTENT}
-			WHERE NOTICE_NO=#{NOTICE_NO} 
-	</update>
- 
- 	<delete id="deleteDetail">
-			DELETE FROM NOTICE
-			WHERE NOTICE_NO=#{NOTICE_NO} 
-	</delete>
- 
- 
-	</mapper>
+</mapper>

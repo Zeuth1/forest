@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <jsp:forward page="login.lo"/>
+  <jsp:forward page="a_memberSearchView.man"/>
   
   
 </body>

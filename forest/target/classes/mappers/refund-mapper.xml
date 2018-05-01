@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="Refund">
+	<resultMap id="RefundResultSet" type="Refund">
+
+		<id property="rownum" column="REFUND_NO" />
+		<result property="user_name" column="user_name" />
+		<result property="refund_amount" column="REFUND_AMOUNT" />
+		<result property="refund_tax" column="REFUND_TAX" />
+		<result property="status" column="STATUS" />
+
+	</resultMap>
+	<select id="CountNotRefund" resultType="_int">
+		Select count(*) from
+		refund WHERE STATUS='N'
+	</select>
+
+	<select id="NotRefundSearchAll" resultMap="RefundResultSet"
+		parameterType="_int">
+			SELECT
+		REFUND_NO,USER_NAME,REFUND_AMOUNT,REFUND_TAX,STATUS
+		FROM(
+		SELECT
+		R.REFUND_NO as REFUND_NO,M.USER_NAME as USER_NAME,R.REFUND_AMOUNT as
+		REFUND_AMOUNT,R.REFUND_TAX as REFUND_TAX,R.STATUS as STATUS
+		FROM REFUND
+		R
+		JOIN MEMBER M on (R.USER_NO=M.USER_NO)
+		where R.STATUS='N')
+		where ROWNUM BETWEEN 1+20*(#{_int}-1) and 20+20*(#{_int}-1)
+	</select>
+
+	<select id="CountRefund" resultType="_int">
+		Select count(*) from refund
+		WHERE STATUS='Y'
+	</select>
+
+	<select id="RefundSearchAll" resultMap="RefundResultSet"
+		parameterType="_int">
+		SELECT
+		REFUND_NO,USER_NAME,REFUND_AMOUNT,REFUND_TAX,STATUS
+		FROM(
+		SELECT
+		R.REFUND_NO as REFUND_NO,M.USER_NAME as USER_NAME,R.REFUND_AMOUNT as
+		REFUND_AMOUNT,R.REFUND_TAX as REFUND_TAX,R.STATUS as STATUS
+		FROM REFUND
+		R
+		JOIN MEMBER M on (R.USER_NO=M.USER_NO)
+		where R.STATUS='Y')
+		where ROWNUM BETWEEN 1+20*(#{_int}-1) and 20+20*(#{_int}-1)
+	</select>
+
+	<select id="CountSearchRefund" resultType="_int" parameterType="String">
+		SELECT
+		count(*)
+		FROM(
+		SELECT
+		ROWNUM,M.USER_NAME as USER_NAME,R.REFUND_AMOUNT as
+		REFUND_AMOUNT,R.REFUND_TAX as REFUND_TAX,R.STATUS as STATUS
+		FROM REFUND
+		R
+		JOIN MEMBER M on (R.USER_NO=M.USER_NO))
+		where USER_NAME=#{user_name}
+	</select>
+	<select id="SearchRefund" resultMap="RefundResultSet"
+		parameterType="hashmap">
+		SELECT
+		REFUND_NO,USER_NAME,REFUND_AMOUNT,REFUND_TAX,STATUS
+		FROM(
+		SELECT
+		R.REFUND_NO as REFUND_NO,M.USER_NAME as USER_NAME,R.REFUND_AMOUNT as
+		REFUND_AMOUNT,R.REFUND_TAX as REFUND_TAX,R.STATUS as STATUS
+		FROM REFUND
+		R
+		JOIN MEMBER M on (R.USER_NO=M.USER_NO))
+		where ROWNUM BETWEEN 1+20*(#{page}-1) and 20+20*(#{page}-1) and
+		USER_NAME=#{searchval}
+	</select>
+	<update parameterType="_int" id="UpdateRefundStatus">
+		UPDATE REFUND SET STATUS ='Y'
+		where REFUND_NO=#{rownum}
+	</update>
+
+</mapper>
+   

@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,44 +33,54 @@ public class ManagerViewController {
 	private ManagerService ms;
 
 	// <뷰>
+	@RequestMapping("a_gotoMainPage.man")
+	public String a_gotoMainPage() {
+		return "/admin_main";
+	}
 	/* 회원전체조회 */
+
+	
 	@RequestMapping("a_memberSearchView.man")
 	public String a_memberSearchView() {
 		return "/member/member_search";
 	}
 
-	/**/
-	@RequestMapping("a_memberUpdateView.man")
-	public String a_memberUpdateView(@RequestParam("mId") int mId, Model model) {
-		model.addAttribute("mId", mId);
-		return "/member/member_update";
-	}
-
 	@RequestMapping("a_memberDetailView.man")
-	public String a_memberDetailView() {
+	public String a_memberDetailView(@RequestParam("mId") int mId, Model model) {
+		model.addAttribute("mId", mId);
 		return "/member/member_detail";
 	}
+	
+	@RequestMapping("a_memberReportView.man")
+	public String a_memberReportView() {
+		return "/member/member_report";
+	}
+
 
 	/* 후원전체조회 */
 	@RequestMapping("a_moneyDonationView.man")
 	public String a_moneyDonationView() {
 		return "/money/money_donation";
 	}
+	@RequestMapping("a_moneyRefundView.man")
+	public String a_moneyRefundView() {
+		return "/money/money_refund";
+	}
+	@RequestMapping("a_moneyAccountView.man")
+	public String a_moneyAccountView() {
+		return "/money/money_account";
+	}
 
 	/* 차트조회 */
-	@RequestMapping("a_chartMainView.man")
-	public String a_chartMainView() {
-		return "/chart/chart_main";
-	}
 
 	@RequestMapping("a_chartGenderView.man")
 	public String a_chartGenderView() {
 		return "/chart/chart_gender";
 	}
 
-	@RequestMapping("a_chartAgeView.man")
-	public String a_chartAgeView() {
-		return "/chart/chart_age";
+	@RequestMapping("a_chartArtistView.man")
+	public String a_chartArtistView() {
+		return "/chart/chart_artist";
 	}
 	// <���� �κ�>
 

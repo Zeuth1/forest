@@ -57,6 +57,7 @@ public class ManagerMemberController {
 		int count = 0;
 		ArrayList<Member> list = ms.memberSerchOne(searchval, searchcon);
 		response.setCharacterEncoding("utf-8");
+		System.out.println(list);
 		new Gson().toJson(list, response.getWriter());
 
 	}

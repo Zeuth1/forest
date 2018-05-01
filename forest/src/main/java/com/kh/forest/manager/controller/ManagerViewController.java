@@ -72,19 +72,15 @@ public class ManagerViewController {
 	}
 
 	/* 차트조회 */
-	@RequestMapping("a_chartMainView.man")
-	public String a_chartMainView() {
-		return "/chart/chart_main";
-	}
 
 	@RequestMapping("a_chartGenderView.man")
 	public String a_chartGenderView() {
 		return "/chart/chart_gender";
 	}
 
-	@RequestMapping("a_chartAgeView.man")
-	public String a_chartAgeView() {
-		return "/chart/chart_age";
+	@RequestMapping("a_chartArtistView.man")
+	public String a_chartArtistView() {
+		return "/chart/chart_artist";
 	}
 	// <���� �κ�>
 

@@ -126,15 +126,15 @@
 				dataType : "json",
 				type : 'post',
 				success : function(list) {
-					console.log(list.length);
+					console.log(list);
 					Theader.innerHTML = "<th>DONATE_NO</th>"
 							+ "<th>GIVER_NAME</th>" + "<th>TAKER_NAME</th>"
 							+ "<th>DONATE_DATE</th>" + "<th>DONATE_AMOUNT</th>"
 					addData.innerHTML = "";
 					for (var i = 0; i < list.length; i++) {
 						addData.innerHTML += "<tr><td>" + list[i].donate_no
-								+ "</td>" + "<td>" + list[i].giver_name
-								+ "</td>" + "<td>" + list[i].taker_name
+								+ "</td>" + "<td>" + list[i].giver_Nick
+								+ "</td>" + "<td>" + list[i].taker_Nick
 								+ "</td>" + "<td>" + list[i].donate_date
 								+ "</td>" + "<td>" + list[i].donate_amount
 								+ "</td><tr>";
@@ -200,8 +200,8 @@
 						addData.innerHTML = "";
 						for (var i = 0; i < list.length; i++) {
 							addData.innerHTML += "<tr><td>" + list[i].donate_no
-									+ "</td>" + "<td>" + list[i].giver_name
-									+ "</td>" + "<td>" + list[i].taker_name
+									+ "</td>" + "<td>" + list[i].giver_Nick
+									+ "</td>" + "<td>" + list[i].taker_Nick
 									+ "</td>" + "<td>" + list[i].donate_date
 									+ "</td>" + "<td>" + list[i].donate_amount
 									+ "</td><tr>";
@@ -227,7 +227,7 @@
 						addData.innerHTML = "";
 						for (var i = 0; i < list.length; i++) {
 							addData.innerHTML += "<tr><td>" + list[i].donate_no
-									+ "</td>" + "<td>" + list[i].taker_name
+									+ "</td>" + "<td>" + list[i].taker_Nick
 									+ "</td>" + "<td>" + list[i].donate_amount
 									+ "</td><tr>";
 						}
@@ -253,8 +253,8 @@
 						addData.innerHTML = "";
 						for (var i = 0; i < list.length; i++) {
 							addData.innerHTML += "<tr><td>" + list[i].donate_no
-									+ "</td>" + "<td>" + list[i].giver_name
-									+ "</td>" + "<td>" + list[i].taker_name
+									+ "</td>" + "<td>" + list[i].giver_Nick
+									+ "</td>" + "<td>" + list[i].taker_Nick
 									+ "</td>" + "<td>" + list[i].donate_date
 									+ "</td>" + "<td>" + list[i].donate_amount
 									+ "</td><tr>";
@@ -280,7 +280,7 @@
 						addData.innerHTML = "";
 						for (var i = 0; i < list.length; i++) {
 							addData.innerHTML += "<tr><td>" + list[i].donate_no
-									+ "</td>" + "<td>" + list[i].giver_name
+									+ "</td>" + "<td>" + list[i].giver_Nick
 									+ "</td>" + "<td>" + list[i].donate_amount
 									+ "</td><tr>";
 						}

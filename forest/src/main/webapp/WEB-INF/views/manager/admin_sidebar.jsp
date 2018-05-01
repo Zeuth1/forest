@@ -126,17 +126,7 @@ h4, h5 {
 			<div id=divlist>
 				<div id=submenu>
 					<h5>
-						<a href="a_chartMainView.man">&nbsp;[요약]</a>
-					</h5>
-				</div>
-				<div id=submenu>
-					<h5>
-						<a href="a_chartAgeView.man">&nbsp;[연령별]</a>
-					</h5>
-				</div>
-				<div id=submenu>
-					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_return.jsp">&nbsp;[작가별]</a>
+						<a href="a_chartArtistView.man">&nbsp;[작가별]</a>
 					</h5>
 				</div>
 				<div id=submenu>

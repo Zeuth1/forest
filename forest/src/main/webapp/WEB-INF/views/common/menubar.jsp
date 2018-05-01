@@ -84,20 +84,16 @@
     
   }
   
-  .history{
-    display:flex;
-    height:40px;
-    align-items:center;
-    
-  }
-  
-  .history p{
-    margin-left:20px;
-  }
-  
-  .history:hover{
+  .historyArea p:hover{
     background:rgba(80,80,80,0.1);
     cursor:pointer;
+  }
+  
+  .historyArea{
+    display:flex;
+    flex-direction:column;
+    margin-left:20px;
+    margin-bottom:10px;
   }
   
   .searchResultNav{
@@ -157,6 +153,8 @@
     display:flex;
     align-self:center;
     height:30px;
+    
+    margin-top:5px;
     padding-left:10px;
     padding-right:40px;
     padding-top:5px;
@@ -169,6 +167,7 @@
   .userInfo img{
     align-self:center;
     margin-right:5px;
+    border-radius:100%;
     width:25px;
     height:25px;
   }
@@ -258,7 +257,7 @@
     margin-left:85%;
     position: fixed;
     width: 150px;
-    height: 115px;
+    height: 50px;
     padding: 40px;
     background: #FFFFFF;
     -webkit-border-radius: 13px;  
@@ -317,7 +316,7 @@
     font-size:large;
     color:rgba(80,80,80,0.5);
     
-    padding-top:7px;
+    padding-top:10px;
     padding-bottom:7px;
     padding-left:15px;
   }
@@ -352,7 +351,7 @@
     
 	    <p id="home" onclick="location.href='mainBoard.ma'">홈</p>
 	    <div class="userInfo">
-		    <img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png"/>
+		    <img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png" id="loginUserProfile"/>
 		    <p style="font-weight:bolder; font-size:medium; align-self:center;">${ sessionScope.loginUser.mNickName }</p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
 	    </div>
 	    
@@ -366,6 +365,7 @@
   </div>
   <div class="searchNav">
     <p style="margin-left:20px; margin-top:10px; font-size:12px;">최근 검색 기록</p>
+    <div class="historyArea"></div>
     	
   </div>
   <div class="searchResultNav">
@@ -381,9 +381,7 @@
         <tr><td id="t0">관리자 페이지</td></tr>
         <script> $('#menuNav').css('height','153px')</script>
       </c:if>
-      <tr><td id="t1">프로필 수정</td></tr>
-      <tr><td id="t2">후원자 조회</td></tr>
-      <tr><td id="t3">후원내역 조회</td></tr>
+      <tr><td id="t1">마이페이지</td></tr>
       <tr><td id="t4">고객 센터</td></tr>
       <tr><td id="t5">로그아웃</td></tr>
     </table>
@@ -399,7 +397,24 @@
    
   <script>
     $(function(){
-    	
+    	//프로필사진 불러오기
+    	$.ajax({
+			  url:"getProfile.ma",
+			  type:"POST",
+			  data:JSON.stringify('${loginUser.mNickName}'),
+			  dataType:"json",
+			  contentType:"application/json",
+			  success:function(data){
+				  var loginUserProfile = '/tree/' + data.profile;
+				  
+				   if(data.profile !== null){
+					  $('#loginUserProfile').attr('src', loginUserProfile);
+				  }
+				   
+				   
+			  }
+			  
+		  })
     })
   
   
@@ -545,15 +560,18 @@
     		    	dataType:"json",
     		    	contentType:"application/json",
     		    	success:function(data){
-    		    		$('.history').remove();
+    		    		$('.historyArea').remove();
     		    		
     		    		var arr = data.historyList;
     		    		
     		    		for(var i = 0; i < arr.length; i++){
-    		    			var  history = $('<div class="history">')
-    		    			$('<p style="font-size:15px; margin-bottom:10px; font-weight:bolder">' + arr[i] + '</p>').appendTo(history);
-    		    			history.appendTo('.searchNav');
+    		    			var historyArea = $('<div class="historyArea">');
+    		    			$('<p style="font-size:15px; margin-bottom:10px; font-weight:bolder">' + arr[i] + '</p>').appendTo(historyArea);
+    		    			historyArea.appendTo($('.searchNav'));
     		    		}
+    		    		
+    		    		
+    		    		
     		    	}
     		    	
     		    });
@@ -578,6 +596,14 @@
     	location.href="a_memberSearchView.man";
     })
     
+
+    $('.userInfo').on('click', function(){
+    	location.href="myBoard.my";
+    })
+
+    $("#t1").on('click',function(){
+    	location.href="settingPage.set"
+    })
     
     
     

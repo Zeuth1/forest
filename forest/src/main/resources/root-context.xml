@@ -51,7 +51,29 @@
 	<aop:pointcut id="serviceMethod" expression="execution(* com.kh.forest..*ServiceImpl.*(..))"/>
 	<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
 	</aop:config>
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="ForestCorporation@gmail.com" />
+		<property name="password" value="123!@#qwe" />
 	
+
+	<!-- email 요청시는 SMTP -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="email" class="com.kh.forest.common.Email"/>
+    <bean id="emailSender" class="com.kh.forest.login.controller.EmailSender"/>
+    <bean id="Member" class="com.kh.forest.common.Member"/>
+
+
+
 	
 </beans>
 

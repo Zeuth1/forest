@@ -12,9 +12,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.kh.forest.common.Commentary;
 import com.kh.forest.helpcenter.model.dao.HelpDao;
 import com.kh.forest.helpcenter.model.exception.HelpException;
-import com.kh.forest.helpcenter.model.vo.Commentary;
+
 import com.kh.forest.helpcenter.model.vo.Notice;
 import com.kh.forest.helpcenter.model.vo.PageInfo;
 import com.kh.forest.helpcenter.model.vo.SearchCondition;

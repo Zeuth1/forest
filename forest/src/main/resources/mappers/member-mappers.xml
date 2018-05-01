@@ -18,19 +18,13 @@
 		<result property="mEmail" column="EMAIL"/>
 		<result property="mStatus" column="STATUS"/>
 		<result property="mLevel" column="USER_LEVEL"/>
-		<!-- <result property="mEnrollDate" column="ENROLL_DATE"/> -->
+		<result property="mEnrollDate" column="ENROLL_DATE"/>
 		<result property="mNickName" column="NICK_NAME"/>
-		<result property="mSocialId" column="SOCIAL_ID"/>
+		<result property="socialId" column="SOCIAL_ID"/>
 	</resultMap>
 	
 	
-	<select id="checkEmail" resultType="_int" parameterType="java.lang.String">
-		
-		SELECT COUNT(EMAIL)
-		FROM MEMBER
-		WHERE  EMAIL=#{mEmail}
 	
-	</select>
 	
 	<select id="checkNick" resultType="_int" parameterType="java.lang.String">
 		
@@ -42,7 +36,7 @@
 	
 	<insert id="insertMember" parameterType="Member">
 	
-		INSERT INTO MEMBER VALUES(SEQ_MNO.NEXTVAL,#{mId},#{mPwd},#{mBirth},#{mGender},#{mPhone},#{mEmail},'Y','0', '20180101',#{mName},#{mNickName},null)
+		INSERT INTO MEMBER VALUES(SEQ_MNO.NEXTVAL,#{mId},#{mPwd},#{mBirth},#{mGender},#{mPhone},#{mEmail},'Y','0',SYSDATE,#{mName},#{mNickName},#{socialId})
 
 	</insert>
 	
@@ -50,7 +44,7 @@
 	
 		SELECT COUNT(USER_ID)
 		FROM MEMBER
-		WHERE USER_ID=#{mId}
+		WHERE USER_ID=#{mId} AND STATUS='Y'
 	
 		
 	</select>
@@ -65,7 +59,7 @@
 	
 	<select id="sessionMember" resultMap="memberResultSet" parameterType="java.lang.String">
 	
-			SELECT*FROM MEMBER WHERE USER_ID=#{mId} AND STATUS='Y'
+			SELECT USER_NO, USER_ID, GENDER, PHONE, EMAIL, STATUS, USER_LEVEL, USER_NAME, NICK_NAME, SOCIAL_ID  FROM MEMBER WHERE USER_ID= #{mId} AND STATUS='Y'
 		
 	</select>
 	
@@ -78,7 +72,27 @@
 	
 	
 	</update>
+
+	<select id="CheckSocial" resultType="_int" parameterType="java.lang.String">
+		
+		SELECT COUNT(SOCIAL_ID)
+		FROM MEMBER
+		WHERE  SOCIAL_ID=#{socialId}
 	
+	</select>
+
+	
+	<select id="sessionMember2" resultMap="memberResultSet" parameterType="java.lang.String">
+			SELECT USER_NO, USER_ID, GENDER, PHONE, EMAIL, STATUS, USER_LEVEL, USER_NAME, NICK_NAME, SOCIAL_ID  FROM MEMBER WHERE SOCIAL_ID = #{social_id} AND STATUS='Y'
+			
+	
+	</select>
+	
+	<select id="checkMail" resultType="_int" parameterType="java.lang.String">
+	
+		 SELECT COUNT(EMAIL) FROM MEMBER WHERE EMAIL=#{mEmail}
+	
+	</select>
 	
 	</mapper>
 	

@@ -5,7 +5,9 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URLDecoder;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.forest.common.Commentary;
+import com.kh.forest.common.CommentaryModel;
 import com.kh.forest.common.Member;
 import com.kh.forest.main.model.service.MainBoardService;
 import com.kh.forest.main.model.vo.Detail;
@@ -173,7 +177,7 @@ public class MainBoard {
 		int mno = m.getmNo(); 
 		
 		ArrayList<String> historyList = ms.history(mno);
-		
+		 
 		JSONArray array = JSONArray.fromObject(historyList);
 		
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -184,4 +188,113 @@ public class MainBoard {
 		
 		return object.toString();
 	}
+	
+	@RequestMapping(value="commentaryListCount.ma")
+	public void commentaryListCount(HttpServletResponse response, @RequestBody String treeNoBefore){
+		JSONParser parser = new JSONParser();
+		
+		String treeNo = null;
+		try {
+			treeNo = (String)parser.parse(treeNoBefore);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		
+		int commentaryListCount = ms.commentaryListCount(treeNo);
+		
+		
+		
+		PrintWriter pw;
+		try {
+			pw = response.getWriter();
+			pw.println(commentaryListCount);
+			pw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@RequestMapping(value="commentaryList.ma", method=RequestMethod.POST)
+	public @ResponseBody String commentaryList(@RequestBody HashMap<String, String> hash){
+		
+		System.out.println("hi");
+		
+		System.out.println(hash.get("treeNo"));
+		
+		System.out.println(hash.get("commentCount"));
+		
+		ArrayList<Commentary> commentaryList = ms.commentaryList(hash.get("treeNo"), hash.get("commentCount"));
+		
+		for(Commentary c : commentaryList){
+			System.out.println(c);
+		}
+		
+		JSONArray array = JSONArray.fromObject(commentaryList);
+		
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		
+		hashMap.put("commentaryList", array);
+		
+		JSONObject object = JSONObject.fromObject(hashMap);
+	
+		return object.toString(); 
+	}
+	
+	@RequestMapping(value="commentaryInsert.ma")
+	public void commentaryInsert(CommentaryModel model, HttpServletResponse response){
+		
+		
+		try {
+			String commentNo = ms.commentaryInsert(model);
+			
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.write(commentNo);
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (Exception e1) {
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.write("error");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	@RequestMapping(value="getProfile.ma")
+	public @ResponseBody String getProfile(@RequestBody String mNickName){
+		JSONParser parser = new JSONParser();
+		
+		String mno = null;
+		
+		try {
+			mno = (String)parser.parse(mNickName);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		
+		String profile = ms.getProfile(mno);
+		
+		HashMap<String, String> hashMap = new HashMap<String, String>();
+		
+		hashMap.put("profile", profile);
+		
+		JSONObject object = JSONObject.fromObject(hashMap);
+		
+		return object.toString();
+	}
+		
+	
 }

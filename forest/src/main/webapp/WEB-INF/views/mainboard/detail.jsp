@@ -537,10 +537,31 @@
 					  				
 					  		}
 					  		
+					  		var commentDateBefore = arr[i].comment_date;
+					  		
+					  		var year = commentDateBefore.substr(0,4);
+					  		var month = commentDateBefore.substr(4,2);
+					  		var day = commentDateBefore.substr(6,2);
+					  		var hour = commentDateBefore.substr(8,2);
+					  		var minute = commentDateBefore.substr(10,2);
+					  		
+					  		console.log(year);
+					  		console.log(month);
+					  		console.log(day);
+					  		console.log(hour);
+					  		console.log(minute);
+					  		
+					  		var commentDate = new Date(year, month, day, hour, minute).getTime();
+					  		
+					  		var sys = new Date().getTime();
+					  		
+					  		
+					  		var gap = commentDate - sys;
+					  		
 					  		
 					  		var info = $('<div style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:10px;"><div style="display:flex;" flex-direction:row">' +
 					  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
-					  		             '<p class="commentDate">' + arr[i].comment_date + '</p></div>' + 
+					  		             '<p class="commentDate">' + gap + '</p></div>' + 
 					  		             '<p class="commentContent">' + arr[i].comment_content + '</p></div>');
 					  		
 					  		img.appendTo(comment);
@@ -600,9 +621,23 @@
 								  				
 								  		}
 							  		
+							  		var commentDateBefore = arr[i].comment_date;
+							  		
+							  		var year = commentDate.substr(0,4);
+							  		var month = commentDate.substr(4,2);
+							  		var day = commentDate.substr(6,2);
+							  		
+							  		var commentDate = new Date(year, month, day).getTime();
+							  		
+							  		var sys = new Date().getTime();
+							  		
+							  		
+							  		var gap = commentDate - sys;
+							  		
+							  		
 							  		var info = $('<div style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:10px;"><div style="display:flex;" flex-direction:row">' +
 							  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
-							  		             '<p class="commentDate">' + arr[i].comment_date + '</p></div>' + 
+							  		             '<p class="commentDate">' + gap + '</p></div>' + 
 							  		             '<p class="commentContent">' + arr[i].comment_content + '</p></div>');
 							  		
 							  		img.appendTo(comment);

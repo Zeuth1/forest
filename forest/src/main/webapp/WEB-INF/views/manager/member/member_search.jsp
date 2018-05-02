@@ -167,7 +167,7 @@ body {
 							+ list[i].mEnrollDate + "</td>"+ "<td>"
 							+ list[i].mSocialId + "</td>" + "<td>"
 							+ "<button onclick='gotoDetail(\""
-							+ list[i].mId + "\");'>상세정보</button> "
+							+ list[i].mNo + "\");'>상세정보</button> "
 							+ "</td>" + "</tr>";
 					}
 
@@ -219,7 +219,7 @@ body {
 								+ list[i].mLevel + "</td>" + "<td>"
 								+ list[i].mEnrollDate + "</td>" + "<td>"
 								+ "<button onclick='gotoDetail(\""
-								+ list[i].mId + "\");'>상세정보</button> "
+								+ list[i].mNo + "\");'>상세정보</button> "
 								+ "</td>" + "</tr>";
 					}
 
@@ -227,9 +227,9 @@ body {
 			});
 		}
 
-		function gotoDetail(mId) {
-			console.log(mId);
-			location.href = "a_memberDetailView.man?mId=" + mId;
+		function gotoDetail(mNo) {
+			console.log(mNo);
+			location.href = "a_memberDetailView.man?mNo=" + mNo;
 		}
 	</script>
 

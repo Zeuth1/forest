@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.kh.forest.common.Donate;
 import com.kh.forest.manager.model.service.ManagerService;
+import com.kh.forest.manager.model.vo.Calcul;
 import com.kh.forest.manager.model.vo.Refund;
 
 @Controller
@@ -224,6 +225,18 @@ public class ManagerMoneyController {
 
 		System.out.println("onclick" + searchval);
 		int[] list = ms.donateSearchIDAll(searchval);
+		response.setCharacterEncoding("utf-8");
+		System.out.println(list);
+		new Gson().toJson(list, response.getWriter());
+
+	}
+	@RequestMapping("a_calcul.man")
+	@ResponseBody
+	public void calcul(@RequestParam("onclick") String onclick,@RequestParam("year") String year,
+			HttpServletResponse response) throws Exception {
+
+		System.out.println("onclick");
+		ArrayList<Calcul> list = ms.calcul(year);
 		response.setCharacterEncoding("utf-8");
 		System.out.println(list);
 		new Gson().toJson(list, response.getWriter());

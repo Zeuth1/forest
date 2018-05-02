@@ -199,5 +199,6 @@
 	<update id="setMemberStatusY" parameterType="String">
 		update member set status='Y' where USER_ID=#{user_id}
 	</update>
+
 	</mapper>
 	

@@ -15,7 +15,7 @@
 		<typeAlias alias="Account" type="com.kh.forest.manager.model.vo.Account" />
 		<typeAlias alias="Refund" type="com.kh.forest.manager.model.vo.Refund" />
 		<typeAlias alias="Report" type="com.kh.forest.manager.model.vo.Report" />
-		
+		<typeAlias alias="Calcul" type="com.kh.forest.manager.model.vo.Calcul" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/manager-mapper.xml"/>

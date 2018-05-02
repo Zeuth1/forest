@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.forest.common.Donate;
 import com.kh.forest.common.Member;
+import com.kh.forest.manager.model.vo.Calcul;
 import com.kh.forest.manager.model.vo.RankAgeByWriter;
 import com.kh.forest.manager.model.vo.RankGender;
 import com.kh.forest.manager.model.vo.Refund;
@@ -55,8 +56,8 @@ public class ManagerDaoImpl implements ManagerDao {
 		case "gender":
 			list.addAll(sqlsession.selectList("Member.SearchMemberOneGender", searchval));
 			break;
-
-		default:
+		case "no":
+			list.addAll(sqlsession.selectList("Member.SearchMemberOneNo", searchval));
 			break;
 		}
 
@@ -449,6 +450,37 @@ public class ManagerDaoImpl implements ManagerDao {
 
 		}
 		return result;
+	}
+
+	
+	@Override
+	public ArrayList<Calcul> calcul(SqlSessionTemplate sqlsession,String year) {
+		// TODO Auto-generated method stub
+		ArrayList<Calcul>list =new ArrayList<>();
+		
+		System.out.println(year);
+		HashMap<String, Object>map=new HashMap<>();
+		Calcul cal=null;
+		map.put("year", year);
+		for(int i=0;i<12;i++){
+			 cal=new Calcul();
+			map.put("month",i+1);
+			cal=sqlsession.selectOne("Chart.Calcul",map);
+			
+
+			if(cal==null)
+			{
+				cal=new Calcul(year+"/"+String.valueOf(i+1),0,0,0);
+			}
+			else{
+				cal.setym(year+"/"+String.valueOf(i+1));
+			}
+			System.out.println(cal);
+			
+			list.add(cal);
+		}
+
+		return list;
 	}
 
 }

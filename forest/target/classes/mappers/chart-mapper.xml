@@ -21,6 +21,14 @@
 		<result property="writer" column="writer" />
 
 	</resultMap>
+	
+	<resultMap id="CalculResultSet" type="Calcul">
+		<id property="ym" column="ym" />
+		<result property="amount" column="amount" />
+		<result property="refund" column="refund" />
+		<result property="tax" column="tax" />
+
+	</resultMap>
 
 	<select id="rank3byMaleValue" resultMap="RankGenderResultSet">
 		SELECT
@@ -276,7 +284,43 @@
 		60 and 69)
 		where rankid=#{rankId}
 	</select>
-
+	<select id="Calcul" parameterType="hashmap" resultMap="CalculResultSet">
+	SELECT
+	    rownum,amount,refund,tax
+	FROM(
+	
+	SELECT
+	(
+	select concat(EXTRACT(year from d.DONATE_DATE),EXTRACT(month from d.DONATE_DATE))
+	from DONATE d 
+	where ROWNUM=1 and EXTRACT(year from d.DONATE_DATE)=#{year} and EXTRACT(month from d.DONATE_DATE)=#{month}
+	)as YM,
+	
+	(
+	select sum(d.DONATE_AMOUNT)
+	from DONATE d 
+	JOIN MEMBER m on d.GIVER_NO=m.USER_NO 
+	GROUP BY EXTRACT(month from d.DONATE_DATE),EXTRACT(year from d.DONATE_DATE)
+	having EXTRACT(year from d.DONATE_DATE)=#{year} and EXTRACT(month from d.DONATE_DATE)=#{month})as amount,
+	
+	(
+	SELECT
+	    sum(r.REFUND_AMOUNT)
+	FROM refund r
+	JOIN MEMBER m on r.USER_NO=m.USER_NO
+	GROUP BY EXTRACT(month from r.REFUND_DATE),EXTRACT(year from r.REFUND_DATE),r.status
+	having r.status='Y' and EXTRACT(year from r.REFUND_DATE)=#{year} and EXTRACT(month from r.REFUND_DATE)=#{month}) as refund,
+	
+	(
+	SELECT
+	    sum(r.REFUND_TAX)
+	FROM refund r
+	JOIN MEMBER m on r.USER_NO=m.USER_NO
+	GROUP BY EXTRACT(month from r.REFUND_DATE),EXTRACT(year from r.REFUND_DATE),r.status
+	having r.status='Y' and EXTRACT(year from r.REFUND_DATE)=#{year} and EXTRACT(month from r.REFUND_DATE)=#{month}) as tax
+	
+	FROM Dual)
+	</select>
 </mapper>
 
  

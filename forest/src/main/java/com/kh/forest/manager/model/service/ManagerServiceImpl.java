@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.forest.common.Donate;
 import com.kh.forest.common.Member;
 import com.kh.forest.manager.model.dao.ManagerDao;
+import com.kh.forest.manager.model.vo.Calcul;
 import com.kh.forest.manager.model.vo.RankAgeByWriter;
 import com.kh.forest.manager.model.vo.RankGender;
 import com.kh.forest.manager.model.vo.Refund;
@@ -237,6 +238,12 @@ private ManagerDao md;
 		// TODO Auto-generated method stub
 		int result=md.memberReturnRetire(sqlsession,searchval);
 		return result;
+	}
+	@Override
+	public ArrayList<Calcul> calcul(String year) {
+		// TODO Auto-generated method stub
+		ArrayList<Calcul>list =md.calcul(sqlsession,year);
+		return list;
 	}
 
 	

@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	int mId = (Integer) request.getAttribute("mId");
+	int mNo = (Integer) request.getAttribute("mNo");
 %>
 <!DOCTYPE html>
 <html>
@@ -183,8 +183,8 @@ body {
 			$.ajax({
 				url : "a_memberSerchOne.man",
 				data : {
-					"searchval" :<%=mId%>,
-					"searchcon" : "id"
+					"searchval" :<%=mNo%>,
+					"searchcon" : "no"
 				},
 				type : 'post',
 				dataType : "json",
@@ -223,7 +223,7 @@ body {
 			$.ajax({
 				url : "a_memberReportAll.man",
 				data : {
-					searchval : <%=mId%>
+					searchval : <%=mNo%>
 				},
 				type : 'post',
 				dataType : 'json',
@@ -264,7 +264,7 @@ body {
 			$.ajax({
 				url : "a_memberReturnRetire.man",
 				data : {
-					"searchval" : <%=mId%>
+					"searchval" : <%=mNo%>
 				},
 				type : 'post',
 				dataType : 'json',

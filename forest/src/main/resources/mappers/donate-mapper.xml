@@ -24,7 +24,6 @@
 		<result property="donate_amount" column="amount" />
 
 	</resultMap>
-	
 
 	<select id="DonateSelectAll" resultMap="DonateResultSet" parameterType="_int">
 		select dno,giver_name,taker_name,DONATE_DATE,amount from(

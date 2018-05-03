@@ -68,7 +68,7 @@ h4, h5 {
 	<div id=sidebar>
 		<div id=title align="center">
 			<br>
-			<h3>ADMIN PAGE</h3>
+			<h3><a href="a_gotoMainPage.man">ADMIN PAGE</a></h3>
 			<br>
 		</div>
 		<div>
@@ -82,55 +82,19 @@ h4, h5 {
 			<div id=divlist>
 				<div id=submenu>
 					<h5>
-						<a href="a_memberSearchView.man">&nbsp;[정보조회/수정]</a>
+						<a href="a_memberSearchView.man">&nbsp;[정보조회]</a>
 					</h5>
 					<div id="tie"></div>
 				</div>
 				<div id=submenu>
 					<h5>
-						<a href="<%=request.getContextPath()%>/member/member_report.jsp">&nbsp;[등급조회/수정]</a>
-					</h5>
-				</div>
-				<div id=submenu>
-					<h5>
-						<a href="<%=request.getContextPath()%>/member/member_report.jsp">&nbsp;[신고조회/수정]</a>
-					</h5>
-				</div>
-				<div id=submenu>
-					<h5>
-						<a href="<%=request.getContextPath()%>/member/member_judge.jsp">&nbsp;[제재조회/수정]</a>
-					</h5>
-				</div>
-				<div id=submenu>
-					<h5>
-						<a href="<%=request.getContextPath()%>/member/member_QR.jsp">&nbsp;[탈퇴/복구]</a>
+						<a href="a_memberReportView.man">&nbsp;[신고조회/제재]</a>
 					</h5>
 				</div>
 			</div>
 		</div>
 
-		<!--  -->
-		<div id=divbutton>
-			<h4>&nbsp;게시판관리 ▼</h4>
-			<hr>
-			<div id=divlist>
-				<div id=submenu>
-					<h5>
-						<a href="a_moneyDonationView.man">[공지사항조회]</a>
-					</h5>
-				</div>
-				<div id=submenu>
-					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_return.jsp">&nbsp;[게시판조회]</a>
-					</h5>
-				</div>
-				<div id=submenu>
-					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_account.jsp">&nbsp;[게시판삭제/복구]</a>
-					</h5>
-				</div>
-			</div>
-		</div>
+
 
 		<!--  -->
 		<div id=divbutton>
@@ -144,12 +108,12 @@ h4, h5 {
 				</div>
 				<div id=submenu>
 					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_return.jsp">&nbsp;[환급신청내역조회]</a>
+						<a href="a_moneyRefundView.man">&nbsp;[환급내역조회]</a>
 					</h5>
 				</div>
 				<div id=submenu>
 					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_account.jsp">&nbsp;[계좌인증조회]</a>
+						<a href="a_moneyAccountView.man">&nbsp;[계좌인증조회]</a>
 					</h5>
 				</div>
 			</div>
@@ -162,17 +126,7 @@ h4, h5 {
 			<div id=divlist>
 				<div id=submenu>
 					<h5>
-						<a href="a_chartMainView.man">&nbsp;[요약]</a>
-					</h5>
-				</div>
-				<div id=submenu>
-					<h5>
-						<a href="a_chartAgeView.man">&nbsp;[연령별]</a>
-					</h5>
-				</div>
-				<div id=submenu>
-					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_return.jsp">&nbsp;[작가별]</a>
+						<a href="a_chartArtistView.man">&nbsp;[작가별]</a>
 					</h5>
 				</div>
 				<div id=submenu>
@@ -182,22 +136,7 @@ h4, h5 {
 				</div>
 			</div>
 		</div>
-		<div id=divbutton>
-			<h4>&nbsp;접속관리 ▼</h4>
-			<hr>
-			<div id=divlist>
-				<div id=submenu>
-					<h5>
-						<a href="a_chartMainView.man">&nbsp;[회원접속정보]</a>
-					</h5>
-				</div>
-				<div id=submenu>
-					<h5>
-						<a href="<%=request.getContextPath()%>/money/money_donation.jsp">&nbsp;[관리자접속정보]</a>
-					</h5>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 	<script type="text/javascript">
 		$("#divbutton ").click(function() {

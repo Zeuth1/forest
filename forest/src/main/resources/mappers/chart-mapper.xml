@@ -14,6 +14,14 @@
 
 	</resultMap>
 
+	<resultMap id="RankAgeByWriterResultSet" type="RankAgeByWriter">
+		<id property="rankId" column="rankId" />
+		<result property="count" column="amount" />
+		<result property="count" column="count_giver" />
+		<result property="writer" column="writer" />
+
+	</resultMap>
+
 	<select id="rank3byMaleValue" resultMap="RankGenderResultSet">
 		SELECT
 		rankByVal,amount,name
@@ -128,89 +136,145 @@
 		USER_PWD=#{mPwd},PHONE=#{mPhone},EMAIL=#{mEmail},USER_LEVEL=#{mLevel},NICK_NAME=#{mNickName}
 		where USER_NO=#{mNo}
 	</update>
-<!-- 연령별 작가 -->
+	<!-- 연령별 작가 -->
 
-	<select id="RankAge10ByWriter">
-		count(d.giver_no),m2.USER_NAME
-		FROM DONATE d
-		join MEMBER m1 on (d.giver_no=m1.user_no)
-		join MEMBER m2 on (d.taker_no=m2.user_no)
-		GROUP BY m2.USER_NAME,m1.BIRTHDAY
-		having
-		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
-		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
-		BETWEEN 10 and 19;
-
-	</select>
-	<select id="RankAge20ByWriter">
-		count(d.giver_no),m2.USER_NAME
+	<select id="RankAge10ByWriter" resultType="RankAgeByWriter">
+		SELECT
+		rankId,amount,count_giver,writer
+		FROM(select
+		nvl(rank()over(ORDER BY sum(d.DONATE_AMOUNT)desc),0) as
+		rankId,nvl(sum(d.DONATE_AMOUNT),0) as amount,nvl(count(d.giver_no),0) as
+		count_giver,nvl(m2.USER_NAME,'Nodata') as writer
 		FROM DONATE d
 		join
-		MEMBER m1 on (d.giver_no=m1.user_no)
+		MEMBER m1 on
+		(d.giver_no=m1.user_no)
 		join MEMBER m2 on
 		(d.taker_no=m2.user_no)
-		GROUP BY m2.USER_NAME,m1.BIRTHDAY
+		GROUP
+		BY m2.USER_NAME,m1.BIRTHDAY
 		having
-		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		to_number(EXTRACT(YEAR from
+		SYSdate)-EXTRACT(year from
 		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
-		BETWEEN 20 and 29;
-
+		BETWEEN
+		10 and 19)
+		where rankid=#{rankId}
 	</select>
-	<select id="RankAge30ByWriter">
-		count(d.giver_no),m2.USER_NAME
+	<select id="RankAge20ByWriter" resultType="RankAgeByWriter">
+		SELECT
+		rankId,amount,count_giver,writer
+		FROM(select
+		nvl(rank()over(ORDER BY sum(d.DONATE_AMOUNT)desc),0) as
+		rankId,nvl(sum(d.DONATE_AMOUNT),0) as amount,nvl(count(d.giver_no),0) as
+		count_giver,nvl(m2.USER_NAME,'Nodata') as writer
 		FROM DONATE d
 		join
-		MEMBER m1 on (d.giver_no=m1.user_no)
+		MEMBER m1 on
+		(d.giver_no=m1.user_no)
 		join MEMBER m2 on
 		(d.taker_no=m2.user_no)
-		GROUP BY m2.USER_NAME,m1.BIRTHDAY
+		GROUP
+		BY m2.USER_NAME,m1.BIRTHDAY
 		having
-		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		to_number(EXTRACT(YEAR from
+		SYSdate)-EXTRACT(year from
 		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
-		BETWEEN 30 and 39;
-
+		BETWEEN
+		20 and 29)
+		where rankid=#{rankId}
 	</select>
-	<select id="RankAge40ByWriter">
-		count(d.giver_no),m2.USER_NAME
+	<select id="RankAge30ByWriter" resultType="RankAgeByWriter">
+		SELECT
+		rankId,amount,count_giver,writer
+		FROM(select
+		nvl(rank()over(ORDER BY sum(d.DONATE_AMOUNT)desc),0) as
+		rankId,nvl(sum(d.DONATE_AMOUNT),0) as amount,nvl(count(d.giver_no),0) as
+		count_giver,nvl(m2.USER_NAME,'Nodata') as writer
 		FROM DONATE d
 		join
-		MEMBER m1 on (d.giver_no=m1.user_no)
+		MEMBER m1 on
+		(d.giver_no=m1.user_no)
 		join MEMBER m2 on
 		(d.taker_no=m2.user_no)
-		GROUP BY m2.USER_NAME,m1.BIRTHDAY
+		GROUP
+		BY m2.USER_NAME,m1.BIRTHDAY
 		having
-		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		to_number(EXTRACT(YEAR from
+		SYSdate)-EXTRACT(year from
 		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
-		BETWEEN 40 and 49;
-
+		BETWEEN
+		30 and 39)
+		where rankid=#{rankId}
 	</select>
-	<select id="RankAge50ByWriter">
-		count(d.giver_no),m2.USER_NAME
+	<select id="RankAge40ByWriter" resultType="RankAgeByWriter">
+		SELECT
+		rankId,amount,count_giver,writer
+		FROM(select
+		nvl(rank()over(ORDER BY sum(d.DONATE_AMOUNT)desc),0) as
+		rankId,nvl(sum(d.DONATE_AMOUNT),0) as amount,nvl(count(d.giver_no),0) as
+		count_giver,nvl(m2.USER_NAME,'Nodata') as writer
 		FROM DONATE d
 		join
-		MEMBER m1 on (d.giver_no=m1.user_no)
+		MEMBER m1 on
+		(d.giver_no=m1.user_no)
 		join MEMBER m2 on
 		(d.taker_no=m2.user_no)
-		GROUP BY m2.USER_NAME,m1.BIRTHDAY
+		GROUP
+		BY m2.USER_NAME,m1.BIRTHDAY
 		having
-		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		to_number(EXTRACT(YEAR from
+		SYSdate)-EXTRACT(year from
 		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
-		BETWEEN 50 and 59;
-
+		BETWEEN
+		40 and 49)
+		where rankid=#{rankId}
 	</select>
-	<select id="RankAge60overByWriter">
-		count(d.giver_no),m2.USER_NAME
+	<select id="RankAge50ByWriter" resultType="RankAgeByWriter">
+		SELECT
+		rankId,amount,count_giver,writer
+		FROM(select
+		nvl(rank()over(ORDER BY sum(d.DONATE_AMOUNT)desc),0) as
+		rankId,nvl(sum(d.DONATE_AMOUNT),0) as amount,nvl(count(d.giver_no),0) as
+		count_giver,nvl(m2.USER_NAME,'Nodata') as writer
 		FROM DONATE d
 		join
-		MEMBER m1 on (d.giver_no=m1.user_no)
+		MEMBER m1 on
+		(d.giver_no=m1.user_no)
 		join MEMBER m2 on
 		(d.taker_no=m2.user_no)
-		GROUP BY m2.USER_NAME,m1.BIRTHDAY
+		GROUP
+		BY m2.USER_NAME,m1.BIRTHDAY
 		having
-		to_number(EXTRACT(YEAR from SYSdate)-EXTRACT(year from
+		to_number(EXTRACT(YEAR from
+		SYSdate)-EXTRACT(year from
 		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
-		BETWEEN 60 and 99;
-
+		BETWEEN
+		50 and 59)
+		where rankid=#{rankId}
+	</select>
+	<select id="RankAge60overByWriter" resultType="RankAgeByWriter">
+		SELECT
+		rankId,amount,count_giver,writer
+		FROM(select
+		nvl(rank()over(ORDER BY sum(d.DONATE_AMOUNT)desc),0) as
+		rankId,nvl(sum(d.DONATE_AMOUNT),0) as amount,nvl(count(d.giver_no),0) as
+		count_giver,nvl(m2.USER_NAME,'Nodata') as writer
+		FROM DONATE d
+		join
+		MEMBER m1 on
+		(d.giver_no=m1.user_no)
+		join MEMBER m2 on
+		(d.taker_no=m2.user_no)
+		GROUP
+		BY m2.USER_NAME,m1.BIRTHDAY
+		having
+		to_number(EXTRACT(YEAR from
+		SYSdate)-EXTRACT(year from
+		TO_DATE(m1.BIRTHDAY,'rrrr-mm-dd')))
+		BETWEEN
+		60 and 69)
+		where rankid=#{rankId}
 	</select>
 
 </mapper>

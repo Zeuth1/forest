@@ -1,74 +1,26 @@
 package com.kh.forest.manager.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
-import com.kh.forest.common.Member;
 import com.kh.forest.manager.model.service.ManagerService;
+import com.kh.forest.manager.model.vo.RankAgeByWriter;
 import com.kh.forest.manager.model.vo.RankGender;
 
 @Controller
-public class ManagerController {
-
+public class MemberChartController {
 	// 오토와이어
 	@Autowired
 	private ManagerService ms;
-
-
-	@RequestMapping("a_memberSerchAll.man")
-	@ResponseBody
-	public void memberSerchAll(@RequestBody String onclick, HttpServletResponse response) throws Exception {
-		System.out.println(onclick);
-		int count = 0;
-		ArrayList<Member> list = ms.memberSerchAll();
-		response.setCharacterEncoding("utf-8");
-		new Gson().toJson(list, response.getWriter());
-	}
-
-	@RequestMapping("a_memberSerchOne.man")
-	@ResponseBody
-	public void memberSerchOne(@RequestParam("searchcon") String searchcon, @RequestParam("searchval") String searchval,
-			HttpServletResponse response) throws Exception {
-
-		System.out.println(searchcon);
-		System.out.println(searchval);
-		int count = 0;
-		ArrayList<Member> list = ms.memberSerchOne(searchval, searchcon);
-		response.setCharacterEncoding("utf-8");
-		new Gson().toJson(list, response.getWriter());
-
-	}
-
-	@RequestMapping("a_memberUpdate.man")
-	@ResponseBody
-	public void memberUpdate(@RequestParam("mNo") int mNo,@RequestParam("mPwd") String mPwd, @RequestParam("mPhone") String mPhone,
-			@RequestParam("mEmail") String mEmail, @RequestParam("mLevel") String mLevel,
-			@RequestParam("mNickName") String mNickName, HttpServletResponse response) throws Exception {
-
-		
-		ms.memberUpdate(mNo,mPwd,mPhone,mEmail,mLevel,mNickName);
-
-	}
+	
 
 	@RequestMapping("a_chartGenderNum.man")
 	@ResponseBody
@@ -114,6 +66,14 @@ public class ManagerController {
 
 			list.add(age[i]);
 		}
+		response.setCharacterEncoding("utf-8");
+		new Gson().toJson(list, response.getWriter());
+	}
+	@RequestMapping("a_rankAge10Writer.man")
+	@ResponseBody
+	public void Age10Writer(@RequestParam("onclick") String onclick, HttpServletResponse response) throws Exception {
+		System.out.println(onclick);
+		ArrayList<RankAgeByWriter>list = ms.RankAgeByWriter10();
 		response.setCharacterEncoding("utf-8");
 		new Gson().toJson(list, response.getWriter());
 	}

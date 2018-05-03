@@ -217,7 +217,7 @@
   
      font-family: 'Nanum Gothic', sans-serif;
      width:605px;
-     margin-left:20px;
+     margin-left:10px;
      resize:none;
      
      border-bottom:1px solid rgba(80,80,80,0.1);
@@ -226,12 +226,6 @@
      border-left:0px; 
    } 
    
-   .write{
-     display:flex;
-     margin-bottom:20px;
-     
-   }
-   
    textArea:focus{
      border-bottom:1px solid black;
      border-top:0px;
@@ -239,8 +233,15 @@
      border-left:0px; 
      outline:none;
    }
+   .write{
+     display:flex;
+     margin-bottom:20px;
+     margin-top:5px;
+     
+   }
    
-   #submit{
+   
+   .submit{
      display:inline-block;
      display:none;
      font-family: 'Nanum Gothic', sans-serif;
@@ -255,21 +256,21 @@
      
    }
    
-   #submit:hover{
+   .submit:hover{
      cursor:pointer;
    }
    
-   #erase{
+   .erase{
      display:inline-block;
      display:none;
      border:0px;
      background:white;
      outline:none;
-     margin-left:510px;
+     margin-left:500px;
      font-family: 'Nanum Gothic', sans-serif;
    }
    
-   #erase:hover{
+   .erase:hover{
      cursor:pointer;
    }
    
@@ -314,15 +315,27 @@
      
      align-self:center;
      font-family: 'Nanum Gothic', sans-serif;
-     font-size:15px;
+     font-size:13px;
      color:rgba(80,80,80,0.5);
    }
    
    .commentContent{
      margin-top:0px;
+     margin-bottom:0px;
      width:615px;
      font-family: 'Nanum Gothic', sans-serif;
      font-size:14px;
+   }
+   
+   .plusComment{
+     font-size:10px;
+     padding:3px;
+     background:rgba(80,80,80,0.2);
+     width:20px;
+   }
+   
+   .plusComment:hover{
+     cursor:pointer;
    }
    
    
@@ -369,11 +382,11 @@
 	      <div class="write">
 	        <img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png" class="profile" id="loginUserProfile">
 	        <div style="display:flex; flex-direction:column">	
-		        <textArea  placeholder="공개 댓글 추가..." rows="1"></textArea>
+		        <textArea id="textArea" class="textArea" placeholder="공개 댓글 추가..." rows="1"></textArea>
 		        
 		        <div style="display:flex; margin-top:10px;">
-		        <button id="erase" type="button">CANCLE</button>
-		        <button id="submit" type="button" disabled="">댓글</button>
+		        <button id="erase" class="erase" type="button">CANCLE</button>
+		        <button id="submit" class="submit" type="button" disabled="">댓글</button>
 		        </div>
 		        
 	        </div>
@@ -385,18 +398,135 @@
       
         
     
-    
     </div>   
 
       
       <script>
       
+      //cdn라이브러리 : textArea 높이 자동 조절
 	  autosize(document.querySelectorAll("textArea"));
 	  
 	  var loginUserProfile = "";
 	  
-	  $(function(){
-		 //댓글 갯수 업데이트 
+	  //함수 정의 : 시간차 계산기 
+		var timeCalculator = function(t){
+			
+	  		var commentTime = t;
+	  		
+	  		var year = t.substr(0,4);
+	  		var month = t.substr(4,2);
+	  		var day = t.substr(6,2);
+	  		var hour = t.substr(8,2);
+	  		var minute = t.substr(10,2);
+	  		var second = t.substr(12,2);
+	  		
+	  		var commentTme = new Date(year, month, day, hour, minute, second);
+	  		
+	  		var sys = new Date();
+	  		
+	  		//1달 전으로 자동 계산되므로 1플러스 
+	  		sys.setMonth(sys.getMonth() + 1);
+	  		
+	  		//밀리세컨 분단위로 변환 
+	  		var gapmin = ( sys.getTime() - commentTme.getTime() ) / (1000 * 60 );
+	  		
+	  		
+	  		var gapsecond = ( sys.getTime() - commentTme.getTime() ) /1000;
+	  		
+	  		var gaphour = gapmin / 60;
+	  		
+	  		var gapEtc = gapmin % 60;
+	  		
+	  		var gapDay = 0;
+	  		
+	  		var gapWeek = 0;
+	  		
+	  		var gapMonth = 0;
+	  		
+	  		var gapYear = 0;
+	  		
+	  		if(gaphour >= 24){
+	  			var gapDay = gaphour / 24;
+	  			
+	  			/* $('#' + (arr[i].comment_no + i)).text(parseInt(gapDay) + '일 전'); */
+	  			
+	  			
+	  			if(gapDay >= 7){
+	  				var gapWeek = gapDay / 7;
+	  				/* $('#' + (arr[i].comment_no + i)).text(parseInt(gapWeek) + '주 전'); */
+	  				
+	  				if(gapWeek >= 4){
+	  					var gapMonth = gapWeek / 4;
+	  					/* $('#' + (arr[i].comment_no + i)).text(parseInt(gapMonth) + '달 전'); */
+	  					
+	  					if(gapMonth >= 12){
+	  						var gapYear = gapMonth / 12;
+	  						
+	  						/* $('#' + (arr[i].comment_no + i)).text(parseInt(gapYear) + '년 전'); */
+	  					}
+	  				}
+	  			}
+	  			
+	  			
+	  		}else{
+	  			if(gaphour >= 1){
+	  				/* $('#' + (arr[i].comment_no + i) + '').text(parseInt(gaphour) + '시간 전'); */
+	  			}else{
+	  				if(gapsecond < 60){
+	  					/* $('#' + (arr[i].comment_no + i) + '').text(parseInt(gapsecond) + '초 전'); */
+	  					
+	  					if(gapsecond < 1){
+	  						/* $('#' + (arr[i].comment_no + i) + '').text('1초 전'); */
+	  					}
+	  				}else{
+	  				
+	  				/* $('#' + (arr[i].comment_no + i)).text(parseInt(gapEtc) + '분 전'); */
+	  				
+	  				}
+	  			}
+	  		}
+	  		
+	  		if(gapYear >= 1){
+	  			
+	  			return parseInt(gapYear) + '년 전';
+	  		}else{
+	  			if(gapMonth >= 1){
+	  				
+	  				return parseInt(gapMonth) + '달 전';
+	  			}else{
+	  				if(gapWeek >= 1){
+	  					
+	  					return parseInt(gapWeek) + '주 전';
+	  				}else{
+	  					if(gapDay >= 1){
+	  						
+	  						return parseInt(gapDay) + '일 전';
+	  					}else{
+	  						if(gaphour >= 1){
+	  							
+	  							return parseInt(gaphour) + '시간 전';
+	  						}else{
+	  							if(gapmin >= 1){
+	  								
+	  								return parseInt(gapmin) + '분 전';
+	  							}else{
+	  								if(gapsecond >= 1){
+	  									
+	  									return parseInt(gapsecond) + '초 전';
+	  								}else{
+	  									
+	  									return '1초 전';
+	  								}
+	  							}
+	  						}
+	  					}
+	  				}
+	  			}
+	  		} 
+		}
+	  
+	  //함수 정의 : 댓글 갯수 업데이트
+	  var commentCountUpdate = function(){
 		  $.ajax({
 			  url:"commentaryListCount.ma",
 			  type:"POST",
@@ -404,14 +534,119 @@
 			  dataType:'json',
 			  contentType:'application/json',
 			  success:function(data){
-				  console.log(data);
+				  
 				  $('#commentCount').text('댓글 ' + data + '개');
-			  },
+			  }
 		      
 			  
 		  })
 		  
-		  //해당트리 작가 프로필사진 불러오기
+	  }
+	  
+	  //함수 정의 : 로그인 유저 프로필 사진 뽑아오기 
+	  var getProfile = function (){
+		  $.ajax({
+			  url:"getProfile.ma",
+			  type:"POST",
+			  data:JSON.stringify('${loginUser.mNickName}'),
+			  dataType:"json",
+			  contentType:"application/json",
+			  success:function(data){
+				  
+				   if(data.profile !== null){
+				      loginUserProfile = '/tree/' + data.profile;
+					  
+					  $('.profile').attr('src', loginUserProfile);
+				  }
+				   else{
+					   loginUserProfile = "${ pageContext.request.contextPath }/resources/images/default-user-image.png";
+					   
+					   $('.profile').attr('src', loginUserProfile);
+				   } 
+				   
+			  }
+			  
+		  })
+	  }
+	  
+	  //함수 정의 : 댓글 20개 뽑아오기 
+	  var displayFunc = function (){
+		  
+    	  var commentRequest = new Object();
+    	  
+    	  commentRequest.treeNo = '${detail.treeNo}';
+    	  commentRequest.commentCount = $('.comment').length;
+    	   
+		  console.log('뽑아오기');
+    	  
+		  $.ajax({
+			  url:"commentaryList.ma",
+			  type:"POST",
+			  data:JSON.stringify(commentRequest),
+			  dataType:"json",
+			  contentType:"application/json",
+			  success:function(data){
+				  
+				  var arr = data.commentaryList;
+				  
+				  if(arr.length > 0){
+				  
+			    	  $('.commentaryBoard').css('display','block');
+					  
+					  
+					  
+					  
+					  for(var i = 0; i < arr.length; i++){
+				  		var comment = $('<div class="comment" style="display:flex; margin-top:15px; margin-bottom:10px;" " id="' + arr[i].comment_no + '">');
+				  		
+				  		if(arr[i].tree_after !== ""){
+				  		var img = $('<img class="userProfile" src="/tree/' + arr[i].tree_after + '">'); 
+				  		}else{
+				  			var img = $('<img class="userProfile" src="${ pageContext.request.contextPath }/resources/images/default-user-image.png">');
+				  				
+				  		}
+				  		
+				  		var info = $('<div style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:10px;"><div style="display:flex;" flex-direction:row">' +
+				  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
+				  		             '<p class="commentDate"></p></div>' + 
+				  		             '<p class="commentContent">' + arr[i].comment_content + '</p><p class="plusComment">답글</p></div>');
+				  		
+				  		img.appendTo(comment);
+				  		info.appendTo(comment);
+				  		$(comment).appendTo($('.commentaryBoard'));
+				 	
+				        var gapTime = timeCalculator(arr[i].comment_date);
+				        
+				        
+				        $('#' + arr[i].comment_no).children().eq(1).children().children().eq(1).text(gapTime);
+				        
+				 
+				  		
+				  		
+				  		
+				  		
+				  		
+					  }
+				 
+				  }
+			  }
+		      
+			  
+			  
+		  })
+	  
+	  }
+	  
+	  //온로드 펑션 
+	  $(function(){
+		  
+		  displayFunc();
+		  
+		  commentCountUpdate();
+		  
+		  getProfile();
+		  
+		 //해당트리 작가 프로필사진 불러오기
 		  $.ajax({
 			  url:"getProfile.ma",
 			  type:"POST",
@@ -429,60 +664,31 @@
 		  })
 		  
 		  
-		  //로그인 유저 프로필사진 불러오기
-		  $.ajax({
-			  url:"getProfile.ma",
-			  type:"POST",
-			  data:JSON.stringify('${loginUser.mNickName}'),
-			  dataType:"json",
-			  contentType:"application/json",
-			  success:function(data){
-				  
-				   if(data.profile !== null){
-				      loginUserProfile = '/tree/' + data.profile;
-					  $('#loginUserProfile').attr('src', loginUserProfile);
-				  }
-				   else{
-					   loginUserProfile = "${ pageContext.request.contextPath }/resources/images/default-user-image.png";
-					   $('#loginUserProfile').attr('src', loginUserProfile);
-				   } 
-				   
-			  }
-			  
-		  })
+		  
 		  
 		  //댓글내용 초기화
 		  if( !$('textArea').val() == ''){
 		  	$('textArea').val('');
 		  }
 	  })
+	  
 
       $('#erase').on('click', function(){
-    	  
+    	  $('#submit').css('display','none');
+    	  $('#erase').css('display','none');
     	  $('textArea').val('');
     	  $('textArea').height(18);
       })
       
-      $('textArea').on('keyup', function(){
-    	  if( !$('textArea').val() == ''){
-    	  	$('#submit').css('background','rgba(80,80,80,0.1)')
-    	  	$('#submit').removeAttr('disabled');
-    	  }
+      
     	  
-    	  if( $('textArea').val() == ''){
-      	  	$('#submit').css('background','rgba(80,80,80,0.3)')
-      	  	$('#submit').attr('disabled','true');
-      	  }
-    	  
-      })
-    	  
-      $('textArea').on('click', function(){
-    	  if( !$('textArea').val() == ''){
+      $('#textArea').on('click', function(){
+    	  if( !$('#textArea').val() == ''){
       	  	$('#submit').css('background','rgba(80,80,80,0.1)')
       	  	$('#submit').removeAttr('disabled');
       	  }
       	  
-      	  if( $('textArea').val() == ''){
+      	  if( $('#textArea').val() == ''){
         	  	$('#submit').css('background','rgba(80,80,80,0.3)')
         	  	$('#submit').attr('disabled','true');
         	  }
@@ -491,240 +697,121 @@
     	  $('#erase').css('display','inline-block');
       })
      
-      $(document).on('click', function(e){
-    	  if( !$(e.target).is( $('textArea') ) && $('textArea').val() == '' && !$(e.target).is( $('#commentCount') ) ){
-    		  $('#submit').css('display','none');
-        	  $('#erase').css('display','none');
-    	  }
-      })
       
-      
-    	  
-    	  
-	      //댓글정보 불러오기 
-    	  $(function(){
-    		  
-	    	  var commentRequest = new Object();
-	    	  
-	    	  commentRequest.treeNo = '${detail.treeNo}';
-	    	  commentRequest.commentCount = $('.comment').length;
-	    	   
-			  
-			  $.ajax({
-				  url:"commentaryList.ma",
-				  type:"POST",
-				  data:JSON.stringify(commentRequest),
-				  dataType:"json",
-				  contentType:"application/json",
-				  success:function(data){
-					  
-					  var arr = data.commentaryList;
-					  
-					  if(arr.length > 0){
-					  
-				    	  $('.commentaryBoard').css('display','block');
-						  
-						  
-						  
-						  
-						  for(var i = 0; i < arr.length; i++){
-					  		var comment = $('<div class="comment" style="display:flex; margin-top:15px; margin-bottom:10px;" " id="' + arr[i].comment_no + '">');
-					  		
-					  		if(arr[i].tree_after !== ""){
-					  		var img = $('<img class="userProfile" src="/tree/' + arr[i].tree_after + '">'); 
-					  		}else{
-					  			var img = $('<img class="userProfile" src="${ pageContext.request.contextPath }/resources/images/default-user-image.png">');
-					  				
-					  		}
-					  		
-					  		var commentDateBefore = arr[i].comment_date;
-					  		
-					  		var year = commentDateBefore.substr(0,4);
-					  		var month = commentDateBefore.substr(4,2);
-					  		var day = commentDateBefore.substr(6,2);
-					  		var hour = commentDateBefore.substr(8,2);
-					  		var minute = commentDateBefore.substr(10,2);
-					  		var second = commentDateBefore.substr(12,2);
-					  		
-					  		var commentDate = new Date(year, month, day, hour, minute);
-					  		
-					  		console.log(commentDate);
-					  		
-					  		var sys = new Date(2018, 05, 01, 18, 00);
-					  		
-					  		console.log(sys);
-					  		
-					  		var gaphour = ( sys.getTime() - commentDate.getTime() ) / (1000 * 60 * 60);
-					  		var gapmin = ( sys.getTime() - commentDate.getTime() ) % (1000 * 60 * 60);
-					  		
-					  		console.log(gaphour);
-					  		console.log(gapmin
-					  				)
-					  		
-					  		
-					  		var info = $('<div style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:10px;"><div style="display:flex;" flex-direction:row">' +
-					  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
-					  		             '<p class="commentDate">' +  + '</p></div>' + 
-					  		             '<p class="commentContent">' + arr[i].comment_content + '</p></div>');
-					  		
-					  		img.appendTo(comment);
-					  		info.appendTo(comment);
-					  	    
-					  		$(comment).appendTo($('.commentaryBoard'));
-						  }
-					 
-					  }
-				  }
-			      
-				  
-				  
-			  })
-    	  
-    	  });
-	     
 	  
 	     //페이징
-	     var delta = 300;
 	     var timer = null;
 	     
-	      $(document).scroll(function(){
-	    	 if( $(window).scrollTop() + $(window).height() >= $(document).height() - 1){
-			     clearTimeout(timer);
-			     timer = setTimeout(function(){
-			    	 var commentRequest = new Object();
-			    	  
-			    	  commentRequest.treeNo = '${detail.treeNo}';
-			    	  commentRequest.commentCount = $('.comment').length;
-			    	  	 
-					  
-					  $.ajax({
-						  url:"commentaryList.ma",
-						  type:"POST",
-						  data:JSON.stringify(commentRequest),
-						  dataType:"json",
-						  contentType:"application/json",
-						  success:function(data){
-							  
-							  var arr = data.commentaryList;
-							  
-							  if(arr.length > 0){
-							  
-						    	  $('.commentaryBoard').css('display','block');
-								  
-								  
-								  
-								  
-								  for(var i = 0; i < arr.length; i++){
-							  		var comment = $('<div class="comment" style="display:flex; margin-top:15px; margin-bottom:10px;" " id="' + arr[i].comment_no + '">');
-							  		
-							  		if(arr[i].tree_after !== ""){
-								  		var img = $('<img class="userProfile" src="/tree/' + arr[i].tree_after + '">'); 
-								  		}else{
-								  			var img = $('<img class="userProfile" src="${ pageContext.request.contextPath }/resources/images/default-user-image.png">');
-								  				
-								  		}
-							  		
-							  		
-							  		
-							  		
-							  		var info = $('<div style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:10px;"><div style="display:flex;" flex-direction:row">' +
-							  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
-							  		             '<p class="commentDate">' +  + '</p></div>' + 
-							  		             '<p class="commentContent">' + arr[i].comment_content + '</p></div>');
-							  		
-							  		img.appendTo(comment);
-							  		info.appendTo(comment);
-							  	    
-							  		$(comment).appendTo($('.commentaryBoard'));
-								  }
-							 
-								  
-							  }
-						  }
-					      
-						  
-						  
-					  })
-			    	 
-			     }, delta)
+	     
+	      
+	     
+	     $(window).on('scroll', function(e){
+	    	 
+	    	 clearTimeout(timer);
+	    	 timer = setTimeout(function(){
 	    		 
-	    	 }
-	      });
-    	  
-    	  
-      
-      //댓글 추가
-      $('#submit').on('click', function(){
-    	  var data = new Object();
-    	  
-    	  data.userNo = '${ loginUser.mNo }';
-    	  data.treeNo = '${ detail.treeNo }'
-    	  data.content = $('textArea').val();
-    	  $('textArea').height(18);
-    	  $('#submit').css('background','rgba(80,80,80,0.3)');
-    	  $('#submit').attr('disabled','true');
-    	  
-    	  
-    	  $.ajax({
-    		  url:"commentaryInsert.ma",
-    		  data:data,
-    		  type:"POST",   		  
-    		  success:function(data){
-    			  if(data !== "error"){
-    				  console.log('insertion has succeed');
-    				    console.log(data)
-    				    
-    				     //댓글 갯수 업데이트 
-						  $.ajax({
-							  url:"commentaryListCount.ma",
-							  type:"POST",
-							  data:JSON.stringify('${detail.treeNo}'),
-							  dataType:'json',
-							  contentType:'application/json',
-							  success:function(data){
-								  console.log(data);
-								  $('#commentCount').text('댓글 ' + data + '개');
-							  },
-						      
-							  
-						  })
-    				  
-    				    //가라로 보여지는 부분
-    				    var comment = $('<div class="comment" style="display:flex; margin-top:15px; margin-bottom:10px; id="' + data + '">');
-				  		
-						var img = $('<img class="userProfile" src="' + loginUserProfile + '">');
-						var info = $('<div style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:10px;"><div style="display:flex;" flex-direction:row">' +
-						             '<p class="userName">' + '${loginUser.mNickName}' + '</p>' + 
-						             '<p class="commentDate">' + '1분 전' + '</p></div>' + 
-						             '<p class="commentContent">' + $('textArea').val() + '</p></div>');
-						
-						img.appendTo(comment);
-						info.appendTo(comment);
-						   
-						$(comment).prependTo($('.commentaryBoard'));
-    					 
-    				  
-    				    $('textArea').val('');
-    				  
-    				  
-    			  }
-    			  
-    			  if(data === "error"){
-    				  console.log('encounted unknown sql error...');
-    			  }
-    			  
-    		  }
-    	  })
-    	  
-    	  
-    	  
-      })
+		    	 if( $(window).scrollTop() + $(window).height() >= $(document).height() - 1){
+		    	     console.log('무한스크롤 실행됨')
+				     displayFunc();
+		    		  
+		    	 }	
+	    	 },300);
+	    	 
+	    	 
+	     });
+    	
       
       $('#homeBtn').click(function(){
       	window.history.back();
       })
       
+      $(document).on('click', function(e){
+    	  if( $(e.target).is( $('.plusComment') ) && !$(e.target).siblings().eq(2).is( $('.write') ) ){
+    	  
+    		  
+    	  var write2 = ('<div class="write" id="write2">' + 
+    			        '<img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png" class="profile" id="loginUserProfile2" style="width:35px; height:35px;">' + 
+  	                    '<div style="display:flex; flex-direction:column"><textArea id="textArea2" class="textArea" placeholder="공개 댓글 추가..." rows="1"></textArea>' + 
+  	                    '<div style="display:flex; margin-top:10px;">' + 
+  		                '<button id="erase2" class="erase erase2" type="button" style="display:inline-block">CANCLE</button>' + 
+  		                '<button id="submit2" class="submit" type="button" disabled="" style="display:inline-block">댓글</button></div></div></div>'); 
+    	  
+  		        
+    	  $(e.target).parent().append(write2); 
+    	  
+    	  autosize(document.querySelectorAll("textArea"));
+    	  
+    	  getProfile();
+    	  
+    	  }
+      })
       
+      $(document).on('click', function(e){
+    	 if( $(e.target).is( $('.erase2') ) ){
+    		 
+    		 $(e.target).parent().parent().parent().remove();
+    	 }
+      });
+      
+      $(document).on('keyup', function(e){
+    	  
+    	  if( $(e.target).is('.textArea')){
+    		  if( !$(e.target).val() == ''  ){
+    		  	  $(e.target).siblings().eq(0).children().eq(1).removeAttr('disabled');
+    		  	$(e.target).siblings().eq(0).children().eq(1).css('background','rgba(80,80,80,0.1)');
+    		  }else{
+    			  $(e.target).siblings().eq(0).children().eq(1).attr('disabled','true');
+    			  $(e.target).siblings().eq(0).children().eq(1).css('background','rgba(80,80,80,0.3)');
+    		  }
+    	  }
+      })
+      
+      //댓글 추가
+      $(document).on('click', function(e){
+    	  if( $(e.target).is('.submit') ){
+    		  
+    		 var data = new Object(); 
+    		  
+    		 data.content = ( $(e.target).parent().siblings().val() );
+    		 data.userNo = '${ loginUser.mNo }';
+       	     data.treeNo = '${ detail.treeNo }';
+       	     data.commentNo = $(e.target).parent().parent().parent().parent().parent().attr('id');
+	       	 $('#textArea').height(18);
+	    	 $('#submit').css('background','rgba(80,80,80,0.3)');
+	    	 $('#submit').attr('disabled','true');
+       	     
+       	     
+       	     $.ajax({
+       	    	 url:"commentaryInsert.ma",
+       	    	 data:data,
+       	    	 type:"POST",
+       	    	 
+       	    	 success:function(data){
+       	    		if(data !== "error"){
+      				  console.log('insertion has succeed');
+      				    console.log(data)
+      				    
+      				     commentCountUpdate();
+      				  
+  						$('.comment').remove();
+  						
+  						displayFunc();
+  						
+  						$('#textArea').val('');
+      				  
+      			  }
+      			  
+      			  if(data === "error"){
+      				  console.log('encounted unknown sql error...');
+      			  }
+       	    	 
+       	    	 }
+       	     
+       	    	 
+       	     })
+       	     
+    	  }
+      })
       
       
     </script>

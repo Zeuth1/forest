@@ -220,11 +220,7 @@ public class MainBoard {
 	@RequestMapping(value="commentaryList.ma", method=RequestMethod.POST)
 	public @ResponseBody String commentaryList(@RequestBody HashMap<String, String> hash){
 		
-		System.out.println("hi");
 		
-		System.out.println(hash.get("treeNo"));
-		
-		System.out.println(hash.get("commentCount"));
 		
 		ArrayList<Commentary> commentaryList = ms.commentaryList(hash.get("treeNo"), hash.get("commentCount"));
 		
@@ -236,6 +232,7 @@ public class MainBoard {
 		
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		
+		
 		hashMap.put("commentaryList", array);
 		
 		JSONObject object = JSONObject.fromObject(hashMap);
@@ -245,7 +242,7 @@ public class MainBoard {
 	
 	@RequestMapping(value="commentaryInsert.ma")
 	public void commentaryInsert(CommentaryModel model, HttpServletResponse response){
-		
+		System.out.println("insert");
 		
 		try {
 			String commentNo = ms.commentaryInsert(model);

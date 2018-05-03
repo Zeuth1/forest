@@ -125,6 +125,7 @@
 	    LEFT JOIN TREE T ON(M.USER_NO = T.USER_NO)
 	    WHERE C.TREE_NO = #{treeNo}
 	    AND T.TREE_TYPE = 'P'
+	    AND C.PARENT_COMMENT_NO IS NULL
 	    ORDER BY COMMENT_DATE DESC)C1)C2
 	WHERE RNUM BETWEEN #{commentCountStart} AND #{commentCountEnd}
   </select>
@@ -137,7 +138,14 @@
   
   <insert id="commentaryInsert">
     INSERT INTO COMMENTARY
-    VALUES(SEQ_CNO.NEXTVAL, #{content}, NULL, #{treeNo}, #{userNo}, SYSDATE)
+    <if test="commentNo != null">
+    VALUES(SEQ_CNO.NEXTVAL, #{content}, NULL, #{treeNo}, #{userNo}, SYSDATE, #{commentNo})
+    </if>
+    <if test="commentNo == null">
+    VALUES(SEQ_CNO.NEXTVAL, #{content}, NULL, #{treeNo}, #{userNo}, SYSDATE, NULL)
+    </if>
+    
+    
   </insert> 
   
   <select id="insertedComment" parameterType="java.lang.String" resultType="java.lang.String">

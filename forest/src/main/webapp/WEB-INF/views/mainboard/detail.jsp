@@ -179,26 +179,28 @@
    }
    
    .profile{
-     width:50px;
-     height:50px;
+     width:40px;
+     height:40px;
      border-radius:100%;
     }
     
     .ownerProfile{
-     width:50px;
-     height:50px;
+     width:40px;
+     height:40px;
      border-radius:100%;
     }
     
    #uploadDetail{
      width:400px;
-     margin-top:1%;
-     margin-left:3%;
+     margin-top:-3px;
+     margin-left:15px;
      max-height:80px; 
      overflow:hidden; 
      vertical-align:top; 
+     font-size:15px;
      text-overflow: ellipsis; 
      word-break:break-all; 
+     font-family: 'Nanum Gothic', sans-serif;
      
    }
    
@@ -222,7 +224,7 @@
    textArea{
   
      font-family: 'Nanum Gothic', sans-serif;
-     width:605px;
+     width:625px;
      margin-left:10px;
      resize:none;
      
@@ -243,7 +245,7 @@
      display:flex;
      margin-bottom:20px;
      margin-top:5px;
-     
+     width:680px;
    }
    
    
@@ -272,7 +274,7 @@
      border:0px;
      background:white;
      outline:none;
-     margin-left:500px;
+     margin-left:520px;
      font-family: 'Nanum Gothic', sans-serif;
    }
    
@@ -298,8 +300,8 @@
    }
    
    .userProfile{
-     width:50px;
-     height:50px;
+     width:40px;
+     height:40px;
      border-radius:100%;
    }
    
@@ -348,6 +350,12 @@
      cursor:pointer;
    }
    
+   .commentMenu{
+     display:none;
+     cursor:pointer;
+   }
+   
+   
    
 </style>
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
@@ -378,10 +386,12 @@
         
         <div class="uploadInfo">
 	        <img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png"" class="ownerProfile"> 
-	      	<p id="uploadDetail">
-	      	  <a href="#">${ detail.mNickName }</a> 님이 <a href="#">${ detail.boardTitle }</a>에 저장함
-	      	  <br>${ detail.treeTag }
-	      	</p>
+	      	<div>
+	      	  <p id="uploadDetail" style="margin-top:0px; margin-bottom:5px;">
+	      	  <a href="#">${ detail.mNickName }</a> 님이 <a href="#">${ detail.boardTitle }</a>에 저장함</p>
+	      	  <p style="font-size:12px; margin-top:0px; margin-left:15px; margin-bottom:10px;">게시일: ${ detail.treeDate}</p> 
+	      	  <p style="font-size:14px; margin-top:0px; margin-left:15px;">${ detail.treeTag }</p>
+	      	  </div>
       	</div>
       
 	    	
@@ -394,7 +404,7 @@
 	        <div style="display:flex; flex-direction:column">	
 		        <textArea id="textArea" class="textArea" placeholder="공개 댓글 추가..." rows="1"></textArea>
 		        
-		        <div style="display:flex; margin-top:10px;">
+		        <div style="display:flex; margin-top:5px; ">
 		        <button id="erase" class="erase" type="button">CANCLE</button>
 		        <button id="submit" class="submit" type="button" disabled="">댓글</button>
 		        </div>
@@ -570,8 +580,8 @@
 				      $('.commentaryBoard').css('display','block');
 					  
 					  for(var i = 0; i < arr.length; i++){
-				  		var comment = $('<div class="comment" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-bottom:10px; width:750px;"  id="' + arr[i].comment_no + '">');
-				  		
+				  		var comment = $('<div class="comment" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-bottom:30px; width:680px;"  id="' + arr[i].comment_no + '">');
+				  		var menu = $('<img class="commentMenu" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">')
 				  		if(arr[i].tree_after !== ""){
 				  		var img = $('<img class="userProfile" src="/tree/' + arr[i].tree_after + '">'); 
 				  		}else{
@@ -579,16 +589,17 @@
 				  				
 				  		}
 				  		
-				  		var info = $('<div class="userProfile2" style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
+				  		var info = $('<div class="userProfile2" style="width:595px; display:flex; flex-direction:column; margin-left:15px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
 				  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
 				  		             '<p class="commentDate"></p></div>' + 
-				  		             '<p class="commentContent">' + arr[i].comment_content + '</p><p class="plusComment">답글</p></div>');
+				  		             '<p class="commentContent" style="width:570px;">' + arr[i].comment_content + '</p><p class="plusComment">답글</p></div>');
 				  		
 				  		img.appendTo(comment);
 				  		info.appendTo(comment);
+				  		menu.appendTo(comment);
 				  		
 				  		if(arr[i].children > 0){
-				  			var reply = $('<div style="display:flex; height:20px; position:relative;margin-left:65px;" class="reply"><p class="replyBtn" style="font-size:15px; padding-left:0px; padding-top:5px; padding-bottom:5px; height:20px;padding-right:35px; margin-top:0px;">답글 ' +
+				  			var reply = $('<div style="display:flex; height:20px; position:relative;margin-left:55px;" class="reply"><p class="replyBtn" style="font-size:13px; padding-left:0px; padding-top:5px; padding-bottom:5px; height:20px;padding-right:35px; margin-top:0px;">답글 ' +
 				  			arr[i].children + '개 모두보기</p><img style="position:absolute; right:2px; top:1px;" src="${ pageContext.request.contextPath }/resources/images/up.PNG"></div>')
 				  			
 				  			reply.appendTo(comment);
@@ -621,27 +632,27 @@
     			  
     			  for(var i = 0; i < arr.length; i++){
     				    var reply = $('<div>')
-    				  
-				  		var comment2 = $('<div class="comment2" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-left:65px; margin-bottom:20px; width:750px;"  id="' 
+    				    var menu = $('<img class="commentMenu" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">')
+				  		var comment2 = $('<div class="comment2" style="display:flex; flex-wrap:wrap; margin-top:20px; margin-left:55px; margin-bottom:5px; width:625px;"  id="' 
 				  		+ arr[i].comment_no + '">');
 				  		
 				  		if(arr[i].tree_after !== ""){
-				  		var img = $('<img class="userProfile" style="width:35px; height:35px;" src="/tree/' + arr[i].tree_after + '">'); 
+				  		var img = $('<img class="userProfile" style="width:25px; height:25px;" src="/tree/' + arr[i].tree_after + '">'); 
 				  		}else{
-				  			var img = $('<img class="userProfile" style="width:35px; height:35px;" src="${ pageContext.request.contextPath }/resources/images/default-user-image.png">');
+				  			var img = $('<img class="userProfile" style="width:25px; height:25px;" src="${ pageContext.request.contextPath }/resources/images/default-user-image.png">');
 				  				
 				  		}
 				  		
-				  		var info = $('<div class="userProfile2" style="display:flex; flex-direction:column; margin-left:10px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
+				  		var info = $('<div class="userProfile2" style="width:560px; display:flex; flex-direction:column; margin-top:0px;margin-left:10px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
 				  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
 				  		             '<p class="commentDate"></p></div>' + 
-				  		             '<p class="commentContent">' + arr[i].comment_content + '</p></div>');
+				  		             '<p style="width:535px;" class="commentContent">' + arr[i].comment_content + '</p></div>');
 				  		
 				  		
 				  		
 				  		img.appendTo(comment2);
 				  		info.appendTo(comment2);
-				  		
+				  		menu.appendTo(comment2);
 				  		
 				  		//대댓글을 어느 위치에 추가할 것인지 설정 
 				  		if( $(e.target).parent().attr('class') == 'comment' ){
@@ -767,11 +778,11 @@
       $(document).on('click', function(e){
     	  if( $(e.target).is( $('.plusComment') ) && !$(e.target).siblings().eq(2).is( $('.write') ) ){
     	  	  
-    	  var write2 = ('<div class="write" id="write2" style="margin-bottom:0px">' + 
-    			        '<img src="' + getProfileImage() + '" class="profile" id="loginUserProfile2" style="width:35px; height:35px;">' + 
-  	                    '<div style="display:flex; flex-direction:column"><textArea id="textArea2" class="textArea" placeholder="공개 댓글 추가..." rows="1"></textArea>' + 
-  	                    '<div style="display:flex; margin-top:10px;">' + 
-  		                '<button id="erase2" class="erase erase2" type="button" style="display:inline-block">CANCLE</button>' + 
+    	  var write2 = ('<div class="write" id="write2" style="width:300px; margin-bottom:0px;">' + 
+    			        '<img src="' + getProfileImage() + '" class="profile" id="loginUserProfile2" style="width:25px; height:25px;">' + 
+  	                    '<div style="display:flex; flex-direction:column"><textArea id="textArea2" style="width:575px;" class="textArea" placeholder="공개 댓글 추가..." rows="1"></textArea>' + 
+  	                    '<div style="display:flex; margin-top:5px;">' + 
+  		                '<button id="erase2" class="erase erase2" type="button" style="margin-left:470px; display:inline-block">CANCLE</button>' + 
   		                '<button id="submit2" class="submit" type="button" disabled="" style="display:inline-block">댓글</button></div></div></div>'); 
     	  
   		        
@@ -828,18 +839,19 @@
       				    //댓글 추가
       				    if( $(e.target).attr('id') == 'submit' ){
 	  						
-      				    	var comment = $('<div class="comment" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-bottom:10px; width:750px;"  id="' + commentNo + '">');
-    				  		
+      				    	var comment = $('<div class="comment" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-bottom:10px; width:680px;"  id="' + commentNo + '">');
+      				    	var menu = $('<img class="commentMenu" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">')
     				  		var img = $('<img class="userProfile" src="' + getProfileImage() + '">'); 
-    				  		var info = $('<div class="userProfile2" style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
+    				  		var info = $('<div class="userProfile2" style="width:595px; display:flex; flex-direction:column; margin-left:15px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
     				  		             '<p class="userName">' + '${loginUser.mNickName}' + '</p>' + 
-    				  		             '<p class="commentDate">1초 전</p></div>' + 
-    				  		             '<p class="commentContent">' + $(e.target).parent().siblings().val() + '</p><p class="plusComment">답글</p></div>');
+    				  		             '<p class="commentDate">방금</p></div>' + 
+    				  		             '<p class="commentContent" style="width:570px;">' + $(e.target).parent().siblings().val() + '</p><p class="plusComment">답글</p></div>');
     				  		
     				  		
     				  		
     				  		img.appendTo(comment);
     				  		info.appendTo(comment);
+    				  		menu.appendTo(comment);
     				  		$(comment).prependTo($('.commentaryBoard'));
 	  						
   						    //댓글 추가시 폼 삭제 
@@ -853,23 +865,25 @@
       				    
       				    //대댓글 추가 
       				    if( $(e.target).attr('id') == 'submit2' ){
-      				    	var comment2 = $('<div class="gara" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-left:65px; margin-bottom:20px; width:750px;"  id="' 
+      				    	var comment2 = $('<div class="gara" style="display:flex; flex-wrap:wrap; margin-bottom:15px;margin-top:5px; margin-left:55px; width:630px;"  id="' 
     				  		+ commentNo + '">');
-    				  		
-    				  		var img = $('<img class="userProfile" style="width:35px; height:35px;" src="' + getProfileImage() + '">'); 
-    				  		var info = $('<div class="userProfile2" style="display:flex; flex-direction:column; margin-left:10px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
+      				    	var menu = $('<img class="commentMenu" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">');
+    				  		var img = $('<img class="userProfile" style="width:25px; height:25px;" src="' + getProfileImage() + '">'); 
+    				  		var info = $('<div class="userProfile2" style="width:560px;display:flex; flex-direction:column; margin-top:0px; margin-left:10px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
     				  		             '<p class="userName">' + '${loginUser.mNickName}' + '</p>' + 
-    				  		             '<p class="commentDate">1초 전</p></div>' + 
-    				  		             '<p class="commentContent">' + $(e.target).parent().siblings().val() + '</p></div>');
+    				  		             '<p class="commentDate">방금</p></div>' + 
+    				  		             '<p class="commentContent" style="width:535px;">' + $(e.target).parent().siblings().val() + '</p></div>');
     				  		
     				  		img.appendTo(comment2);
     				  		info.appendTo(comment2);
+    				  		menu.appendTo(comment2);
     				  		
     				  		//대댓글 insert한경우  추가할 곳은 2가지가 있다. 1. 전체댓글보기 버튼이 있는 경우 그 밑에 추가 2. 없는 경우 userProfile2밑에 추가.
     				  		if( $(e.target).parent().parent().parent().parent().siblings('.reply').length){
+    				  			(comment2).attr('style','display:flex; flex-wrap:wrap; margin-bottom:0px;margin-top:20px; margin-left:55px; width:630px;')
 	   				  			$(e.target).parent().parent().parent().parent().siblings('.reply').after(comment2);
     				  		}else{
-    				  			$(e.target).parent().parent().parent().parent().after(comment2);
+    				  			$(e.target).parent().parent().parent().parent().parent().append(comment2);
     				  		}
     				  			
     				  		$(e.target).parent().parent().parent('#write2').remove();
@@ -950,6 +964,40 @@
     			}
     	   }
        })
+       
+       
+       
+	  var commentMenuNo = null;
+	  var loginUser = '${loginUser.mNo}';
+      $(document).on({ 
+    	  mouseenter : function(e){
+    		  //commentNo Collecter
+    		  //comment인지 확인
+    		  /* if( $(e.target).is( $('.comment') ) ){
+    			  commentMenuNo = ( $(e.target).attr('id') );
+    		  }else{
+	    		  if( $(e.target).parents('.comment') ){
+	    			  commentMenuNo = ( $(e.target).parents('.comment').attr('id') );
+	    		  }
+    			  
+    		  } */
+    		  console.log('보이루')
+    		  
+    		  $('#' + commentMenuNo).children('.commentMenu').toggle();
+    	       
+    		  console.log(commentMenuNo)	
+          },
+          
+          mouseleave : function(){
+        	  $('#' + commentMenuNo).children('.commentMenu').toggle();
+          }
+      
+      }, '.comment', 'comment2', '.gara');
+      
+      
+       
+       
+       
       
     </script>
       

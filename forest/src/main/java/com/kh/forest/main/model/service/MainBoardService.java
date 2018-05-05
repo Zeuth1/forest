@@ -30,4 +30,6 @@ public interface MainBoardService {
 	public String commentaryInsert(CommentaryModel model) throws Exception;
 	
 	public int commentaryListCount(String treeNo);
+
+	public ArrayList<Commentary> replyList(String treeNo, String commentNo);
 }

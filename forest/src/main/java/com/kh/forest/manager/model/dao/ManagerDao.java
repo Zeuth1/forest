@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.forest.common.Donate;
 import com.kh.forest.common.Member;
+import com.kh.forest.manager.model.vo.Calcul;
 import com.kh.forest.manager.model.vo.RankAgeByWriter;
 import com.kh.forest.manager.model.vo.RankGender;
 import com.kh.forest.manager.model.vo.Refund;
@@ -86,6 +87,8 @@ public interface ManagerDao {
 	int[] donateSearchIDAll(SqlSessionTemplate sqlsession, String searchval);
 
 	int memberReturnRetire(SqlSessionTemplate sqlsession, String searchval);
+
+	ArrayList<Calcul> calcul(SqlSessionTemplate sqlsession,String year);
 
 	
 

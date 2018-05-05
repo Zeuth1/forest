@@ -126,12 +126,12 @@ h4, h5 {
 			<div id=divlist>
 				<div id=submenu>
 					<h5>
-						<a href="a_chartArtistView.man">&nbsp;[작가별]</a>
+						<a href="a_chartCalculView.man">&nbsp;[매출통계]</a>
 					</h5>
 				</div>
 				<div id=submenu>
 					<h5>
-						<a href="a_chartGenderView.man">&nbsp;[성별]</a>
+						<a href="a_chartGenderView.man">&nbsp;[성별통계]</a>
 					</h5>
 				</div>
 			</div>

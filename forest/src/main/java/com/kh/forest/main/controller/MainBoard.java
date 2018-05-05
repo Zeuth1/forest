@@ -292,6 +292,26 @@ public class MainBoard {
 		
 		return object.toString();
 	}
+	
+	@RequestMapping(value="replyList.ma")
+	public @ResponseBody String replyList(@RequestBody HashMap<String, String> hash){
+		ArrayList<Commentary> replyList = ms.replyList(hash.get("treeNo"), hash.get("commentNo"));
+		
+		for(Commentary c : replyList){
+			System.out.println(c);
+		}
+		
+		JSONArray array = JSONArray.fromObject(replyList);
+		
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		
+		
+		hashMap.put("replyList", array);
+		
+		JSONObject object = JSONObject.fromObject(hashMap);
+	
+		return object.toString(); 
+	}
 		
 	
 }

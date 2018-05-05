@@ -184,6 +184,12 @@
      border-radius:100%;
     }
     
+    .ownerProfile{
+     width:50px;
+     height:50px;
+     border-radius:100%;
+    }
+    
    #uploadDetail{
      width:400px;
      margin-top:1%;
@@ -338,6 +344,10 @@
      cursor:pointer;
    }
    
+   .reply:hover{
+     cursor:pointer;
+   }
+   
    
 </style>
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
@@ -367,7 +377,7 @@
         <div id="goBoardBtn" onclick="location.href='#'"><p id="goBoardText">${ detail.mNickName }의 보드 더보기</p></div>
         
         <div class="uploadInfo">
-	        <img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png"" class="profile" id="ownerProfile"> 
+	        <img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png"" class="ownerProfile"> 
 	      	<p id="uploadDetail">
 	      	  <a href="#">${ detail.mNickName }</a> 님이 <a href="#">${ detail.boardTitle }</a>에 저장함
 	      	  <br>${ detail.treeTag }
@@ -406,9 +416,7 @@
       //cdn라이브러리 : textArea 높이 자동 조절
 	  autosize(document.querySelectorAll("textArea"));
 	  
-	  var loginUserProfile = "";
-	  
-	  //함수 정의 : 시간차 계산기 
+      //함수 정의 : 시간차 계산기 
 		var timeCalculator = function(t){
 			
 	  		var commentTime = t;
@@ -448,43 +456,20 @@
 	  		if(gaphour >= 24){
 	  			var gapDay = gaphour / 24;
 	  			
-	  			/* $('#' + (arr[i].comment_no + i)).text(parseInt(gapDay) + '일 전'); */
-	  			
-	  			
 	  			if(gapDay >= 7){
 	  				var gapWeek = gapDay / 7;
-	  				/* $('#' + (arr[i].comment_no + i)).text(parseInt(gapWeek) + '주 전'); */
 	  				
 	  				if(gapWeek >= 4){
 	  					var gapMonth = gapWeek / 4;
-	  					/* $('#' + (arr[i].comment_no + i)).text(parseInt(gapMonth) + '달 전'); */
 	  					
 	  					if(gapMonth >= 12){
 	  						var gapYear = gapMonth / 12;
 	  						
-	  						/* $('#' + (arr[i].comment_no + i)).text(parseInt(gapYear) + '년 전'); */
 	  					}
-	  				}
-	  			}
-	  			
-	  			
-	  		}else{
-	  			if(gaphour >= 1){
-	  				/* $('#' + (arr[i].comment_no + i) + '').text(parseInt(gaphour) + '시간 전'); */
-	  			}else{
-	  				if(gapsecond < 60){
-	  					/* $('#' + (arr[i].comment_no + i) + '').text(parseInt(gapsecond) + '초 전'); */
-	  					
-	  					if(gapsecond < 1){
-	  						/* $('#' + (arr[i].comment_no + i) + '').text('1초 전'); */
-	  					}
-	  				}else{
-	  				
-	  				/* $('#' + (arr[i].comment_no + i)).text(parseInt(gapEtc) + '분 전'); */
-	  				
 	  				}
 	  			}
 	  		}
+	  		
 	  		
 	  		if(gapYear >= 1){
 	  			
@@ -525,7 +510,7 @@
 	  		} 
 		}
 	  
-	  //함수 정의 : 댓글 갯수 업데이트
+	  //댓글갯수를 업데이트시켜줌 
 	  var commentCountUpdate = function(){
 		  $.ajax({
 			  url:"commentaryListCount.ma",
@@ -543,41 +528,34 @@
 		  
 	  }
 	  
-	  //함수 정의 : 로그인 유저 프로필 사진 뽑아오기 
-	  var getProfile = function (){
+	  //프사를 반환함 
+	  var getProfileImage = function (){
+		  var profileImage = null;
 		  $.ajax({
 			  url:"getProfile.ma",
 			  type:"POST",
 			  data:JSON.stringify('${loginUser.mNickName}'),
 			  dataType:"json",
+			  async:false,
 			  contentType:"application/json",
 			  success:function(data){
-				  
-				   if(data.profile !== null){
-				      loginUserProfile = '/tree/' + data.profile;
-					  
-					  $('.profile').attr('src', loginUserProfile);
+				  if(data !== null){
+			  		profileImage = '/tree/' + data.profile;
+				  }else{
+					profileImage = '{ pageContext.request.contextPath }/resources/images/default-user-image.png';
 				  }
-				   else{
-					   loginUserProfile = "${ pageContext.request.contextPath }/resources/images/default-user-image.png";
-					   
-					   $('.profile').attr('src', loginUserProfile);
-				   } 
-				   
 			  }
 			  
 		  })
+		  return profileImage;
 	  }
 	  
-	  //함수 정의 : 댓글 20개 뽑아오기 
+	  //댓글 20개 뽑아와서 추가해줌  
 	  var displayFunc = function (){
-		  
-    	  var commentRequest = new Object();
+		  var commentRequest = new Object();
     	  
     	  commentRequest.treeNo = '${detail.treeNo}';
     	  commentRequest.commentCount = $('.comment').length;
-    	   
-		  console.log('뽑아오기');
     	  
 		  $.ajax({
 			  url:"commentaryList.ma",
@@ -586,18 +564,13 @@
 			  dataType:"json",
 			  contentType:"application/json",
 			  success:function(data){
-				  
 				  var arr = data.commentaryList;
 				  
 				  if(arr.length > 0){
-				  
-			    	  $('.commentaryBoard').css('display','block');
-					  
-					  
-					  
+				      $('.commentaryBoard').css('display','block');
 					  
 					  for(var i = 0; i < arr.length; i++){
-				  		var comment = $('<div class="comment" style="display:flex; margin-top:15px; margin-bottom:10px;" " id="' + arr[i].comment_no + '">');
+				  		var comment = $('<div class="comment" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-bottom:10px; width:750px;"  id="' + arr[i].comment_no + '">');
 				  		
 				  		if(arr[i].tree_after !== ""){
 				  		var img = $('<img class="userProfile" src="/tree/' + arr[i].tree_after + '">'); 
@@ -606,36 +579,94 @@
 				  				
 				  		}
 				  		
-				  		var info = $('<div style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:10px;"><div style="display:flex;" flex-direction:row">' +
+				  		var info = $('<div class="userProfile2" style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
 				  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
 				  		             '<p class="commentDate"></p></div>' + 
 				  		             '<p class="commentContent">' + arr[i].comment_content + '</p><p class="plusComment">답글</p></div>');
 				  		
 				  		img.appendTo(comment);
 				  		info.appendTo(comment);
+				  		
+				  		if(arr[i].children > 0){
+				  			var reply = $('<div style="display:flex; height:20px; position:relative;margin-left:65px;" class="reply"><p class="replyBtn" style="font-size:15px; padding-left:0px; padding-top:5px; padding-bottom:5px; height:20px;padding-right:35px; margin-top:0px;">답글 ' +
+				  			arr[i].children + '개 모두보기</p><img style="position:absolute; right:2px; top:1px;" src="${ pageContext.request.contextPath }/resources/images/up.PNG"></div>')
+				  			
+				  			reply.appendTo(comment);
+				  			
+				  		}
+				  		
 				  		$(comment).appendTo($('.commentaryBoard'));
-				 	
-				        var gapTime = timeCalculator(arr[i].comment_date);
-				        
+				  		
+				  		var gapTime = timeCalculator(arr[i].comment_date);
 				        
 				        $('#' + arr[i].comment_no).children().eq(1).children().children().eq(1).text(gapTime);
 				        
-				 
-				  		
-				  		
-				  		
-				  		
-				  		
 					  }
 				 
 				  }
 			  }
-		      
-			  
-			  
-		  })
+		   })
+	  };
 	  
+	  //대댓글 불러오기
+	  var displayReplyFunc = function(replyRequest, e){
+		  $.ajax({
+    		  url:"replyList.ma",
+    		  type:"POST",
+    		  data:JSON.stringify(replyRequest),
+    		  dataType:"json",
+    		  contentType:"application/json",
+    		  success:function(data){
+    			  var arr = data.replyList;
+    			  
+    			  for(var i = 0; i < arr.length; i++){
+    				    var reply = $('<div>')
+    				  
+				  		var comment2 = $('<div class="comment2" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-left:65px; margin-bottom:20px; width:750px;"  id="' 
+				  		+ arr[i].comment_no + '">');
+				  		
+				  		if(arr[i].tree_after !== ""){
+				  		var img = $('<img class="userProfile" style="width:35px; height:35px;" src="/tree/' + arr[i].tree_after + '">'); 
+				  		}else{
+				  			var img = $('<img class="userProfile" style="width:35px; height:35px;" src="${ pageContext.request.contextPath }/resources/images/default-user-image.png">');
+				  				
+				  		}
+				  		
+				  		var info = $('<div class="userProfile2" style="display:flex; flex-direction:column; margin-left:10px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
+				  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
+				  		             '<p class="commentDate"></p></div>' + 
+				  		             '<p class="commentContent">' + arr[i].comment_content + '</p></div>');
+				  		
+				  		
+				  		
+				  		img.appendTo(comment2);
+				  		info.appendTo(comment2);
+				  		
+				  		
+				  		//대댓글을 어느 위치에 추가할 것인지 설정 
+				  		if( $(e.target).parent().attr('class') == 'comment' ){
+				  			$(e.target).after(comment2);
+				  		}
+				  		
+				  		if( $(e.target).parent().parent().attr('class') == 'comment'){
+				  			$(e.target).parent().after(comment2);
+				  		}
+				  		
+				  		//시간차 계산 
+				  		var gapTime = timeCalculator(arr[i].comment_date);
+				  		
+				        $('#' + arr[i].comment_no).children().eq(1).children().children().eq(1).text(gapTime);
+    		  }
+    			  
+    			  
+    		  }
+    		  
+    		  
+    	  })
+		  
 	  }
+		  
+		  
 	  
 	  //온로드 펑션 
 	  $(function(){
@@ -644,7 +675,18 @@
 		  
 		  commentCountUpdate();
 		  
-		  getProfile();
+		  //프사 받아오기 
+		  var profile = getProfileImage();
+		  
+		  if(profile !== null){
+		      $('.profile').attr('src', profile);
+		  }
+		   else{
+			   //기본 이미지 
+			   $('.profile').attr('src', "${ pageContext.request.contextPath }/resources/images/default-user-image.png");
+		  } 
+			  
+		  
 		  
 		 //해당트리 작가 프로필사진 불러오기
 		  $.ajax({
@@ -657,7 +699,7 @@
 				  var ownerProfile = '/tree/' + data.profile;
 				  
 				   if(data != null){
-					  $('#ownerProfile').attr('src', ownerProfile);
+					  $('.ownerProfile').attr('src', ownerProfile);
 				  }
 			  }
 			  
@@ -699,38 +741,34 @@
      
       
 	  
-	     //페이징
-	     var timer = null;
-	     
-	     
-	      
-	     
-	     $(window).on('scroll', function(e){
-	    	 
-	    	 clearTimeout(timer);
-	    	 timer = setTimeout(function(){
-	    		 
-		    	 if( $(window).scrollTop() + $(window).height() >= $(document).height() - 1){
-		    	     console.log('무한스크롤 실행됨')
-				     displayFunc();
-		    		  
-		    	 }	
-	    	 },300);
-	    	 
-	    	 
-	     });
+     //페이징 핵심요소 
+     var timer = null;
+     $(window).on('scroll', function(e){
+    	 
+    	 clearTimeout(timer);
+    	 timer = setTimeout(function(){
+    		 
+	    	 if( $(window).scrollTop() + $(window).height() >= $(document).height() - 1){
+	    	     
+			     displayFunc();
+	    		  
+	    	 }	
+    	 },300);
+    	 
+    	 
+     });
     	
       
       $('#homeBtn').click(function(){
       	window.history.back();
       })
       
+      //대댓글 작성폼 추가 
       $(document).on('click', function(e){
     	  if( $(e.target).is( $('.plusComment') ) && !$(e.target).siblings().eq(2).is( $('.write') ) ){
-    	  
-    		  
-    	  var write2 = ('<div class="write" id="write2">' + 
-    			        '<img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png" class="profile" id="loginUserProfile2" style="width:35px; height:35px;">' + 
+    	  	  
+    	  var write2 = ('<div class="write" id="write2" style="margin-bottom:0px">' + 
+    			        '<img src="' + getProfileImage() + '" class="profile" id="loginUserProfile2" style="width:35px; height:35px;">' + 
   	                    '<div style="display:flex; flex-direction:column"><textArea id="textArea2" class="textArea" placeholder="공개 댓글 추가..." rows="1"></textArea>' + 
   	                    '<div style="display:flex; margin-top:10px;">' + 
   		                '<button id="erase2" class="erase erase2" type="button" style="display:inline-block">CANCLE</button>' + 
@@ -739,10 +777,8 @@
   		        
     	  $(e.target).parent().append(write2); 
     	  
+    	  //동적으로 추가된 textArea를 autosize적용
     	  autosize(document.querySelectorAll("textArea"));
-    	  
-    	  getProfile();
-    	  
     	  }
       })
       
@@ -766,21 +802,17 @@
     	  }
       })
       
-      //댓글 추가
+      //댓글, 대댓글 추가 (같이하는이유 : ajax구문 중복)
       $(document).on('click', function(e){
-    	  if( $(e.target).is('.submit') ){
-    		  
-    		 var data = new Object(); 
+    	 if( $(e.target).is( $('.submit')) ){
+    	  var data = new Object(); 
     		  
     		 data.content = ( $(e.target).parent().siblings().val() );
     		 data.userNo = '${ loginUser.mNo }';
        	     data.treeNo = '${ detail.treeNo }';
+       	     //대댓글 추가시 부모 댓글 번호 
        	     data.commentNo = $(e.target).parent().parent().parent().parent().parent().attr('id');
-	       	 $('#textArea').height(18);
-	    	 $('#submit').css('background','rgba(80,80,80,0.3)');
-	    	 $('#submit').attr('disabled','true');
-       	     
-       	     
+	       	 
        	     $.ajax({
        	    	 url:"commentaryInsert.ma",
        	    	 data:data,
@@ -789,16 +821,63 @@
        	    	 success:function(data){
        	    		if(data !== "error"){
       				  console.log('insertion has succeed');
-      				    console.log(data)
+      				     
+   				      commentCountUpdate();
+      				  //댓글 추가시 가져온 댓글pk
+      				  var commentNo = data;
+      				    //댓글 추가
+      				    if( $(e.target).attr('id') == 'submit' ){
+	  						
+      				    	var comment = $('<div class="comment" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-bottom:10px; width:750px;"  id="' + commentNo + '">');
+    				  		
+    				  		var img = $('<img class="userProfile" src="' + getProfileImage() + '">'); 
+    				  		var info = $('<div class="userProfile2" style="display:flex; flex-direction:column; margin-left:15px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
+    				  		             '<p class="userName">' + '${loginUser.mNickName}' + '</p>' + 
+    				  		             '<p class="commentDate">1초 전</p></div>' + 
+    				  		             '<p class="commentContent">' + $(e.target).parent().siblings().val() + '</p><p class="plusComment">답글</p></div>');
+    				  		
+    				  		
+    				  		
+    				  		img.appendTo(comment);
+    				  		info.appendTo(comment);
+    				  		$(comment).prependTo($('.commentaryBoard'));
+	  						
+  						    //댓글 추가시 폼 삭제 
+	  					    $('#submit').css('display','none');
+	  			    	    $('#erase').css('display','none');
+	  			    	    $('#textArea').val('');
+	  			    	    $('#textArea').height(18);
+      				    	
+      				    }
       				    
-      				     commentCountUpdate();
-      				  
-  						$('.comment').remove();
-  						
-  						displayFunc();
-  						
-  						$('#textArea').val('');
-      				  
+      				    
+      				    //대댓글 추가 
+      				    if( $(e.target).attr('id') == 'submit2' ){
+      				    	var comment2 = $('<div class="gara" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-left:65px; margin-bottom:20px; width:750px;"  id="' 
+    				  		+ commentNo + '">');
+    				  		
+    				  		var img = $('<img class="userProfile" style="width:35px; height:35px;" src="' + getProfileImage() + '">'); 
+    				  		var info = $('<div class="userProfile2" style="display:flex; flex-direction:column; margin-left:10px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
+    				  		             '<p class="userName">' + '${loginUser.mNickName}' + '</p>' + 
+    				  		             '<p class="commentDate">1초 전</p></div>' + 
+    				  		             '<p class="commentContent">' + $(e.target).parent().siblings().val() + '</p></div>');
+    				  		
+    				  		img.appendTo(comment2);
+    				  		info.appendTo(comment2);
+    				  		
+    				  		//대댓글 insert한경우  추가할 곳은 2가지가 있다. 1. 전체댓글보기 버튼이 있는 경우 그 밑에 추가 2. 없는 경우 userProfile2밑에 추가.
+    				  		if( $(e.target).parent().parent().parent().parent().siblings('.reply').length){
+	   				  			$(e.target).parent().parent().parent().parent().siblings('.reply').after(comment2);
+    				  		}else{
+    				  			$(e.target).parent().parent().parent().parent().after(comment2);
+    				  		}
+    				  			
+    				  		$(e.target).parent().parent().parent('#write2').remove();
+    				  		
+    				  		
+    				  		
+   			  		    }
+      				 
       			  }
       			  
       			  if(data === "error"){
@@ -806,13 +885,71 @@
       			  }
        	    	 
        	    	 }
-       	     
-       	    	 
        	     })
-       	     
-    	  }
-      })
+    	 }
+       	})
       
+      //전체 댓글 보기 클릭하여 대댓글 가져오기 (버블링 불가로 인한 코드 길어짐)
+   	  var replyText = null;
+      $(document).on('click', function(e){
+    	  var replyRequest = new Object();
+    	  replyRequest.treeNo = '${detail.treeNo}';
+    	  
+    	  
+    	  if( $(e.target).parent().is( $('.reply') ) ){
+    		    
+    			//처음 한번만 실행 
+    			if( !$(e.target).parent().siblings('.comment2').length ){
+	    		  	
+    				//이미지 포용
+    				if($(e.target).is($('.replyBtn'))){
+	    				replyText = $(e.target).text() 
+	    				$(e.target).text('답글 숨기기'); 
+	    				
+	    				$(e.target).siblings('img').attr('src', "${ pageContext.request.contextPath }/resources/images/down.PNG").attr('style','position:absolute; right:3px; top:4px;');
+	    				
+    				}else{
+	    				replyText = $(e.target).siblings('p').text() 
+	    				$(e.target).attr('src', "${ pageContext.request.contextPath }/resources/images/down.PNG").attr('style','position:absolute; right:3px; top:4px;');;
+    					$(e.target).siblings('p').text('답글 숨기기');
+    				}
+    				
+   				    $(e.target).siblings('.gara').remove();
+	    		  	replyRequest.commentNo = $(e.target).parent().parent().attr('id');
+	    		  	displayReplyFunc(replyRequest, e);
+	    		  	
+    				
+    			}else{
+    				if( $(e.target).parent().siblings('.comment2').css('display') == 'flex'){
+    					//이미지 포용
+        				if($(e.target).is($('.replyBtn'))){
+	    					$(e.target).text(replyText);    	    				  					
+        					$(e.target).siblings('img').attr('src', "${ pageContext.request.contextPath }/resources/images/up.PNG").attr('style','position:absolute; right:2px; top:1px;');
+				    		$(e.target).parent().siblings('.comment2').toggle();	    					
+        				}
+    					
+    					if($(e.target).is($('img')) ){
+        					$(e.target).siblings('p').text(replyText);
+        					$(e.target).attr('src', "${ pageContext.request.contextPath }/resources/images/up.PNG").attr('style','position:absolute; right:2px; top:1px;');
+				    		$(e.target).parent().siblings('.comment2').toggle();	    					
+        				}			
+	    			}else{
+	    				//이미지 포용
+        				if($(e.target).is($('.replyBtn'))){
+	    					$(e.target).text('답글 숨기기');    
+	    					$(e.target).siblings('img').attr('src', "${ pageContext.request.contextPath }/resources/images/down.PNG").attr('style','position:absolute; right:3px; top:4px;');;
+				    		$(e.target).parent().siblings('.comment2').toggle();	    					
+        				}
+	    				if($(e.target).is($('img'))){
+        					$(e.target).siblings('p').text('답글 숨기기');
+        					$(e.target).attr('src', "${ pageContext.request.contextPath }/resources/images/down.PNG").attr('style','position:absolute; right:3px; top:4px;');;
+				    		$(e.target).parent().siblings('.comment2').toggle();	    					
+        				}		    					
+	    			}
+    				
+    			}
+    	   }
+       })
       
     </script>
       

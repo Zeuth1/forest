@@ -46,8 +46,8 @@ public class ManagerViewController {
 	}
 
 	@RequestMapping("a_memberDetailView.man")
-	public String a_memberDetailView(@RequestParam("mId") int mId, Model model) {
-		model.addAttribute("mId", mId);
+	public String a_memberDetailView(@RequestParam("mNo") int mNo, Model model) {
+		model.addAttribute("mNo", mNo);
 		return "/member/member_detail";
 	}
 	
@@ -78,9 +78,9 @@ public class ManagerViewController {
 		return "/chart/chart_gender";
 	}
 
-	@RequestMapping("a_chartArtistView.man")
-	public String a_chartArtistView() {
-		return "/chart/chart_artist";
+	@RequestMapping("a_chartCalculView.man")
+	public String a_chartCalculView() {
+		return "/chart/chart_calcul";
 	}
 	// <���� �κ�>
 

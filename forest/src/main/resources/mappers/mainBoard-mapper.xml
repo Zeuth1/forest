@@ -30,6 +30,7 @@
     <result column="NICK_NAME" property="nick_name"></result>
     <result column="COMMENT_DATE" property="comment_date"></result>
     <result column="TREE_AFTER" property="tree_after"></result>
+    <result column="CHILDREN" property="children"></result>
   </resultMap>
     
   
@@ -119,13 +120,15 @@
 	FROM
 	(SELECT ROWNUM RNUM, C1.*
 	FROM
-	(SELECT C.COMMENT_NO, C.COMMENT_CONTENT, M.NICK_NAME, T.TREE_AFTER, TO_CHAR(C.COMMENT_DATE, 'YYYYMMDDHH24MISS') COMMENT_DATE
+	(SELECT C.COMMENT_NO, C.COMMENT_CONTENT, M.NICK_NAME, T.TREE_AFTER, TO_CHAR(C.COMMENT_DATE, 'YYYYMMDDHH24MISS') COMMENT_DATE, COUNT(C2.COMMENT_NO) CHILDREN                           
 	    FROM COMMENTARY C
+        LEFT JOIN COMMENTARY C2 ON(C2.PARENT_COMMENT_NO = C.COMMENT_NO)
 	    JOIN MEMBER M ON (C.USER_NO = M.USER_NO)
 	    LEFT JOIN TREE T ON(M.USER_NO = T.USER_NO)
-	    WHERE C.TREE_NO = #{treeNo}
-	    AND T.TREE_TYPE = 'P'
-	    AND C.PARENT_COMMENT_NO IS NULL
+        WHERE C.TREE_NO = #{treeNo}
+        AND T.TREE_TYPE = 'P'
+        AND C.PARENT_COMMENT_NO IS NULL
+        GROUP BY C.COMMENT_NO, C.COMMENT_CONTENT, M.NICK_NAME, T.TREE_AFTER, TO_CHAR(C.COMMENT_DATE, 'YYYYMMDDHH24MISS')      
 	    ORDER BY COMMENT_DATE DESC)C1)C2
 	WHERE RNUM BETWEEN #{commentCountStart} AND #{commentCountEnd}
   </select>
@@ -158,5 +161,18 @@
 	WHERE USER_NO = #{uesrNo}
 	ORDER BY COMMENT_DATE DESC )C1)C2
 	WHERE RNUM = 1
+  </select>
+  
+  <select id="replyList" parameterType="java.lang.String" resultMap="commentaryMap">
+    
+	SELECT C.COMMENT_NO, C.COMMENT_CONTENT, M.NICK_NAME, T.TREE_AFTER, TO_CHAR(C.COMMENT_DATE, 'YYYYMMDDHH24MISS') COMMENT_DATE                         
+    FROM COMMENTARY C
+       LEFT JOIN COMMENTARY C2 ON(C2.PARENT_COMMENT_NO = C.COMMENT_NO)
+    JOIN MEMBER M ON (C.USER_NO = M.USER_NO)
+    LEFT JOIN TREE T ON(M.USER_NO = T.USER_NO)
+       WHERE C.TREE_NO = #{treeNo}
+       AND T.TREE_TYPE = 'P'
+       AND C.PARENT_COMMENT_NO = #{commentNo}
+    ORDER BY COMMENT_DATE ASC
   </select>
 </mapper>

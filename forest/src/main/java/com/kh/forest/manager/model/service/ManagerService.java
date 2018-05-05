@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.kh.forest.common.Donate;
 import com.kh.forest.common.Member;
+import com.kh.forest.manager.model.vo.Calcul;
 import com.kh.forest.manager.model.vo.RankAgeByWriter;
 import com.kh.forest.manager.model.vo.RankGender;
 import com.kh.forest.manager.model.vo.Refund;
@@ -83,6 +84,8 @@ public interface ManagerService {
 	int[] donateSearchIDAll(String searchval);
 
 	int memberReturnRetire(String searchval);
+
+	ArrayList<Calcul> calcul(String year);
 
 
 	

@@ -15,7 +15,28 @@
 		<result property="donate_amount" column="DONATE_AMOUNT" />
 
 	</resultMap>
-
-
+	
+	<insert id="insertPayment" parameterType="Donate">
+		INSERT INTO DONATE 
+		VALUES(SEQ_DNO.NEXTVAL,#{giver_no},#{taker_no},SYSDATE,#{donate_amount})
+	
+	</insert>
+	
+	<select id="getDonate" resultMap="DonateResultSet" parameterType="_int">
+		
+		SELECT *FROM DONATE WHERE GIVER_NO=#{giver_no}
+	
+	
+	</select>
+	
+	<select id="getTakeMoney"  resultMap="DonateResultSet" parameterType="_int">
+		
+		SELECT *FROM DONATE WHERE TAKER_NO=#{taker_no}
+	
+	
+	</select>
+	
+	
+	
 </mapper>
  

@@ -93,6 +93,27 @@
 		 SELECT COUNT(EMAIL) FROM MEMBER WHERE EMAIL=#{mEmail}
 	
 	</select>
+	<update id="changeEtc">
+		
+		UPDATE MEMBER SET GENDER=#{mGender}, USER_NAME=#{mName} 
+		WHERE USER_NO=#{mNo}
+	
+	</update>
+	
+	<select id="findDonater" resultType="java.lang.String">
+	
+	SELECT USER_NAME FROM MEMBER
+	WHERE USER_NO=#{mNo}
+	
+	</select>
+	
+	<select id="findTaker" resultType="java.lang.String">
+	
+	SELECT USER_NAME FROM MEMBER
+	WHERE USER_NO=#{mNo}
+	
+	</select>
+	
 	
 	</mapper>
 	

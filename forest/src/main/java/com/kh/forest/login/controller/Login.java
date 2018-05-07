@@ -144,7 +144,6 @@ public class Login {
 	
 	@RequestMapping(value="checkMember.lo")
 	public ModelAndView memberCheck(HttpSession session,ModelAndView mv,String mId, String mPwd){
-		
 		int result=ls.checkMember(mId,mPwd);
 		
 		
@@ -152,9 +151,14 @@ public class Login {
 		if(result ==0) {
 				System.out.println(mId);
 			   Member m = ls.sessionMaker(mId);
-			   System.out.println(m);
+			   session.removeAttribute("loginUser");
+			   System.out.println("뭐냐이건+"+session.getAttribute("loginUser"));
 		       session.setAttribute("loginUser", m);
+		       
+		       
+		       System.out.println("후세션"+session.getAttribute("loginUser"));
 		
+		       
 		}
 		mv.addObject("result",result);
 		
@@ -215,6 +219,7 @@ public class Login {
 		String aName= ls.getaName();
 		mv.addObject("aName",aName);
 		mv.addObject("logOut",3);
+		session.removeAttribute("loginUser");
 		session.invalidate();
 		mv.setViewName("/loginForm");
 		
@@ -237,7 +242,7 @@ public class Login {
 	@RequestMapping(value="google.lo")
 	public ModelAndView googleLogin(HttpSession session,ModelAndView mv,@RequestParam(value="idtoken",required= true) String idTokenString ,@RequestParam(value="log",required= true) int log) throws GeneralSecurityException, IOException{
 		
-	
+		System.out.println("이계정의 아이디토큰값"+idTokenString);
 		
 			 JsonFactory jsonFactory = new JacksonFactory();
 	      HttpTransport transport = new NetHttpTransport();
@@ -246,8 +251,7 @@ public class Login {
 			      .setAudience(Collections.singletonList("569688176866-2fhuueq4kb1pddacn6jlomi8q5siqd48.apps.googleusercontent.com"))
 			      .build();
 		
-		System.out.println("int"+log);
-		
+	
 		GoogleIdToken idToken =verifier.verify(idTokenString);
 
 		if (idToken != null) {
@@ -260,6 +264,7 @@ public class Login {
 		  if(check!=0) {
 			  
 			if(log==0) {
+				  System.out.println("혹시여기오나");
 				  mv.addObject("logOut",1);
 				  Member m = ls.sessionMaker2(userId);
 			      session.setAttribute("loginUser", m);
@@ -268,7 +273,7 @@ public class Login {
 			else if(log==3) mv.addObject("logOut",5);
 			else if(log==5){
 				  Member m = ls.sessionMaker2(userId);
-			      session.setAttribute("loginUser", m);
+				  session.setAttribute("loginUser", m);
 			  	  mv.addObject("logOut",1);
 			}else if(log==4) mv.addObject("logOut",3);
 			   		
@@ -297,12 +302,14 @@ public class Login {
 		
 		if(check !=0){
 			if(log==0){
+				System.out.println("여긴오냐2");
 				Member m = ls.sessionMaker2(clientId);
 				session.setAttribute("loginUser", m);
 				mv.addObject("logOut",2);
 			}
 			else if(log==3) mv.addObject("logOut",4);
 			else if(log==4){
+				System.out.println("혹시여기?");
 				Member m = ls.sessionMaker2(clientId);
 				session.setAttribute("loginUser", m);
 				mv.addObject("logOut",2);

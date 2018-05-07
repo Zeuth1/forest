@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Donate {
 	private int donate_no;
-	private int giver_no;
-	private int taker_no;
+	private String giver_no;
+	private String taker_no;
 	private Date donate_date;
 	private int donate_amount;
 	
@@ -22,7 +22,7 @@ public class Donate {
 				+ donate_date + ", donate_amount=" + donate_amount + "]";
 	}
 
-	public Donate(int donate_no, int giver_no, int taker_no, Date donate_date, int donate_amount) {
+	public Donate(int donate_no, String giver_no, String taker_no, Date donate_date, int donate_amount) {
 		this.donate_no = donate_no;
 		this.giver_no = giver_no;
 		this.taker_no = taker_no;
@@ -38,19 +38,19 @@ public class Donate {
 		this.donate_no = donate_no;
 	}
 
-	public int getGiver_no() {
+	public String getGiver_no() {
 		return giver_no;
 	}
 
-	public void setGiver_no(int giver_no) {
+	public void setGiver_no(String giver_no) {
 		this.giver_no = giver_no;
 	}
 
-	public int getTaker_no() {
+	public String getTaker_no() {
 		return taker_no;
 	}
 
-	public void setTaker_no(int taker_no) {
+	public void setTaker_no(String taker_no) {
 		this.taker_no = taker_no;
 	}
 

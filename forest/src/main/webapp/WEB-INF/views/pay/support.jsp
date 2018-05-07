@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +24,15 @@
 	  		<br>
 	  			<div class="profile">
 	  			 	<!--회원 프로필 사진  -->
-	  				<img src="<%=request.getContextPath() %>/resources/images/profile.jpg" class="profile-photo">
-	  				<p>${loginUser.mId }</p>
+	  			 	<c:choose>
+	  			 		<c:when test="${empty profile }">
+	  				<img src="<%=request.getContextPath() %>/resources/images/default-user-image.png" class="profile-photo">
+	  					</c:when>
+	  					<c:otherwise>
+	  				<img src="/tree/${profile }" class="proflie-photo">	
+	  					</c:otherwise>
+	  				</c:choose>	
+	  				<p>${loginUser.mNickName }</p>
 	  				<p>${loginUser.mName }</p>
 	  			</div>
 	  		</div>

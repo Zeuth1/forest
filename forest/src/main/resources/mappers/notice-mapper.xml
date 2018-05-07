@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+ <mapper namespace="Notice2">
+ 	<resultMap id="NoticeResultSet" type="Notice2">
+ 	
+ 		<id property="nNo" column="NOTICE_NO"/>	
+ 		<result property="mNo" column="USER_NO"/>
+ 		<result property="nTitle" column="NOTICE_TITLE"/>
+ 		<result property="nContent" column="NOTICE_CONTENT"/>
+ 		<result property="nType" column="NOTICE_TYPE"/>
+ 		<result property="nDate" column="NOTICE_DATE"/>
+ 	</resultMap>
+ 	
+ 	
+ 	<insert id="setIntroduce">
+ 		MERGE INTO NOTICE N USING DUAL
+ 		ON(N.NOTICE_TYPE='I' AND USER_NO=#{mNo})
+ 		WHEN MATCHED THEN
+ 		UPDATE
+ 			SET NOTICE_CONTENT=#{nContent},NOTICE_DATE=SYSDATE
+ 		WHEN NOT MATCHED THEN
+ 		INSERT VALUES(SEQ_NNO.NEXTVAL,#{mNo},#{nTitle},#{nContent},#{nType},SYSDATE)	
+ 	
+ 	</insert>
+ 	<select id="getIntroduce" resultType="java.lang.String">
+ 		
+ 		SELECT NOTICE_CONTENT
+ 		FROM NOTICE
+ 		WHERE USER_NO=#{mNo} AND NOTICE_TYPE='I'
+ 	</select>
+ 	 
+ 	<select id="getAr" resultMap="NoticeResultSet">
+ 	
+ 		SELECT NOTICE_TITLE,NOTICE_CONTENT  FROM NOTICE WHERE  USER_NO=#{mNo} AND NOTICE_TYPE='AR'
+ 	
+ 	
+ 	</select>
+ 	
+ </mapper> 
+  

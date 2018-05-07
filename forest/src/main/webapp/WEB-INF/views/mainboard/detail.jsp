@@ -414,8 +414,10 @@
 	        </div>
 	      </div>
 	      
-	      <div class="commentaryBoard"></div>
+	      <div class="commentaryBoard">
 	      
+	      </div>
+
 	    </div>
       
         
@@ -882,13 +884,27 @@
     				  		info.appendTo(gara);
     				  		menu.appendTo(gara);
     				  		
+    				  		//답글 모두보기가 펼쳐져 있는 경우 대댓글을 대댓글의 마지막 요소 뒤에 추가 
     				  		if( $(e.target).parents('.comment').next().is('.comment2') ){
     				  			$(e.target).parents('.comment').nextAll('.comment').eq(0).prev().after(gara);
-    				  		}
     				  			
-    				  			if( $(e.target).parents('.comment').next().is('.comment') ){
-		    				  		$(e.target).parents('.comment').after(gara);
+    				  			//댓글이 하나일 경우 다음 댓글이 없으므로 위의 코드가 안먹음 따라서 if문 처리
+    				  			if( $('.commentaryBoard').children('.comment').length == 1 ){
+    				  				console.log('digh')
+    				  				$(e.target).parents('.comment').siblings().last().after(gara);
     				  			}
+    				  			
+    				  		}
+    				  		
+    				  		//마지막 댓글이 아닐경우 
+   				  			if( $(e.target).parents('.comment').next().is('.comment') ){
+	    				  		$(e.target).parents('.comment').after(gara);
+   				  			}
+    				  		
+    				  		//마지막 댓글일 경우 	
+    				  		if( $(e.target).parents('.comment').is( $('.commentaryBoard').children().last() ) ){
+    				  			$(e.target).parents('.comment').after(gara);
+    				  		}	
     				  				
     				  			
     				  		
@@ -921,10 +937,11 @@
     	  
     	  if( $(e.target).parent().is( $('.reply') ) ){
     		    
-    			//대댓글 처음 가져올 조건 : 1. 처음 모두보기 클릭시  2. 대댓글 추가한후 모두보기 클릭시  3. 대댓글 모두보기 후 닫은 후 대댓글 추가한 경우 	
-    			if( ( $(e.target).parents('.comment').next().is('.comment') ) || $(e.target).parents('.comment').next().is('.gara') || $(e.target).parents('.comment').next().css('display') == 'none' ){
+    			//대댓글 처음 가져올 조건 : 1. 처음 모두보기 클릭시  2. 대댓글 추가한후 모두보기 클릭시  3. 대댓글 모두보기 후 닫은 후 대댓글 추가한 경우 	 4.처음 답글불러올때 댓글이 첫번째인 경우 
+    			if( ( $(e.target).parents('.comment').next().is('.comment') ) || $(e.target).parents('.comment').next().is('.gara') || $(e.target).parents('.comment').next().css('display') == 'none' || $(e.target).parents('.comment').is( $('.commentaryBoard').children().last() ) ){
     				$(e.target).parents('.comment').nextUntil('.comment').remove();
 	    		  
+    				console.log('성공')
     				//이미지 포용
     				if($(e.target).is($('.replyBtn'))){
 	    				
@@ -944,7 +961,6 @@
     					$(e.target).siblings('p').text('답글 숨기기');
     				}
     				
-   				    
 	    		  	replyRequest.commentNo = $(e.target).parents('.comment').attr('id');
 	    		  	displayReplyFunc(replyRequest, e);
 	    		  	

@@ -203,6 +203,33 @@ public class MainBoardDaoImpl implements MainBoardDao{
 		return commentaryListCount;
 	}
 
+	@Override
+	public ArrayList<Commentary> replyList(SqlSessionTemplate sqlSession, String treeNo, String commentNo) {
+		HashMap<String, String> hash = new HashMap<String, String>();
+		
+		hash.put("treeNo", treeNo);
+		hash.put("commentNo", commentNo);
+		
+		ArrayList<Commentary> replyList = (ArrayList)sqlSession.selectList("Mainboard.replyList", hash);
+
+		
+		return replyList;
+	}
+
+	@Override
+	public String checkCommentOwner(SqlSessionTemplate sqlSession, String commentNo) {
+		String commentOwnerNo = sqlSession.selectOne("Mainboard.checkCommentOwner", commentNo);
+
+
+		return commentOwnerNo;
+	}
+
+	@Override
+	public void deleteCommentary(SqlSessionTemplate sqlSession, String commentNo) throws Exception {
+		sqlSession.delete("Mainboard.deleteCommentary", commentNo);
+		
+	}
+
 	
 	
 }

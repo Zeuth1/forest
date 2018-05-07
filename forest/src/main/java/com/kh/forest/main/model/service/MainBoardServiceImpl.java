@@ -102,6 +102,26 @@ public class MainBoardServiceImpl implements MainBoardService{
 		return commentaryListCount;
 	}
 
+	@Override
+	public ArrayList<Commentary> replyList(String treeNo, String commentNo) {
+		ArrayList<Commentary> replyList = md.replyList(sqlSession, treeNo, commentNo);
+		
+		return replyList;
+	}
+
+	@Override
+	public String checkCommentOwner(String commentNo) {
+		String commentOwnerNo = md.checkCommentOwner(sqlSession, commentNo);
+		
+		return commentOwnerNo;
+	}
+
+	@Override
+	public void deleteCommentary(String commentNo) throws Exception {
+		md.deleteCommentary(sqlSession, commentNo);
+		
+	}
+
 	
 
 	

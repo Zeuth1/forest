@@ -84,17 +84,21 @@
     
   }
   
-  .historyArea p:hover{
+  .historyArea{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-left:20px;
+    padding-top:5px;
+    padding-bottom:5px;
+    height:20px;
+  }
+  
+  .historyArea:hover{
     background:rgba(80,80,80,0.1);
     cursor:pointer;
   }
   
-  .historyArea{
-    display:flex;
-    flex-direction:column;
-    margin-left:20px;
-    margin-bottom:10px;
-  }
   
   .searchResultNav{
     display:flex;
@@ -494,12 +498,12 @@
     			
     		}
     		
-    		if( $(e.target).parent().is($('.history')) || $(e.target).is('.history')){
-    			if( $(e.target).parent().is($('.history')) ){
+    		if( $(e.target).parent().is($('.historyArea')) || $(e.target).is('.historyArea')){
+    			if( $(e.target).parent().is($('.historyArea')) ){
     				var item = $(e.target).text();
     				location.href="searchPage.ma?item=" + item;
     			}
-    			if( $(e.target).is('.history') ){
+    			if( $(e.target).is('.historyArea') ){
     				var item = $(e.target).children().text();
     				location.href="searchPage.ma?item=" + item;
     			}
@@ -566,7 +570,7 @@
     		    		
     		    		for(var i = 0; i < arr.length; i++){
     		    			var historyArea = $('<div class="historyArea">');
-    		    			$('<p style="font-size:15px; margin-bottom:10px; font-weight:bolder">' + arr[i] + '</p>').appendTo(historyArea);
+    		    			$('<p style="font-size:15px; font-weight:bolder">' + arr[i] + '</p>').appendTo(historyArea);
     		    			historyArea.appendTo($('.searchNav'));
     		    		}
     		    		

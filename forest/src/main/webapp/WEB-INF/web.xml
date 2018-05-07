@@ -6,9 +6,6 @@
 	<!-- The definition of the Root Spring Container shared by all Servlets 
 		and Filters -->
 
-
-
-	
 	<context-param>
 	  <param-name>contextConfigLocation</param-name>
 	  <param-value>
@@ -25,9 +22,6 @@
 	</listener>
 
 	<!-- 로그인서블릿 -->
-
-
-
 	<servlet>
 
 		<servlet-name>loginServlet</servlet-name>
@@ -57,9 +51,6 @@
 	</servlet-mapping>
 
 	<!-- 메인게시판 서블릿 -->
-
-
-
 	<servlet>
 
 		<servlet-name>mainServlet</servlet-name>
@@ -89,9 +80,6 @@
 	</servlet-mapping>
 
 	<!-- 마이보드서블릿 -->
-
-
-
 	<servlet>
 
 		<servlet-name>myboardServlet</servlet-name>
@@ -121,9 +109,6 @@
 	</servlet-mapping>
 
 	<!-- 셋팅서블릿 -->
-
-
-
 	<servlet>
 
 		<servlet-name>settingServlet</servlet-name>
@@ -153,9 +138,6 @@
 	</servlet-mapping>
 
 	<!-- 도움! -->
-
-
-
 	<servlet>
 
 		<servlet-name>helpCenterServlet</servlet-name>
@@ -185,9 +167,6 @@
 	</servlet-mapping>
 
 	<!-- 관리자서블릿 -->
-
-
-
 	<servlet>
 
 		<servlet-name>managerServlet</servlet-name>
@@ -215,5 +194,19 @@
 		<url-pattern>*.man</url-pattern>
 
 	</servlet-mapping>
+	
+	<!-- 한글 깨짐 방지 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 </web-app>

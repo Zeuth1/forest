@@ -13,19 +13,25 @@
 		<result property="mNo" column="USER_NO"/>
 		<result property="bName" column="TREE_BEFORE"/>
 		<result property="aName" column="TREE_AFTER"/>
-		<result property="tag" column="TREE_TAG"/>
+		<result property="Tree_Tag" column="TREE_TAG"/>
 		<result property="tType" column="TREE_TYPE"/>
 		<result property="tDate" column="TREE_DATE"/>
 
-
-
-	
 	</resultMap>
 	
 	<select id="selectPic" resultType="java.lang.String">
 			SELECT TREE_AFTER FROM(SELECT TREE_AFTER FROM TREE WHERE TREE_TYPE = 'L' ORDER BY DBMS_RANDOM.RANDOM) WHERE ROWNUM=1
-	
 	</select>
+	
+	<!-- 핀추가하기 -->
+	<!-- <insert id="insertFin">
+		INSERT INTO TREE
+		VALUES(SEQ_TNO.NEXTVAL, '1', NULL, #{aName}, #{Tree_Tag}, NULL, SYSDATE)
+	</insert> -->
+	<!-- <insert id="insertFin" parameterType="Tree">
+		INSERT INTO TREE
+		VALUES(140, 1, AI, #{aName}, #{Tree_Tag}, A, 18/04/11)
+	</insert> -->
 	
 	
 	</mapper>

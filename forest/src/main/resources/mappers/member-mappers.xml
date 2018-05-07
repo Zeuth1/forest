@@ -18,7 +18,7 @@
 		<result property="mEmail" column="EMAIL"/>
 		<result property="mStatus" column="STATUS"/>
 		<result property="mLevel" column="USER_LEVEL"/>
-		<result property="mEnrollDate" column="ENROLL_DATE"/>
+		<!-- <result property="mEnrollDate" column="ENROLL_DATE"/> -->
 		<result property="mNickName" column="NICK_NAME"/>
 		<result property="mSocialId" column="SOCIAL_ID"/>
 	</resultMap>

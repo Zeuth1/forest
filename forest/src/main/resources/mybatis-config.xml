@@ -12,7 +12,9 @@
 		<typeAlias type="com.kh.forest.manager.model.vo.RankGender" alias="RankGender"/>
 		<typeAlias type="com.kh.forest.helpcenter.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.forest.helpcenter.model.vo.Commentary" alias="Commentary"/>
-		
+		<typeAlias type="com.kh.forest.myboard.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.forest.myboard.model.vo.Fin" alias="Fin"/>
+		<typeAlias type="com.kh.forest.myboard.model.vo.Store" alias="Store"/>
 		
 	</typeAliases>
 	<mappers>
@@ -22,8 +24,12 @@
 		<mapper resource="mappers/tree-mappers.xml"/>
 		<mapper resource="mappers/donate-mapper.xml"/>
 		<mapper resource="mappers/chart-mapper.xml"/>
-		<mapper resource="mappers/help-mapper.xml"/>
+		<mapper resource="mappers/help-mapper.xml"/>	
 		<mapper resource="mappers/commentary-mapper.xml"/>
+		<mapper resource="mappers/fin-mapper.xml"/>
+		<mapper resource="mappers/myBoard-mapper.xml"/>
+		<mapper resource="mappers/store-mapper.xml"/>
+		
 	</mappers>
 
 </configuration>

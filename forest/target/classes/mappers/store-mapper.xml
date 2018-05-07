@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">	
+	<mapper namespace="Store">	<!-- mybatis-config에서 지정한 alias이름  -->
+	<resultMap type="STORE" id="storeResultSet">	<!-- type 은 클래스 vo에 이름  -->
+		<id property="Store_No" column="STORE_NO" />
+		<result property="Tree_No" column="TREE_NO" />
+		<result property="BoardNo" column="BOARD_NO" />
+	</resultMap>
+	<!-- <select id="selectStore" resultMap="storeResultSet" parameterType="java.lang.String">
+		SELECT T.TREE_NO, T.USER_NO, T.TREE_BEFORE, T.TREE_AFTER, T.TREE_TAG, T.TREE_TYPE, S.BOARD_NO
+		FROM STORE S
+		JOIN TREE T ON(S.TREE_NO = T.TREE_NO)
+		WHERE S.BOARD_NO = #{board}
+	</select> -->
+ 	<insert id="insertFin2" parameterType="String">
+		INSERT INTO STORE
+		VALUES(SEQ_SNO.NEXTVAL,SEQ_TNO.CURRVAL,#{BoardNo})
+	</insert>
+	
+</mapper>

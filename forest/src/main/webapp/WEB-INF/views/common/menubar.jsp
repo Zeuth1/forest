@@ -23,7 +23,7 @@
     border-bottom:1px solid rgba(80,80,80,0.1);  
   }
   
-  .overlay {
+  .menubarOverlay {
 	 display: none;
 	 position: fixed;
 	 width: 100%;
@@ -54,7 +54,7 @@
   }
   
   #searchBar{
-    width:1150px;
+    width:65%;
     height:38px;
     align-self:center;
     
@@ -75,12 +75,12 @@
     
     top:60px;
     position:fixed;
-    width:1200px;
+    width:68%;
     
     background:white;
     border-radius:6px;
     
-    margin-left:4.7%;
+    margin-left:5.5%;
     display:none;
     
   }
@@ -279,7 +279,15 @@
     border-bottom-left-radius:5px;
     border-bottom-right-radius:5px;
   }
-  
+  .overlay {
+  display: none;
+  z-index: 100;
+  position: fixed;
+  width: 100%; height: 100%;
+  left: 0; top: 0;
+  background-color: rgba(0,0,0, 0.4);
+  overflow-x: hidden;
+}
   
  
 </style>	
@@ -287,6 +295,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+  <div class="menubarOverlay"></div>
   <div class="overlay"></div>
   
   <div id="all">
@@ -346,7 +355,7 @@
   <script>
      $('#searchBar').on('click', function(){
     	
-    	$('.overlay').css('display','block');
+    	$('.menubarOverlay').css('display','block');
     	
     	$('#searchBar').css("border","4px solid rgb(128, 191, 255)").css("border-radius","6px");
     	
@@ -357,7 +366,7 @@
     $(document).on('click', function(e){
     	console.log($(e.target));
     	if( ! $(e.target).is($('#searchBar')) && ! $(e.target).is( $('.searchNav') ) ){
-    		$('.overlay').css('display','none');
+    		$('.menubarOverlay').css('display','none');
     		$('#searchBar').css("border","4px solid white").css("border-radius","8px");
     	}
     	
@@ -445,6 +454,9 @@
     $('#t0').on('click', function(){
     	location.href="a_memberSearchView.man";
     })
+    $('#name').click(function(){
+    	location.href="myBoard.my";
+    });
     
   </script> 
 </body>

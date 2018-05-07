@@ -350,10 +350,12 @@
      cursor:pointer;
    }
    
-   .commentMenu{
+   .commentMenuBtn{
+     position:relative;
      display:none;
      cursor:pointer;
    }
+   
    
    
    
@@ -560,7 +562,7 @@
 		  return profileImage;
 	  }
 	  
-	  //댓글 20개 뽑아와서 추가해줌  
+	//댓글 20개 뽑아와서 추가해줌  
 	  var displayFunc = function (){
 		  var commentRequest = new Object();
     	  
@@ -580,18 +582,18 @@
 				      $('.commentaryBoard').css('display','block');
 					  
 					  for(var i = 0; i < arr.length; i++){
-				  		var comment = $('<div class="comment" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-bottom:30px; width:680px;"  id="' + arr[i].comment_no + '">');
-				  		var menu = $('<img class="commentMenu" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">')
-				  		if(arr[i].tree_after !== ""){
-				  		var img = $('<img class="userProfile" src="/tree/' + arr[i].tree_after + '">'); 
-				  		}else{
-				  			var img = $('<img class="userProfile" src="${ pageContext.request.contextPath }/resources/images/default-user-image.png">');
-				  				
-				  		}
 				  		
+				  		var comment = $('<div class="comment" style="position:relative; display:flex; flex-wrap:wrap; margin-top:30px; margin-bottom:10px; width:680px;"  id="' + arr[i].comment_no + '">');
+  				    	var menu = $('<img class="commentMenuBtn" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">')
+  				    	if(arr[i].tree_after !== ""){
+  					  		var img = $('<img class="userProfile" style="width:35px; height:35px;" src="/tree/' + arr[i].tree_after + '">'); 
+  					  		}else{
+  					  			var img = $('<img class="userProfile" style="width:35px; height:35px;" src="${ pageContext.request.contextPath }/resources/images/default-user-image.png">');
+  					  				
+  					  		}
 				  		var info = $('<div class="userProfile2" style="width:595px; display:flex; flex-direction:column; margin-left:15px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
-				  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
-				  		             '<p class="commentDate"></p></div>' + 
+				  		             '<p class="userName">' + '${loginUser.mNickName}' + '</p>' + 
+				  		             '<p class="commentDate">1초 전</p></div>' + 
 				  		             '<p class="commentContent" style="width:570px;">' + arr[i].comment_content + '</p><p class="plusComment">답글</p></div>');
 				  		
 				  		img.appendTo(comment);
@@ -599,7 +601,7 @@
 				  		menu.appendTo(comment);
 				  		
 				  		if(arr[i].children > 0){
-				  			var reply = $('<div style="display:flex; height:20px; position:relative;margin-left:55px;" class="reply"><p class="replyBtn" style="font-size:13px; padding-left:0px; padding-top:5px; padding-bottom:5px; height:20px;padding-right:35px; margin-top:0px;">답글 ' +
+				  			var reply = $('<div style="display:flex; height:20px; position:relative;margin-left:50px;" class="reply"><p class="replyBtn" style="font-size:14px; padding-left:0px; padding-top:5px; padding-bottom:5px; height:20px;padding-right:35px; margin-top:0px;">답글 ' +
 				  			arr[i].children + '개 모두보기</p><img style="position:absolute; right:2px; top:1px;" src="${ pageContext.request.contextPath }/resources/images/up.PNG"></div>')
 				  			
 				  			reply.appendTo(comment);
@@ -619,7 +621,7 @@
 		   })
 	  };
 	  
-	  //대댓글 불러오기
+	//대댓글 불러오기
 	  var displayReplyFunc = function(replyRequest, e){
 		  $.ajax({
     		  url:"replyList.ma",
@@ -630,12 +632,14 @@
     		  success:function(data){
     			  var arr = data.replyList;
     			  
+    			  console.log(arr);
+    			  
     			  for(var i = 0; i < arr.length; i++){
-    				    var reply = $('<div>')
-    				    var menu = $('<img class="commentMenu" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">')
-				  		var comment2 = $('<div class="comment2" style="display:flex; flex-wrap:wrap; margin-top:20px; margin-left:55px; margin-bottom:5px; width:625px;"  id="' 
+
+    				  
+				  		var comment2 = $('<div class="comment2" style="position:relative; display:flex; flex-wrap:wrap; margin-top:20px; margin-left:55px; margin-bottom:20px; width:630px;;"  id="' 
 				  		+ arr[i].comment_no + '">');
-				  		
+				  		var menu = $('<img class="commentMenuBtn" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">')
 				  		if(arr[i].tree_after !== ""){
 				  		var img = $('<img class="userProfile" style="width:25px; height:25px;" src="/tree/' + arr[i].tree_after + '">'); 
 				  		}else{
@@ -643,10 +647,10 @@
 				  				
 				  		}
 				  		
-				  		var info = $('<div class="userProfile2" style="width:560px; display:flex; flex-direction:column; margin-top:0px;margin-left:10px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
+				  		var info = $('<div class="userProfile2" style="width:560px; display:flex; flex-direction:column; margin-top:0px; margin-left:10px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
 				  		             '<p class="userName">' + arr[i].nick_name + '</p>' + 
 				  		             '<p class="commentDate"></p></div>' + 
-				  		             '<p style="width:535px;" class="commentContent">' + arr[i].comment_content + '</p></div>');
+				  		             '<p class="commentContent" style="width:535px;">' + arr[i].comment_content + '</p></div>');
 				  		
 				  		
 				  		
@@ -654,14 +658,9 @@
 				  		info.appendTo(comment2);
 				  		menu.appendTo(comment2);
 				  		
-				  		//대댓글을 어느 위치에 추가할 것인지 설정 
-				  		if( $(e.target).parent().attr('class') == 'comment' ){
-				  			$(e.target).after(comment2);
-				  		}
 				  		
-				  		if( $(e.target).parent().parent().attr('class') == 'comment'){
-				  			$(e.target).parent().after(comment2);
-				  		}
+				  		
+				  		$(e.target).parents('.comment').after(comment2);
 				  		
 				  		//시간차 계산 
 				  		var gapTime = timeCalculator(arr[i].comment_date);
@@ -676,8 +675,6 @@
     	  })
 		  
 	  }
-		  
-		  
 	  
 	  //온로드 펑션 
 	  $(function(){
@@ -776,7 +773,10 @@
       
       //대댓글 작성폼 추가 
       $(document).on('click', function(e){
-    	  if( $(e.target).is( $('.plusComment') ) && !$(e.target).siblings().eq(2).is( $('.write') ) ){
+    	  //처음 추가 
+    	  if( $(e.target).is( $('.plusComment') ) && !$(e.target).siblings('.write').length  ){
+    	  
+    		  
     	  	  
     	  var write2 = ('<div class="write" id="write2" style="width:300px; margin-bottom:0px;">' + 
     			        '<img src="' + getProfileImage() + '" class="profile" id="loginUserProfile2" style="width:25px; height:25px;">' + 
@@ -790,13 +790,17 @@
     	  
     	  //동적으로 추가된 textArea를 autosize적용
     	  autosize(document.querySelectorAll("textArea"));
+    	  }else{
+    		  $(e.target).siblings('.write').show();
     	  }
       })
       
       $(document).on('click', function(e){
     	 if( $(e.target).is( $('.erase2') ) ){
     		 
-    		 $(e.target).parent().parent().parent().remove();
+    		 $(e.target).parents('.write').toggle();
+    		 $(e.target).parent().siblings('#textArea2').val('');
+    		 $(e.target).parent().siblings('#textArea2').height(18);
     	 }
       });
       
@@ -840,11 +844,11 @@
       				    if( $(e.target).attr('id') == 'submit' ){
 	  						
       				    	var comment = $('<div class="comment" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-bottom:10px; width:680px;"  id="' + commentNo + '">');
-      				    	var menu = $('<img class="commentMenu" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">')
+      				    	var menu = $('<img class="commentMenuBtn" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">')
     				  		var img = $('<img class="userProfile" src="' + getProfileImage() + '">'); 
     				  		var info = $('<div class="userProfile2" style="width:595px; display:flex; flex-direction:column; margin-left:15px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
     				  		             '<p class="userName">' + '${loginUser.mNickName}' + '</p>' + 
-    				  		             '<p class="commentDate">방금</p></div>' + 
+    				  		             '<p class="commentDate">1초 전</p></div>' + 
     				  		             '<p class="commentContent" style="width:570px;">' + $(e.target).parent().siblings().val() + '</p><p class="plusComment">답글</p></div>');
     				  		
     				  		
@@ -865,28 +869,33 @@
       				    
       				    //대댓글 추가 
       				    if( $(e.target).attr('id') == 'submit2' ){
-      				    	var comment2 = $('<div class="gara" style="display:flex; flex-wrap:wrap; margin-bottom:15px;margin-top:5px; margin-left:55px; width:630px;"  id="' 
+      				    	var gara = $('<div class="gara" style="display:flex; flex-wrap:wrap; margin-bottom:5px;margin-top:20px; margin-left:55px; width:630px;"  id="' 
     				  		+ commentNo + '">');
-      				    	var menu = $('<img class="commentMenu" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">');
+      				    	var menu = $('<img class="commentMenuBtn" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">');
     				  		var img = $('<img class="userProfile" style="width:25px; height:25px;" src="' + getProfileImage() + '">'); 
     				  		var info = $('<div class="userProfile2" style="width:560px;display:flex; flex-direction:column; margin-top:0px; margin-left:10px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
     				  		             '<p class="userName">' + '${loginUser.mNickName}' + '</p>' + 
-    				  		             '<p class="commentDate">방금</p></div>' + 
+    				  		             '<p class="commentDate">1초 전</p></div>' + 
     				  		             '<p class="commentContent" style="width:535px;">' + $(e.target).parent().siblings().val() + '</p></div>');
     				  		
-    				  		img.appendTo(comment2);
-    				  		info.appendTo(comment2);
-    				  		menu.appendTo(comment2);
+    				  		img.appendTo(gara);
+    				  		info.appendTo(gara);
+    				  		menu.appendTo(gara);
     				  		
-    				  		//대댓글 insert한경우  추가할 곳은 2가지가 있다. 1. 전체댓글보기 버튼이 있는 경우 그 밑에 추가 2. 없는 경우 userProfile2밑에 추가.
-    				  		if( $(e.target).parent().parent().parent().parent().siblings('.reply').length){
-    				  			(comment2).attr('style','display:flex; flex-wrap:wrap; margin-bottom:0px;margin-top:20px; margin-left:55px; width:630px;')
-	   				  			$(e.target).parent().parent().parent().parent().siblings('.reply').after(comment2);
-    				  		}else{
-    				  			$(e.target).parent().parent().parent().parent().parent().append(comment2);
+    				  		if( $(e.target).parents('.comment').next().is('.comment2') ){
+    				  			$(e.target).parents('.comment').nextAll('.comment').eq(0).prev().after(gara);
     				  		}
     				  			
-    				  		$(e.target).parent().parent().parent('#write2').remove();
+    				  			if( $(e.target).parents('.comment').next().is('.comment') ){
+		    				  		$(e.target).parents('.comment').after(gara);
+    				  			}
+    				  				
+    				  			
+    				  		
+    			
+    				  		$(e.target).parent().parent().parent('#write2').toggle();
+    				  		$(e.target).parent().siblings('#textArea2').val('');
+    			    		$(e.target).parent().siblings('#textArea2').height(18);
     				  		
     				  		
     				  		
@@ -912,13 +921,20 @@
     	  
     	  if( $(e.target).parent().is( $('.reply') ) ){
     		    
-    			//처음 한번만 실행 
-    			if( !$(e.target).parent().siblings('.comment2').length ){
-	    		  	
+    			//대댓글 처음 가져올 조건 : 1. 처음 모두보기 클릭시  2. 대댓글 추가한후 모두보기 클릭시  3. 대댓글 모두보기 후 닫은 후 대댓글 추가한 경우 	
+    			if( ( $(e.target).parents('.comment').next().is('.comment') ) || $(e.target).parents('.comment').next().is('.gara') || $(e.target).parents('.comment').next().css('display') == 'none' ){
+    				$(e.target).parents('.comment').nextUntil('.comment').remove();
+	    		  
     				//이미지 포용
     				if($(e.target).is($('.replyBtn'))){
-	    				replyText = $(e.target).text() 
-	    				$(e.target).text('답글 숨기기'); 
+	    				
+    					
+    						
+    						replyText = $(e.target).text() 
+    					
+		    				
+    					
+    					$(e.target).text('답글 숨기기'); 
 	    				
 	    				$(e.target).siblings('img').attr('src', "${ pageContext.request.contextPath }/resources/images/down.PNG").attr('style','position:absolute; right:3px; top:4px;');
 	    				
@@ -928,77 +944,174 @@
     					$(e.target).siblings('p').text('답글 숨기기');
     				}
     				
-   				    $(e.target).siblings('.gara').remove();
-	    		  	replyRequest.commentNo = $(e.target).parent().parent().attr('id');
+   				    
+	    		  	replyRequest.commentNo = $(e.target).parents('.comment').attr('id');
 	    		  	displayReplyFunc(replyRequest, e);
 	    		  	
     				
     			}else{
-    				if( $(e.target).parent().siblings('.comment2').css('display') == 'flex'){
-    					//이미지 포용
+   			       if( $(e.target).text() == '답글 숨기기' || $(e.target).siblings('p').text() == '답글 숨기기' ){
+   						
         				if($(e.target).is($('.replyBtn'))){
 	    					$(e.target).text(replyText);    	    				  					
         					$(e.target).siblings('img').attr('src', "${ pageContext.request.contextPath }/resources/images/up.PNG").attr('style','position:absolute; right:2px; top:1px;');
-				    		$(e.target).parent().siblings('.comment2').toggle();	    					
+				    		$(e.target).parents('.comment').nextUntil( $('.comment') ).toggle();
+				    		 
         				}
     					
     					if($(e.target).is($('img')) ){
         					$(e.target).siblings('p').text(replyText);
         					$(e.target).attr('src', "${ pageContext.request.contextPath }/resources/images/up.PNG").attr('style','position:absolute; right:2px; top:1px;');
-				    		$(e.target).parent().siblings('.comment2').toggle();	    					
+        					$(e.target).parents('.comment').nextUntil( $('.comment') ).toggle();	    					
         				}			
-	    			}else{
-	    				//이미지 포용
-        				if($(e.target).is($('.replyBtn'))){
-	    					$(e.target).text('답글 숨기기');    
-	    					$(e.target).siblings('img').attr('src', "${ pageContext.request.contextPath }/resources/images/down.PNG").attr('style','position:absolute; right:3px; top:4px;');;
-				    		$(e.target).parent().siblings('.comment2').toggle();	    					
-        				}
-	    				if($(e.target).is($('img'))){
-        					$(e.target).siblings('p').text('답글 숨기기');
-        					$(e.target).attr('src', "${ pageContext.request.contextPath }/resources/images/down.PNG").attr('style','position:absolute; right:3px; top:4px;');;
-				    		$(e.target).parent().siblings('.comment2').toggle();	    					
-        				}		    					
-	    			}
+   					}else{
+    		        
+    				//이미지 포용
+       				if($(e.target).is($('.replyBtn'))){
+    					$(e.target).text('답글 숨기기');    
+    					$(e.target).siblings('img').attr('src', "${ pageContext.request.contextPath }/resources/images/down.PNG").attr('style','position:absolute; right:3px; top:4px;');;
+    					$(e.target).parents('.comment').nextUntil( $('.comment') ).toggle();	    					
+       				}
+    				if($(e.target).is($('img'))){
+       					$(e.target).siblings('p').text('답글 숨기기');
+       					$(e.target).attr('src', "${ pageContext.request.contextPath }/resources/images/down.PNG").attr('style','position:absolute; right:3px; top:4px;');;
+       					$(e.target).parents('.comment').nextUntil( $('.comment') ).toggle();	    					
+       				}		    					
+				}
     				
-    			}
+    			
     	   }
+    	  }		
        })
+      
        
-       
+   /*=================================================================================================================================================================
+                               											답글 메뉴 버튼 생성 기능 
+     =================================================================================================================================================================*/
        
 	  var commentMenuNo = null;
-	  var loginUser = '${loginUser.mNo}';
       $(document).on({ 
     	  mouseenter : function(e){
     		  //commentNo Collecter
-    		  //comment인지 확인
-    		  /* if( $(e.target).is( $('.comment') ) ){
-    			  commentMenuNo = ( $(e.target).attr('id') );
-    		  }else{
-	    		  if( $(e.target).parents('.comment') ){
-	    			  commentMenuNo = ( $(e.target).parents('.comment').attr('id') );
-	    		  }
-    			  
-    		  } */
-    		  console.log('보이루')
     		  
-    		  $('#' + commentMenuNo).children('.commentMenu').toggle();
-    	       
-    		  console.log(commentMenuNo)	
+    		  //댓글인 경우 
+    		  if( $(e.target).is( $('.comment') )  || $(e.target).parents('.comment') ){
+    			  if( $(e.target).is('.comment') ){
+   			  		 commentMenuNo = ( $(e.target).attr('id') );
+   	    		  
+    			  }else{
+    				 commentMenuNo = ( $(e.target).parents('.comment').attr('id') );
+    			  }
+    		  }
+    		  
+    		  $('#' + commentMenuNo).children('.commentMenuBtn').toggle();
+    		  
           },
           
           mouseleave : function(){
-        	  $('#' + commentMenuNo).children('.commentMenu').toggle();
+        	  
+        	  $('#' + commentMenuNo).children('.commentMenuBtn').toggle();
           }
       
-      }, '.comment', 'comment2', '.gara');
+      }, '.comment');
       
+      $(document).on({ 
+    	  mouseenter : function(e){
+    		  //commentNo Collecter
+    		  
+    		  //댓글인 경우 
+    		  if( $(e.target).is( $('.comment2') ) || $(e.target).parents('.comment2') ){
+    			  if( $(e.target).is('.comment2')){
+    			  	 commentMenuNo = ( $(e.target).attr('id') );
+     			  }else{
+     				 commentMenuNo = ( $(e.target).parents('.comment2').attr('id') );
+     			  }
+    		  }
+    		  
+    		  $('#' + commentMenuNo).children('.commentMenuBtn').toggle();
+          },
+          
+          mouseleave : function(){
+        	  $('#' + commentMenuNo).children('.commentMenuBtn').toggle();
+          }
       
+      }, '.comment2');
+      
+      $(document).on({ 
+    	  mouseenter : function(e){
+    		  if( $(e.target).is( $('.gara') ) || $(e.target).parents('.gara') ){
+    			  if( $(e.target).is('.gara')){
+     			  	 commentMenuNo = ( $(e.target).attr('id') );
+      			  }else{
+      				 commentMenuNo = ( $(e.target).parents('.gara').attr('id') );
+      			  }
+    		  }
+    		  
+    		  $('#' + commentMenuNo).children('.commentMenuBtn').toggle();
+    		  
+          },
+          
+          mouseleave : function(){
+        	  $('#' + commentMenuNo).children('.commentMenuBtn').toggle();
+          }
+      
+      }, '.gara');
        
        
-       
+    /*=================================================================================================================================================================
+      -----------------------------------------------------------------------------------------------------------------------------------------------------------------	
+      =================================================================================================================================================================*/   
+     
+	   
+	/*=================================================================================================================================================================
+																				게시글 삭제 기능
+	  =================================================================================================================================================================*/	
+					  
+	  //답글이 본인 답글인지 확인 
+	  $(document).on('click', function(e){
+		  if( $(e.target).is('.commentMenuBtn') ){
+			  var commentNo = $(e.target).parent().attr('id');
+			  var loginUserNo = '${loginUser.mNo}';
+			  var commentOwnerNo = null;
+			  
+			  $.ajax({
+				  url:"checkCommentOwner.ma",
+				  data:JSON.stringify(commentNo),
+				  type:"POST",
+				  dataType:'json',
+				  contentType:'application/json',
+				  success:function(data){
+					  commentOwnerNo = data;
+					  
+					  
+				  }
+				  
+			  })
+			  
+			  if( loginUserNo == commentOwnerNo){
+				  var commentMenu = $('<div class="commentMenu" style="position:absolute; background:black; display:inline-block; width:30px; height:100px;">');
+				  $(e.target).parent().append(commentMenu);
+				  
+				  
+			  }else{
+				  var commentMenu = $('<div class="commentMenu" style="position:absolute; background:black; display:inline-block; width:30px; height:100px;">');
+				  $(e.target).parent().append(commentMenu);
+			  }
+			  
+			  
+			  
+		  }
+	  })
+					  
+					  
+		  
+	  
+		  
+	  
       
+	/*=================================================================================================================================================================
+	  -----------------------------------------------------------------------------------------------------------------------------------------------------------------	
+	  =================================================================================================================================================================*/  
     </script>
       
       

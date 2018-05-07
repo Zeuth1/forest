@@ -312,6 +312,32 @@ public class MainBoard {
 	
 		return object.toString(); 
 	}
+	
+	@RequestMapping(value="checkCommentOwner.ma")
+	public void checkCommentOwner(@RequestBody String JSONcommentNo, HttpServletResponse response){
+		String commentNo = null;
+		
+		JSONParser parser = new JSONParser();
+		try {
+			commentNo = (String) parser.parse(JSONcommentNo);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String commentOwnerNo = ms.checkCommentOwner(commentNo);
+		
+		PrintWriter pw;
+		try {
+			pw = response.getWriter();
+			pw.println(commentOwnerNo);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 		
 	
 }

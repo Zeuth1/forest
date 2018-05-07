@@ -173,6 +173,12 @@
        WHERE C.TREE_NO = #{treeNo}
        AND T.TREE_TYPE = 'P'
        AND C.PARENT_COMMENT_NO = #{commentNo}
-    ORDER BY COMMENT_DATE ASC
+    ORDER BY COMMENT_DATE DESC
+  </select>
+  
+  <select id="checkCommentOwner" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT USER_NO
+    FROM COMMENTARY
+    WHERE COMMENT_NO = #{commentNo}
   </select>
 </mapper>

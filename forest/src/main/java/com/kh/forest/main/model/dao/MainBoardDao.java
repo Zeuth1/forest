@@ -36,4 +36,6 @@ public interface MainBoardDao {
 	public int commentaryListCount(SqlSessionTemplate sqlSession, String treeNo);
 
 	public ArrayList<Commentary> replyList(SqlSessionTemplate sqlSession, String treeNo, String commentNo);
+	
+	public String checkCommentOwner(SqlSessionTemplate sqlSession, String commentNo);
 }

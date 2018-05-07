@@ -109,6 +109,13 @@ public class MainBoardServiceImpl implements MainBoardService{
 		return replyList;
 	}
 
+	@Override
+	public String checkCommentOwner(String commentNo) {
+		String commentOwnerNo = md.checkCommentOwner(sqlSession, commentNo);
+		
+		return commentOwnerNo;
+	}
+
 	
 
 	

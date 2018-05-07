@@ -216,6 +216,14 @@ public class MainBoardDaoImpl implements MainBoardDao{
 		return replyList;
 	}
 
+	@Override
+	public String checkCommentOwner(SqlSessionTemplate sqlSession, String commentNo) {
+		String commentOwnerNo = sqlSession.selectOne("Mainboard.checkCommentOwner", commentNo);
+
+
+		return commentOwnerNo;
+	}
+
 	
 	
 }

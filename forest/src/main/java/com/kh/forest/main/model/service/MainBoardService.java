@@ -32,4 +32,7 @@ public interface MainBoardService {
 	public int commentaryListCount(String treeNo);
 
 	public ArrayList<Commentary> replyList(String treeNo, String commentNo);
+	
+	public String checkCommentOwner(String commentNo);
+
 }

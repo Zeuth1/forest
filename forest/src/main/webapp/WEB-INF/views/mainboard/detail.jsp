@@ -354,8 +354,48 @@
      position:relative;
      display:none;
      cursor:pointer;
+     background:white;
    }
    
+   .commentMenu{
+     position:absolute;
+     display:flex;
+     flex-direction:column;
+     align-items:center;
+     justify-content:center;
+     
+
+
+     box-shadow:0px 3px 3px  rgba(80,80,80,0.3);
+     left:675px;
+     width:60px;
+     height:110px;
+     
+     
+     
+   }
+   
+   .commentMenu div{
+     width:100%;
+   }
+   
+   .commentMenu p{
+     font-family: 'Nanum Gothic', sans-serif;
+     font-size:14px;
+     text-align:center;
+     padding-top:15px;
+     padding-bottom:15px;
+     margin:0px;
+
+   }
+   
+   
+   .commentMenu p:hover{
+     background:rgba(80,80,80,0.1);
+     cursor:pointer;
+   }
+     
+     
    
    
    
@@ -1080,50 +1120,91 @@
      
 	   
 	/*=================================================================================================================================================================
-																				게시글 삭제 기능
+																				댓글 삭제/수정/신고
 	  =================================================================================================================================================================*/	
 					  
 	  //답글이 본인 답글인지 확인 
 	  $(document).on('click', function(e){
 		  if( $(e.target).is('.commentMenuBtn') ){
-			  var commentNo = $(e.target).parent().attr('id');
-			  var loginUserNo = '${loginUser.mNo}';
-			  var commentOwnerNo = null;
+			  //이미 켜져있는 경우 끔
+			  $('.commentMenu').hide();
+			  if( $(e.target).siblings('.commentMenu').length ){
+				  $(e.target).siblings('.commentMenu').toggle();
+			  }else{
+				  var commentNo = $(e.target).parent().attr('id');
+				  var loginUserNo = '${loginUser.mNo}';
+				  var commentOwnerNo = null;
+				  
+				  
+				  $.ajax({
+					  url:"checkCommentOwner.ma",
+					  data:JSON.stringify(commentNo),
+					  type:"POST",
+					  dataType:'json',
+					  contentType:'application/json',
+					  success:function(data){
+						  commentOwnerNo = data;
+						  
+						  if( loginUserNo == commentOwnerNo){
+								
+							  var commentMenu = $('<div class="commentMenu"><div><p class="modifyBtn">수정</p><p class="deleteBtn">삭제</p></div></div>');
+							  $(e.target).after(commentMenu);
+						  
+						  }else{
+							  var commentMenu = $('<div class="commentMenu" style="width:180px; height:70px;"><div><p class="banBtn">스팸 또는 악용사례 신고</p></div></div>');
+							  $(e.target).after(commentMenu);
+						  }
+						  
+						  
+						  
+						  
+					  }
+					  
+				  })
+			  
+		  		}
+		  }
+	  })
+      
+	  //댓글 메뉴 버튼 hide
+	  $(document).on('click', function(e){
+		  if( !$(e.target).is('.commentMenu') && !$(e.target).is('.commentMenuBtn') ){
+			  $('.commentMenu').hide();
+		  }
+	  })				  
+	  
+	  
+	  //댓글 삭제 
+	  $(document).on('click', function(e){
+		  if( $(e.target).is('.deleteBtn')){
+			  var commentNo = $(e.target).parent().parent().parent().attr('id')
 			  
 			  $.ajax({
-				  url:"checkCommentOwner.ma",
-				  data:JSON.stringify(commentNo),
-				  type:"POST",
-				  dataType:'json',
-				  contentType:'application/json',
+				  url:'deleteCommentary.ma',
+				  data:commentNo + "",
+				  type:'POST',
 				  success:function(data){
-					  commentOwnerNo = data;
+					  console.log(data)
+					  
+					  if(data == 'success'){
+						  $('#' + commentNo).remove();
+						  
+					  }
 					  
 					  
 				  }
-				  
 			  })
 			  
-			  if( loginUserNo == commentOwnerNo){
-				  var commentMenu = $('<div class="commentMenu" style="position:absolute; background:black; display:inline-block; width:30px; height:100px;">');
-				  $(e.target).parent().append(commentMenu);
-				  
-				  
-			  }else{
-				  var commentMenu = $('<div class="commentMenu" style="position:absolute; background:black; display:inline-block; width:30px; height:100px;">');
-				  $(e.target).parent().append(commentMenu);
-			  }
 			  
 			  
 			  
 		  }
+		  
 	  })
-					  
-					  
-		  
-	  
-		  
-	  
+	  	    
+	  //댓글 수정 
+	  //댓글 신고  
+	 
       
 	/*=================================================================================================================================================================
 	  -----------------------------------------------------------------------------------------------------------------------------------------------------------------	

@@ -35,4 +35,6 @@ public interface MainBoardService {
 	
 	public String checkCommentOwner(String commentNo);
 
+	public void deleteCommentary(String commentNo) throws Exception;
+
 }

@@ -116,6 +116,12 @@ public class MainBoardServiceImpl implements MainBoardService{
 		return commentOwnerNo;
 	}
 
+	@Override
+	public void deleteCommentary(String commentNo) throws Exception {
+		md.deleteCommentary(sqlSession, commentNo);
+		
+	}
+
 	
 
 	

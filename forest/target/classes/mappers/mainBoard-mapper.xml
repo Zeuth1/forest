@@ -181,4 +181,9 @@
     FROM COMMENTARY
     WHERE COMMENT_NO = #{commentNo}
   </select>
+  
+  <delete id="deleteCommentary" parameterType="java.lang.String">
+  DELETE FROM COMMENTARY
+  WHERE COMMENT_NO = #{commentNo}
+  </delete>
 </mapper>

@@ -224,6 +224,12 @@ public class MainBoardDaoImpl implements MainBoardDao{
 		return commentOwnerNo;
 	}
 
+	@Override
+	public void deleteCommentary(SqlSessionTemplate sqlSession, String commentNo) throws Exception {
+		sqlSession.delete("Mainboard.deleteCommentary", commentNo);
+		
+	}
+
 	
 	
 }

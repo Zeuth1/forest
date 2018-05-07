@@ -314,16 +314,17 @@ public class MainBoard {
 	}
 	
 	@RequestMapping(value="checkCommentOwner.ma")
-	public void checkCommentOwner(@RequestBody String JSONcommentNo, HttpServletResponse response){
+	public void checkCommentOwner(@RequestBody String JSONCommentNo, HttpServletResponse response){
 		String commentNo = null;
 		
 		JSONParser parser = new JSONParser();
 		try {
-			commentNo = (String) parser.parse(JSONcommentNo);
+			commentNo = (String) parser.parse(JSONCommentNo);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
 		
 		String commentOwnerNo = ms.checkCommentOwner(commentNo);
 		
@@ -338,6 +339,40 @@ public class MainBoard {
 		
 		
 	}
+	
+	@RequestMapping(value="deleteCommentary.ma")
+	public void deleteCommentary(HttpServletResponse response, @RequestBody String commentNo){
+		
+		System.out.println(commentNo);
+		
+		int idx = commentNo.indexOf("=");
+		
+		String commentNoAfter = commentNo.substring(0, idx);
+		
+		try {
+			ms.deleteCommentary(commentNoAfter);
+			
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.write("success");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (Exception e1) {
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.write("error");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	} 
 		
 	
 }

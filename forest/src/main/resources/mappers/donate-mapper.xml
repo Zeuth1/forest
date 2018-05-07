@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -39,4 +40,147 @@
 	
 	
 </mapper>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace="Donate">
+	<resultMap id="DonateResultSet" type="Donate">
+
+		<id property="donate_no" column="dno" />
+		<result property="giver_Nick" column="giver_name" />
+		<result property="taker_Nick" column="taker_name" />
+		<result property="donate_date" column="DONATE_DATE" />
+		<result property="donate_amount" column="amount" />
+
+	</resultMap>
+	<resultMap id="DonateSumResultSet" type="Donate">
+
+		<id property="donate_no" column="rownum" />
+		<result property="giver_Nick" column="giver_name" />
+		<result property="taker_Nick" column="taker_name" />
+		<result property="donate_date" column="DONATE_DATE" />
+		<result property="donate_amount" column="amount" />
+
+	</resultMap>
+
+	<select id="DonateSelectAll" resultMap="DonateResultSet" parameterType="_int">
+		select dno,giver_name,taker_name,DONATE_DATE,amount from(
+		SELECT
+		ROWNUM as dno,m1.NICK_NAME as giver_name,m2.NICK_NAME as
+		taker_name,d.DONATE_DATE as DONATE_DATE,d.DONATE_AMOUNT as amount
+		FROM
+		DONATE d
+		join MEMBER m1 on (d.GIVER_NO=m1.user_no)
+		join MEMBER m2 on
+		(d.takER_NO=m2.user_no)
+		)
+        where dno BETWEEN 1+20*(#{_int}-1) and 20+20*(#{_int}-1)
+        order by 1
+	</select>
+	<select id="DonateSelectTOne" resultMap="DonateResultSet" parameterType="hashmap" >
+		SELECT
+		dno,giver_name,taker_name,DONATE_DATE,amount
+		FROM(
+		SELECT
+		rownum as dno,m1.NICK_NAME as giver_name,m2.NICK_NAME as
+		taker_name,d.DONATE_DATE as DONATE_DATE,d.DONATE_AMOUNT as amount
+		FROM DONATE d
+		join MEMBER m1 on (d.GIVER_NO=m1.user_no)
+		join MEMBER m2 on (d.takER_NO=m2.user_no) where taker_name=#{searchval})
+		 where dno BETWEEN 1+20*(#{page}-1) and 20+20*(#{page}-1)
+		order BY 1
+	</select>
+
+	<select id="DonateSelectTSum" resultMap="DonateSumResultSet">
+		SELECT
+		ROWNUM,TAKER_NAME,AMOUNT
+		FROM (SELECT M.NICK_NAME AS TAKER_NAME,SUM(D.DONATE_AMOUNT) AS AMOUNT FROM
+		DONATE D JOIN MEMBER M ON (D.TAKER_NO=M.USER_NO)GROUP BY M.NICK_NAME)
+		WHERE TAKER_NAME=#{taker_name}
+
+	</select>
+
+	<select id="DonateSelectGOne" resultMap="DonateResultSet" parameterType="hashmap">
+		SELECT
+		dno,giver_name,taker_name,DONATE_DATE,amount
+		FROM(
+		SELECT
+		rownum as dno,m1.NICK_NAME as giver_name,m2.NICK_NAME as
+		taker_name,d.DONATE_DATE as DONATE_DATE,d.DONATE_AMOUNT as amount
+		FROM DONATE d
+		join MEMBER m1 on (d.GIVER_NO=m1.user_no)
+		join MEMBER m2 on (d.takER_NO=m2.user_no) where m1.NICK_NAME=#{searchval})
+		where dno BETWEEN 1+20*(#{page}-1) and 20+20*(#{page}-1)
+		order BY 1
+	</select>
+
+	<select id="DonateSelectGSum" resultMap="DonateSumResultSet">
+		SELECT
+		ROWNUM,GIVER_NAME,AMOUNT
+		FROM (SELECT M.NICK_NAME AS GIVER_NAME,SUM(D.DONATE_AMOUNT) AS AMOUNT FROM
+		DONATE D JOIN MEMBER M ON (D.GIVER_NO=M.USER_NO)GROUP BY M.NICK_NAME)
+		WHERE GIVER_NAME=#{giver_name}
+
+	</select>
+	<!-- 페이지 -->
+	<select id="CountDonation" resultType="_int">
+		select count(*) from(
+		SELECT
+		d.DONATE_NO as dno,m1.NICK_NAME as giver_name,m2.NICK_NAME as
+		taker_name,d.DONATE_DATE as DONATE_DATE,d.DONATE_AMOUNT as amount
+		FROM
+		DONATE d
+		join MEMBER m1 on (d.GIVER_NO=m1.user_no)
+		join MEMBER m2 on
+		(d.takER_NO=m2.user_no)
+		order by 1)
+	</select>
+	<select id="CountDonateSelectTOne" resultType="_int">
+		SELECT
+		count(*)
+		FROM(
+		SELECT
+		d.DONATE_NO as dno,m1.NICK_NAME as giver_name,m2.NICK_NAME as
+		taker_name,d.DONATE_DATE as DONATE_DATE,d.DONATE_AMOUNT as amount
+		FROM DONATE d
+		join MEMBER m1 on (d.GIVER_NO=m1.user_no)
+		join MEMBER m2 on (d.takER_NO=m2.user_no) 
+        where m2.NICK_NAME=#{taker_name})
+		order BY 1
+	</select>
+	<select id="CountDonateSelectGOne"  resultType="_int">
+		SELECT count(*)
+		FROM( SELECT
+		d.DONATE_NO as dno,m1.NICK_NAME as giver_name,m2.NICK_NAME as
+		taker_name,d.DONATE_DATE as DONATE_DATE,d.DONATE_AMOUNT as amount
+		FROM DONATE d
+		join MEMBER m1 on (d.GIVER_NO=m1.user_no)
+		join MEMBER m2 on (d.takER_NO=m2.user_no)
+        where m1.NICK_NAME=#{giver_name})
+		 order BY 1
+	</select>
+	<select id="DonateSelectGAmount" resultType="_int">
+		SELECT
+		nvl(sum(AMOUNT),0)
+		FROM (SELECT M.NICK_NAME AS GIVER_NAME,SUM(D.DONATE_AMOUNT) AS AMOUNT FROM
+		DONATE D JOIN MEMBER M ON (D.GIVER_NO=M.USER_NO)GROUP BY M.NICK_NAME)
+		WHERE GIVER_NAME=#{giver_name}
+
+	</select>
+	<select id="DonateSelectTAmount" resultType="_int">
+		SELECT
+		nvl(sum(AMOUNT),0)
+		FROM (SELECT M.NICK_NAME AS TAKER_NAME,SUM(D.DONATE_AMOUNT) AS AMOUNT FROM
+		DONATE D JOIN MEMBER M ON (D.TAKER_NO=M.USER_NO)GROUP BY M.NICK_NAME)
+		WHERE TAKER_NAME=#{taker_name}
+
+	</select>
+
+</mapper>
+
  

@@ -5,7 +5,6 @@
   
 <configuration>
 	<typeAliases>
-		<typeAlias alias="Mem" type="com.kh.forest.manager.model.vo.Mem"/>
 		<typeAlias alias="Tree" type="com.kh.forest.main.model.vo.Tree"/>
 		<typeAlias alias="Detail" type="com.kh.forest.main.model.vo.Detail"/>
 		<typeAlias type="com.kh.forest.common.Member" alias="Member"/>
@@ -15,9 +14,14 @@
 		<typeAlias type="com.kh.forest.common.Commentary" alias="Commentary"/>
 		<typeAlias type="com.kh.forest.main.model.vo.History" alias="History"/>
 		<typeAlias type="com.kh.forest.setting.model.vo.Notice2" alias="Notice2"/>
-		<typeAlias type="com.kh.forest.setting.model.vo.Pay" alias="Pay"/>
-		
+  	<typeAlias type="com.kh.forest.setting.model.vo.Pay" alias="Pay"/>
+		<typeAlias alias="RankAgeByWriter" type="com.kh.forest.manager.model.vo.RankAgeByWriter" />
+		<typeAlias alias="Account" type="com.kh.forest.manager.model.vo.Account" />
+		<typeAlias alias="Refund" type="com.kh.forest.manager.model.vo.Refund" />
+		<typeAlias alias="Report" type="com.kh.forest.manager.model.vo.Report" />
+		<typeAlias alias="Calcul" type="com.kh.forest.manager.model.vo.Calcul" />
 	</typeAliases>
+  
 	<mappers>
 		<mapper resource="mappers/manager-mapper.xml"/>
 		<mapper resource="mappers/mainBoard-mapper.xml"/>
@@ -30,6 +34,8 @@
 		<mapper resource="mappers/history-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/pay-mapper.xml"/>
+		<mapper resource="mappers/refund-mapper.xml"/>
+		<mapper resource="mappers/account-mapper.xml"/>
 	</mappers>
 
 </configuration>

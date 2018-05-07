@@ -199,6 +199,7 @@ public class Setting {
 		System.out.println("profile+"+profile);
 		System.out.println("introduce?"+introduce);
 		mv.addObject("loginUser",m);
+
 		if(profile!=null) mv.addObject("profile",profile);
 		if(introduce!=null) mv.addObject("introduce",introduce);
 		
@@ -224,6 +225,9 @@ public class Setting {
 		donate.setTaker_no(String.valueOf(m.getmNo()));
 		
 		ss.payment(pay,donate);
+
+		mv.setViewName("/myPage");
+
 		
 		return mv;
 	}

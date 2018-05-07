@@ -61,9 +61,9 @@ body {
 
 	<jsp:include page="../admin_sidebar.jsp" />
 	<div id=container class="well-lg">
-		<h2 align="center">ADMIN PAGE -</h2>
+		<h2 align="center">정보조회</h2>
 		<hr>
-		<button onclick="memberSerchAll();">전체회원조회</button>
+		<button onclick="countAllmember()">전체회원조회</button>
 		<div style="margin-top: -20px;" align="right">
 			<select id=searchcon>
 				<option value="id">아이디</option>
@@ -79,7 +79,6 @@ body {
 				<tr>
 					<th>USER_NO</th>
 					<th>USER_ID</th>
-					<th>USER_PWD</th>
 					<th>USER_NAME</th>
 					<th>BIRTHDAY</th>
 					<th>GENDER</th>
@@ -88,7 +87,8 @@ body {
 					<th>STATUS</th>
 					<th>USER_LEVEL</th>
 					<th>ENROLL_DATE</th>
-					<th>수정하기</th>
+					<th>SOCIAL_ID</th>
+					<th>상세정보</th>
 				</tr>
 
 			</thead>
@@ -97,16 +97,42 @@ body {
 
 			</tbody>
 		</table>
+		<div id=pageset align="center"></div>
 	</div>
 
 	<!-- 스크립트(ajax,jquery) 작성부분 -->
 	<script>
-		function memberSerchAll() {
+
+		function countAllmember() {
+		var pageset = document.getElementById("pageset");
+		var page=0;
+			$.ajax({
+				url : "a_memberSearchAllcount.man",
+				data : {
+					onclick : "onclick"
+				},
+				dataType : "json",
+				type : 'post',
+				success : function(list) {
+					pageset.innerHTML="";
+					console.log(list);
+					page=list;
+					for(var i =0;i<page;i++)
+					{
+						pageset.innerHTML+="<button onclick='memberSearchAll(\""+ (i+1) + "\");'>"+(i+1)+"</button>";
+					}
+					memberSearchAll(1);
+				}
+
+			});
+		}
+		function memberSearchAll(page) {
 			var tbody = document.getElementById("addData");
 			$.ajax({
-				url : "a_memberSerchAll.man",
+				url : "a_memberSearchAll.man",
 				data : {
-					"onclick" : "onclick"
+					"onclick" : "onclick",
+					page:page
 				},
 				dataType : "json",
 				type : 'post',
@@ -115,20 +141,34 @@ body {
 					tbody.innerHTML = ""
 					for (var i = 0; i < list.length; i++) {
 						console.log(list[i]);
-						tbody.innerHTML += "<tr><td>" + list[i].mNo + "</td>"
-								+ "<td>" + list[i].mId + "</td>" + "<td>"
-								+ list[i].mPwd + "</td>" + "<td>"
-								+ list[i].mName + "</td>" + "<td>"
-								+ list[i].mBirth + "</td>" + "<td>"
-								+ list[i].mGender + "</td>" + "<td>"
-								+ list[i].mPhone + "</td>" + "<td>"
-								+ list[i].mEmail + "</td>" + "<td>"
-								+ list[i].mStatus + "</td>" + "<td>"
-								+ list[i].mLevel + "</td>" + "<td>"
-								+ list[i].mEnrollDate + "</td>" + "<td>"
-								+ "<button onclick='gotoupdate(\""
-								+ list[i].mNo + "\");'>수정하기</button> "
-								+ "</td>" + "</tr>";
+						if(list[i].mGender=="M")
+						{
+						var gender="남자";
+						}
+					else{
+						var gender="여자";
+					}
+					if(list[i].mStatus=="Y")
+					{
+					var status="활성";
+					}
+					else{
+						var status="탈퇴";
+					}
+					tbody.innerHTML += "<tr><td>" + list[i].mNo + "</td>"
+							+ "<td>" + list[i].mId + "</td>" + "<td>"
+							+ list[i].mName + "</td>" + "<td>"
+							+ list[i].mBirth + "</td>" + "<td>"
+							+ gender + "</td>" + "<td>"
+							+ list[i].mPhone + "</td>" + "<td>"
+							+ list[i].mEmail + "</td>" + "<td>"
+							+ status + "</td>" + "<td>"
+							+ list[i].mLevel + "</td>" + "<td>"
+							+ list[i].mEnrollDate + "</td>"+ "<td>"
+							+ list[i].mSocialId + "</td>" + "<td>"
+							+ "<button onclick='gotoDetail(\""
+							+ list[i].mNo + "\");'>상세정보</button> "
+							+ "</td>" + "</tr>";
 					}
 
 				}
@@ -153,19 +193,33 @@ body {
 					tbody.innerHTML = ""
 					for (var i = 0; i < list.length; i++) {
 						console.log(list[i]);
+						if(list[i].mGender=="M")
+							{
+							var gender="남자";
+							}
+						else{
+							var gender="여자";
+						}
+						if(list[i].mStatus=="Y")
+						{
+						var status="활성";
+						}
+						else{
+							var status="탈퇴";
+						}
 						tbody.innerHTML += "<tr><td>" + list[i].mNo + "</td>"
 								+ "<td>" + list[i].mId + "</td>" + "<td>"
 								+ list[i].mPwd + "</td>" + "<td>"
 								+ list[i].mName + "</td>" + "<td>"
 								+ list[i].mBirth + "</td>" + "<td>"
-								+ list[i].mGender + "</td>" + "<td>"
+								+ gender + "</td>" + "<td>"
 								+ list[i].mPhone + "</td>" + "<td>"
 								+ list[i].mEmail + "</td>" + "<td>"
-								+ list[i].mStatus + "</td>" + "<td>"
+								+ status + "</td>" + "<td>"
 								+ list[i].mLevel + "</td>" + "<td>"
 								+ list[i].mEnrollDate + "</td>" + "<td>"
-								+ "<button onclick='gotoupdate(\""
-								+ list[i].mId + "\");'>수정하기</button> "
+								+ "<button onclick='gotoDetail(\""
+								+ list[i].mNo + "\");'>상세정보</button> "
 								+ "</td>" + "</tr>";
 					}
 
@@ -173,9 +227,9 @@ body {
 			});
 		}
 
-		function gotoupdate(mId) {
-			console.log(mId);
-			location.href="a_memberUpdateView.man?mId="+mId;
+		function gotoDetail(mNo) {
+			console.log(mNo);
+			location.href = "a_memberDetailView.man?mNo=" + mNo;
 		}
 	</script>
 

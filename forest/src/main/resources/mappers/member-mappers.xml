@@ -22,7 +22,16 @@
 		<result property="mNickName" column="NICK_NAME"/>
 		<result property="socialId" column="SOCIAL_ID"/>
 	</resultMap>
-	
+	<resultMap id="ReportResultSet" type="Report">
+
+		<id property="ban_no" column="BAN_NO" />
+		<result property="user_id" column="USER_ID" />
+		<result property="tree_no" column="TREE_NO" />
+		<result property="ban_reason" column="BAN_REASON" />
+		<result property="ban_result" column="BAN_RESULT" />
+		<result property="status" column="STATUS" />
+		<result property="ban_date" column="BAN_DATE" />
+	</resultMap>
 	
 	
 	
@@ -93,6 +102,7 @@
 		 SELECT COUNT(EMAIL) FROM MEMBER WHERE EMAIL=#{mEmail}
 	
 	</select>
+
 	<update id="changeEtc">
 		
 		UPDATE MEMBER SET GENDER=#{mGender}, USER_NAME=#{mName} 
@@ -114,6 +124,105 @@
 	
 	</select>
 	
+
+	<select id="CountReportStatusNo" resultType="_int">
+		select count(*) from Ban where status='N'
+	</select>
+
+	<select id="ReportSearchStatusNoAll" resultMap="ReportResultSet" parameterType="_int">
+		SELECT
+		BAN_NO,USER_ID,TREE_NO,BAN_REASON,BAN_RESULT,STATUS,BAN_DATE
+		FROM
+		(SELECT
+		b.BAN_NO as BAN_NO,m.USER_ID as USER_ID,b.TREE_NO as TREE_NO,b.BAN_REASON as
+		BAN_REASON,b.BAN_RESULT as BAN_RESULT,b.STATUS as STATUS,b.BAN_DATE as BAN_DATE
+		FROM ban b
+		join MEMBER m on m.user_no = b.USER_NO)
+		where ban_no BETWEEN 1+20*(#{_int}-1) and 20+20*(#{_int}-1) and STATUS='N'
+	</select>
 	
+		<select id="CountReportStatusYes" resultType="_int">
+		select count(*) from Ban where status='Y'
+	</select>
+
+	<select id="ReportSearchStatusYesAll" resultMap="ReportResultSet" parameterType="_int">
+		SELECT
+		BAN_NO,USER_ID,TREE_NO,BAN_REASON,BAN_RESULT,STATUS,BAN_DATE
+		FROM
+		(SELECT
+		b.BAN_NO as BAN_NO,m.USER_ID as USER_ID,b.TREE_NO as TREE_NO,b.BAN_REASON as
+		BAN_REASON,b.BAN_RESULT as BAN_RESULT,b.STATUS as STATUS,b.BAN_DATE as BAN_DATE
+		FROM ban b
+		join MEMBER m on m.user_no = b.USER_NO)
+		where ban_no BETWEEN 1+20*(#{_int}-1) and 20+20*(#{_int}-1) and STATUS='Y'
+	</select>
+	
+	<select id="CountReportSearchId" resultType="_int">
+		select count(*) from Ban b
+		join member m on m.user_no = b.USER_NO
+		WHERE m.USER_ID=#{user_id}
+	</select>
+
+	
+	<select id="CountReportSearchReason" resultType="_int">
+		select count(*) from Ban b
+		join member m on m.user_no = b.USER_NO
+		WHERE b.BAN_REASON=#{ban_reason}
+	</select>
+	<select id="ReportSearchId" resultMap="ReportResultSet" parameterType="hashmap" >
+			SELECT
+		BAN_NO,USER_ID,TREE_NO,BAN_REASON,BAN_RESULT,STATUS,BAN_DATE
+		FROM
+		(SELECT
+		b.BAN_NO as BAN_NO,m.USER_ID as USER_ID,b.TREE_NO as TREE_NO,b.BAN_REASON as
+		BAN_REASON,b.BAN_RESULT as BAN_RESULT,b.STATUS as STATUS,b.BAN_DATE as BAN_DATE
+		FROM ban b
+		join MEMBER m on m.user_no = b.USER_NO)
+		where USER_ID=#{searchval}  and ban_no BETWEEN 1+20*(#{page}-1) and 20+20*(#{page}-1)
+	</select>
+	
+	<select id="ReportSearchReason" resultMap="ReportResultSet" parameterType="hashmap" >
+		SELECT
+		BAN_NO,USER_ID,TREE_NO,BAN_REASON,BAN_RESULT,STATUS,BAN_DATE
+		FROM
+		(SELECT
+		b.BAN_NO as BAN_NO,m.USER_ID as USER_ID,b.TREE_NO as TREE_NO,b.BAN_REASON as
+		BAN_REASON,b.BAN_RESULT as BAN_RESULT,b.STATUS as STATUS,b.BAN_DATE as BAN_DATE
+		FROM ban b
+		join MEMBER m on m.user_no = b.USER_NO)
+		where BAN_REASON=#{searchval} and ban_no BETWEEN 1+20*(#{page}-1) and 20+20*(#{page}-1)
+		
+	</select>
+	<update id="judgeMemberWarning" parameterType="String">
+		UPDATE BAN SET BAN_RESULT='경고',STATUS='Y' WHERE USER_NO=(SELECT
+	    m.user_no
+		FROM BAN b join MEMBER m on b.user_no=m.user_no where m.user_id=#{user_id})
+	</update>
+	<update id="judgeMemberOut1" parameterType="String">
+		UPDATE BAN SET BAN_RESULT='탈퇴',STATUS='Y' WHERE USER_NO=(SELECT
+	    m.user_no
+		FROM BAN b join MEMBER m on b.user_no=m.user_no where m.user_id=#{user_id})
+	</update>
+	<update id="setMemberStatusN" parameterType="String">
+		update member SET STATUS='N' where USER_ID=#{user_id}
+	</update>
+	<select id="ReportSearchIdAll" resultMap="ReportResultSet" parameterType="String">
+	SELECT
+		BAN_NO,USER_ID,TREE_NO,BAN_REASON,BAN_RESULT,STATUS,BAN_DATE
+		FROM
+		(SELECT
+		b.BAN_NO as BAN_NO,m.USER_ID as USER_ID,b.TREE_NO as TREE_NO,b.BAN_REASON as
+		BAN_REASON,b.BAN_RESULT as BAN_RESULT,b.STATUS as STATUS,b.BAN_DATE as BAN_DATE
+		FROM ban b
+		join MEMBER m on m.user_no = b.USER_NO)
+		where USER_ID=#{user_id}
+	</select>
+	<select id="getMemberStatus" parameterType="String" resultType="String">
+		select status from member where user_id=#{user_id}
+	</select>
+	<update id="setMemberStatusY" parameterType="String">
+		update member set status='Y' where USER_ID=#{user_id}
+	</update>
+
 	</mapper>
 	

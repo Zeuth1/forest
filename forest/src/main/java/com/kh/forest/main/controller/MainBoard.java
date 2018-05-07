@@ -220,11 +220,7 @@ public class MainBoard {
 	@RequestMapping(value="commentaryList.ma", method=RequestMethod.POST)
 	public @ResponseBody String commentaryList(@RequestBody HashMap<String, String> hash){
 		
-		System.out.println("hi");
 		
-		System.out.println(hash.get("treeNo"));
-		
-		System.out.println(hash.get("commentCount"));
 		
 		ArrayList<Commentary> commentaryList = ms.commentaryList(hash.get("treeNo"), hash.get("commentCount"));
 		
@@ -236,6 +232,7 @@ public class MainBoard {
 		
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
 		
+		
 		hashMap.put("commentaryList", array);
 		
 		JSONObject object = JSONObject.fromObject(hashMap);
@@ -245,7 +242,7 @@ public class MainBoard {
 	
 	@RequestMapping(value="commentaryInsert.ma")
 	public void commentaryInsert(CommentaryModel model, HttpServletResponse response){
-		
+		System.out.println("insert");
 		
 		try {
 			String commentNo = ms.commentaryInsert(model);
@@ -295,6 +292,87 @@ public class MainBoard {
 		
 		return object.toString();
 	}
+	
+	@RequestMapping(value="replyList.ma")
+	public @ResponseBody String replyList(@RequestBody HashMap<String, String> hash){
+		ArrayList<Commentary> replyList = ms.replyList(hash.get("treeNo"), hash.get("commentNo"));
+		
+		for(Commentary c : replyList){
+			System.out.println(c);
+		}
+		
+		JSONArray array = JSONArray.fromObject(replyList);
+		
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		
+		
+		hashMap.put("replyList", array);
+		
+		JSONObject object = JSONObject.fromObject(hashMap);
+	
+		return object.toString(); 
+	}
+	
+	@RequestMapping(value="checkCommentOwner.ma")
+	public void checkCommentOwner(@RequestBody String JSONCommentNo, HttpServletResponse response){
+		String commentNo = null;
+		
+		JSONParser parser = new JSONParser();
+		try {
+			commentNo = (String) parser.parse(JSONCommentNo);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		String commentOwnerNo = ms.checkCommentOwner(commentNo);
+		
+		PrintWriter pw;
+		try {
+			pw = response.getWriter();
+			pw.println(commentOwnerNo);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	@RequestMapping(value="deleteCommentary.ma")
+	public void deleteCommentary(HttpServletResponse response, @RequestBody String commentNo){
+		
+		System.out.println(commentNo);
+		
+		int idx = commentNo.indexOf("=");
+		
+		String commentNoAfter = commentNo.substring(0, idx);
+		
+		try {
+			ms.deleteCommentary(commentNoAfter);
+			
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.write("success");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (Exception e1) {
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.write("error");
+				out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	} 
 		
 	
 }

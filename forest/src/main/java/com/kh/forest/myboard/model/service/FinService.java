@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.forest.common.BoardProfile;
 import com.kh.forest.myboard.model.vo.Board;
 import com.kh.forest.myboard.model.vo.Fin;
 import com.kh.forest.myboard.model.vo.Store;
@@ -27,5 +28,7 @@ public interface FinService {
 	void inserStore(Store s);
 
 	void insertFin2(Store s);
+
+	public BoardProfile boardProfileSelect(String userNo);
 
 }

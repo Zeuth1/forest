@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.forest.common.BoardProfile;
+import com.kh.forest.common.Member;
 import com.kh.forest.myboard.model.service.BoardService;
 import com.kh.forest.myboard.model.service.FinService;
 import com.kh.forest.myboard.model.vo.Board;
@@ -44,9 +47,17 @@ public class MyBoard {
 	
 	//마이보드로가기
 	@RequestMapping(value="myBoard.my")
-	public ModelAndView myboard(ModelAndView mv){
-		System.out.println("1.마이보드로!");
-
+	public @ResponseBody ModelAndView myboard(ModelAndView mv, @RequestParam(value="mno")String userNo ){
+		
+		System.out.println(userNo);
+		
+		
+		BoardProfile boardProfile = fs.boardProfileSelect(userNo);
+		
+		System.out.println(boardProfile);
+		
+		mv.addObject("ownerProfile", boardProfile);
+		
 		mv.setViewName("myboard");
 		
 		return mv;
@@ -190,7 +201,7 @@ public class MyBoard {
 		fs.insertBoard(b);
 		System.out.println("컨트로올~:"+b);
 		
-		return "forward:/myBoard.my";
+		return "redirect:/myBoard.my";
 	}
 	//보드불러오기!!
 	@RequestMapping(value="myBoardSelect.my")

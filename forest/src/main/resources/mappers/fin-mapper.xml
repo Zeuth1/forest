@@ -13,6 +13,13 @@
 		<result property="Tree_Type" column="TREE_TYPE" />
 		<result property="Tree_Date" column="TREE_DATE" />
 	</resultMap>
+	
+	<resultMap type="com.kh.forest.common.BoardProfile" id="boardProfileMap">
+	  <id property="userNo" column="USER_NO"/>
+	  <result property="userNickName" column="NICK_NAME"/>
+	  <result property="userProfile" column="TREE_AFTER"/>
+	  
+	</resultMap>
 
 	<!-- 핀추가하기! -->
 	<insert id="insertFin" parameterType="String">
@@ -31,6 +38,21 @@
 		JOIN TREE T ON(S.TREE_NO = T.TREE_NO)
 		WHERE S.BOARD_NO = #{board} ORDER BY 1
 	</select>
-
+	
+	<select id="boardProfileSelect" resultMap="boardProfileMap" parameterType="java.lang.String">
+	  SELECT M.USER_NO, M.NICK_NAME, N.NOTICE_CONTENT, T.TREE_AFTER
+	  FROM MEMBER M
+      LEFT JOIN NOTICE N ON(M.USER_NO = N.USER_NO)
+	  LEFT JOIN TREE T ON(M.USER_NO = T.USER_NO)
+	  WHERE M.USER_NO = #{userNo}
+      AND TREE_TYPE = 'P'
+	</select>
+	
+	<select id="boardProfileSelect2" resultType="java.lang.String" parameterType="java.lang.String">
+	  SELECT NOTICE_CONTENT 
+	  FROM NOTICE 
+		WHERE USER_NO = #{userNo}
+		AND NOTICE_TYPE = 'I'
+	</select>
 	
 </mapper>

@@ -701,7 +701,7 @@ function init() {
     
 
     $('.userInfo').on('click', function(){
-    	location.href="myBoard.my";
+    	location.href="myBoard.my?mno="+ ${loginUser.mNo};
     })
 
     $("#t1").on('click',function(){

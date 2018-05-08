@@ -53,6 +53,8 @@ public class Login {
 	public ModelAndView enterMember(ModelAndView mv , @RequestParam(value="socialId",required=false) String socialId,
 													  @RequestParam(value="mName",required=false) String mName,
 													  @RequestParam(value="mEmail",required=false) String mEmail){
+		
+		
 		if(!(socialId==null)) 
 			{mv.addObject("socialId",socialId);
 			 mv.addObject("mName",mName);
@@ -240,11 +242,12 @@ public class Login {
 		
 	}
 	@RequestMapping(value="google.lo")
-	public ModelAndView googleLogin(HttpSession session,ModelAndView mv,@RequestParam(value="idtoken",required= true) String idTokenString ,@RequestParam(value="log",required= true) int log) throws GeneralSecurityException, IOException{
+	public ModelAndView googleLogin(HttpSession session,ModelAndView mv,
+								    @RequestParam(value="idtoken",required= true) String idTokenString ,
+								    @RequestParam(value="log",required= true) int log) throws GeneralSecurityException, IOException{
 		
-		System.out.println("이계정의 아이디토큰값"+idTokenString);
-		
-			 JsonFactory jsonFactory = new JacksonFactory();
+		 
+		  JsonFactory jsonFactory = new JacksonFactory();
 	      HttpTransport transport = new NetHttpTransport();
 
 			GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport,  jsonFactory)
@@ -264,7 +267,6 @@ public class Login {
 		  if(check!=0) {
 			  
 			if(log==0) {
-				  System.out.println("혹시여기오나");
 				  mv.addObject("logOut",1);
 				  Member m = ls.sessionMaker2(userId);
 			      session.setAttribute("loginUser", m);
@@ -302,14 +304,12 @@ public class Login {
 		
 		if(check !=0){
 			if(log==0){
-				System.out.println("여긴오냐2");
 				Member m = ls.sessionMaker2(clientId);
 				session.setAttribute("loginUser", m);
 				mv.addObject("logOut",2);
 			}
 			else if(log==3) mv.addObject("logOut",4);
 			else if(log==4){
-				System.out.println("혹시여기?");
 				Member m = ls.sessionMaker2(clientId);
 				session.setAttribute("loginUser", m);
 				mv.addObject("logOut",2);

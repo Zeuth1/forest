@@ -107,17 +107,15 @@
 	function payment(){
 		
 		var price=$("#total-price2").val();
-		var uid="${loginUser.mName}"+"1"; //나중에 회원+작가 아이디로 결합
-		alert("들어오니?");
-		console.log("웰컴?");
+		var uid="${loginUser.mName}"+"1"; 
 		
 		var obj=new Object();
 		obj.price=price;
 		obj.uid=uid;
 		var jsonData = JSON.stringify(obj);
 		
-		IMP.request_pay({ // param
-			pg : 'inicis', // version 1.1.0부터 지원.
+		IMP.request_pay({
+			pg : 'inicis', 
 		    pay_method : 'card',
 		    merchant_uid : 'merchant_' + new Date().getTime(),
 		    name : '작가후원 걸제',
@@ -125,7 +123,7 @@
 		    buyer_email : '${loginUser.mId}',
 		    buyer_name : '${loginUser.mName}',
 		    buyer_tel : '${loginUser.mPhone}'
-		}, function (rsp) { // callback
+		}, function (rsp) {
 		    if (rsp.success) {
 					
 					$.ajax({
@@ -197,7 +195,7 @@
 	
 	
 	</script>
-	<script>
+<!-- 	<script>
 	 	 var url = window.location.host;//웹브라우저의 주소창의 포트까지 가져옴
 	    var pathname = window.location.pathname; /* '/'부터 오른쪽에 있는 모든 경로*/
 	    var appCtx = pathname.substring(0, pathname.indexOf("/",2));
@@ -247,7 +245,7 @@
 		})
 	
 	</script>
-	
+	 -->
 
 
 	

@@ -169,7 +169,7 @@ public class Setting {
 	public @ResponseBody ModelAndView changeSet(ModelAndView mv,@RequestBody HashMap<String,String> hash, HttpSession session){
 		
 		m=(Member) session.getAttribute("loginUser");
-		
+		System.out.println(hash);
 		
 		
 		m.setmGender(hash.get("mGender"));

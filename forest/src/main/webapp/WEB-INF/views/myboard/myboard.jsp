@@ -111,6 +111,14 @@ overflow:hidden;
   filter: url(#blur);
 }
 
+.donate-btn{
+
+	border:none;
+	background:white;
+
+}
+
+
   </style>
 <head>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -129,6 +137,7 @@ overflow:hidden;
    		   			<div style="margin-top:20px;">
    		   			<label onclick="" style="color:#808080;">팔로워:1</label>
    		   			<label onclick="" style="color:#808080;">팔로윙:1</label>
+   		   			
    		   			<p><textarea cols="60" rows="3" style="outline:none; resize:none; border:0px; margin-left:200px" disabled;>몸매도좋아 얼굴도이뻐 다좋아.</textarea></p>
    		   			</div>
    		   		</div>
@@ -144,6 +153,7 @@ overflow:hidden;
  		 <button class="btn btn-default">작품</button>
  		 <!-- <button class="btn btn-default" onclick="location.href='myBoardFin.my'">핀</button> -->
  		 <button class="btn btn-default">보드</button>
+ 		 <button class="donate-btn" onclick="donate();">이 작가를 후원하시겠어요? 여기를 눌러주세요!</button>
  				<select id="korea" class="btn btn-default" style="float:right; margin-right:-800px;">
  			 		<option value="가나다순">가나다순</option>
  			 		<option value="abcd순">abcd순</option>
@@ -273,7 +283,11 @@ overflow:hidden;
 	
 	
 	
-	
+	function donate(){
+		
+		
+		
+	}
 	
 	
 	

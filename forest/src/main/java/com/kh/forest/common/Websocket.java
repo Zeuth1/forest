@@ -14,20 +14,11 @@ import org.springframework.web.socket.WebSocketSession;
 @ServerEndpoint("/echo")
 @Controller
 public class Websocket {
-
-	 /***
-     * 웹 소켓이 연결되면 호출되는 이벤트
-     */
-	private List<WebSocketSession> connectedUsers;
+private List<WebSocketSession> connectedUsers;
     @OnOpen
     public void handleOpen(){
         System.out.println("client is now connected...");
     }
-    /**
-     * 웹 소켓으로부터 메시지가 오면 호출되는 이벤트
-     * @param message
-     * @return
-     */
     @OnMessage
     public String handleMessage(WebSocketSession session,String message){
       System.out.println("receive from client : "+message);
@@ -38,18 +29,11 @@ public class Websocket {
         return replymessage;
         
     }
-    /**
-     * 웹 소켓이 닫히면 호출되는 이벤트
-     */
-    @OnClose
+   @OnClose
     public void handleClose(){
         System.out.println("client is now disconnected...");
     }
-    /**
-     * 웹 소켓이 에러가 나면 호출되는 이벤트
-     * @param t
-     */
-    @OnError
+   @OnError
     public void handleError(Throwable t){
         t.printStackTrace();
     }

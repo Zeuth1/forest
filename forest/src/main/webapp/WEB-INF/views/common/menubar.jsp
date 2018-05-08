@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" --%>
     pageEncoding="UTF-8" import="com.kh.forest.common.Member"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -421,11 +421,11 @@ function init() {
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< HEAD
+
   <div class="menubarOverlay"></div>
-=======
+
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
->>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
+
   <div class="overlay"></div>
     <div id="all">
     

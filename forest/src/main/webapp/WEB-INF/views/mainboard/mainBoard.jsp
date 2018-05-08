@@ -1,9 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html>
   <head>
+  <meta charset="utf-8">
+  
     <style>
       .column-container{
         display:flex;
@@ -18,8 +21,7 @@
         flex-direction:column;															
         justify-content:flex-start;
         
-        margin-right:auto;
-        margin-left:auto;
+        margin-right:10px;
       }
       
 
@@ -42,6 +44,7 @@
       
       .columns .figure img{
         width:230px;
+        
         border-radius:10px;
       }
       
@@ -65,9 +68,10 @@
   
     <jsp:include page="../common/menubar.jsp"/>
     <div class="column-container">
+  
     <div class="columns container1">
      
-       <c:forEach var="item" items="${ treeList }" begin="1" end="7">
+       <c:forEach var="item" items="${ treeList }" begin="0" end="6">
          <div class="figure" id="${ item.treeNo }">
            <img src="/tree/${ item.treeAfter }"/>
            <p>${ item.treeTag }</p>
@@ -79,7 +83,7 @@
     
     <div class="columns container2">
      
-       <c:forEach var="item" items="${ treeList }" begin="8" end="14">
+       <c:forEach var="item" items="${ treeList }" begin="7" end="13">
          <div class="figure" id="${ item.treeNo }">
            <img src="/tree/${ item.treeAfter }"/>
            <p>${ item.treeTag }</p>
@@ -91,7 +95,7 @@
     
     <div class="columns container3">
      
-       <c:forEach var="item" items="${ treeList }" begin="15" end="21">
+       <c:forEach var="item" items="${ treeList }" begin="14" end="20">
          <div class="figure" id="${ item.treeNo }">
            <img src="/tree/${ item.treeAfter }"/>
            <p>${ item.treeTag }</p>
@@ -103,7 +107,7 @@
     
     <div class="columns container4">
      
-       <c:forEach var="item" items="${ treeList }" begin="22" end="28">
+       <c:forEach var="item" items="${ treeList }" begin="21" end="27">
          <div class="figure" id="${ item.treeNo }">
            <img src="/tree/${ item.treeAfter }"/>
            <p>${ item.treeTag }</p>
@@ -115,7 +119,7 @@
     
     <div class="columns container5">
      
-       <c:forEach var="item" items="${ treeList }" begin="29" end="35">
+       <c:forEach var="item" items="${ treeList }" begin="28" end="34">
          <div class="figure" id="${ item.treeNo }">
            <img src="/tree/${ item.treeAfter }"/>
            <p>${ item.treeTag }</p>
@@ -127,7 +131,7 @@
     
     <div class="columns container6">
      
-       <c:forEach var="item" items="${ treeList }" begin="36" end="42">
+       <c:forEach var="item" items="${ treeList }" begin="35" end="41">
          <div class="figure" id="${ item.treeNo }">
            <img src="/tree/${ item.treeAfter }"/>
            <p>${ item.treeTag }</p>
@@ -138,6 +142,10 @@
     </div>
     </div>
     <script>
+      
+    
+    
+      
       $(document).on('click','.figure',function(){
     	  console.log($(this).attr('id'));
     	  location.href="detail.ma?treeNo=" + $(this).attr('id');
@@ -151,9 +159,13 @@
      
      var itemNum = 0;
      
+     var delta = 300;
+     var timer = null;
+     
       $(document).scroll(function(){
     	 if( $(window).scrollTop() + $(window).height() >= $(document).height() - 1 ){
-		     
+		     clearTimeout(timer);
+		     timer = setTimeout(function(){
     		 var treeArr = new Array();
     		 
 		     for(var i = 0; i < $('.container1').children().length; i++){
@@ -189,6 +201,7 @@
     			dataType:"json", 
     			contentType:"application/json",
     			success:function(data){
+    				console.log(data);
     				itemNum = data.treeList.length;
     				
     				if(data.treeList !== null){
@@ -201,7 +214,7 @@
 	    				    
 		    				$('<div class="figure" id="' + arr[(j * 6) + (i - 1)].treeNo + '"><img src="/tree/' + 
 		    						arr[(j * 6) + (i - 1)].treeAfter + '"/><p>' + arr[(j * 6) + (i -1)].treeTag + '</p></div>').appendTo($('.container' + i ) );                                      
-		    				
+	    				    
 	    				}
     				  }
     				
@@ -211,6 +224,9 @@
     		 }		
     		 
 		     });
+		    	 
+		     }, delta)
+    		 
     	 }
       });
      

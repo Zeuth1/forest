@@ -14,17 +14,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.forest.common.Commentary;
 import com.kh.forest.common.Member;
 import com.kh.forest.helpcenter.model.exception.HelpException;
 import com.kh.forest.helpcenter.model.service.HelpService;
 import com.kh.forest.helpcenter.model.service.sha512;
-import com.kh.forest.helpcenter.model.vo.Commentary;
+
 import com.kh.forest.helpcenter.model.vo.Notice;
 import com.kh.forest.helpcenter.model.vo.PageInfo;
 import com.kh.forest.helpcenter.model.vo.SearchCondition;
 
 @Controller
-public class helpCenter {
+public class Helpcenter {
 
 	@Autowired
 	private HelpService hs;
@@ -35,14 +36,14 @@ public class helpCenter {
 	@Autowired
 	private sha512 sha512;
 
-	// 사용장 정의 예외 2
+	// �궗�슜�옣 �젙�쓽 �삁�쇅 2
 
-	// AOP 처리만 하면 됨 ( )
+	// AOP 泥섎━留� �븯硫� �맖 ( )
 
-	// 1 메인 로딩 (get) (매개변수 x) // 헬프센터 메인은 디비에서 가져올 것 없음. 완료
-	// 세션에 정보 저장
+	// 1 硫붿씤 濡쒕뵫 (get) (留ㅺ컻蹂��닔 x) // �뿬�봽�꽱�꽣 硫붿씤�� �뵒鍮꾩뿉�꽌 媛��졇�삱 寃� �뾾�쓬. �셿猷�
+	// �꽭�뀡�뿉 �젙蹂� ���옣
 	@RequestMapping(value = "helpCenter.help", method = RequestMethod.GET)
-	public ModelAndView helpCenter(ModelAndView mv, Member loginUser, HttpSession session) {
+	public ModelAndView helpCenter(ModelAndView mv, Member loginUser) {
 		try {
 
 			String USER_ID = "admin";
@@ -53,7 +54,7 @@ public class helpCenter {
 			loginUser.setmId(USER_ID);
 			loginUser.setmPwd(USER_PWD);
 
-			session.setAttribute("loginUser", loginUser);
+			
 			mv.setViewName("/helpCenter");
 
 		} catch (Exception e) {
@@ -63,7 +64,7 @@ public class helpCenter {
 		return mv;
 	}
 
-	// 2 문의 등록 버튼 클릭(get) // 여기도 디비에서 가져올 것 없음. 완료
+	// 2 臾몄쓽 �벑濡� 踰꾪듉 �겢由�(get) // �뿬湲곕룄 �뵒鍮꾩뿉�꽌 媛��졇�삱 寃� �뾾�쓬. �셿猷�
 	@RequestMapping(value = "RegisterHelp.help", method = RequestMethod.GET)
 	public ModelAndView RegisterHelp(ModelAndView mv) {
 
@@ -76,12 +77,11 @@ public class helpCenter {
 		return mv;
 	}
 
-	// 사용장 정의 예외 2
+	// �궗�슜�옣 �젙�쓽 �삁�쇅 2
 
-	// 3 문의 등록 폼 제출 & 리다이렉트하여 문의 등록 리스트 호출(post) // 인서트와 셀렉트 따로
+	// 3 臾몄쓽 �벑濡� �뤌 �젣異� & 由щ떎�씠�젆�듃�븯�뿬 臾몄쓽 �벑濡� 由ъ뒪�듃 �샇異�(post) // �씤�꽌�듃�� ���젆�듃 �뵲濡�
 	@RequestMapping(value = "PersonalInquiryList.help", method = RequestMethod.POST)
-	public String PersonalInquiryList(String NOTICE_TITLE, String NOTICE_CONTENT, String NOTICE_PWD,
-			HttpSession session, Notice notice) {
+	public String PersonalInquiryList(String NOTICE_TITLE, String NOTICE_CONTENT, String NOTICE_PWD, Notice notice) {
 
 		String USER_NO = "1";
 
@@ -96,7 +96,7 @@ public class helpCenter {
 
 			int result = hs.insertHelp(notice);
 
-			// 리다이렉트를 쓰면 되니까 한번에 한 동작씩만 하게 하면 됨.
+			// 由щ떎�씠�젆�듃瑜� �벐硫� �릺�땲源� �븳踰덉뿉 �븳 �룞�옉�뵫留� �븯寃� �븯硫� �맖.
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,22 +106,22 @@ public class helpCenter {
 
 	}
 
-	// 사용장 정의 예외1
+	// �궗�슜�옣 �젙�쓽 �삁�쇅1
 
-	// 4 메인 검색 (post) 완료
+	// 4 硫붿씤 寃��깋 (post) �셿猷�
 	@RequestMapping(value = "HelpCenterSearch.help", method = RequestMethod.POST)
 	public ModelAndView HelpCenterSearch(ModelAndView mv, String searchCondition, String searchContent, Notice notice,
 			HttpServletRequest request) {
 
 		try {
 
-			// 객체 클래스 활용해서 여기에 검색한 값 저장 후 전송
+			// 媛앹껜 �겢�옒�뒪 �솢�슜�빐�꽌 �뿬湲곗뿉 寃��깋�븳 媛� ���옣 �썑 �쟾�넚
 			SearchCondition sc = new SearchCondition();
 
-			// 제목(title)으로 검색할 수도
-			// 내용(content)으로 검색할 수도
+			// �젣紐�(title)�쑝濡� 寃��깋�븷 �닔�룄
+			// �궡�슜(content)�쑝濡� 寃��깋�븷 �닔�룄
 
-			// 객체에 저장
+			// 媛앹껜�뿉 ���옣
 			if (searchCondition.equals("title")) {
 				sc.setTitle(searchContent);
 			}
@@ -129,14 +129,14 @@ public class helpCenter {
 				sc.setContent(searchContent);
 			}
 
-			// 페이징 부분 변수 선언
+			// �럹�씠吏� 遺�遺� 蹂��닔 �꽑�뼵
 			int currentPage;
 			int limit;
 			int maxPage;
 			int startPage;
 			int endPage;
 
-			// 초기값 대입
+			// 珥덇린媛� ���엯
 			currentPage = 1;
 			limit = 10;
 
@@ -146,8 +146,8 @@ public class helpCenter {
 
 			int listCount;
 
-			// 검색 선택 조건 객체를 매개변수로
-			// count를 리턴받아야함
+			// 寃��깋 �꽑�깮 議곌굔 媛앹껜瑜� 留ㅺ컻蹂��닔濡�
+			// count瑜� 由ы꽩諛쏆븘�빞�븿
 			listCount = hs.getHelpSearchResultListCount(sc);
 			maxPage = (int) ((double) listCount / limit + 0.9);
 			startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;
@@ -157,7 +157,7 @@ public class helpCenter {
 				endPage = maxPage;
 			}
 
-			// pageInfo 객체에 페이징에 필요한 변수들 다 저장.
+			// pageInfo 媛앹껜�뿉 �럹�씠吏뺤뿉 �븘�슂�븳 蹂��닔�뱾 �떎 ���옣.
 
 			PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 			ArrayList<Notice> list = hs.searchHelpResultList(sc, pi);
@@ -174,12 +174,12 @@ public class helpCenter {
 		return mv;
 	}
 
-	// 6 문의 등록 상세 페이지에서 댓글(post) (ajax)
+	// 6 臾몄쓽 �벑濡� �긽�꽭 �럹�씠吏��뿉�꽌 �뙎湲�(post) (ajax)
 	@RequestMapping(value = "Reply.help", method = RequestMethod.POST)
 	public void ReplyHelp(ModelAndView mv, String ReplyHelp, String notice_no, Commentary reply,
 			HttpServletResponse response) {
 
-		// 맵형식
+		// 留듯삎�떇
 		ObjectMapper mapper = new ObjectMapper();
 
 		String user_no = "1";
@@ -191,7 +191,7 @@ public class helpCenter {
 
 			ArrayList<Commentary> replyList = hs.insertCommentary(reply);
 
-			// 한글 깨짐 방지
+			// �븳湲� 源⑥쭚 諛⑹�
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().print(mapper.writeValueAsString(replyList));
 
@@ -201,7 +201,7 @@ public class helpCenter {
 
 	}
 
-	// 7 일반 문의 완료
+	// 7 �씪諛� 臾몄쓽 �셿猷�
 	@RequestMapping(value = "GeneralFAQ.help", method = RequestMethod.GET)
 	public ModelAndView GeneralFAQ(ModelAndView mv) {
 
@@ -215,7 +215,7 @@ public class helpCenter {
 
 	}
 
-	// 8 작가문의 완료
+	// 8 �옉媛�臾몄쓽 �셿猷�
 	@RequestMapping(value = "AuthorFAQ.help", method = RequestMethod.GET)
 	public ModelAndView AuthorFAQ(ModelAndView mv) {
 
@@ -229,7 +229,7 @@ public class helpCenter {
 
 	}
 
-	// 9 독자문의 완료
+	// 9 �룆�옄臾몄쓽 �셿猷�
 	@RequestMapping(value = "ReaderFAQ.help", method = RequestMethod.GET)
 	public ModelAndView ReaderFAQ(ModelAndView mv) {
 
@@ -243,9 +243,9 @@ public class helpCenter {
 
 	}
 
-	// 사용장 정의 예외 2
+	// �궗�슜�옣 �젙�쓽 �삁�쇅 2
 
-	// 10 문의 등록 리스트에서 상세 페이지 (get) select로 조회 완료
+	// 10 臾몄쓽 �벑濡� 由ъ뒪�듃�뿉�꽌 �긽�꽭 �럹�씠吏� (get) select濡� 議고쉶 �셿猷�
 	@RequestMapping(value = "InquiryDetail.help", method = RequestMethod.GET)
 	public ModelAndView InquiryDetail(ModelAndView mv, String NOTICE_NO, Notice notice) {
 
@@ -264,8 +264,8 @@ public class helpCenter {
 
 	}
 
-	// 10 암호 모달 암호 입력시 (post 인데 SELECT ONE으로 조회) //
-	// 암호 일치 x면 암호가 일치하지 않습니다 alert 뜨고 다시
+	// 10 �븫�샇 紐⑤떖 �븫�샇 �엯�젰�떆 (post �씤�뜲 SELECT ONE�쑝濡� 議고쉶) //
+	// �븫�샇 �씪移� x硫� �븫�샇媛� �씪移섑븯吏� �븡�뒿�땲�떎 alert �쑉怨� �떎�떆
 
 	@RequestMapping(value = "comparePassword.help", method = RequestMethod.POST)
 	public void comparePassword(ModelAndView mv, String NOTICE_PWD, String NOTICE_NO, Notice notice,
@@ -284,7 +284,7 @@ public class helpCenter {
 			String passwordCheck = notice.getNOTICE_CONTENT();
 
 			if (notice != null) {
-				String check = "암호가 맞습니다.";
+				String check = "�븫�샇媛� 留욎뒿�땲�떎.";
 				ObjectMapper mapper = new ObjectMapper();
 				response.getWriter().print(mapper.writeValueAsString(passwordCheck));
 
@@ -296,7 +296,7 @@ public class helpCenter {
 
 	}
 
-	// 11 UPDATE 전 조회
+	// 11 UPDATE �쟾 議고쉶
 
 	@RequestMapping(value = "updateDetailSelect.help", method = RequestMethod.GET)
 	public ModelAndView UpdateDetailSelectList(ModelAndView mv, String NOTICE_NO, Notice notice) {
@@ -338,7 +338,7 @@ public class helpCenter {
 
 	}
 
-	// 13 삭제
+	// 13 �궘�젣
 	@RequestMapping(value = "deleteDetail.help", method = RequestMethod.GET)
 	public String deleteDetail(ModelAndView mv, String NOTICE_NO, Notice notice) {
 
@@ -356,20 +356,20 @@ public class helpCenter {
 	}
  
 
-	// 15 문의 목록으로 돌아갈 때 // 전체 셀렉트 // 사용장 정의 예외
+	// 15 臾몄쓽 紐⑸줉�쑝濡� �룎�븘媛� �븣 // �쟾泥� ���젆�듃 // �궗�슜�옣 �젙�쓽 �삁�쇅
 	@RequestMapping(value = "InquiryList.help", method = RequestMethod.GET)
 	public ModelAndView InquiryList(ModelAndView mv, HttpServletRequest request) {
 
 		try {
 
-			// 페이징 부분 변수 선언
+			// �럹�씠吏� 遺�遺� 蹂��닔 �꽑�뼵
 			int currentPage;
 			int limit;
 			int maxPage;
 			int startPage;
 			int endPage;
 
-			// 초기값 대입
+			// 珥덇린媛� ���엯
 			currentPage = 1;
 			limit = 10;
 
@@ -379,8 +379,8 @@ public class helpCenter {
 
 			int listCount;
 
-			// 검색 선택 조건 객체를 매개변수로
-			// count를 리턴받아야함
+			// 寃��깋 �꽑�깮 議곌굔 媛앹껜瑜� 留ㅺ컻蹂��닔濡�
+			// count瑜� 由ы꽩諛쏆븘�빞�븿
 			listCount = hs.getHelpListCount();
 			maxPage = (int) ((double) listCount / limit + 0.9);
 			startPage = (((int) ((double) currentPage / limit + 0.9)) - 1) * limit + 1;
@@ -390,7 +390,7 @@ public class helpCenter {
 				endPage = maxPage;
 			}
 
-			// pageInfo 객체에 페이징에 필요한 변수들 다 저장.
+			// pageInfo 媛앹껜�뿉 �럹�씠吏뺤뿉 �븘�슂�븳 蹂��닔�뱾 �떎 ���옣.
 
 			PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 

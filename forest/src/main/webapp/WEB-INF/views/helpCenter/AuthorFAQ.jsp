@@ -54,65 +54,18 @@
                 
                   <li class="article-list-item">
                     
-                    <a href="/hc/ko/articles/360000132253-%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC-%EC%84%A4%EC%A0%95%EC%9D%80-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%98%EB%82%98%EC%9A%94-" class="article-list-link">카테고리 설정은 어떻게 하나요?</a>
+                    <a href="#" class="article-list-link">카테고리 설정은 어떻게 하나요?</a>
                   </li>
                 
               </ul>
               
                 <a href="/hc/ko/sections/360000026473-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B4%80%EB%A6%AC" class="see-all-articles">
-                  문서 10개 모두 보기
                 </a>
               
             
           </section>
         
-          <section class="section">
-            <h3 class="section-tree-title">
-              <a href="/hc/ko/sections/360000026493-%ED%8F%AC%EC%8A%A4%ED%8A%B8-%EA%B4%80%EB%A6%AC">포스트 관리</a>
-              
-            </h3>
-            
-              <ul class="article-list">
-                
-                  <li class="article-list-item article-promoted">
-                    
-                      <span data-title="승격된 문서" class="icon-star"></span>
-                    
-                    <a href="/hc/ko/articles/360000832713-%ED%8F%AC%EC%8A%A4%ED%84%B0-PR-%EC%9D%B4-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80%EC%9A%94-" class="article-list-link">포스터(PR)이 무엇인가요?</a>
-                  </li>
-                
-                  <li class="article-list-item article-promoted">
-                    
-                      <span data-title="승격된 문서" class="icon-star"></span>
-                    
-                    <a href="/hc/ko/articles/360000145254-%EC%84%B1%EC%9D%B8-%EC%BD%98%ED%85%90%EC%B8%A0%EC%9D%98-%EA%B2%BD%EC%9A%B0-%EB%B0%98%EB%93%9C%EC%8B%9C-%EC%84%B1%EC%9D%B8%EB%AC%BC-%ED%91%9C%EC%8B%9C%EB%A5%BC-%ED%95%B4%EC%A3%BC%EC%96%B4%EC%95%BC-%ED%95%98%EB%82%98%EC%9A%94-" class="article-list-link">성인 콘텐츠의 경우 반드시 성인물 표시를 해주어야 하나요?</a>
-                  </li>
-                
-                  <li class="article-list-item">
-                    
-                    <a href="/hc/ko/articles/360000144594-%ED%8F%AC%EC%8A%A4%ED%8A%B8-%EC%A0%80%EC%9E%A5-%EC%9E%90%EB%8F%99%EC%A0%80%EC%9E%A5-%EB%B0%9C%ED%96%89-%EC%9E%AC%EB%B0%9C%ED%96%89-%EC%9D%98-%EC%B0%A8%EC%9D%B4%EB%8A%94-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80%EC%9A%94-" class="article-list-link">포스트 &#39;저장, &#39;자동저장&#39;, &#39;발행&#39;, &#39;재발행&#39;의 차이는 무엇인가요?</a>
-                  </li>
-                
-                  <li class="article-list-item">
-                    
-                    <a href="/hc/ko/articles/360000144034-%ED%8F%AC%EC%8A%A4%ED%8A%B8%EB%A5%BC-%ED%8C%90%EB%A7%A4%ED%95%98%EA%B3%A0-%EC%8B%B6%EC%8A%B5%EB%8B%88%EB%8B%A4-%ED%8F%AC%EC%8A%A4%ED%8A%B8%EC%9D%98-%EA%B0%80%EA%B2%A9%EC%9D%80-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%84%A4%EC%A0%95%ED%95%98%EB%82%98%EC%9A%94-" class="article-list-link">포스트를 판매하고 싶습니다. 포스트의 가격은 어떻게 설정하나요?</a>
-                  </li>
-                
-                  <li class="article-list-item">
-                    
-                    <a href="/hc/ko/articles/360000144274-%ED%8F%AC%EC%8A%A4%ED%8A%B8-%EC%97%90%EB%94%94%ED%84%B0%EC%97%90%EC%84%9C-HTML%EC%9D%B4%EB%82%98-Markdown-%ED%8E%B8%EC%A7%91-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%A0%9C%EA%B3%B5%ED%95%98%EB%82%98%EC%9A%94-" class="article-list-link">포스트 에디터에서 HTML이나 Markdown 편집 기능을 제공하나요?</a>
-                  </li>
-                
-                  <li class="article-list-item">
-                    
-                    <a href="/hc/ko/articles/360000132893--%ED%8E%B8%EC%A7%91-%EC%9D%B4%EB%A0%A5-%EB%8A%94-%EC%96%B4%EB%96%A4-%EA%B8%B0%EB%8A%A5%EC%9D%B8%EA%B0%80%EC%9A%94-" class="article-list-link">&#39;편집 이력&#39;는 어떤 기능인가요?</a>
-                  </li>
-                
-              </ul>
-              
-                <a href="/hc/ko/sections/360000026493-%ED%8F%AC%EC%8A%A4%ED%8A%B8-%EA%B4%80%EB%A6%AC" class="see-all-articles">
-                  문서 19개 모두 보기
-                </a>
+           
               
             
           </section>
@@ -162,7 +115,6 @@
               </ul>
               
                 <a href="/hc/ko/sections/360000030914-%EC%88%98%EC%9D%B5-%EA%B4%80%EB%A6%AC" class="see-all-articles">
-                  문서 11개 모두 보기
                 </a>
               
             

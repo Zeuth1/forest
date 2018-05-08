@@ -66,7 +66,7 @@ body {overflow:hidden}
 	padding-top:9px;
 	padding-bottom:9px;
 	width:90%;
-	height:100px;
+	height:110px;
 	margin-top:5px;
 	margin-left:15px;
 	
@@ -177,8 +177,13 @@ body {overflow:hidden}
 
 </style>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <meta  charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="569688176866-2fhuueq4kb1pddacn6jlomi8q5siqd48.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -188,7 +193,7 @@ body {overflow:hidden}
 <div class="background" >
 	<button class="enter-site" id="enter-site" onclick="location.href='enter.lo'">회원가입</button>
 
-	<img  id="background" src="/tree/${ aName }" style="position:absolute; width:100%;height:100%; margin-left:-880px;"/>
+	<img  id="background" src="/tree/${ aName }" style="position:absolute; width:100%;height:100%; margin-left:-880px;">
 	
 
 	<div class="login-form" id="login-form">
@@ -198,36 +203,31 @@ body {overflow:hidden}
 			
 			
 			<div class="first-wrap" id="first-wrap">
-			<input class="enterPhone" id="id" placeholder="휴대폰 번호" maxlength="11" name="mId">
+			<input class="enterPhone" id="id" placeholder="이메일주소" name="mId">
 			
 			<input type="password" class="enterpassword" id="password" placeholder="비밀 번호"  maxlength="20" name="mPwd">
 			 
 			<button class="nextbtn" id="check-btn" onclick="checknext();" type="button">로그인</button>
-			<div class="check-phone" id="check-phone">휴대폰 번호를 제대로 입력해주세요.</div>
+			<div class="check-phone" id="check-phone">메일주소를 제대로 입력해주세요.</div>
 			<div class="check-pwd" id="check-pwd">비밀번호는 3글자 이상입니다.</div>
 			<br>		
 				<a href="find.lo" class="find-ID">ID/비밀번호 찾기</a>
 			
 			
 			
-			<div class="social-login">
+		<div class="social-login">
 				가지고 있는 계정으로 시작하기
 				<br>
 				<br>
-				<div class="naver">
-					<img src="<%=request.getContextPath()%>/resources/images/naver.png" style="width:75%; height:auto; border-radius:5px; cursor:pointer;">
-				</div>
-				<div class="google">
-					<img src="<%=request.getContextPath()%>/resources/images/google.png" style="width:80%; height:auto; border-radius:5px; cursor:pointer;">
-				 </div>
-				<div class="facebook">
-					<img src="<%=request.getContextPath()%>/resources/images/facebook.jpg" style="width:62%; height:auto; border-radius:5px;cursor:pointer;" >
-				</div>
-			
-			</div> 
+				<div id="naverIdLogin"  ></div>
+				<div  class="g-signin2" data-onsuccess="onSignIn" style="width:184.96px; margin-left:auto; margin-right:auto; margin-top:10px;">
+					
+							
+		</div>
 		</div>	
 		
 		</div>
+	</div>
 	</div>
 		<script>
 			
@@ -257,12 +257,13 @@ body {overflow:hidden}
 		
 		function checknext(){
 			$(".first-wrap").animate({left:'-150px;'})
-			var check=  /^(01[016789]{1})([0-9]{3,4})([0-9]{4})$/;
+			var mailExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	
 			var id=$("#id").val();
 			var pwd=$("#password").val();
 			console.log(id);
 			
-			if(check.test(id)&& pwd.length>=3){
+			if(mailExp.test(id)&& pwd.length>=3){
 				
 				$.ajax({
 					
@@ -270,12 +271,8 @@ body {overflow:hidden}
 					type:"post",
 					data:{mId:id, mPwd:pwd},
 					success:function(data){
-						
 						if(data.result !=0) alert("아이디/비밀번호를 다시 확인 해 주세요.")
-						else{
-							location.href="sessionMaker.lo?mid=" + id;
-							
-						}
+						else location.href="mainBoard.ma";
 					},
 					error:function(data){
 						
@@ -288,7 +285,7 @@ body {overflow:hidden}
 				
 				
 			}
-			if(!check.test(id)){
+			if(!mailExp.test(id)){
 					
 				if(pwd.length>=3){
 					
@@ -306,7 +303,7 @@ body {overflow:hidden}
 			}
 			if(pwd.length<3){
 					
-					if(check.test(id)){
+					if(mailExp.test(id)){
 						
 						$("#check-phone").hide();
 						$("#check-pwd").show(); 
@@ -326,9 +323,96 @@ body {overflow:hidden}
 		
 		</script>
 		
+		<!-- 구글로그인단 -->
+		<script>
+			
+	function onSignIn(googleUser) {
+		  var profile = googleUser.getBasicProfile();
+		  var id_token = googleUser.getAuthResponse().id_token;
+		  var Email= profile.getEmail();
+		  var Name= profile.getName();
+		  var xhr = new XMLHttpRequest();
+		  
+		  xhr.onreadystatechange = function() { // 요청에 대한 콜백
+			  if (xhr.readyState === xhr.DONE) { // 요청이 완료되면
+			    if (xhr.status === 200) {
+			    	var response= eval("("+xhr.responseText+")");
+			    	if(response.check==0){
+			    		
+			    		
+						
+						var socialId=response.socialId;
+						var mName=response.mName;
+						var mEmail=response.mEmail;
+						location.href="enter.lo?socialId="+socialId+"&mName="+mName+"&mEmail="+mEmail; 
+			    		
+			    		}
+			    	else{
+			    		
+			    		location.href="mainBoard.ma";
+			    		
+			    		
+			    	}
+			    } else {
+			      console.error("201리스폰스?:"+xhr.responseText);
+			      
+			    }
+			  }
+			};
+		  
+		  xhr.open('POST', 'google.lo');
+		  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		
+		  xhr.send('idtoken=' + id_token);
+		 
+		}
 		
+	
+	
+	</script>
 		
+	<!-- 네이버아디디로로그인 초기화 Script -->
+<script type="text/javascript">
+	var naverLogin = new naver.LoginWithNaverId(
+		{
+			clientId: "a6glrihgFQY0OYBb4qYz",
+			callbackUrl: "http://localhost:8001/forest/login.lo",
+			isPopup: false, /* 팝업을 통한 연동처리 여부 */
+			loginButton: {color: "green", type: 3, height: 40} /* 로그인 버튼의 타입을 지정 */
+			}
+	);
+	
+	/* 설정정보를 초기화하고 연동을 준비 */
+	naverLogin.init();
+	
+	window.addEventListener('load', function () {
+		naverLogin.getLoginStatus(function (status) {
+			if (status) {
+				/* (5) 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
+					
+					var mEmail = naverLogin.user.getEmail();
+					var mName = naverLogin.user.getName();
+					var socialId=naverLogin.clientId;
+					if( mEmail == undefined || mEmail == null) {
+					alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
+					
+					/* (5-1) 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
+							naverLogin.reprompt();
+					}
+					
+				location.href="enter.lo?mEmail="+mEmail+"&mName="+mName+"&socialId="+socialId;
+				
+				
+				} else {
+				console.log("callback 처리에 실패하였습니다.");
+			}
+			
+			
+
+
+		});
+	});
+	</script>	
 
 </body>
 </html>

@@ -17,7 +17,7 @@
 	<button class="enter-site"  onclick="location.href='enter.lo'">회원가입</button>
 	<button class="enter-site2"  onclick="location.href='gotomain.lo'">로그인</button>
 	
-	<img  id="background" class="background" src="/tree/${ aName }"/>
+	<img  id="background" class="background" src="/tree/${ aName }" >
 			<div class="find-id-wrap">
 				<div class="find-id" >
 						<h3>비밀번호 변경</h3>
@@ -74,9 +74,9 @@ $(function(){
 	})
 	
 	function change(){
-		id=${mId};
-		pwd1=$("#pwd1").val();
-		pwd2=$("#pwd2").val();
+		var id=$("input[name=mId]").val();
+		var pwd1=$("#pwd1").val();
+		var pwd2=$("#pwd2").val();
 		
 		if(pwd1.length>=3 && pwd1==pwd2){
 			
@@ -101,7 +101,7 @@ $(function(){
 		}
 		
 		
-	}
+	} 	
 
 
 </script>

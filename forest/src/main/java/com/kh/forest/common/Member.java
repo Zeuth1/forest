@@ -20,11 +20,12 @@ public class Member {
 	private String mStatus;
 	private String mLevel;
 	private Date mEnrollDate;
+	private String socialId;
 	
 	public Member(){}
-	
+
 	public Member(int mNo, String mId, String mPwd, String mName, String mBirth, String mNickName, String mGender,
-			String mPhone, String mEmail, String mStatus, String mLevel, Date mEnrollDate) {
+			String mPhone, String mEmail, String mStatus, String mLevel, Date mEnrollDate, String socialId) {
 		super();
 		this.mNo = mNo;
 		this.mId = mId;
@@ -38,6 +39,7 @@ public class Member {
 		this.mStatus = mStatus;
 		this.mLevel = mLevel;
 		this.mEnrollDate = mEnrollDate;
+		this.socialId = socialId;
 	}
 
 	public int getmNo() {
@@ -136,12 +138,24 @@ public class Member {
 		this.mEnrollDate = mEnrollDate;
 	}
 
+	public String getsocialId() {
+		return socialId;
+	}
+
+	public void setsocialId(String socialId) {
+		this.socialId = socialId;
+
+	}
+
 	@Override
 	public String toString() {
 		return "Member [mNo=" + mNo + ", mId=" + mId + ", mPwd=" + mPwd + ", mName=" + mName + ", mBirth=" + mBirth
 				+ ", mNickName=" + mNickName + ", mGender=" + mGender + ", mPhone=" + mPhone + ", mEmail=" + mEmail
-				+ ", mStatus=" + mStatus + ", mLevel=" + mLevel + ", mEnrollDate=" + mEnrollDate + "]";
+				+ ", mStatus=" + mStatus + ", mLevel=" + mLevel + ", mEnrollDate=" + mEnrollDate + ", socialId="
+				+ socialId + "]";
 	}
+	
+	
 	
 	
 	

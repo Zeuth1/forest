@@ -20,7 +20,7 @@ public class LoginDaoImpl implements LoginDao {
 	@Override
 	public String getaName() {
 			
-		String aName=sqlSession.selectOne("Tree.selectPic");
+		String aName=sqlSession.selectOne("Tree.selectPic");	
 		return aName;
 	}
 
@@ -28,30 +28,15 @@ public class LoginDaoImpl implements LoginDao {
 	public int getCheckNum(Member m) {
 		
 		String nick=m.getmNickName();
-		String email=m.getmEmail();
-
-		int checkNum1=sqlSession.selectOne("Member.checkEmail",m.getmEmail());
-		int checkNum2=sqlSession.selectOne("Member.checkNick",m.getmNickName());
 		
-		if(checkNum2==1){
-			
-			checkNum2=2;
-			
-		}
+		int checkNum=sqlSession.selectOne("Member.checkNick",m.getmNickName());
 		
-		int finalCheck=checkNum1+checkNum2;
-		
-		
-		
-		
-		
-		
-		return finalCheck;
+		return checkNum;
 	}
 
 	@Override
 	public void insertMember(Member m) {
-
+		System.out.println("m?:"+m);
 		sqlSession.insert("Member.insertMember",m);
 		
 	}
@@ -72,7 +57,7 @@ public class LoginDaoImpl implements LoginDao {
 
 	@Override
 	public int checkPhone(String id) {
-
+		
 		int check=sqlSession.selectOne("Member.checkId",id);
 		
 		
@@ -95,11 +80,39 @@ public class LoginDaoImpl implements LoginDao {
 	}
 
 	@Override
+	public int compareId(String socialId) {
+		
+		System.out.println(socialId);
+		
+		int check=sqlSession.selectOne("Member.CheckSocial",socialId);
+		
+		return check;
+	}
+
+	@Override
 	public Member sessionMaker(String mId) {
+		
 		Member m = sqlSession.selectOne("Member.sessionMember", mId);
-	
+	       return m;
+	}
+
+	@Override
+	public Member sessionMaker2(String userId) {
+
+		Member m = sqlSession.selectOne("Member.sessionMember2",userId);
+		
 		return m;
 	}
+
+	@Override
+	public int checkMail(String email) {
+
+		int result= sqlSession.selectOne("Member.checkMail",email);
+
+		return result;
+	}
+
+	
 
 	
 

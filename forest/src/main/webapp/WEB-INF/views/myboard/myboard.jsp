@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <style>
@@ -16,135 +17,266 @@
     }
     
   .carousel-inner img {
-      width: 100%; /* Set width to 100% */
+      width:100%; /* Set width to 100% */
       margin: auto;
       min-height:200px;
   }
   #MyImage{
-     border-radius: 50%;
-    width: 200px;
+  	border-radius: 50%;
+    width: 200px; 
     height: 200px;
-    position: relative;
-    display: inline-block;
-    float:right;
-    margin-top:200px;
+	margin-top:60px;
   }
   .selectmenu{
-     margin-right:950px;
+  	margin-right:1005px;
   }
   .lockImages{
-     width:40px;
-     height:40px;
+  	width:40px;
+  	height:40px;
   }
+    input {
+  	  border: 2px solid #7BA7AB;
+  	  border-radius: 5px;
+ 	  outline: none;
+	  color: #9E9C9C;
+	}
+	input:active,input:hover{
+		background: #F9F0DA;
+	}
+	#boardImages{
+		margin:10px;
+		width:370px;
+		height:200px;
+	}
+	#boardImages2{
+		margin:10px;
+		width:370px;
+		height:200px;
+	}
+	.col-sm-4{
+		display: inline-block;
+		width:380px;
+		height:260px;
+	}
+	.col-sm-3{
+		display: inline-block;
+		width:380px;
+		height:260px;
+	}
+
+	#mem{
+		margin-top:65px;
+	}
+	#SI{
+		margin-right:850px;
+	}
+	
+		.overlay {
+  display: none;
+  z-index: 100;
+  position: fixed;
+  width: 100%; height: 100%;
+  left: 0; top: 0;
+  background-color: rgba(0,0,0, 0.4);
+  overflow-x: hidden;
+}
+	#modal{
+    z-index:200;
+  }
+	
+	
+#blurExample, #noneblurExample {
+
+background-size:cover;
+width:370px;
+height:200px;
+position: relative;
+z-index:1;
+float:left;
+margin:10px;
+overflow:hidden;
+}
+
+.bgBlur:before {
+  content: '';
+  position: absolute;
+  top: 0; left:0; right:0; bottom:0;
+  background: inherit;
+  z-index:-1;
+  filter: blur(5px); 
+  -webkit-filter: blur(6px); 
+  -moz-filter: blur(6px);
+  -o-filter: blur(6px);
+  -ms-filter: blur(6px);
+  filter: url(#blur);
+}
+
   </style>
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
 <body>
-   <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>                        
-            </button>
-            <a class="navbar-brand" href="#">Logo</a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Projects</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+	<jsp:include page="../common/menubar.jsp"/>
+		<div class="overlay"></div>
+   		<div id="main" style="width:1278.4; height:250px; border-top:1px solid; border-bottom:1px solid; border-style:inset;">
+			<div style="float:left; width:900px; height:250px; margin-right:200px;" align="center">
+   		   		<div style="margin-right:300px; margin-top:80px;">
 
-      <div>
-          <div class="carousel-inner" role="listbox">
-            <div class="item active">
-               <div class="carousel-caption">
-                  <p style="font-size:50px">ÅÂÇö ±è</p>
-                  <p>ÆÈ·Î¿ö:1</p>
-                  <p>ÆÈ·ÎÀ®:1</p>
-               </div>
-                  <img>
-                   <div class="carousel-caption">
-                     <img src="images/±èÅÂÇö4.jpg" id="MyImage">
-              </div>      
-            </div>
-          </div>
-      </div>
-        <br>
-      <div class="container text-center">    
-        <div class="selectmenu">
-        <button class="btn btn-default">º¸µå</button>
-        <button class="btn btn-default" onclick="location.href='/test/views/fin.jsp'">ÇÉ</button>
-        <button class="btn btn-default">³» º¸µå</button>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-sm-4" onclick="gomodal();">
-            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="º¸µå¸¸µé±â">
-            <p>º¸µå¸¸µé±â</p>
-          </div>
-          <div class="col-sm-4"> 
-            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="º¸µå¸¸µé±â">
-            <p></p>    
-          </div>
-        </div>
-        <hr>
-      <div class="row">
-         <div align="center">
-            <p style="margin-right:490px"><img class="lockImages" src="images/Lock.jpg"><label>ºñ¹Ğº¸µå!</label></p>
-            <label>È¸¿ø´Ô°ú È¸¿ø´ÔÀÌ ÃÊ´ëÇÑ »ç¶÷µé¸¸ÀÌ ÀÌ º¸µåµéÀ» º¼ ¼öÀÖ½À´Ï´Ù. </label> <label><a>ÀÚ¼¼È÷¾Ë¾Æº¸±â</a></label>
-         </div>
-      </div>
-      <hr>
-      <div class="col-sm-4" onclick="gomodal();">
-            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="º¸µå¸¸µé±â">
-            <p>ºñ¹Ğº¸µå ¸¸µé±â</p>
-         </div>
-      </div><br>
-      
-      
-      <hr>
-      <footer class="container-fluid text-center">
-          <p>Footer Text</p>
-      </footer>
+   		   			<label style="font-size:50px; color:#696969;">${ sessionScope.loginUser.mNickName  }</label>
+   		   			
+   		   			<div style="margin-top:20px;">
+   		   			<label onclick="" style="color:#808080;">íŒ”ë¡œì›Œ:1</label>
+   		   			<label onclick="" style="color:#808080;">íŒ”ë¡œìœ™:1</label>
+   		   			<p><textarea cols="60" rows="3" style="outline:none; resize:none; border:0px; margin-left:200px" disabled;>ëª¸ë§¤ë„ì¢‹ì•„ ì–¼êµ´ë„ì´ë» ë‹¤ì¢‹ì•„.</textarea></p>
+   		   			</div>
+   		   		</div>
+			</div>			
+			<div style="float:left; width:300px; height:250px;">
+				<img src="<%= request.getContextPath() %>/resources/images/test2.jpg" id="MyImage" style="cursor: pointer;">
+			</div>
+		</div>   		      
+    
+  		<br>
+		<div class="container text-center">    
+ 		 <div class="selectmenu" style="margin-left:160px;">
+ 		 <button class="btn btn-default">ì‘í’ˆ</button>
+ 		 <!-- <button class="btn btn-default" onclick="location.href='myBoardFin.my'">í•€</button> -->
+ 		 <button class="btn btn-default">ë³´ë“œ</button>
+ 				<select id="korea" class="btn btn-default" style="float:right; margin-right:-800px;">
+ 			 		<option value="ê°€ë‚˜ë‹¤ìˆœ">ê°€ë‚˜ë‹¤ìˆœ</option>
+ 			 		<option value="abcdìˆœ">abcdìˆœ</option>
+ 				</select>
+ 		 </div>
+ 		 <br>
+  		<div class="row" id="SF" style="margin-left:150px;" >
+  		<input type="hidden" id="User_No" name="User_No" value="${ sessionScope.loginUser.mNo }">
+  		  <div class="col-sm-3">
+    		  <img id="boardAdd" src="<%= request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="ë³´ë“œë§Œë“¤ê¸°">
+   		 </div>
 
 
 
-      
-<div class="modal" id="testModal" tabindex="-1" role="dialog">
-   <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-         <div class="modal-body">
-            <h1>º¸µå¸¸µé±â</h1>
-            <hr>
-            ÀÌ¸§:<textarea></textarea>
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal">¸¸µé±â</button>
-            <button type="button" class="btn" data-dismiss="modal">´İ±â</button>
-         </div>
-      </div>
-   </div>
+<!--  <div id="blurExample" class="bgBlur" style="background:url(/tree/0test4.jpg); width:380px; height:260px; ">
+	<img >
 </div>
-<br><br><br><br><br><br><br><br><br><br>
+<div id="blurExample" class="bgBlur" style="background:url(/tree/0test4.jpg);">
+	<img style="background:url(/tree/0test4.jpg);">
+</div>
+<div id="blurExample" class="bgBlur" style="background:url(/tree/0test4.jpg);">
+	<img style="background:url(/tree/0test4.jpg);">
+</div>
+<div id="blurExample" class="bgBlur" style="background:url(/tree/0test4.jpg);">
+	<img style="background:url(/tree/0test4.jpg);">
+</div>	
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+   <filter id="blur">
+   <feGaussianBlur stdDeviation="6" />
+   </filter>
+</svg> -->
+
+		
+		</div>
+ 		 <hr>
+		<div class="row">
+			<div align="center">
+				<p style="margin-right:490px"><img class="lockImages" src="<%= request.getContextPath() %>/resources/images/Lock.jpg"><label>ë¹„ë°€ë³´ë“œ!</label></p>
+				<label>íšŒì›ë‹˜ê³¼ íšŒì›ë‹˜ì´ ì´ˆëŒ€í•œ ì‚¬ëŒë“¤ë§Œì´ ì´ ë³´ë“œë“¤ì„ ë³¼ ìˆ˜ìˆìŠµë‹ˆë‹¤. </label> <label><a style="cursor: pointer">ìì„¸íˆì•Œì•„ë³´ê¸°</a></label>
+			</div>
+		</div>
+		<hr>
+		<div class="col-sm-4" onclick="gomodal();" style="margin-left:150px;">
+    		  <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%;cursor: pointer;" alt="ë³´ë“œë§Œë“¤ê¸°">
+    		  <p>ë¹„ë°€ë³´ë“œ</p>
+   		</div>
+		</div><br>
+		
+		
+		<hr>
+		<footer class="container-fluid text-center">
+ 			<p>Footer Text</p>
+		</footer>
+
+
+
+<div id="modal" style="background:white; position:fixed; top:10%; right:23%; ">
+
+</div>		
+
+
 <script>
-   function gomodal(){
-      $("#testModal").modal();
-   }
+	
+	/* ì…€ë ‰íŠ¸ ë³´ë“œ! */
+	$(function(){
+		var User_No = $("#User_No").val();
+		var korea = $("#korea").val();
+		console.log("hihi"+korea);
+		$.ajax({
+			url:"myBoardSelect.my",
+			method:"POST",
+			data:JSON.stringify(User_No),
+			contentType:"application/json",
+			dataType:"json",
+			success:function(data){
+				var arr = data.userNo;
+				var detail = data.userNo[i];
+				console.log(data.userNo);
+				for(var i = 0; i< arr.length; i++){
+					console.log(data.userNo[i].board_No);
+					var board = data.userNo[i].board_No;
+					$("#SF").append(
+							'<div style="text-align:center" class="col-sm-4" id="'+board +'">'+
+							'<img id="boardImages2" src="/tree/0test4.jpg" class="img-responsive" style=" cursor: pointer;">'+
+							'<lable>'+ data.userNo[i].board_Title +'</label>'+
+							'</div>'
+						);
+				}
+			}
+		});
+		var selectView = $("#selectView").val();
+		console.log(selectView);
+		$("#korea").click(function(){
+			console.log($("#korea").val());
+		})
+		
+	});
+	
+	$(document).on('click', function(e){
+	   if( $(e.target).is( $('.col-sm-4') ) || $(e.target).parent().is( $('.col-sm-4') )  ){
+		   if( $(e.target).is( $('.col-sm-4') ) ){
+			   console.log( $(e.target).attr('id') );
+		   }
+		   if( $(e.target).parent().is( $('.col-sm-4') )  ){
+			   console.log( $(e.target).parent().attr('id'));
+			   location.href="myBoardStore.my?board="+$(e.target).parent().attr('id');
+		   }
+	   }
+	   
+	})
+	
+	$(document).on('click', function(e){
+		if( $(e.target).is('#boardAdd') ){
+			$('#modal').css('display','inline-block');
+			$('#modal').load('boardAddForm.my');
+			$('.overlay').css('display', 'inline-block');
+			
+		}
+	})
+	
+	$(document).on('click', function(e){
+		if( $(e.target).is('#action2') ){
+			$('#modal').css('display','none');
+			$('.overlay').css('display', 'none');
+		}
+	})	
+	
+	
+	
+	
+	
+	
+	
 </script>
 </body>
 </html>

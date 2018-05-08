@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Account">
+	<resultMap type="Account" id="Accountresultset">
+		<id property="rownum" column="rownum" />
+		<result property="user_name" column="USER_NAME" />
+		<result property="bank_no" column="BANK_NO" />
+		<result property="account_no" column="ACCOUNT_NO" />
+		<result property="account_info" column="ACCOUNT_INFO" />
+	</resultMap>
+
+	<select id="countRownum" resultType="_int">
+		SELECT count(*) FROM ACCOUNT
+	</select>
+	<select id="SelectAccountAll" resultMap="Accountresultset"
+		parameterType="_int">
+		SELECT
+		ROWNUm,USER_NAME,BANK_NO,ACCOUNT_NO,ACCOUNT_INFO
+		FROM(
+		SELECT
+		ROWNUm,m.USER_NAME as USER_NAME,a.BANK_NO as BANK_NO,a.ACCOUNT_NO as
+		ACCOUNT_NO,a.ACCOUNT_INFO as ACCOUNT_INFO
+		FROM ACCOUNT a
+		join MEMBER m
+		on (m.user_no = a.USER_NO)
+		where rownum BETWEEN 1+20*(#{_int}-1) and 20+20*(#{_int}-1) order by 1)
+	</select>
+	<select id="SelectAccountbirth" resultMap="Accountresultset">
+		SELECT
+		ROWNUm,USER_NAME,BANK_NO,ACCOUNT_NO,ACCOUNT_INFO
+		FROM(SELECT * FROM ACCOUNT a
+		join MEMBER m on (m.user_no = a.USER_NO)
+		)where ACCOUNT_INFO=#{account_info}
+	</select>
+	<select id="SelectAccountName" resultMap="Accountresultset"
+		parameterType="String">
+		SELECT
+		ROWNUm,USER_NAME,BANK_NO,ACCOUNT_NO,ACCOUNT_INFO
+		FROM( SELECT * FROM ACCOUNT a
+		join MEMBER m on (m.user_no = a.USER_NO)
+		where m.USER_NAME=#{String}
+		)
+	</select>
+</mapper>

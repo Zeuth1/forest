@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kh</groupId>
-	<artifactId>tsp</artifactId>
-	<name>tsp</name>
+	<artifactId>forest</artifactId>
+	<name>forest</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -14,6 +14,11 @@
 		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
 	<repositories>
+			
+			
+		
+	
+		
 		<!-- ojdbc6 설정시 라이브러리 참조 위치 등록 -->
 		<repository>
 			<id>codelds</id>
@@ -21,6 +26,96 @@
 		</repository>
 	</repositories>
 	<dependencies>
+		<!-- 웹소켓 5월6일추가 -->
+<dependency>
+    <groupId>javax.websocket</groupId>
+    <artifactId>javax.websocket-api</artifactId>
+    <version>1.1</version>
+    <scope>provided</scope>
+</dependency>
+		
+		<!-- javax.mail 이메일인증시 필요 4/27추가 -->
+			<dependency>
+			    <groupId>javax.mail</groupId>
+			    <artifactId>javax.mail-api</artifactId>
+			    <version>1.5.6</version>
+			</dependency>
+		<!-- 자바 메일보내기 4/28추가 -->
+			<dependency>
+			    <groupId>javax.mail</groupId>
+			    <artifactId>mail</artifactId>
+			    <version>1.4.7</version>
+			</dependency>
+					
+	
+			<!-- spring-context-support 5.0.4(스프링버전과일치해야함) 04/27추가 이메일인증시 필요 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>5.0.4.RELEASE</version>
+		</dependency>
+					
+		<!-- 구글api 클라이언트 4월19일추가  -->
+		<dependency>
+		  <groupId>com.google.api-client</groupId>
+		  <artifactId>google-api-client</artifactId>
+		  <version>1.23.0</version>
+		</dependency>
+		
+		<!--  구글 api 클라이언트 서블릿 4월19일추가 -->
+		<dependency>
+			  <groupId>com.google.api-client</groupId>
+			  <artifactId>google-api-client-servlet</artifactId>
+			  <version>1.23.0</version>
+		</dependency>
+		<!-- 구글 api클라이언트 앱엔진 4월 19일 추가  -->
+		<dependency>
+		  <groupId>com.google.api-client</groupId>
+		  <artifactId>google-api-client-appengine</artifactId>
+		  <version>1.23.0</version>
+		</dependency>
+		
+		
+		<!-- 구글 api클라이언트 gson 4월 19일 추가  -->
+				<dependency>
+					  <groupId>com.google.api-client</groupId>
+					  <artifactId>google-api-client-gson</artifactId>
+					  <version>1.23.0</version>
+					</dependency>
+		<!-- 구글 api클라이언트 잭슨 4월 19일 추가  -->
+		<dependency>
+		  <groupId>com.google.api-client</groupId>
+		  <artifactId>google-api-client-jackson2</artifactId>
+		  <version>1.23.0</version>
+		</dependency>
+			<!--씨발받는거맞나 4월 19일 추가 구글 api클라이언트 자바6  -->
+			<dependency>
+			  <groupId>com.google.api-client</groupId>
+			  <artifactId>google-api-client-java6</artifactId>
+			  <version>1.23.0</version>
+			</dependency>
+			<!--자바 api클라이언트 포토벞 4월 19일 추가  -->
+				<dependency>
+			  <groupId>com.google.api-client</groupId>
+			  <artifactId>google-api-client-protobuf</artifactId>
+			  <version>1.23.0</version>
+			</dependency>
+			
+			
+			<!--스프링 웹소켓 5/04 추가 -->
+				<dependency>
+				    <groupId>org.springframework</groupId>
+				    <artifactId>spring-websocket</artifactId>
+				    <version>5.0.4.RELEASE</version>
+				</dependency>
+			
+			
+			<!-- 구글apiㅋ클라이언트xml추가 4월 19일 -->
+			<dependency>
+			  <groupId>com.google.api-client</groupId>
+			  <artifactId>google-api-client-xml</artifactId>
+			  <version>1.23.0</version>
+			</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -122,7 +217,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
+			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -136,6 +231,13 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/taglibs/standard -->
+		<dependency>
+		    <groupId>taglibs</groupId>
+		    <artifactId>standard</artifactId>
+		    <version>1.1.2</version>
+		</dependency>
+		
 
 		<!-- Test -->
 		<dependency>
@@ -224,6 +326,21 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>4.2.3.RELEASE</version>
 		</dependency>
+				<!--스프링 시큐리티 웹 4/15일 추가 -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>4.2.3.RELEASE</version>
+		</dependency>
+		
+		<!--스프링 시큐리티 config 4/15 일 추가-->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>4.2.3.RELEASE</version>
+		</dependency>
+		
+		
 
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<!-- databind는 core와 annotation에 의존성이 있다 !-->

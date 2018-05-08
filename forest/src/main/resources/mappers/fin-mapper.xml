@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="Fin">	<!-- mybatis-config에서 지정한 alias이름  -->
+	<resultMap type="Fin" id="finResultSet">	<!-- type 은 클래스 vo에 이름  -->
+		<id property="Tree_No" column="TREE_NO" />
+		<result property="User_No" column="USER_NO" />
+		<result property="Tree_Before" column="TREE_BEFORE" />
+		<result property="Tree_After" column="TREE_AFTER" />
+		<result property="Tree_Tag" column="TREE_TAG" />
+		<result property="Tree_Type" column="TREE_TYPE" />
+		<result property="Tree_Date" column="TREE_DATE" />
+	</resultMap>
+
+	<!-- 핀추가하기! -->
+	<insert id="insertFin" parameterType="String">
+		INSERT INTO TREE
+		VALUES(SEQ_TNO.NEXTVAL, #{User_No} ,#{Tree_Before},#{Tree_After},#{Tree_Tag},#{Tree_Type},SYSDATE)
+	</insert>
+	
+	<!-- 핀셀렉트 -->
+	<!-- <select id="selectFin" resultMap="finResultSet" parameterType="java.lang.String">
+		SELECT TREE_NO, USER_NO, TREE_BEFORE, TREE_AFTER, TREE_TAG, TREE_TYPE FROM TREE
+		WHERE USER_NO = #{User_No} ORDER BY 1
+	</select> -->
+	<select id="selectStore" resultMap="finResultSet" parameterType="java.lang.String">
+		SELECT T.TREE_NO, T.USER_NO, T.TREE_BEFORE, T.TREE_AFTER, T.TREE_TAG, T.TREE_TYPE, S.BOARD_NO
+		FROM STORE S
+		JOIN TREE T ON(S.TREE_NO = T.TREE_NO)
+		WHERE S.BOARD_NO = #{board} ORDER BY 1
+	</select>
+
+	
+</mapper>

@@ -18,9 +18,10 @@
 	</insert>
 	<!-- 보드셀렉트~ -->
 	<select id="selectBoard" resultMap="BoardResultSet" parameterType="java.lang.String">
-		SELECT BOARD_NO, USER_NO, BOARD_TYPE, BOARD_TITLE
-		FROM BOARD WHERE USER_NO = #{User_No} ORDER BY 1
+		SELECT BOARD_NO, USER_NO, BOARD_TYPE, BOARD_TITLE, TO_CHAR(BOARD_DATE, 'YYYYMMDDHH24MISS') BOARD_DATE
+		FROM BOARD 
+		WHERE USER_NO = #{User_No}
+		ORDER BY BOARD_DATE DESC
 	</select>
-	
 </mapper>
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.forest.common.BoardProfile;
 import com.kh.forest.myboard.model.vo.Board;
 import com.kh.forest.myboard.model.vo.Fin;
 import com.kh.forest.myboard.model.vo.Store;
@@ -57,6 +58,20 @@ public class FinDaoImpl implements FinDao {
 		ArrayList list = (ArrayList) sqlSession.selectList("Board.selectBoard",userNo);
 		System.out.println("보드셀렉트dao리스트불러와~:"+list);
 		return list;
+	}
+	@Override
+	public BoardProfile boardProfileSelect(SqlSessionTemplate sqlSession, String userNo) {
+		BoardProfile boardProfile = sqlSession.selectOne("Fin.boardProfileSelect", userNo);
+		
+		
+		return boardProfile;
+	}
+	
+	@Override
+	public String boardProfileSelect2(SqlSessionTemplate sqlSession, String userNo) {
+		String userIntroduce = sqlSession.selectOne("Fin.boardProfileSelect2", userNo);
+		
+		return userIntroduce;
 	}
 	
 

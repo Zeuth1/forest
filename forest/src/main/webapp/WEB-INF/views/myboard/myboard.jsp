@@ -43,33 +43,34 @@
 	input:active,input:hover{
 		background: #F9F0DA;
 	}
-	#boardImages{
+	#boardAdd{
 		margin:10px;
-		width:370px;
+		width:330px;
 		height:200px;
 	}
 	#boardImages2{
 		margin:10px;
-		width:370px;
+		width:330px;
 		height:200px;
 	}
+	
 	.col-sm-4{
-		display: inline-block;
-		width:380px;
+		margin-right:10px;
+		width:360px;
 		height:260px;
 	}
+	
 	.col-sm-3{
-		display: inline-block;
-		width:380px;
+		margin-right:10px;
+		width:360px;
 		height:260px;
 	}
+	
 
 	#mem{
 		margin-top:65px;
 	}
-	#SI{
-		margin-right:850px;
-	}
+	
 	
 		.overlay {
   display: none;
@@ -83,7 +84,16 @@
 	#modal{
     z-index:200;
   }
-	
+  
+	.container{
+	  display:flex;
+	  flex-wrap:wrap;
+	  
+	  width:90%;
+	  
+	  margin-left:auto;
+	  margin-right:auto;
+	}
 	
 #blurExample, #noneblurExample {
 
@@ -124,80 +134,34 @@ overflow:hidden;
 			<div style="float:left; width:900px; height:250px; margin-right:200px;" align="center">
    		   		<div style="margin-right:300px; margin-top:80px;">
 
-   		   			<label style="font-size:50px; color:#696969;">${ sessionScope.loginUser.mNickName  }</label>
+   		   			<label style="font-size:50px; color:#696969;">${ownerProfile.userNickName}</label>
    		   			
    		   			<div style="margin-top:20px;">
-   		   			<label onclick="" style="color:#808080;">팔로워:1</label>
-   		   			<label onclick="" style="color:#808080;">팔로윙:1</label>
-   		   			<p><textarea cols="60" rows="3" style="outline:none; resize:none; border:0px; margin-left:200px" disabled;>몸매도좋아 얼굴도이뻐 다좋아.</textarea></p>
+   		   			
+   		   			<p><textarea cols="60" rows="3" style="outline:none; resize:none; border:0px; margin-left:200px" disabled;>${ownerProfile.userIntroduce} </textarea></p>
    		   			</div>
    		   		</div>
 			</div>			
 			<div style="float:left; width:300px; height:250px;">
-				<img src="<%= request.getContextPath() %>/resources/images/test2.jpg" id="MyImage" style="cursor: pointer;">
+				<img src="/tree/${ownerProfile.userProfile}" id="MyImage" style="cursor: pointer;">
 			</div>
 		</div>   		      
     
   		<br>
-		<div class="container text-center">    
- 		 <div class="selectmenu" style="margin-left:160px;">
- 		 <button class="btn btn-default">작품</button>
- 		 <!-- <button class="btn btn-default" onclick="location.href='myBoardFin.my'">핀</button> -->
- 		 <button class="btn btn-default">보드</button>
- 				<select id="korea" class="btn btn-default" style="float:right; margin-right:-800px;">
- 			 		<option value="가나다순">가나다순</option>
- 			 		<option value="abcd순">abcd순</option>
- 				</select>
- 		 </div>
- 		 <br>
-  		<div class="row" id="SF" style="margin-left:150px;" >
-  		<input type="hidden" id="User_No" name="User_No" value="${ sessionScope.loginUser.mNo }">
-  		  <div class="col-sm-3">
-    		  <img id="boardAdd" src="<%= request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
-   		 </div>
-
-
-
-<!--  <div id="blurExample" class="bgBlur" style="background:url(/tree/0test4.jpg); width:380px; height:260px; ">
-	<img >
-</div>
-<div id="blurExample" class="bgBlur" style="background:url(/tree/0test4.jpg);">
-	<img style="background:url(/tree/0test4.jpg);">
-</div>
-<div id="blurExample" class="bgBlur" style="background:url(/tree/0test4.jpg);">
-	<img style="background:url(/tree/0test4.jpg);">
-</div>
-<div id="blurExample" class="bgBlur" style="background:url(/tree/0test4.jpg);">
-	<img style="background:url(/tree/0test4.jpg);">
-</div>	
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-   <filter id="blur">
-   <feGaussianBlur stdDeviation="6" />
-   </filter>
-</svg> -->
-
-		
-		</div>
- 		 <hr>
-		<div class="row">
-			<div align="center">
-				<p style="margin-right:490px"><img class="lockImages" src="<%= request.getContextPath() %>/resources/images/Lock.jpg"><label>비밀보드!</label></p>
-				<label>회원님과 회원님이 초대한 사람들만이 이 보드들을 볼 수있습니다. </label> <label><a style="cursor: pointer">자세히알아보기</a></label>
-			</div>
-		</div>
-		<hr>
-		<div class="col-sm-4" onclick="gomodal();" style="margin-left:150px;">
-    		  <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
-    		  <p>비밀보드</p>
-   		</div>
-		</div><br>
-		
-		
-		<hr>
-		<footer class="container-fluid text-center">
- 			<p>Footer Text</p>
-		</footer>
-
+  		
+	 		 <div class="selectmenu" style="margin-left:160px;">
+	 		   <button class="btn btn-default">작품</button>
+	 		   <!-- <button class="btn btn-default" onclick="location.href='myBoardFin.my'">핀</button> -->
+	 		 </div>
+	 		 
+		     <div class="container ">    
+	 		 <br>
+	  		  <div class="col-sm-3">
+	    		  <img id="boardAdd" src="<%= request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="cursor: pointer;" alt="보드만들기">
+	   		 </div>
+	   		 
+	 		</div>
+       
 
 
 <div id="modal" style="background:white; position:fixed; top:10%; right:23%; ">
@@ -209,9 +173,9 @@ overflow:hidden;
 	
 	/* 셀렉트 보드! */
 	$(function(){
-		var User_No = $("#User_No").val();
-		var korea = $("#korea").val();
-		console.log("hihi"+korea);
+		
+		var User_No = '${ ownerProfile.userNo}'
+		
 		$.ajax({
 			url:"myBoardSelect.my",
 			method:"POST",
@@ -225,10 +189,10 @@ overflow:hidden;
 				for(var i = 0; i< arr.length; i++){
 					console.log(data.userNo[i].board_No);
 					var board = data.userNo[i].board_No;
-					$("#SF").append(
-							'<div style="text-align:center" class="col-sm-4" id="'+board +'">'+
-							'<img id="boardImages2" src="/tree/0test4.jpg" class="img-responsive" style=" cursor: pointer;">'+
-							'<lable>'+ data.userNo[i].board_Title +'</label>'+
+					$(".container").append(
+							'<div class="col-sm-4" id="'+board +'">'+
+							'<img id="boardImages2" src="/tree/asdfasceafaeewfef122.PNG" class="img-responsive" style=" cursor: pointer;">'+
+							'<label>'+ data.userNo[i].board_Title +'</label>'+
 							'</div>'
 						);
 				}

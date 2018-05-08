@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.kh.forest.common.BoardProfile;
 import com.kh.forest.myboard.model.dao.FinDao;
 import com.kh.forest.myboard.model.vo.Board;
 import com.kh.forest.myboard.model.vo.Fin;
@@ -63,6 +64,22 @@ public class FinServiceImpl implements FinService{
 	public void inserStore(Store s) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public BoardProfile boardProfileSelect(String userNo) {
+		BoardProfile boardProfile = fd.boardProfileSelect(sqlSession, userNo);
+		
+		String userIntroduce = fd.boardProfileSelect2(sqlSession, userNo);
+		
+		if(userIntroduce != null){
+			boardProfile.setUserIntroduce(userIntroduce);			
+		}else{
+			boardProfile.setUserIntroduce("");	
+		}
+		
+		
+		
+		return boardProfile;
 	}
 
 

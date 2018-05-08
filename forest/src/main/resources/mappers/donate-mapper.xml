@@ -1,46 +1,3 @@
-
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-
-
-<mapper namespace="Donate">
-	<resultMap id="DonateResultSet" type="Donate">
-
-		<id property="donate_no" column="DONATE_NO" />
-		<result property="giver_no" column="GIVER_NO" />
-		<result property="taker_no" column="TAKER_NO" />
-		<result property="donate_date" column="DONATE_DATE" />
-		<result property="donate_amount" column="DONATE_AMOUNT" />
-
-	</resultMap>
-	
-	<insert id="insertPayment" parameterType="Donate">
-		INSERT INTO DONATE 
-		VALUES(SEQ_DNO.NEXTVAL,#{giver_no},#{taker_no},SYSDATE,#{donate_amount})
-	
-	</insert>
-	
-	<select id="getDonate" resultMap="DonateResultSet" parameterType="_int">
-		
-		SELECT *FROM DONATE WHERE GIVER_NO=#{giver_no}
-	
-	
-	</select>
-	
-	<select id="getTakeMoney"  resultMap="DonateResultSet" parameterType="_int">
-		
-		SELECT *FROM DONATE WHERE TAKER_NO=#{taker_no}
-	
-	
-	</select>
-	
-	
-	
-</mapper>
-=======
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -52,8 +9,8 @@
 	<resultMap id="DonateResultSet" type="Donate">
 
 		<id property="donate_no" column="dno" />
-		<result property="giver_Nick" column="giver_name" />
-		<result property="taker_Nick" column="taker_name" />
+		<result property="giver_no" column="giver_no" />
+		<result property="taker_no" column="taker_no" />
 		<result property="donate_date" column="DONATE_DATE" />
 		<result property="donate_amount" column="amount" />
 
@@ -61,12 +18,32 @@
 	<resultMap id="DonateSumResultSet" type="Donate">
 
 		<id property="donate_no" column="rownum" />
-		<result property="giver_Nick" column="giver_name" />
+		<result property="giver_no" column="giver_name" />
 		<result property="taker_Nick" column="taker_name" />
 		<result property="donate_date" column="DONATE_DATE" />
 		<result property="donate_amount" column="amount" />
 
 	</resultMap>
+	
+	<insert id="insertPayment" parameterType="Donate">
+      INSERT INTO DONATE 
+      VALUES(SEQ_DNO.NEXTVAL,#{giver_no},#{taker_no},SYSDATE,#{donate_amount})
+   
+   </insert>
+   
+   <select id="getDonate" resultMap="DonateResultSet" parameterType="_int">
+      
+      SELECT *FROM DONATE WHERE GIVER_NO=#{giver_no}
+   
+   
+   </select>
+   
+   <select id="getTakeMoney"  resultMap="DonateResultSet" parameterType="_int">
+      
+      SELECT *FROM DONATE WHERE TAKER_NO=#{taker_no}
+   
+   
+   </select>
 
 	<select id="DonateSelectAll" resultMap="DonateResultSet" parameterType="_int">
 		select dno,giver_name,taker_name,DONATE_DATE,amount from(

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.kh.forest.common.Tree;
 import com.kh.forest.myboard.model.dao.FinDao;
 import com.kh.forest.myboard.model.vo.Board;
 import com.kh.forest.myboard.model.vo.Fin;

@@ -221,8 +221,8 @@ public class Setting {
 		pay.setPay(Integer.parseInt(jsonData.get("price")));
 		
 		donate.setDonate_amount(Integer.parseInt(jsonData.get("price")));
-		donate.setGiver_no(String.valueOf(m.getmNo()));
-		donate.setTaker_no(String.valueOf(m.getmNo()));
+		donate.setGiver_no(String.valueOf(m.getmNickName()));
+		donate.setTaker_no(String.valueOf(m.getmNickName()));
 		
 		ss.payment(pay,donate);
 

@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -12,13 +11,9 @@
 		<typeAlias type="com.kh.forest.common.Donate" alias="Donate"/>
 		<typeAlias type="com.kh.forest.manager.model.vo.RankGender" alias="RankGender"/>
 		<typeAlias type="com.kh.forest.helpcenter.model.vo.Notice" alias="Notice"/>
-<<<<<<< HEAD
-		<typeAlias type="com.kh.forest.helpcenter.model.vo.Commentary" alias="Commentary"/>
 		<typeAlias type="com.kh.forest.myboard.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.forest.myboard.model.vo.Fin" alias="Fin"/>
 		<typeAlias type="com.kh.forest.myboard.model.vo.Store" alias="Store"/>
-		
-=======
 		<typeAlias type="com.kh.forest.common.Commentary" alias="Commentary"/>
 		<typeAlias alias="RankAgeByWriter" type="com.kh.forest.manager.model.vo.RankAgeByWriter" />
 		<typeAlias alias="Account" type="com.kh.forest.manager.model.vo.Account" />
@@ -27,31 +22,28 @@
 		<typeAlias alias="Calcul" type="com.kh.forest.manager.model.vo.Calcul" />
     <typeAlias type="com.kh.forest.setting.model.vo.Pay" alias="Pay"/>
     <typeAlias type="com.kh.forest.main.model.vo.History" alias="History"/>
->>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
+
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/manager-mapper.xml"/>
 		<mapper resource="mappers/mainBoard-mapper.xml"/>
 		<mapper resource="mappers/member-mappers.xml"/>
 		<mapper resource="mappers/tree-mappers.xml"/>
-    <mapper resource="mappers/notice-mapper.xml"/>
+        <mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/donate-mapper.xml"/>
 		<mapper resource="mappers/chart-mapper.xml"/>
-<<<<<<< HEAD
 		<mapper resource="mappers/help-mapper.xml"/>	
 		<mapper resource="mappers/commentary-mapper.xml"/>
 		<mapper resource="mappers/fin-mapper.xml"/>
 		<mapper resource="mappers/myBoard-mapper.xml"/>
 		<mapper resource="mappers/store-mapper.xml"/>
-		
-=======
-    <mapper resource="mappers/history-mapper.xml"/>
+        <mapper resource="mappers/history-mapper.xml"/>
 		<mapper resource="mappers/help-mapper.xml"/>
 		<mapper resource="mappers/commentary-mapper.xml"/>
 		<mapper resource="mappers/refund-mapper.xml"/>
 		<mapper resource="mappers/account-mapper.xml"/>
-    <mapper resource="mappers/pay-mapper.xml"/>
->>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
+        <mapper resource="mappers/pay-mapper.xml"/>
+
 	</mappers>
 
 

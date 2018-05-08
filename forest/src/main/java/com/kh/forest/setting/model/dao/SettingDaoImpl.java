@@ -83,7 +83,7 @@ public class SettingDaoImpl implements SettingDao{
 			donate.get(i).setGiver_no(sqlSession.selectOne("Member.findDonater",donate.get(i).getGiver_no()));
 			donate.get(i).setTaker_no(sqlSession.selectOne("Member.findTaker",donate.get(i).getTaker_no()));
 		}
-		
+			
 		return donate;
 	}
 

@@ -23,18 +23,7 @@
 			SELECT TREE_AFTER FROM(SELECT TREE_AFTER FROM TREE WHERE TREE_TYPE = 'L' ORDER BY DBMS_RANDOM.RANDOM) WHERE ROWNUM=1
 	</select>
 	
-<<<<<<< HEAD
-	<!-- 핀추가하기 -->
-	<!-- <insert id="insertFin">
-		INSERT INTO TREE
-		VALUES(SEQ_TNO.NEXTVAL, '1', NULL, #{aName}, #{Tree_Tag}, NULL, SYSDATE)
-	</insert> -->
-	<!-- <insert id="insertFin" parameterType="Tree">
-		INSERT INTO TREE
-		VALUES(140, 1, AI, #{aName}, #{Tree_Tag}, A, 18/04/11)
-	</insert> -->
-	
-=======
+
 	<insert id="insertProfilePhoto">
 		
 		MERGE INTO TREE T USING DUAL
@@ -45,9 +34,7 @@
 			WHERE USER_NO=#{mNo} AND TREE_TAG='PROFILE'	   		
 		WHEN NOT MATCHED THEN	
 		INSERT VALUES(SEQ_TNO.NEXTVAL,#{mNo},#{bName},#{aName},'PROFILE',#{tType},SYSDATE)
-		
->>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
-	
+
 	</insert>
 	
 	<select id="getProfilePhoto" resultType="java.lang.String">

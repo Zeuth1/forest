@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.forest.common.Tree;
 import com.kh.forest.myboard.model.vo.Board;
 import com.kh.forest.myboard.model.vo.Fin;
 import com.kh.forest.myboard.model.vo.Store;

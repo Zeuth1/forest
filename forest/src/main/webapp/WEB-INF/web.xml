@@ -8,20 +8,7 @@
 
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
-<<<<<<< HEAD
-=======
- 
 
-
-	
-
-	<!-- The definition of the Root Spring Container shared by all Servlets 
-		and Filters -->
-		
-		
-
-	
->>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
 	<context-param>
 	  <param-name>contextConfigLocation</param-name>
 	  <param-value>
@@ -212,21 +199,12 @@
 
 	</servlet-mapping>
 	
-<<<<<<< HEAD
-	<!-- 한글 깨짐 방지 -->
-	<filter>
-		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-	</filter>
+	
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-=======
+
 	<filter>
 
 		<filter-name>encodingFilter</filter-name>
@@ -260,6 +238,5 @@
 	</filter-mapping>
 
 
->>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
 
 </web-app>

@@ -94,7 +94,7 @@
    		   	</div>
    		   		<img>
    		   		 <div class="carousel-caption">
-      		   		<img src="images/test.jpg" id="MyImage" style="cursor: pointer;">
+      		   		<img src="<%=request.getContextPath() %>/resources/images/test.jpg" id="MyImage" style="cursor: pointer;">
     		    </div>      
     		  </div>
   		  </div>
@@ -108,33 +108,33 @@
  	
   		<div class="row">
   		  <div class="col-sm-4" onclick="gomodal();">
-    		  <img id="boardImages" src="images/addimages.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
+    		  <img id="boardImages" src="<%=request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
    		 </div>
    		 <!-- 수정!!!!!!!!............... -->
    		
    		 <div class="col-sm-4">
    		 	<button id="goSave" onclick="goSave();" class="save-btn" type="button" style="border: 2px solid #7BA7AB;border-radius: 5px;outline: none;">저장</button>
-   		   <img id="boardImages" src="images/test.jpg" class="classname" style="width:100%;cursor: pointer;" alt="보드만들기">
+   		   <img id="boardImages" src="<%=request.getContextPath() %>/resources/images/test.jpg" class="classname" style="width:100%;cursor: pointer;" alt="보드만들기">
    		 </div>
    		 
    		 <div class="col-sm-4">
    			 <button id="goSave" onclick="goSave();" class="save-btn" type="button" style="border: 2px solid #7BA7AB;border-radius: 5px;outline: none;">저장</button>
-   		   <img id="boardImages" src="images/test2.jpg" class="classname" style="width:100%;cursor: pointer;" alt="보드만들기">
+   		   <img id="boardImages" src="<%=request.getContextPath() %>/resources/images/test2.jpg" class="classname" style="width:100%;cursor: pointer;" alt="보드만들기">
     		  
    		 </div>
    		 <div class="col-sm-4"> 
    		 <button id="goSave" onclick="goSave();" class="save-btn" type="button" style="border: 2px solid #7BA7AB;border-radius: 5px;outline: none;">저장</button>
-   		   <img id="boardImages" src="images/test3.jpg" class="classname" style="width:100%;cursor: pointer;" alt="보드만들기">
+   		   <img id="boardImages" src="<%=request.getContextPath() %>/resources/images/test3.jpg" class="classname" style="width:100%;cursor: pointer;" alt="보드만들기">
     	   
    		 </div>
    		 <div class="col-sm-4"> 
    		 <button id="goSave" onclick="goSave();" class="save-btn" type="button" style="border: 2px solid #7BA7AB;border-radius: 5px;outline: none;">저장</button>
-   		   <img id="boardImages" src="images/test4.jpg" class="classname" style="width:100%; height:auto;cursor: pointer;" alt="보드만들기">
+   		   <img id="boardImages" src="<%=request.getContextPath() %>/resources/images/test4.jpg" class="classname" style="width:100%; height:auto;cursor: pointer;" alt="보드만들기">
     		   
    		 </div>
    		 <div class="col-sm-4"> 
    		 <button id="goSave" onclick="goSave();" class="save-btn" type="button" style="border: 2px solid #7BA7AB;border-radius: 5px;outline: none;">저장</button>
-   		   <img id="boardImages" src="images/test5.jpg" class="classname" style="width:100%; height: 100%;cursor: pointer;" alt="보드만들기">
+   		   <img id="boardImages" src="<%=request.getContextPath() %>/resources/images/test5.jpg" class="classname" style="width:100%; height: 100%;cursor: pointer;" alt="보드만들기">
     	  
    		 </div>
    		 
@@ -159,7 +159,7 @@
 				<hr>
 				<div style="width:300px; height:400px; float:left;">
 					<!-- 이미지영역에 업로드할 파일들!!! -->
-					<img src="../images/test.jpg" style="width:290px; height:400px;">
+					<img src="<%=request.getContextPath() %>/resources//images/test.jpg" style="width:290px; height:400px;">
 				</div>
 				
 				
@@ -188,7 +188,7 @@
 
 				<div style="width:300px; height:400px; float:left;">
 					<!-- 이미지영역에 업로드할 파일들!!! -->
-					<img src="../images/test.jpg" style="width:290px; height:400px;">
+					<img src="<%=request.getContextPath() %>/resources//images/test.jpg" style="width:290px; height:400px;">
 				</div>
 				
 				<div style="width:300px; height:300px; float:left; overflow-y: scroll">

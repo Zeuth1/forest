@@ -1,12 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="com.kh.forest.common.Member"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+
+<meta name="google-signin-client_id" content="569688176866-2fhuueq4kb1pddacn6jlomi8q5siqd48.apps.googleusercontent.com">
+
 <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<script>
+function init() {
+	  gapi.load('auth2', function() { 
+		  
+	  });
+	}
+
+</script>
 
 <style>
   #all{
@@ -72,7 +85,7 @@
    
   .searchNav{
     display:flex;
-    
+    flex-direction:column;
     top:60px;
     position:fixed;
     width:68%;
@@ -85,14 +98,117 @@
     
   }
   
+
+  .historyArea p:hover{
+    background:rgba(80,80,80,0.1);
+    cursor:pointer;
+  }
+  .alertNav-inside{
+  	
+  		padding:5px;
+  		border:1px solid black;
   
-  .userInfo{
-  display:flex;
+  }
+  
+
+  .historyArea{
+    display:flex;
+    flex-direction:column;
     justify-content:center;
-  }  
+    padding-left:20px;
+    padding-top:5px;
+    padding-bottom:5px;
+    height:20px;
+  }
+  
+  .historyArea:hover{
+    background:rgba(80,80,80,0.1);
+    cursor:pointer;
+  }
+  
+  
+  .searchResultNav{
+    display:flex;
+    flex-direction:column;
     
+    top:60px;
+    position:fixed;
+    width:1200px;
+    
+    background:white;
+    border-radius:6px;
+    
+    margin-left:4.7%;
+    display:none;
+    
+  }
+  
+  .searchItem{
+    display:flex;
+    align-items:center;
+    marin-left:20px;
+  }
+  
+  .searchItem:hover{
+    background:rgba(80,80,80,0.1);
+    cursor:pointer;
+  }
+  
+  .searchItem img{
+   width:50px;
+   height:50px;
+   margin-left:15px;
+   margin-right:15px;
+   border-radius:50%;
+   border:1px solid rgba(80,80,80,0.2);
+  }
+  
+  
+  /*  				alertNav-inside-wrap
+   					alert-nav-logo-wrap
+   					alert-nav-logo
+   					alertNav-Content
+   */
+  .alertNav-inside-wrap:hover{
+  
+  	background:#efefef;
+  }
+  
+  .alertNav-inside-wrap{
+  
+  	margin-top:15px;
+  	width:80%;
+  	height:20%;
+  	display:block;
+  }
+  
+  .alert-nav-log-wrap{
+  	
+  	width:30%;
+  	height:100%;
+  	margin-left:20px;
+  border-bottom:1px solid #efefef;
+  
+  }
+  
+  .alert-nav-logo{
+  	
+  	width:15%;
+  
+  }
+  .alertNav-Content{
+  	
+  	font-size:15px;
+  	float:right;
+  
+  }
+  
+  
+  
+  
   #home{
-    margin-left:1.5%;
+    margin-left:20px;
+    margin-right:20px;
     padding:15px;
     padding-top:9px;
     padding-bottom:9px;
@@ -107,21 +223,30 @@
     cursor:pointer;
   }
   
-  
- 
-  #name{
+  .userInfo{
+    display:flex;
+    align-self:center;
+    height:30px;
     
-    padding-left:45px;
-    padding-right:20px;
-    padding-top:10px;
-    padding-bottom:10px;
+    margin-top:5px;
+    padding-left:10px;
+    padding-right:40px;
+    padding-top:5px;
+    padding-bottom:5px;
     border-radius:25px;
     font-weight: bolder;
-    font-size:medium;
     color: rgba(80,80,80,0.5);
-  }
+  }  
   
-  #name:hover{
+  .userInfo img{
+    align-self:center;
+    margin-right:5px;
+    border-radius:100%;
+    width:25px;
+    height:25px;
+  }
+   
+  .userInfo:hover{
     background:rgba(80,80,80,0.1);
     cursor:pointer;
   }
@@ -145,6 +270,7 @@
   
   
   #alertNav {
+  	overflow:scroll;
     top:70px;
     margin-left:76%;
     position: fixed;
@@ -206,7 +332,7 @@
     margin-left:85%;
     position: fixed;
     width: 150px;
-    height: 115px;
+    height: 50px;
     padding: 40px;
     background: #FFFFFF;
     -webkit-border-radius: 13px;  
@@ -241,41 +367,41 @@
 	left: 187px;
   }	
 
-  table{
+  #menuNav table{
     position:absolute;
     top:-1.5px;
     left:-2px;
     width:234px;
   }
   
-  tr{
+  #manuNav tr{
     width:270px;
     height:20px;
     
   }
   
-  tr:hover{
+  #menuNav tr:hover{
     background:rgba(80,80,80,0.1);
     cursor:pointer;
   }
   
-  td{    
+  #menuNav td{    
     width:295px;
     font-weight: bolder;
     font-size:large;
     color:rgba(80,80,80,0.5);
     
-    padding-top:7px;
+    padding-top:10px;
     padding-bottom:7px;
     padding-left:15px;
   }
   
-  tr #t1{
+  #menuNav tr #t1{
     border-top-left-radius:5px;
     border-top-right-radius:5px;
   }
   
-  tr #t5{
+  #menuNav tr #t5{
     border-bottom-left-radius:5px;
     border-bottom-right-radius:5px;
   }
@@ -291,26 +417,30 @@
   
  
 </style>	
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR" http-equiv="Pragma" content="no-cache" http-equiv="Cache-Control" content="no-cache">
+<meta charset="utf-8">
 <title>Insert title here</title>
 </head>
 <body>
+<<<<<<< HEAD
   <div class="menubarOverlay"></div>
+=======
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+>>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
   <div class="overlay"></div>
-  
-  <div id="all">
-    <i class="fas fa-plane" id="planeIcon" onclick="location.href='#'"></i>
+    <div id="all">
+    
+    <i class="fas fa-plane" id="planeIcon" onclick="location.href='mainBoard.ma'"></i>
     
     
 	    <i class="fas fa-search" id="searchIcon" style="color:rgba(80,80,80,0.3); font-size:20px;"></i>
-	    <input type="text" id="searchBar" onkeyup="searchStart()" placeholder="∞Àªˆ" autocomplete="off"
+	    <input type="text" id="searchBar" onkeyup="searchStart()" onclick="searchStart()" placeholder="Í≤ÄÏÉâ" autocomplete="off"
 	           autocorrect="off" autocapitalize="off" spellcheck="false">
     
     
-	    <p id="home" onclick="location.href='#'">»®</p>
+	    <p id="home" onclick="location.href='mainBoard.ma'">Ìôà</p>
 	    <div class="userInfo">
-		    <i class="fas fa-user" id="pic" style="color:white"></i>
-		    <p id="name">${ sessionScope.loginUser.mNickName  }</p> <!-- «—±€ ∞¯πÈæ¯¿Ã 8¿⁄, øµæÓ √÷¥Î 13¿⁄ -->
+		    <img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png" id="loginUserProfile"/>
+		    <p style="font-weight:bolder; font-size:medium; align-self:center;">${ loginUser.mNickName }</p> <!-- ÌïúÍ∏Ä Í≥µÎ∞±ÏóÜÏù¥ 8Ïûê, ÏòÅÏñ¥ ÏµúÎåÄ 13Ïûê -->
 	    </div>
 	    
 	    
@@ -318,41 +448,67 @@
 	    <i class="fas fa-bars" id="menuIcon" style="color:rgba(80,80,80,0.3)"></i>
 	 
 	    
-    
+   
     
   </div>
   <div class="searchNav">
-    <p style="margin-left:20px; margin-top:10px; font-size:12px;">√÷±Ÿ ∞Àªˆ ±‚∑œ</p>
+    <p style="margin-left:20px; margin-top:10px; font-size:12px;">ÏµúÍ∑º Í≤ÄÏÉâ Í∏∞Î°ù</p>
+    <div class="historyArea"></div>
     	
   </div>
-  <div id="alertNav"></div>
+  <div class="searchResultNav">
+    <p style="margin-left:20px; margin-top:10px; font-size:12px;">Í≤ÄÏÉâ Í≤∞Í≥º</p>    	
+    <table class='searchResultTable'></table>
+  </div>
+  
+  
+  <div id="alertNav">
+  	
+  
+  </div>
   <div id="menuNav">
     <table>
       <c:if test="${ sessionScope.loginUser.mLevel == 1 }">
-        <tr><td id="t0">∞¸∏Æ¿⁄ ∆‰¿Ã¡ˆ</td></tr>
+        <tr><td id="t0">Í¥ÄÎ¶¨Ïûê ÌéòÏù¥ÏßÄ</td></tr>
         <script> $('#menuNav').css('height','153px')</script>
       </c:if>
-      <tr><td id="t1">«¡∑Œ«  ºˆ¡§</td></tr>
-      <tr><td id="t2">»ƒø¯¿⁄ ¡∂»∏</td></tr>
-      <tr><td id="t3">»ƒø¯≥ªø™ ¡∂»∏</td></tr>
-      <tr><td id="t4">∞‘Ω√∆«</td></tr>
-      <tr><td id="t5">∑Œ±◊æ∆øÙ</td></tr>
+      <tr><td id="t1">ÎßàÏù¥ÌéòÏù¥ÏßÄ</td></tr>
+      <tr><td id="t4">Í≥†Í∞ù ÏÑºÌÑ∞(ÏûÑÏãú Í≤∞Ï†úÌéòÏù¥ÏßÄ)</td></tr>
+      <tr><td id="t5" onclick="signOut();">Î°úÍ∑∏ÏïÑÏõÉ</td></tr>
     </table>
-  </div> 
-  
+  </div>
+   
   <c:if test="${ sessionScope.loginUser == null }">
     <script>
-      location.href="wrongAccess.lo";
+      location.href="login.lo";
     </script>
-  </c:if>
+  </c:if> 
   
-  <c:if test="${ sessionScope.loginUser.mLevel == 1 }">
-    <script>
-      console.log('∞¸∏Æ¿⁄¥‘ »Øøµ«’¥œ¥Ÿ!');
-    </script>
-  </c:if>
+   
    
   <script>
+    $(function(){
+    	//ÌîÑÎ°úÌïÑÏÇ¨ÏßÑ Î∂àÎü¨Ïò§Í∏∞
+    	$.ajax({
+			  url:"getProfile.ma",
+			  type:"POST",
+			  data:JSON.stringify('${loginUser.mNickName}'),
+			  dataType:"json",
+			  contentType:"application/json",
+			  success:function(data){
+				  var loginUserProfile = '/tree/' + data.profile;
+				  
+				   if(data.profile !== null){
+					  $('#loginUserProfile').attr('src', loginUserProfile);
+				  }
+				   
+				   
+			  }
+			  
+		  })
+    })
+  
+  
      $('#searchBar').on('click', function(){
     	
     	$('.menubarOverlay').css('display','block');
@@ -364,7 +520,6 @@
     }); 
     
     $(document).on('click', function(e){
-    	console.log($(e.target));
     	if( ! $(e.target).is($('#searchBar')) && ! $(e.target).is( $('.searchNav') ) ){
     		$('.menubarOverlay').css('display','none');
     		$('#searchBar').css("border","4px solid white").css("border-radius","8px");
@@ -387,14 +542,22 @@
     			$('.searchNav').css("display","none")
     		}
     	}
+    	
+    	if( ! $(e.target).is($('.searchResultNav')) && ! $(e.target).is($('#searchBar')) ){
+    		if( $('.searchResultNav').css('display','flex')){
+    			$('.searchResultNav').css("display","none")
+    			
+    			
+    		}
+    	}
     		
     	
     	
     });    
 
     $(document).on('click', function(e){
-    	console.log($(e.target));
-    		if(  $(e.target).is($('#menuIcon')) || $(e.target).parent().is($('#menuIcon')) ) {
+    	
+    	    if(  $(e.target).is($('#menuIcon')) || $(e.target).parent().is($('#menuIcon')) ) {
     		    if( $('#menuNav').attr("display","none")){
         		    $('#menuNav').css("display","block");
         		}
@@ -406,7 +569,34 @@
         		}
     		}
     		
-    	});	
+    		if(  $(e.target).parent().is($('.searchItem')) || $(e.target).is('.searchItem') ){
+    			if( $(e.target).parent().is($('.searchItem')) ) {
+    				var item = $(e.target).parent().attr('id').split('#')[1];
+    				
+    				location.href="searchPage.ma?item=" + item;
+    				
+    			}
+    			if( $(e.target).is('.searchItem') ) {
+    				var item = $(e.target).attr('id').split('#')[1];
+    				
+    				location.href="searchPage.ma?item=" + item;
+    			  
+    			}
+    			
+    		}
+    		
+    		if( $(e.target).parent().is($('.historyArea')) || $(e.target).is('.historyArea')){
+    			if( $(e.target).parent().is($('.historyArea')) ){
+    				var item = $(e.target).text();
+    				location.href="searchPage.ma?item=" + item;
+    			}
+    			if( $(e.target).is('.historyArea') ){
+    				var item = $(e.target).children().text();
+    				location.href="searchPage.ma?item=" + item;
+    			}
+    		}
+    		
+    	});		
     
     
     var delta = 500;
@@ -419,23 +609,65 @@
     	timer = setTimeout( function searchStart(){
     		var word = $('#searchBar').val();
     		var wordJ = JSON.stringify(word);
-    		console.log(wordJ);
+    		var num = 0;
     		
     		if(word != ''){
+			  
     		  $.ajax({
-	    			url:"search.ma",
+	    			url:"observe.ma",
 	      			type:"POST",
 	      			data:wordJ,
 	      			dataType:"json", 
 	    			contentType:"application/json",
 	      			
 	      			
-	      			success:function(data){
+	      			success:function(data){	      	
+	      				$('.searchNav').css('display','none');
 	      				
-	      				console.log(data);
+	      					
+	      				$('.searchItem').remove();
+	      				$.each(data, function(key, value){
+	      					if(num == 5) return false;
+	      					
+	      					num++;
+	      				
+	      					var searchItem = $('<div class="searchItem">');
+	      					$('<img src="${ pageContext.request.contextPath }/resources/images/2000px-Number_sign.svg.png">').appendTo(searchItem);
+	      					$('<p>' + key + '<br>Í≤åÏãúÎ¨º ' + value + ' Í∞ú</p>').appendTo(searchItem);
+	      					searchItem.attr('id',key);
+	      				    searchItem.appendTo('.searchResultNav');
+		      				
+	      				});
+	      				
 	      			}
     			  
     		  });
+    	    $('.searchResultNav').css('display','flex');
+    			
+    		}else{    			
+    		    $.ajax({
+    		    	url:"history.ma",
+    		    	type:"POST",
+    		    	dataType:"json",
+    		    	contentType:"application/json",
+    		    	success:function(data){
+    		    		$('.historyArea').remove();
+    		    		
+    		    		var arr = data.historyList;
+    		    		
+    		    		for(var i = 0; i < arr.length; i++){
+    		    			var historyArea = $('<div class="historyArea">');
+    		    			$('<p style="font-size:15px; font-weight:bolder">' + arr[i] + '</p>').appendTo(historyArea);
+    		    			historyArea.appendTo($('.searchNav'));
+    		    		}
+    		    		
+    		    		
+    		    		
+    		    	}
+    		    	
+    		    });
+    			$('.searchResultNav').css('display','none');
+    			$('.searchNav').css('display','flex');
     			
     		}
     	}, delta)
@@ -443,13 +675,22 @@
     }    
     
     $('#t4').on('click', function(){
-    	window.location.href="helpCenter.help";
+    	location.href="support.set";
     })
-    
+    /* 
     $('#t5').on('click', function(){
-    	location.href="logout.lo";
+    	
+    	location.href="logout.lo"; 
     
-    })
+    }) */
+    	
+    	  function signOut() {
+    	    var auth2 = gapi.auth2.getAuthInstance();
+    	    auth2.signOut().then(function () {
+    	    console.log('User signed out.');
+    	    });
+    	    location.href="logout.lo"; 
+    	  }
     
     $('#t0').on('click', function(){
     	location.href="a_memberSearchView.man";
@@ -458,6 +699,117 @@
     	location.href="myBoard.my";
     });
     
-  </script> 
+
+    $('.userInfo').on('click', function(){
+    	location.href="myBoard.my";
+    })
+
+    $("#t1").on('click',function(){
+    	location.href="settingPage.set"
+    })
+    
+    function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+    
+    
+  </script>
+  <!-- ÏïåÎ¶º -->
+  <script>
+  
+  var url=window.location.host;
+  var pathname = window.location.pathname;
+  var appCtx = pathname.substring(0, pathname.indexOf("/",2));
+  var root = url+appCtx;
+ 
+  
+  var wsUri = "ws://"+root+"/echo";
+	
+  function send_message(){
+		
+		websocket = new WebSocket(wsUri);
+		websocket.onopen =function(evt){
+			onOpen(evt);
+			
+		}
+		websocket.onmessage = function(evt){
+			
+			onMessage(evt);
+			
+		};
+		websocket.onerror = function(evt){
+			onError(evt);
+		}
+		
+		
+		
+	}
+	
+	function onOpen(evt){
+		
+		websocket.send("${loginUser.mId}");
+	}
+	function onMessage(evt){
+	
+	/* Î©îÏÑ∏ÏßÄ Î∞õÏùÑÎ∂ÄÎ∂Ñ */
+	
+	}
+	
+	function onError(evt){
+		
+		
+	}
+	$(function(){
+		
+		send_message();
+	})
+  
+  	
+	
+  
+  </script>
+   
+  <!--ÏïåÎ¶ºÎ∂àÎü¨Ïò§Í∏∞  --> 
+   <script>
+   var path='<%=request.getContextPath()%>';
+   
+    var alert= $("#alertNav")
+   
+   	$.ajax({
+   		
+   		url:"getAr.set",
+   		success:function(data){
+   			
+   			
+   			for(var i=0; i<data.ar.length;i++){
+   				
+   				console.log(data.ar[i]);	
+   				var content=data.ar[i].nContent;
+   				var title=data.ar[i].nTitle;
+   				
+   				var newDiv="";
+   				newDiv+="<div class='alertNav-inside-wrap'><span class='alert-nav-logo-wrap'>"
+   				newDiv+="<img class='alert-nav-logo' src='"+path+"/resources/images/logo.png'></span>"
+   				newDiv+="<span class='alertNav-Content'>"+content+"</span></div>"
+   			 	alert.append(newDiv);
+   			
+   			}
+   			
+   			
+   			
+   			
+   		}
+   		
+   		
+   	})
+   
+   
+   
+   </script>
+   
 </body>
 </html>

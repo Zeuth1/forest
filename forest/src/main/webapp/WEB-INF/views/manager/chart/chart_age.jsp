@@ -74,18 +74,27 @@ body {
 
 		<hr>
 		<div id="columnchart_values" style="width: 600px; height: 500px;"></div>
+		<table class="table-bordered">
+			<tr>
+				<td colspan=3>10대</td>
+				<td colspan=3>20대</td>
+				<td colspan=3>30대</td>
+				<td colspan=3>40대</td>
+				<td colspan=3>50대</td>
+				<td colspan=3>60대</td>
+			</tr>
+			<tbody id=addData>
+
+			</tbody>
+		</table>
+
 	</div>
 
 	<!-- 스크립트(ajax,jquery) 작성부분 -->
 	<script type="text/javascript">
 		var agelist = [];
-		
-		var list10=[];
-		var list20=[];
-		var list30=[];
-		var list40=[];
-		var list50=[];
-		var list60=[];
+
+		var outputlist10 = {};
 		$(document).ready(function() {
 			$.ajax({
 				url : "a_chartAgeNum.man",
@@ -102,8 +111,9 @@ body {
 				}
 			});
 			
+		var addData=("#addData").html;
 			$.ajax({
-				url : "a_chartAgeNum.man",
+				url : "a_rankAge10Writer.man",
 				data : {
 					onclick : "onclick"
 				},
@@ -111,15 +121,12 @@ body {
 				dataType : "json",
 				success : function(list) {
 					console.log(list);
-					for (var i = 0; i < list.length; i++) {
-						agelist[i] = list[i];
-					}
+					outputlist10 = list;
+					addData+="<tr><td>"+outputlist[0].rankId+"</td>";
 				}
 			});
 		});
 
-		
-		
 		google.charts.load('current', {
 			'packages' : [ 'bar' ]
 		});
@@ -131,9 +138,10 @@ body {
 					[ "20대", agelist[1] ], [ "30대", agelist[2] ],
 					[ "40대", agelist[3] ], [ "50대", agelist[4] ],
 					[ "60대 이상", agelist[5] ] ]);
-
+			
 			var options = {
-				width : 800,
+				width : 600,
+				height : 400,
 				legend : {
 					position : 'none'
 				},
@@ -154,12 +162,13 @@ body {
 					groupWidth : "90%"
 				}
 			};
-
+			
 			var chart = new google.charts.Bar(document
 					.getElementById('columnchart_values'));
-			// Convert the Classic options to Material options.
 			chart.draw(data, google.charts.Bar.convertOptions(options));
+			
 		};
+		// Convert the Classic options to Material options.
 	</script>
 </body>
 </html>

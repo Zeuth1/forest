@@ -46,7 +46,12 @@ public class MyBoard {
 	@RequestMapping(value="myBoard.my")
 	public ModelAndView myboard(ModelAndView mv){
 		System.out.println("1.마이보드로!");
+<<<<<<< HEAD
 		mv.setViewName("myBoard");
+=======
+		mv.setViewName("myboard");
+		
+>>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
 		return mv;
 	}
 	//마이보드에서 보드만들기
@@ -86,6 +91,7 @@ public class MyBoard {
 		mv.setViewName("finAddForm");
 		return mv;
 	}
+<<<<<<< HEAD
 	//핀인설트+ 파일 업로드
 	@RequestMapping(value="finAdd.my")
 	public String finAdd(ModelAndView mv,@RequestParam(name="Tree_After",required=false)MultipartFile photo,HttpServletRequest request,
@@ -213,4 +219,12 @@ public class MyBoard {
 		return object.toString();
 	}
 	
+=======
+	@RequestMapping(value="boardAddForm.my", method=RequestMethod.GET)
+	public ModelAndView boardAddForm(ModelAndView mv){
+		System.out.println("핀만들기");
+		mv.setViewName("boardAddForm");
+		return mv;
+	}
+>>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
 }

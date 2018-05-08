@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.forest.common.Commentary;
 import com.kh.forest.helpcenter.model.exception.HelpException;
-import com.kh.forest.helpcenter.model.vo.Commentary;
+
 import com.kh.forest.helpcenter.model.vo.Notice;
 import com.kh.forest.helpcenter.model.vo.PageInfo;
 import com.kh.forest.helpcenter.model.vo.SearchCondition;

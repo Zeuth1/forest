@@ -20,7 +20,7 @@
 		<result property="mLevel" column="USER_LEVEL" />
 		<result property="mEnrollDate" column="ENROLL_DATE" />
 		<result property="mNickName" column="NICK_NAME" />
-
+<result property="socialId" column="SOCIAL_ID"/>
 	</resultMap>
 
 	<select id="CountMemeber" resultType="_int">
@@ -47,6 +47,10 @@
 		select * from member where GENDER=#{mGender}
 
 	</select>
+	<select id="SearchMemberOneNo" resultMap="managerResultSet"
+		resultType="Member">
+		select * from member where USER_NO=#{mNo}
 
+	</select>
 </mapper>
    

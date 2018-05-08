@@ -59,7 +59,6 @@
               </ul>
               
                 <a href="/hc/ko/sections/360000031354-%ED%8F%AC%EC%8A%A4%ED%8A%B8-%EC%97%B4%EB%9E%8C-%EB%B0%8F-%EC%9D%B4%EC%9A%A9" class="see-all-articles">
-                  문서 13개 모두 보기
                 </a>
               
             

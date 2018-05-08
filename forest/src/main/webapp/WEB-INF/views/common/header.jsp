@@ -4,8 +4,8 @@
 <html dir="ltr" lang="ko">
 <head>
   <meta charset="utf-8">
-  <title> 포스타입 도움 센터</title>
-
+  <title> 포레스트 도움 센터</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 
 /* p 지정 */
@@ -49,9 +49,8 @@ textarea {
   font-size: 14px;
   font-weight: 400;
   line-height: 2.72;
-  min-width: 190px;
+  min-width: 110px;
   padding: 0 1.9286em;
-  width: 100%;
 }
 
 /*문의등록 폼 라벨 지정*/
@@ -137,15 +136,15 @@ a {
 }
 
  .logo img {
-  max-height: 37px;
+  max-height: 60px; 
 }
 .logo span {
-    display: inline-block;
+    display: inline-block; 
     width: 92px;
-    height: 24px;
+    height: 44px;
     vertical-align: top;
     /* postype 로고 이미지 불러오기 */
-    background: url('//theme.zdassets.com/theme_assets/2124626/e3e2fe529cc7f018e312ec64ed6ca85a0e2a5a1e.svg') no-repeat 0 0;
+    background: url('https://logos.textgiraffe.com/logos/logo-name/Forest-designstyle-summer-m.png') no-repeat 0 0;
     background-size: 92px 48px;
 }
 
@@ -235,6 +234,33 @@ a {
 }
  
 
+ #searchCondition, #searchValue2{
+ height: 40px;
+   border: 1px solid #ddd;
+   border-radius: 4px;
+    box-sizing: border-box; 
+ }
+ 
+ #registerHelp{
+   height: 60px;
+   width: 80px;
+   border: 1px solid #ddd;
+   border-radius: 4px;
+    box-sizing: border-box; 
+ }
+ 
+   
+  #searchValue  {
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  color: #999;
+  height: 40px;
+  padding-left: 40px;
+  padding-right: 20px;
+  -webkit-appearance: none;
+  width: 50%;
+  border-radius: 4px;
+}
 
 </style>
 
@@ -243,7 +269,7 @@ a {
    
   <header class="header">
   <div class="logo">
-    <a title="홈" href="helpCenter.jsp">
+    <a title="홈" href="helpCenter.help">
       <span title="로고"></span>
     </a>
   </div>
@@ -252,7 +278,7 @@ a {
     <span class="icon-menu"></span>
     <nav class="user-nav" id="user-nav">
       <!---->
-      <a class="submit-a-request" href="RegisterHelp.jsp">문의 등록</a>
+      <a class="submit-a-request" href="RegisterHelp.help">문의 등록</a>
     </nav>
    
   </div>
@@ -265,15 +291,27 @@ a {
   <nav class="sub-nav">
     <ol class="breadcrumbs">
   
-    <li title="포스타입 도움 센터">
+    <li title="포레스트 도움 센터">
       
-        <a href="/hc/ko">포스타입 도움 센터</a>
+        <a href="helpCenter.help">포레스트 도움 센터</a>
       
     </li>
    
-</ol>
-
-    <form role="search" class="search" data-search="" action="HelpCenterSearch.jsp" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" /><input type="search" name="query" id="query" placeholder="검색" aria-label="검색" /></form>
+</ol> 
+ 
+    <!-- 위의 타입으로 css만 바꿔주면 됨 -->
+     <form name="search" class="search" action="HelpCenterSearch.help" accept-charset="UTF-8" method="post">
+    <select id="searchCondition" name="searchCondition">
+    <option value="title">제목</option>
+	<option value="content">내용</option>    
+    </select>
+    
+    <input type="text" name="searchContent" id="searchValue"/>
+     <input type="submit" value="검색하기">
+    
+    </form>
+    
+    
   </nav>
 
 </body>

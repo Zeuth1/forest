@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.forest.common.Commentary;
 import com.kh.forest.common.Member;
 import com.kh.forest.helpcenter.model.exception.HelpException;
 import com.kh.forest.helpcenter.model.service.HelpService;
 import com.kh.forest.helpcenter.model.service.sha512;
-import com.kh.forest.helpcenter.model.vo.Commentary;
+
 import com.kh.forest.helpcenter.model.vo.Notice;
 import com.kh.forest.helpcenter.model.vo.PageInfo;
 import com.kh.forest.helpcenter.model.vo.SearchCondition;
@@ -42,7 +43,7 @@ public class Helpcenter {
 	// 1 硫붿씤 濡쒕뵫 (get) (留ㅺ컻蹂��닔 x) // �뿬�봽�꽱�꽣 硫붿씤�� �뵒鍮꾩뿉�꽌 媛��졇�삱 寃� �뾾�쓬. �셿猷�
 	// �꽭�뀡�뿉 �젙蹂� ���옣
 	@RequestMapping(value = "helpCenter.help", method = RequestMethod.GET)
-	public ModelAndView helpCenter(ModelAndView mv, Member loginUser, HttpSession session) {
+	public ModelAndView helpCenter(ModelAndView mv, Member loginUser) {
 		try {
 
 			String USER_ID = "admin";
@@ -53,7 +54,7 @@ public class Helpcenter {
 			loginUser.setmId(USER_ID);
 			loginUser.setmPwd(USER_PWD);
 
-			session.setAttribute("loginUser", loginUser);
+			
 			mv.setViewName("/helpCenter");
 
 		} catch (Exception e) {
@@ -80,8 +81,7 @@ public class Helpcenter {
 
 	// 3 臾몄쓽 �벑濡� �뤌 �젣異� & 由щ떎�씠�젆�듃�븯�뿬 臾몄쓽 �벑濡� 由ъ뒪�듃 �샇異�(post) // �씤�꽌�듃�� ���젆�듃 �뵲濡�
 	@RequestMapping(value = "PersonalInquiryList.help", method = RequestMethod.POST)
-	public String PersonalInquiryList(String NOTICE_TITLE, String NOTICE_CONTENT, String NOTICE_PWD,
-			HttpSession session, Notice notice) {
+	public String PersonalInquiryList(String NOTICE_TITLE, String NOTICE_CONTENT, String NOTICE_PWD, Notice notice) {
 
 		String USER_NO = "1";
 

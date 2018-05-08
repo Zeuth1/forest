@@ -12,15 +12,27 @@
   
   <resultMap id="detailMap" type="Detail">
     <id column="TREE_NO" property="treeNo"/>
+    <result column="USER_NO" property="mno"/>
     <result column="TREE_AFTER" property="treeAfter"/>
-    <result column="USER_ID" property="userId"/>
+    <result column="NICK_NAME" property="mNickName"/>
     <result column="TREE_TAG" property="treeTag"/>
     <result column="TREE_TYPE" property="treeType"/>
     <result column="TREE_DATE" property="treeDate"/>
     <result column="BOARD_TITLE" property="boardTitle"/>
     <result column="TREE_COUNT" property="treeCtn"/>
-    
   </resultMap>
+  
+  <resultMap id="commentaryMap" type="Commentary">
+    <id column="COMMENT_NO" property="comment_no"></id>
+    <result column="COMMENT_CONTENT" property="comment_content"></result>
+    <result column="NOTICE_NO" property="notice_no"></result>
+    <result column="TREE_NO" property="tree_no"></result>
+    <result column="NICK_NAME" property="nick_name"></result>
+    <result column="COMMENT_DATE" property="comment_date"></result>
+    <result column="TREE_AFTER" property="tree_after"></result>
+    <result column="CHILDREN" property="children"></result>
+  </resultMap>
+    
   
   
   
@@ -29,6 +41,8 @@
     FROM(SELECT ROWNUM RNUM, R1.* 
          FROM(SELECT TREE_NO, TREE_AFTER, TREE_TAG
               FROM TREE 
+              WHERE (TREE_TYPE = 'A'
+              OR TREE_TYPE = 'L')
               ORDER BY DBMS_RANDOM.VALUE) R1) R2
     WHERE RNUM BETWEEN 1 AND 42
     
@@ -39,7 +53,9 @@
     FROM(SELECT ROWNUM RNUM, R1.* 
          FROM(SELECT TREE_NO, TREE_AFTER, TREE_TAG
               FROM TREE 
-              WHERE TREE_NO NOT IN 
+              WHERE (TREE_TYPE = 'A'
+              OR TREE_TYPE = 'L')
+              AND TREE_NO NOT IN 
               <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
                 #{item}
               </foreach>
@@ -50,21 +66,124 @@
   </select>
   
   <select id="detail" parameterType="java.lang.String" resultMap="detailMap">
-    SELECT T.TREE_NO, T.TREE_AFTER, M.USER_ID, T.TREE_TAG, T.TREE_TYPE, T.TREE_DATE, B.BOARD_TITLE, COUNT(S.TREE_NO) TREE_COUNT
+    SELECT T.USER_NO, T.TREE_NO, T.TREE_AFTER, M.NICK_NAME, T.TREE_TAG, T.TREE_TYPE, T.TREE_DATE, B.BOARD_TITLE, COUNT(S.TREE_NO) TREE_COUNT
     FROM TREE T
     LEFT JOIN MEMBER M ON(T.USER_NO = M.USER_NO)
     LEFT JOIN STORE S ON(T.TREE_NO = S.TREE_NO)
     LEFT JOIN BOARD B ON(S.BOARD_NO = B.BOARD_NO)
-    GROUP BY (T.TREE_NO, T.TREE_AFTER, M.USER_ID, T.TREE_TAG, T.TREE_TYPE, T.TREE_DATE, B.BOARD_TITLE)
+    GROUP BY (T.USER_NO, T.TREE_NO, T.TREE_AFTER, M.NICK_NAME, T.TREE_TAG, T.TREE_TYPE, T.TREE_DATE, B.BOARD_TITLE)
     HAVING T.TREE_NO = #{treeNo}
   </select>
   
-  <select id="search" parameterType="java.lang.String" resultType="java.lang.String">
+  <select id="observe" parameterType="java.lang.String" resultType="java.lang.String">
  
     SELECT TREE_TAG
     FROM TREE
     WHERE TREE_TAG LIKE '%#' || #{searchWord} || '%'
   
   </select>
-
+  
+  <select id="search" parameterType="java.lang.String" resultMap="treeResultMap">
+    SELECT R2.*
+    FROM(SELECT ROWNUM RNUM, R1.* 
+         FROM(SELECT TREE_NO, TREE_AFTER, TREE_TAG
+              FROM TREE 
+              WHERE TREE_TYPE = 'A'
+              AND TREE_TAG LIKE '%' || #{item} || '%'
+              ORDER BY TREE_DATE DESC) R1) R2
+    WHERE RNUM BETWEEN 1 AND 42
+  </select>
+  
+  <insert id="historyInsert">
+    INSERT INTO HISTORY
+    VALUES(SEQ_HNO.NEXTVAL, #{mno}, #{item}, SYSDATE)
+  </insert>
+  
+  <select id="history" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT H2.SEARCH_TAG
+	FROM(SELECT ROWNUM RNUM, H1.*
+	     FROM(SELECT SEARCH_TAG
+		      FROM HISTORY
+			  WHERE USER_NO = #{mno}
+			  ORDER BY HISTORY.HISTORY_DATE DESC)H1)H2
+	WHERE RNUM BETWEEN 1 AND 5
+  </select>
+  
+  <select id="commentaryListCount" parameterType="java.lang.String" resultType="_int">
+    SELECT COUNT(COMMENT_NO)
+    FROM COMMENTARY
+    WHERE TREE_NO = #{treeNo}
+  </select>
+  
+  <select id="commentaryList" parameterType="java.lang.String" resultMap="commentaryMap">
+    SELECT C2.*
+	FROM
+	(SELECT ROWNUM RNUM, C1.*
+	FROM
+	(SELECT C.COMMENT_NO, C.COMMENT_CONTENT, M.NICK_NAME, T.TREE_AFTER, TO_CHAR(C.COMMENT_DATE, 'YYYYMMDDHH24MISS') COMMENT_DATE, COUNT(C2.COMMENT_NO) CHILDREN                           
+	    FROM COMMENTARY C
+        LEFT JOIN COMMENTARY C2 ON(C2.PARENT_COMMENT_NO = C.COMMENT_NO)
+	    JOIN MEMBER M ON (C.USER_NO = M.USER_NO)
+	    LEFT JOIN TREE T ON(M.USER_NO = T.USER_NO)
+        WHERE C.TREE_NO = #{treeNo}
+        AND T.TREE_TYPE = 'P'
+        AND C.PARENT_COMMENT_NO IS NULL
+        GROUP BY C.COMMENT_NO, C.COMMENT_CONTENT, M.NICK_NAME, T.TREE_AFTER, TO_CHAR(C.COMMENT_DATE, 'YYYYMMDDHH24MISS')      
+	    ORDER BY COMMENT_DATE DESC)C1)C2
+	WHERE RNUM BETWEEN #{commentCountStart} AND #{commentCountEnd}
+  </select>
+  
+  <select id="getProfile" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT TREE_AFTER
+    FROM TREE
+    WHERE TREE_TAG = #{ mno }
+  </select>
+  
+  <insert id="commentaryInsert">
+    INSERT INTO COMMENTARY
+    <if test="commentNo != null">
+    VALUES(SEQ_CNO.NEXTVAL, #{content}, NULL, #{treeNo}, #{userNo}, SYSDATE, #{commentNo})
+    </if>
+    <if test="commentNo == null">
+    VALUES(SEQ_CNO.NEXTVAL, #{content}, NULL, #{treeNo}, #{userNo}, SYSDATE, NULL)
+    </if>
+    
+    
+  </insert> 
+  
+  <select id="insertedComment" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT COMMENT_NO
+	FROM
+	(SELECT ROWNUM RNUM, C1.*
+	FROM
+	(SELECT COMMENT_NO 
+	FROM COMMENTARY 
+	WHERE USER_NO = #{uesrNo}
+	ORDER BY COMMENT_DATE DESC )C1)C2
+	WHERE RNUM = 1
+  </select>
+  
+  <select id="replyList" parameterType="java.lang.String" resultMap="commentaryMap">
+    
+	SELECT C.COMMENT_NO, C.COMMENT_CONTENT, M.NICK_NAME, T.TREE_AFTER, TO_CHAR(C.COMMENT_DATE, 'YYYYMMDDHH24MISS') COMMENT_DATE                         
+    FROM COMMENTARY C
+       LEFT JOIN COMMENTARY C2 ON(C2.PARENT_COMMENT_NO = C.COMMENT_NO)
+    JOIN MEMBER M ON (C.USER_NO = M.USER_NO)
+    LEFT JOIN TREE T ON(M.USER_NO = T.USER_NO)
+       WHERE C.TREE_NO = #{treeNo}
+       AND T.TREE_TYPE = 'P'
+       AND C.PARENT_COMMENT_NO = #{commentNo}
+    ORDER BY COMMENT_DATE DESC
+  </select>
+  
+  <select id="checkCommentOwner" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT USER_NO
+    FROM COMMENTARY
+    WHERE COMMENT_NO = #{commentNo}
+  </select>
+  
+  <delete id="deleteCommentary" parameterType="java.lang.String">
+  DELETE FROM COMMENTARY
+  WHERE COMMENT_NO = #{commentNo}
+  </delete>
 </mapper>

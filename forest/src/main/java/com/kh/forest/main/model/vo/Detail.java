@@ -1,4 +1,4 @@
-package com.kh.forest.main.model.vo;
+	package com.kh.forest.main.model.vo;
 
 import java.sql.Date;
 
@@ -8,9 +8,10 @@ public class Detail implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -6551229277220848195L;
+	private String mno;
 	private String treeNo;
 	private String treeAfter;
-	private String userId;
+	private String mNickName;
 	private String treeTag;
 	private String treeType;
 	private Date treeDate;
@@ -19,17 +20,28 @@ public class Detail implements java.io.Serializable{
 	
 	public Detail(){}
 	
-	public Detail(String treeNo, String treeAfter, String userId, String treeTag, String treeType, Date treeDate,
+	public Detail(String mno, String treeNo, String treeAfter, String mNickName, String treeTag, String treeType, Date treeDate,
 			String boardTitle, String treeCtn) {
 		super();
+		this.mno = mno;
 		this.treeNo = treeNo;
 		this.treeAfter = treeAfter;
-		this.userId = userId;
+		this.mNickName = mNickName;
 		this.treeTag = treeTag;
 		this.treeType = treeType;
 		this.treeDate = treeDate;
 		this.boardTitle = boardTitle;
 		this.treeCtn = treeCtn;
+	}
+	
+	
+
+	public String getMno() {
+		return mno;
+	}
+
+	public void setMno(String mno) {
+		this.mno = mno;
 	}
 
 	public String getTreeNo() {
@@ -48,12 +60,12 @@ public class Detail implements java.io.Serializable{
 		this.treeAfter = treeAfter;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getmNickName() {
+		return mNickName;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setmNickName(String mNickName) {
+		this.mNickName = mNickName;
 	}
 
 	public String getTreeTag() {
@@ -102,10 +114,11 @@ public class Detail implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Detail [treeNo=" + treeNo + ", treeAfter=" + treeAfter + ", userId=" + userId + ", treeTag=" + treeTag
-				+ ", treeType=" + treeType + ", treeDate=" + treeDate + ", boardTitle=" + boardTitle + ", treeCtn="
-				+ treeCtn + "]";
+		return "Detail [mno=" + mno + ", treeNo=" + treeNo + ", treeAfter=" + treeAfter + ", mNickName=" + mNickName
+				+ ", treeTag=" + treeTag + ", treeType=" + treeType + ", treeDate=" + treeDate + ", boardTitle="
+				+ boardTitle + ", treeCtn=" + treeCtn + "]";
 	}
+
 	
 	
 	

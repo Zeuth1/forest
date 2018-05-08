@@ -67,6 +67,7 @@
 }
 
 
+body {overflow:hidden}
 .social-login{
 	
 	background:#f3f3f3;
@@ -76,7 +77,7 @@
 	padding-bottom:9px;
 	width:90%;
 	height:30%;
-	margin-top:5px;
+	margin-top:20px;
 	margin-left:15px;
 	
 	

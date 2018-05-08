@@ -18,7 +18,7 @@
 			
 		
 	
-	
+		
 		<!-- ojdbc6 설정시 라이브러리 참조 위치 등록 -->
 		<repository>
 			<id>codelds</id>
@@ -26,7 +26,14 @@
 		</repository>
 	</repositories>
 	<dependencies>
-	
+		<!-- 웹소켓 5월6일추가 -->
+<dependency>
+    <groupId>javax.websocket</groupId>
+    <artifactId>javax.websocket-api</artifactId>
+    <version>1.1</version>
+    <scope>provided</scope>
+</dependency>
+		
 		<!-- javax.mail 이메일인증시 필요 4/27추가 -->
 			<dependency>
 			    <groupId>javax.mail</groupId>
@@ -93,6 +100,15 @@
 			  <artifactId>google-api-client-protobuf</artifactId>
 			  <version>1.23.0</version>
 			</dependency>
+			
+			
+			<!--스프링 웹소켓 5/04 추가 -->
+				<dependency>
+				    <groupId>org.springframework</groupId>
+				    <artifactId>spring-websocket</artifactId>
+				    <version>5.0.4.RELEASE</version>
+				</dependency>
+			
 			
 			<!-- 구글apiㅋ클라이언트xml추가 4월 19일 -->
 			<dependency>

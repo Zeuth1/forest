@@ -6,6 +6,7 @@
 <head>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/loginForm.css">
 <meta charset="UTF-8">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="569688176866-2fhuueq4kb1pddacn6jlomi8q5siqd48.apps.googleusercontent.com">
@@ -13,7 +14,8 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 
 
-<title>Insert title here</title>
+
+<title>Forest -세상의 모든 작가를 응원합니다.-</title>
 
 </head>
 
@@ -45,7 +47,7 @@
 			<div class="logo">
 				<img  src="<%=request.getContextPath()%>/resources/images/logo.png" style="width:30%; height:auto; ">
 			</div>
-			<div class="enter" style="cursor:pointer" onclick="newMember();">
+			<div class="enter" id="enter" style="cursor:pointer" onclick="newMember();">
 			
 					회원가입
 			</div>
@@ -58,11 +60,8 @@
 				<br>
 				<br>
 				<div id="naverIdLogin"></div>
-				<div  class="g-signin2" data-onsuccess="onSignIn" style="width:184.96px; margin-left:auto; margin-right:auto; margin-top:10px;">
-					
-							
-			</div>
-			
+				<div  class="g-signin2" data-onsuccess="onSignIn" style="width:184.96px; margin-left:auto; margin-right:auto; margin-top:10px;"></div>
+		
 			
 		</div>
 	
@@ -130,13 +129,13 @@
 						$("input[name=mEmail]").val(response.mEmail);
 						
 						
-						$("#socialLogin").submit();
-						
+						 $("#socialLogin").submit();
+					
 						
 			    		}
 			    	else{
 			    		$("#logoutNum").val(response.logOut);
-			    		if($("#logoutNum").val()==1) location.href="mainBoard.ma";
+			     		if($("#logoutNum").val()==1) location.href="mainBoard.ma"; 
 			    		
 			    		
 			    	}

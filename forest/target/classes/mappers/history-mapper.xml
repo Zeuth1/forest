@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="History">
+	<resultMap id="historyResultSet" type="History">
+		<id property="hno" column="HISTORY_NO"/>
+		<result property="mno" column="USER_NO"/>
+		<result property="item" column="SEARCH_TAG"/>
+		<result property="hDate" column="HISTORY_DATE"/>
+	</resultMap>
+ 
+ 
+ 	
+ 	<delete id="deleteSearch">
+ 	
+ 		DELETE FROM HISTORY WHERE USER_NO=#{mno}
+ 	
+ 	</delete>
+ 
+</mapper>

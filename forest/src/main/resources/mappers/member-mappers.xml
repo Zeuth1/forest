@@ -102,6 +102,29 @@
 		 SELECT COUNT(EMAIL) FROM MEMBER WHERE EMAIL=#{mEmail}
 	
 	</select>
+
+	<update id="changeEtc">
+		
+		UPDATE MEMBER SET GENDER=#{mGender}, USER_NAME=#{mName} 
+		WHERE USER_NO=#{mNo}
+	
+	</update>
+	
+	<select id="findDonater" resultType="java.lang.String">
+	
+	SELECT USER_NAME FROM MEMBER
+	WHERE USER_NO=#{mNo}
+	
+	</select>
+	
+	<select id="findTaker" resultType="java.lang.String">
+	
+	SELECT USER_NAME FROM MEMBER
+	WHERE USER_NO=#{mNo}
+	
+	</select>
+	
+
 	<select id="CountReportStatusNo" resultType="_int">
 		select count(*) from Ban where status='N'
 	</select>
@@ -139,6 +162,7 @@
 		join member m on m.user_no = b.USER_NO
 		WHERE m.USER_ID=#{user_id}
 	</select>
+
 	
 	<select id="CountReportSearchReason" resultType="_int">
 		select count(*) from Ban b

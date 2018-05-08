@@ -14,6 +14,12 @@
 	
 }
 
+body{
+	
+	background:#fafafa;
+	
+}
+
 .total-left{
 	margin-left:60px;
 	width:25%;
@@ -28,7 +34,7 @@
 	height:100%;
 	
 	float:right;
-	margin-right:180px;
+	margin-right:230px;
 }
 
 .profile-wrap{
@@ -36,6 +42,7 @@
 	width:100%;
 	height:40%;
 	
+    border: 1px solid #dad8de;
 	
 	
 }
@@ -54,7 +61,7 @@
 
 
 .profile-photo{
-	
+	width: 50%;
 	margin-top:50px;
 	
 	
@@ -62,7 +69,7 @@
 
 
 .price-wrap{
-	
+	border:1px solid #dad8de;
 	width:100%;
 	height:10%;
 
@@ -92,12 +99,12 @@
 	margin-left:auto;
 	margin-right:auto;
 	width:80%;
-	height:50%;
-
-	
+	height:35%;
+	border:1px solid #dad8de;
+	padding: 0 35px;
 }
 .choice-wrap{
-	
+	background:white;
 	width:100%;
 	height:80%;
 
@@ -126,9 +133,9 @@
 	
 	float:left;
 	border:1px solid gray;
-	width:30%;
-	height:60%; 
-	margin-right:8px;
+	width:18%;
+	height:40%; 
+	margin-left:80px;
 	
 
 }

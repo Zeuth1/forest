@@ -1,11 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.forest.common.Member"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!DOCTYPE html>
 <html>
 <head>
+
+<meta name="google-signin-client_id" content="569688176866-2fhuueq4kb1pddacn6jlomi8q5siqd48.apps.googleusercontent.com">
+
 <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<script>
+function init() {
+	  gapi.load('auth2', function() { 
+		  
+	  });
+	}
+
+</script>
 
 <style>
   #all{
@@ -84,6 +98,19 @@
     
   }
   
+
+  .historyArea p:hover{
+    background:rgba(80,80,80,0.1);
+    cursor:pointer;
+  }
+  .alertNav-inside{
+  	
+  		padding:5px;
+  		border:1px solid black;
+  
+  }
+  
+
   .historyArea{
     display:flex;
     flex-direction:column;
@@ -135,6 +162,49 @@
    border-radius:50%;
    border:1px solid rgba(80,80,80,0.2);
   }
+  
+  
+  /*  				alertNav-inside-wrap
+   					alert-nav-logo-wrap
+   					alert-nav-logo
+   					alertNav-Content
+   */
+  .alertNav-inside-wrap:hover{
+  
+  	background:#efefef;
+  }
+  
+  .alertNav-inside-wrap{
+  
+  	margin-top:15px;
+  	width:80%;
+  	height:20%;
+  	display:block;
+  }
+  
+  .alert-nav-log-wrap{
+  	
+  	width:30%;
+  	height:100%;
+  	margin-left:20px;
+  border-bottom:1px solid #efefef;
+  
+  }
+  
+  .alert-nav-logo{
+  	
+  	width:15%;
+  
+  }
+  .alertNav-Content{
+  	
+  	font-size:15px;
+  	float:right;
+  
+  }
+  
+  
+  
   
   #home{
     margin-left:20px;
@@ -200,6 +270,7 @@
   
   
   #alertNav {
+  	overflow:scroll;
     top:70px;
     margin-left:76%;
     position: fixed;
@@ -338,10 +409,11 @@
   
  
 </style>	
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR" http-equiv="Pragma" content="no-cache" http-equiv="Cache-Control" content="no-cache">
+<meta charset="utf-8">
 <title>Insert title here</title>
 </head>
 <body>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
   <div class="overlay"></div>
     <div id="all">
     
@@ -356,7 +428,7 @@
 	    <p id="home" onclick="location.href='mainBoard.ma'">홈</p>
 	    <div class="userInfo">
 		    <img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png" id="loginUserProfile"/>
-		    <p style="font-weight:bolder; font-size:medium; align-self:center;">${ sessionScope.loginUser.mNickName }</p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
+		    <p style="font-weight:bolder; font-size:medium; align-self:center;">${ loginUser.mNickName }</p> <!-- 한글 공백없이 8자, 영어 최대 13자 -->
 	    </div>
 	    
 	    
@@ -378,7 +450,10 @@
   </div>
   
   
-  <div id="alertNav"></div>
+  <div id="alertNav">
+  	
+  
+  </div>
   <div id="menuNav">
     <table>
       <c:if test="${ sessionScope.loginUser.mLevel == 1 }">
@@ -386,8 +461,8 @@
         <script> $('#menuNav').css('height','153px')</script>
       </c:if>
       <tr><td id="t1">마이페이지</td></tr>
-      <tr><td id="t4">고객 센터</td></tr>
-      <tr><td id="t5">로그아웃</td></tr>
+      <tr><td id="t4">고객 센터(임시 결제페이지)</td></tr>
+      <tr><td id="t5" onclick="signOut();">로그아웃</td></tr>
     </table>
   </div>
    
@@ -588,13 +663,22 @@
     }    
     
     $('#t4').on('click', function(){
-    	location.href="helpCenter.help";
+    	location.href="support.set";
     })
-    
+    /* 
     $('#t5').on('click', function(){
-    	location.href="logout.lo";
+    	
+    	location.href="logout.lo"; 
     
-    })
+    }) */
+    	
+    	  function signOut() {
+    	    var auth2 = gapi.auth2.getAuthInstance();
+    	    auth2.signOut().then(function () {
+    	    console.log('User signed out.');
+    	    });
+    	    location.href="logout.lo"; 
+    	  }
     
     $('#t0').on('click', function(){
     	location.href="a_memberSearchView.man";
@@ -609,9 +693,108 @@
     	location.href="settingPage.set"
     })
     
+    function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
     
     
-    
-  </script> 
+  </script>
+  <!-- 알림 -->
+  <script>
+  
+  var url=window.location.host;
+  var pathname = window.location.pathname;
+  var appCtx = pathname.substring(0, pathname.indexOf("/",2));
+  var root = url+appCtx;
+ 
+  
+  var wsUri = "ws://"+root+"/echo";
+	
+  function send_message(){
+		
+		websocket = new WebSocket(wsUri);
+		websocket.onopen =function(evt){
+			onOpen(evt);
+			
+		}
+		websocket.onmessage = function(evt){
+			
+			onMessage(evt);
+			
+		};
+		websocket.onerror = function(evt){
+			onError(evt);
+		}
+		
+		
+		
+	}
+	
+	function onOpen(evt){
+		
+		websocket.send("${loginUser.mId}");
+	}
+	function onMessage(evt){
+	
+	/* 메세지 받을부분 */
+	
+	}
+	
+	function onError(evt){
+		
+		
+	}
+	$(function(){
+		
+		send_message();
+	})
+  
+  	
+	
+  
+  </script>
+   
+  <!--알림불러오기  --> 
+   <script>
+   var path='<%=request.getContextPath()%>';
+   
+    var alert= $("#alertNav")
+   
+   	$.ajax({
+   		
+   		url:"getAr.set",
+   		success:function(data){
+   			
+   			
+   			for(var i=0; i<data.ar.length;i++){
+   				
+   				console.log(data.ar[i]);	
+   				var content=data.ar[i].nContent;
+   				var title=data.ar[i].nTitle;
+   				
+   				var newDiv="";
+   				newDiv+="<div class='alertNav-inside-wrap'><span class='alert-nav-logo-wrap'>"
+   				newDiv+="<img class='alert-nav-logo' src='"+path+"/resources/images/logo.png'></span>"
+   				newDiv+="<span class='alertNav-Content'>"+content+"</span></div>"
+   			 	alert.append(newDiv);
+   			
+   			}
+   			
+   			
+   			
+   			
+   		}
+   		
+   		
+   	})
+   
+   
+   
+   </script>
+   
 </body>
 </html>

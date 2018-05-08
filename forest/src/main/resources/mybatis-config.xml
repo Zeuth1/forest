@@ -1,9 +1,11 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
+    <typeAlias type="com.kh.forest.setting.model.vo.Notice2" alias="Notice2"/>
 		<typeAlias alias="Tree" type="com.kh.forest.main.model.vo.Tree"/>
 		<typeAlias alias="Detail" type="com.kh.forest.main.model.vo.Detail"/>
 		<typeAlias type="com.kh.forest.common.Member" alias="Member"/>
@@ -16,18 +18,24 @@
 		<typeAlias alias="Refund" type="com.kh.forest.manager.model.vo.Refund" />
 		<typeAlias alias="Report" type="com.kh.forest.manager.model.vo.Report" />
 		<typeAlias alias="Calcul" type="com.kh.forest.manager.model.vo.Calcul" />
+    <typeAlias type="com.kh.forest.setting.model.vo.Pay" alias="Pay"/>
+    <typeAlias type="com.kh.forest.main.model.vo.History" alias="History"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/manager-mapper.xml"/>
 		<mapper resource="mappers/mainBoard-mapper.xml"/>
 		<mapper resource="mappers/member-mappers.xml"/>
 		<mapper resource="mappers/tree-mappers.xml"/>
+    <mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/donate-mapper.xml"/>
 		<mapper resource="mappers/chart-mapper.xml"/>
+    <mapper resource="mappers/history-mapper.xml"/>
 		<mapper resource="mappers/help-mapper.xml"/>
 		<mapper resource="mappers/commentary-mapper.xml"/>
 		<mapper resource="mappers/refund-mapper.xml"/>
 		<mapper resource="mappers/account-mapper.xml"/>
+    <mapper resource="mappers/pay-mapper.xml"/>
 	</mappers>
+
 
 </configuration>

@@ -27,5 +27,23 @@
 	
 	</select>
 	
+	<insert id="insertProfilePhoto">
+		
+		MERGE INTO TREE T USING DUAL
+ 		ON (T.TREE_TAG='PROFILE' AND USER_NO=#{mNo}) 
+		WHEN MATCHED THEN
+        UPDATE 
+			SET TREE_BEFORE=#{bName},TREE_AFTER=#{aName}
+			WHERE USER_NO=#{mNo} AND TREE_TAG='PROFILE'	   		
+		WHEN NOT MATCHED THEN	
+		INSERT VALUES(SEQ_TNO.NEXTVAL,#{mNo},#{bName},#{aName},'PROFILE',#{tType},SYSDATE)
+		
 	
+	</insert>
+	
+	<select id="getProfilePhoto" resultType="java.lang.String">
+		
+		SELECT TREE_AFTER FROM TREE WHERE TREE_TYPE='P' AND USER_NO=#{mNo}
+	
+	</select>
 	</mapper>

@@ -11,12 +11,14 @@ public class Donate {
 	private String taker_Nick;
 	private Date donate_date;
 	private int donate_amount;
+  
 	public int getDonate_no() {
 		return donate_no;
 	}
 	public void setDonate_no(int donate_no) {
 		this.donate_no = donate_no;
 	}
+
 	public String getGiver_Nick() {
 		return giver_Nick;
 	}
@@ -28,6 +30,7 @@ public class Donate {
 	}
 	public void setTaker_Nick(String taker_Nick) {
 		this.taker_Nick = taker_Nick;
+
 	}
 	public Date getDonate_date() {
 		return donate_date;

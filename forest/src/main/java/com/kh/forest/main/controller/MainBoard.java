@@ -48,9 +48,9 @@ public class MainBoard {
 	private MainBoardService ms;
 	
 	@RequestMapping(value="mainBoard.ma", method=RequestMethod.GET)
-	public ModelAndView mainBoard(ModelAndView mv){
+	public ModelAndView mainBoard(ModelAndView mv,HttpSession session){
 		ArrayList treeList = ms.test();
-		
+		System.out.println("세샨이뭐니?"+session.getAttribute("loginUser"));
 		mv.addObject("treeList", treeList);
 		mv.setViewName("mainBoard");
 		return mv;

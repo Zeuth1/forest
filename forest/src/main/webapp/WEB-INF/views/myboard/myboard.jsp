@@ -22,19 +22,20 @@
       min-height:200px;
   }
   #MyImage{
-  	border-radius: 50%;
+     border-radius: 50%;
     width: 200px; 
     height: 200px;
-	margin-top:60px;
+   margin-top:60px;
   }
   .selectmenu{
-  	margin-right:1005px;
+     margin-right:1005px;
   }
   .lockImages{
-  	width:40px;
-  	height:40px;
+     width:40px;
+     height:40px;
   }
     input {
+
   	  border: 2px solid #7BA7AB;
   	  border-radius: 5px;
  	  outline: none;
@@ -86,12 +87,12 @@
 	}
 	
 
-	#mem{
-		margin-top:65px;
-	}
-	
-	
-		.overlay {
+   #mem{
+      margin-top:65px;
+   }
+   
+   
+      .overlay {
   display: none;
   z-index: 100;
   position: fixed;
@@ -100,10 +101,11 @@
   background-color: rgba(0,0,0, 0.4);
   overflow-x: hidden;
 }
-	#modal{
+   #modal{
     z-index:200;
   }
   
+
 	.container{
 	  display:flex;
 	  flex-wrap:wrap;
@@ -149,9 +151,7 @@
      background:rgba(80,80,80,0.1);
      cursor:pointer;
    }
-	
-	
-	
+
 #blurExample, #noneblurExample {
 
 background-size:cover;
@@ -185,6 +185,7 @@ overflow:hidden;
 <title>Insert title here</title>
 </head>
 <body>
+
 	<jsp:include page="../common/menubar.jsp"/>
 		<div class="overlay"></div>
    		<div id="main" style="width:1278.4; height:300px; border-bottom:1px solid rgba(80,80,80,0.2); ">
@@ -220,15 +221,17 @@ overflow:hidden;
 	   		 </c:if>
 	   		 
 	 		</div>
+
        
 
 
 <div id="modal" style="background:white; position:fixed; top:10%; right:23%; ">
 
-</div>		
+</div>      
 
 
 <script>
+
 var User_No = "";
 	
 	/* 셀렉트 보드! */
@@ -301,12 +304,6 @@ var User_No = "";
 			location.href="myBoard.my?mno=" + '${ownerProfile.userNo}' + '&toStore';
 		}
 	})
-	
-	
-	
-	
-	
-	
 	
 </script>
 </body>

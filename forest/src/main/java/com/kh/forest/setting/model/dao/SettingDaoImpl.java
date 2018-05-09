@@ -103,10 +103,23 @@ public class SettingDaoImpl implements SettingDao{
 
 	@Override
 	public List<Notice2> getAr(int getmNo) {
-		System.out.println(getmNo);
+	
 		List<Notice2> getar=sqlSession.selectList("Notice2.getAr",getmNo);
 		
 		return getar;
+	}
+
+	@Override
+	public Member getInt(String userNick) {
+		Member getInt=sqlSession.selectOne("Member.getInt",userNick);
+		return getInt;
+	}
+
+	@Override
+	public void setArm(Notice2 notice) {
+		
+		sqlSession.insert("Notice2.setAr",notice);
+		
 	}
 
 

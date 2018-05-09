@@ -778,7 +778,9 @@
     	  $('textArea').height(18);
       })
       
-      
+      function goBoard(){
+		  location.href="myBoard.my?mno=" + '${detail.mno}';
+	  }
     	  
       $('#textArea').on('click', function(){
     	  if( !$('#textArea').val() == ''){

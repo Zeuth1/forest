@@ -41,10 +41,12 @@
 	</select>
 	
 	<select id="boardProfileSelect" resultMap="boardProfileMap" parameterType="java.lang.String">
+
 	      SELECT M.USER_NO, M.NICK_NAME, (SELECT NOTICE_CONTENT FROM NOTICE WHERE NOTICE_TYPE = 'I' AND USER_NO =#{userNo}) NOTICE_CONTENT, (SELECT TREE_AFTER FROM TREE WHERE TREE_TYPE = 'P' AND USER_NO = #{userNo}) TREE_AFTER
      FROM MEMBER M
      WHERE M.USER_NO = #{userNo}
 	</select>
 	
+
 	
 </mapper>

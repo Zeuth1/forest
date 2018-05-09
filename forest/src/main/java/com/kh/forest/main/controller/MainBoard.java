@@ -92,6 +92,8 @@ public class MainBoard {
 	public ModelAndView detail(ModelAndView mv, @RequestParam("treeNo") String treeNo){
 		Detail detail = ms.detail(treeNo);
 		
+		System.out.println(detail);
+		
 		mv.addObject("detail", detail);
 		
 		mv.setViewName("detail");
@@ -283,6 +285,8 @@ public class MainBoard {
 		}
 		
 		String profile = ms.getProfile(mno);
+		
+		System.out.println(profile);
 		
 		HashMap<String, String> hashMap = new HashMap<String, String>();
 		

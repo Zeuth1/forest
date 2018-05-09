@@ -32,6 +32,10 @@ public interface SettingService {
 
 	List<Notice2> getar(int getmNo);
 
+	Member getInt(String userNick);
+
+	void setArm(Notice2 notice);
+
 	
 	
 }

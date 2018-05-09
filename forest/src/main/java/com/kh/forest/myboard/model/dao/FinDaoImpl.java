@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.SynthesizedAnnotation;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -58,7 +59,7 @@ public class FinDaoImpl implements FinDao {
 	@Override
 	public BoardProfile boardProfileSelect(SqlSessionTemplate sqlSession, String userNo) {
 		BoardProfile boardProfile = sqlSession.selectOne("Fin.boardProfileSelect", userNo);
-		
+
 		System.out.println(boardProfile);
 		
 		return boardProfile;
@@ -77,7 +78,7 @@ public class FinDaoImpl implements FinDao {
 	}
 	
 
-	
+
 
 	
 	

@@ -93,6 +93,7 @@ input:checked + .slider:before {
 						<p>보드명<p>
 					</div>
 					<div style="float:right; margin-right:50px; margin-top:-38px; ">
+
 						<input type="hidden" name="User_No" id="User_No_AddForm" value="">
 						<input type="hidden" name="Board_No">
 						<input type="hidden" name="Board_Date">
@@ -128,6 +129,7 @@ input:checked + .slider:before {
 		})
 		
 		function test(){
+		
 			$("#p_name").val();
 			$("#frm").submit();
 			

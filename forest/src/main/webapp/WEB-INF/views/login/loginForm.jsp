@@ -81,7 +81,6 @@
 					url : "changePic.lo",
 					method:"post",
 					success : function (data) { 
-						console.log(data.aName);
 						$("#background").attr("src","/tree/"+data.aName).fadeOut(700).stop(true,true).fadeIn(1200);
 							
 					}
@@ -151,8 +150,7 @@
 		
 		  xhr.send('idtoken='+id_token +'&log='+log);
 			 
-		 /*  xhr.send('idtoken=' + id_token +'log='+log);
-		  */
+	
 		}
 		
 	
@@ -181,26 +179,22 @@
 		{
 			clientId: "a6glrihgFQY0OYBb4qYz",
 			callbackUrl: "http://localhost:8001/forest/login.lo",
-			isPopup: false, /* 팝업을 통한 연동처리 여부 */
+			isPopup: false,
 			loginButton: {color: "green", type: 3, height: 40} /* 로그인 버튼의 타입을 지정 */
 			}
 	);
 	
-	/* 설정정보를 초기화하고 연동을 준비 */
-	naverLogin.init();
+		naverLogin.init();
 	
 
 	
 	window.addEventListener('load', function () {
 		naverLogin.getLoginStatus(function (status) {
 			if (status) {
-				/* (5) 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
 					var mEmail=naverLogin.user.getEmail();
 					var log=$("#logoutNum").val();
 					if( mEmail == undefined || mEmail == null) {
 					alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
-							console.log("이게안된다는건가?");
-					/* (5-1) 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
 							naverLogin.reprompt();
 					}
 					var clientId=naverLogin.clientId;

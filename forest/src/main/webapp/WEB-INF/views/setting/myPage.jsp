@@ -26,15 +26,15 @@
 		
 <div class="total-wrap">
 	<div class="left-wrap">
-			<p>계정기본정보</p>
-			<p>프로필</p>
-			<p>후원 내역 조회</p>
+			<p onclick="scrolling(100)">계정기본정보</p>
+			<p onclick="scrolling(590)">프로필</p>
+			<p onclick="scrolling(1000)">후원 내역 조회</p>
 		
 		
 	</div>
 	<div class="right-wrap">
 		
-			<h1>계정 기본정보</h1>
+			<h1 class="scroll1">계정 기본정보</h1>
 			<p>이메일주소</p>
 			<input type="email" value="${loginUser.mEmail }" class="mEmail" name="mId" readonly>
 			<p>비밀번호</p>
@@ -70,7 +70,7 @@
 		
 		<button class="succession-btn" onclick="succession();">계정 비활성화</button>
 		<br><br>
-		<h1>프로필</h1>
+		<h1 class="scroll2">프로필</h1>
 		 
 		사진
 		<br>
@@ -121,7 +121,7 @@
 			</c:otherwise>
 		</c:choose>	
 		<br><br>
-		<h1>후원 정보조회</h1>
+		<h1 class="scroll3">후원 정보조회</h1>
 		<div class="giver-wrap">
 		<button id="giveMoney" class="giveMoney" onclick="giveMoney();">내가 참여한 후원</button><button id="takeMoney" class="takeMoney" onclick="takeMoney();">내가 받은 후원</button>
 			<div class="switch-wrap">
@@ -255,7 +255,7 @@
 		
 	</div>	
 	
-    <!-- The Modal -->
+    <!-- Password Modal  -->
     <div id="myModal" class="modal">
  
       <!-- Modal content -->
@@ -501,7 +501,7 @@
 		
 		function saveBtn(){
 			
-			var mGender=$(":input:radio[name=mGender]:checked").val();
+			var mGender=$("input:radio[name=mGender]:checked").val();
 			var mName=$("input[name=mName]").val();
 			var mIntroduce=$("#mIntroduce").val();
 			
@@ -570,7 +570,11 @@
 			$(".errorContent2").hide();
 		});
 		
-	
+		 function scrolling(pos) {
+		        $('html, body').animate({'scrollTop' : pos}, "slow");
+		    }
+
+
 	</script>
 	
 </body>

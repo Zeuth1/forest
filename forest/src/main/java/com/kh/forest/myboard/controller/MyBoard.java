@@ -52,8 +52,7 @@ public class MyBoard {
 		
 		
 		BoardProfile boardProfile = fs.boardProfileSelect(userNo);
-		
-		
+
 		mv.addObject("ownerProfile", boardProfile);
 		
 		if(toStore != null){
@@ -69,7 +68,8 @@ public class MyBoard {
 	}
 	//마이보드에서 보드만들기
 	@RequestMapping(value="boardAddForm.my")
-	public ModelAndView boardAddForm(ModelAndView mv){
+  public ModelAndView boardAddForm(ModelAndView mv){
+
 		
 		mv.setViewName("boardAddForm");
 		

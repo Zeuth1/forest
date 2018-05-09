@@ -125,11 +125,13 @@
 </div>
 
 <script>
-	
+
 //셀렉트 
 var board = '${board}';
 console.log(board);
 	$(function(){
+		var board = '${board}';
+		console.log(board);
 		var User_No = $("#User_No").val();
 		var board = '${board}';
 		var img = '<img id="boardImages" src="<%= request.getContextPath() %>/resources/images/test2.jpg" class="img-responsive" style="width:100%; cursor: pointer;">';

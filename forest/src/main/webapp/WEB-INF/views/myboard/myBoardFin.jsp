@@ -76,24 +76,19 @@
 	<jsp:include page="../common/menubar.jsp"/>
 	<div class="overlay"></div>
 		<div id="main" style="width:1278.4; height:250px; border-top:1px solid; border-bottom:1px solid; border-style:inset;">
-<<<<<<< HEAD
+
 			<div style="float:left; width:900px; height:250px; margin-right:200px;" align="center">
 					<p style="font-size:70px; color:#696969;">${ sessionScope.loginUser.mNickName  }</p>
-=======
-			<div style="float:left; width:900px; height:250px;" align="center">
-					<p style="font-size:70px">${ sessionScope.loginUser.mNickName  }</p>
->>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
+
+			
    		   		<div>
    		   			<label onclick="" style="color:#808080;">팔로워:1</label>
    		   			<label onclick="" style="margin-left:50px; margin-bottom:150px; color:#808080;">팔로윙:1</label>
    		   		</div>
 			</div>
 			<div style="float:left; width:300px; height:250px;">
-<<<<<<< HEAD
-				<img id="MyImage" src="<%= request.getContextPath() %>/resources/images/test.jpg" style="width:260px; height:250px; border-radius:50%; padding-top: 5px;padding-bottom: 5px; cursor: pointer">
-=======
-				<img id="MyImage" src="<%=request.getContextPath() %>/resources/images/test.jpg" style="width:260px; height:250px; border-radius:50%; padding-top: 5px;padding-bottom: 5px;cursor: pointer;;">
->>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
+
+				<img id="MyImage" src="<%=request.getContextPath() %>/resources/images/test.jpg" style="width:260px; height:250px; border-radius:50%; padding-top: 5px;padding-bottom: 5px;cursor: pointer;">
 			</div>
 		</div>
 		
@@ -109,24 +104,13 @@
   		<input type="hidden" id="STORE_NO" name="STORE_NO">
   		<input type="hidden" id="BOARD_NO" name="BOARD_NO">
   		  <div class="col-sm-4">
-<<<<<<< HEAD
+
     		  <img id="finadd" src="<%= request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="cursor: pointer;" alt="보드만들기">
     		  	<!-- <a data-toggle="modal" href="finAddForm.my" data-target="#testModal" role="button" data-backdrop="static"> -->
 					
 			    <!-- </a> -->
    		 </div>
-=======
-    		  <img src="<%=request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
-    		  	<a data-toggle="modal" href="finAddForm.my" data-target="#testModal" role="button" data-backdrop="static">
-					<p>핀추가하기</p>
-			    </a>
-   		 </div>
-   		 <div class="col-sm-4"> 
-   		   <img id="boardImages" src="<%=request.getContextPath() %>/resources//images/test.jpg" class="img-responsive" style="width:100%; cursor: pointer;" alt="보드만들기">
-    		  <label>이쁘당</label>
-    		  <p>너도모르니여유를</p>
-   		 </div>	 
->>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
+
  	 </div>
 	</div><br>
 	
@@ -143,9 +127,9 @@
 <script>
 	
 
-var board = '${board}';
-console.log(board);
 	$(function(){
+		var board = '${board}';
+		console.log(board);
 		var User_No = $("#User_No").val();
 		var board = '${board}';
 		var img = '<img id="boardImages" src="<%= request.getContextPath() %>/resources/images/test2.jpg" class="img-responsive" style="width:100%; cursor: pointer;">';

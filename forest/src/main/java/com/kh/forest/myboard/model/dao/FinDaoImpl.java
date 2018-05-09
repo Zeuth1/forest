@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.SynthesizedAnnotation;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.forest.common.BoardProfile;
 import com.kh.forest.myboard.model.vo.Board;
 import com.kh.forest.myboard.model.vo.Fin;
 import com.kh.forest.myboard.model.vo.Store;
@@ -59,7 +61,13 @@ public class FinDaoImpl implements FinDao {
 		return list;
 	}
 	
-
+	@Override
+	public BoardProfile boardProfileSelect(SqlSessionTemplate sqlSession, String userNo) {
+		BoardProfile boardProfile = sqlSession.selectOne("Fin.boardProfileSelect", userNo);
+		System.out.println("보드프로필"+boardProfile);
+		
+		return boardProfile;
+	}
 	
 
 	

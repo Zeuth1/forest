@@ -39,6 +39,12 @@
  	
  	
  	</select>
+ 	<insert id="setAr">
+ 	
+ 	 INSERT INTO NOTICE
+ 	 VALUES(SEQ_NNO.NEXTVAL,#{mNo},#{nTitle},#{nContent},#{nType},SYSDATE)
+ 	
+ 	</insert>
  	
  </mapper> 
   

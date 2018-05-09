@@ -35,8 +35,8 @@
 	  				<img src="/tree/${profile }" class="proflie-photo" style="width:50%;">	
 	  					</c:otherwise>
 	  				</c:choose>	
-	  				<p>${loginUser.mNickName }</p>
-	  				<p>${loginUser.mName }</p>
+	  				<p>${taker.mNickName }</p>
+	  				<p>${taker.mName }</p>
 	  				<br><br><br>
 	  			</div>
 	  		</div>
@@ -105,25 +105,33 @@
 	
 	
 	function payment(){
-		
+	
+	    var url = window.location.host;//웹브라우저의 주소창의 포트까지 가져옴
+	    var pathname = window.location.pathname; /* '/'부터 오른쪽에 있는 모든 경로*/
+	    var appCtx = pathname.substring(0, pathname.indexOf("/",2));
+		var root = url+appCtx;
 		var price=$("#total-price2").val();
-		var uid="${loginUser.mName}"+"1"; 
-		
+		var uid="${loginUser.mName}"+"${taker.mName}"+new Date().getTime(); //나중에 회원+작가 아이디로 결합
+		var uNo="${taker.mNo}";
+		var wsUri = "ws://"+root+"/echo";
+		websocket = new WebSocket(wsUri);
 		var obj=new Object();
 		obj.price=price;
 		obj.uid=uid;
+		obj.uNo=uNo;
+		
 		var jsonData = JSON.stringify(obj);
 		
-		IMP.request_pay({
-			pg : 'inicis', 
+		IMP.request_pay({ // param
+			pg : 'inicis', // version 1.1.0부터 지원.
 		    pay_method : 'card',
-		    merchant_uid : 'merchant_' + new Date().getTime(),
+		    merchant_uid : uid,
 		    name : '작가후원 걸제',
 		    amount : 1000,
-		    buyer_email : '${loginUser.mId}',
-		    buyer_name : '${loginUser.mName}',
-		    buyer_tel : '${loginUser.mPhone}'
-		}, function (rsp) {
+		    buyer_email : '${taker.mId}',
+		    buyer_name : '${taker.mName}',
+		    buyer_tel : '${taker.mPhone}'
+		}, function (rsp) { // callback
 		    if (rsp.success) {
 					
 					$.ajax({
@@ -134,8 +142,9 @@
 				        data: jsonData,
 				        success:function(data){
 				        	
-				        	swal("후원결제가 되었습니다 감사합니다.");
 				        	
+				        	swal("후원결제가 되었습니다 감사합니다.");
+				        	websocket.send("[${loginUser.mName}]님이 <${taker.mName}>님에게 후원을 하셨습니다.");
 				       
 				        
 				        }
@@ -193,59 +202,8 @@
 	});
 	
 	
-	
 	</script>
-<!-- 	<script>
-	 	 var url = window.location.host;//웹브라우저의 주소창의 포트까지 가져옴
-	    var pathname = window.location.pathname; /* '/'부터 오른쪽에 있는 모든 경로*/
-	    var appCtx = pathname.substring(0, pathname.indexOf("/",2));
-	    var root = url+appCtx;
 
-
-		
-		var wsUri = "ws://"+root+"/echo";
-			
-		function send_message(){
-			
-			websocket = new WebSocket(wsUri);
-			websocket.onopen =function(evt){
-				onOpen(evt);
-				
-			}
-			websocket.onmessage = function(evt){
-				
-				onMessage(evt);
-				
-			};
-			websocket.onerror = function(evt){
-				onError(evt);
-			}
-			
-			
-			
-		}
-		
-		function onOpen(evt){
-			
-			websocket.send("${loginUser.mName}");
-		}
-		function onMessage(evt){
-		
-		/* 메세지 받을부분 */
-		
-		}
-		
-		function onError(evt){
-			
-			
-		}
-		$(function(){
-			
-			send_message();
-		})
-	
-	</script>
-	 -->
 
 
 	

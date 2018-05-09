@@ -190,19 +190,18 @@ public class Setting {
 	}
 	
 	@RequestMapping(value="support")
-	public ModelAndView support(ModelAndView mv,HttpSession session){
+	public ModelAndView support(ModelAndView mv,HttpSession session,String userNick){
 		
-		Member m=(Member)session.getAttribute("loginUser");
-		System.out.println(m);
-		String profile=ss.getProfile(m.getmNo());
-		String introduce=ss.getIntroduce(m.getmNo());
+		Member taker=ss.getInt(userNick);
+		
+		String profile=ss.getProfile(taker.getmNo());
+		String introduce=ss.getIntroduce(taker.getmNo());
 		System.out.println("profile+"+profile);
 		System.out.println("introduce?"+introduce);
-		mv.addObject("loginUser",m);
-
+		
 		if(profile!=null) mv.addObject("profile",profile);
 		if(introduce!=null) mv.addObject("introduce",introduce);
-		
+		mv.addObject("taker",taker);
 		
 		
 		mv.setViewName("/support");
@@ -220,12 +219,21 @@ public class Setting {
 		pay.setTax(10);
 		pay.setPay(Integer.parseInt(jsonData.get("price")));
 		
-		donate.setDonate_amount(Integer.parseInt(jsonData.get("price")));
-		donate.setGiver_no(String.valueOf(m.getmNickName()));
-		donate.setTaker_no(String.valueOf(m.getmNickName()));
+		String gotMoney=m.getmName()+"님께 "+pay.getPay()+"원을 후원받으셨습니다.";
+		notice.setnContent(gotMoney);
+		notice.setmNo(jsonData.get("uNo"));
+		notice.setnTitle("후원");
+		notice.setnType("AR");
 		
+		ss.setArm(notice);
+		
+		
+		donate.setDonate_amount(Integer.parseInt(jsonData.get("price")));
+		donate.setGiver_no(String.valueOf(m.getmNo()));
+		donate.setTaker_no(jsonData.get("uNo"));
+		System.out.println("도네?:"+donate);
 		ss.payment(pay,donate);
-
+		
 		mv.setViewName("/myPage");
 
 		

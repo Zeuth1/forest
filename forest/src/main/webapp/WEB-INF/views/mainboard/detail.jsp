@@ -424,7 +424,7 @@
       
       <div id="description">
       
-        <div id="goBoardBtn" onclick="location.href='#'"><p id="goBoardText">${ detail.mNickName }의 보드 더보기</p></div>
+        <div id="goBoardBtn" onclick="goBoard()"><p id="goBoardText">${ detail.mNickName }의 보드 더보기</p></div>
         
         <div class="uploadInfo">
 	        <img src="${ pageContext.request.contextPath }/resources/images/default-user-image.png"" class="ownerProfile"> 
@@ -772,7 +772,9 @@
     	  $('textArea').height(18);
       })
       
-      
+      function goBoard(){
+		  location.href="myBoard.my?mno=" + '${detail.mno}';
+	  }
     	  
       $('#textArea').on('click', function(){
     	  if( !$('#textArea').val() == ''){

@@ -1,4 +1,4 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.forest.common.Member"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -7,7 +7,6 @@
 <head>
 
 <meta name="google-signin-client_id" content="569688176866-2fhuueq4kb1pddacn6jlomi8q5siqd48.apps.googleusercontent.com">
-
 <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -488,6 +487,7 @@ function init() {
    
   <script>
     $(function(){
+
     	//프로필사진 불러오기
     	$.ajax({
 			  url:"getProfile.ma",
@@ -496,6 +496,7 @@ function init() {
 			  dataType:"json",
 			  contentType:"application/json",
 			  success:function(data){
+				  console.log(data);
 				  var loginUserProfile = '/tree/' + data.profile;
 				  
 				   if(data.profile !== null){
@@ -701,7 +702,7 @@ function init() {
     
 
     $('.userInfo').on('click', function(){
-    	location.href="myBoard.my";
+    	location.href="myBoard.my?mno="+ ${loginUser.mNo};
     })
 
     $("#t1").on('click',function(){
@@ -727,46 +728,54 @@ function init() {
   var root = url+appCtx;
  
   
-  var wsUri = "ws://"+root+"/echo";
-	
-  function send_message(){
-		
-		websocket = new WebSocket(wsUri);
-		websocket.onopen =function(evt){
-			onOpen(evt);
+
+			var wsUri = "ws://"+root+"/echo";
 			
-		}
-		websocket.onmessage = function(evt){
+			function send_message(){
+				
+				websocket = new WebSocket(wsUri);
+				websocket.onopen =function(evt){
+					onOpen(evt);
+					
+				}
+				websocket.onmessage = function(evt){
+					
+					onMessage(evt);
+					
+				};
+				websocket.onerror = function(evt){
+					onError(evt);
+				}
+				
+				
+				
+			}
 			
-			onMessage(evt);
+			function onOpen(evt){
+				
+				websocket.send("[${loginUser.mName}]");
+			}
 			
-		};
-		websocket.onerror = function(evt){
-			onError(evt);
-		}
-		
-		
-		
-	}
-	
-	function onOpen(evt){
-		
-		websocket.send("${loginUser.mId}");
-	}
+			
+			function onError(evt){
+				
+				
+			}
+			$(function(){
+				
+				send_message();
+			})
+
 	function onMessage(evt){
-	
-	/* 메세지 받을부분 */
-	
+		var path='<%=request.getContextPath()%>';
+		var newDiv="";
+		newDiv+="<div class='alertNav-inside-wrap'><span class='alert-nav-logo-wrap'>"
+				newDiv+="<img class='alert-nav-logo' src='"+path+"/resources/images/logo.png'></span>"
+				newDiv+="<span class='alertNav-Content'>"+evt.data+"</span></div>"
+			 	alert.append(newDiv);
+		
 	}
 	
-	function onError(evt){
-		
-		
-	}
-	$(function(){
-		
-		send_message();
-	})
   
   	
 	

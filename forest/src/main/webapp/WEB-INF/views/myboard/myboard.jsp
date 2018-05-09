@@ -22,56 +22,57 @@
       min-height:200px;
   }
   #MyImage{
-  	border-radius: 50%;
+     border-radius: 50%;
     width: 200px; 
     height: 200px;
-	margin-top:60px;
+   margin-top:60px;
   }
   .selectmenu{
-  	margin-right:1005px;
+     margin-right:1005px;
   }
   .lockImages{
-  	width:40px;
-  	height:40px;
+     width:40px;
+     height:40px;
   }
     input {
-  	  border: 2px solid #7BA7AB;
-  	  border-radius: 5px;
- 	  outline: none;
-	  color: #9E9C9C;
-	}
-	input:active,input:hover{
-		background: #F9F0DA;
-	}
-	#boardImages{
-		margin:10px;
-		width:370px;
-		height:200px;
-	}
-	#boardImages2{
-		margin:10px;
-		width:370px;
-		height:200px;
-	}
-	.col-sm-4{
-		display: inline-block;
-		width:380px;
-		height:260px;
-	}
-	.col-sm-3{
-		display: inline-block;
-		width:380px;
-		height:260px;
-	}
+       border: 2px solid #7BA7AB;
+       border-radius: 5px;
+      outline: none;
+     color: #9E9C9C;
+   }
+   input:active,input:hover{
+      background: #F9F0DA;
+   }
+   #boardAdd{
+      margin:10px;
+      width:330px;
+      height:200px;
+   }
+   #boardImages2{
+      margin:10px;
+      width:330px;
+      height:200px;
+   }
+   
+   .col-sm-4{
+      margin-right:10px;
+      width:360px;
+      height:260px;
+   }
+   
+   .col-sm-3{
+      margin-right:10px;
+      width:360px;
+      height:260px;
+   }
+   
 
-	#mem{
-		margin-top:65px;
-	}
-	#SI{
-		margin-right:850px;
-	}
-	
-		.overlay {
+   #mem{
+      margin-top:65px;
+   }
+   
+   
+      .overlay {
   display: none;
   z-index: 100;
   position: fixed;
@@ -80,11 +81,20 @@
   background-color: rgba(0,0,0, 0.4);
   overflow-x: hidden;
 }
-	#modal{
+   #modal{
     z-index:200;
   }
-	
-	
+  
+   .container{
+     display:flex;
+     flex-wrap:wrap;
+     
+     width:90%;
+     
+     margin-left:auto;
+     margin-right:auto;
+   }
+   
 #blurExample, #noneblurExample {
 
 background-size:cover;
@@ -111,14 +121,6 @@ overflow:hidden;
   filter: url(#blur);
 }
 
-.donate-btn{
-
-	border:none;
-	background:white;
-
-}
-
-
   </style>
 <head>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -126,171 +128,128 @@ overflow:hidden;
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="../common/menubar.jsp"/>
-		<div class="overlay"></div>
-   		<div id="main" style="width:1278.4; height:250px; border-top:1px solid; border-bottom:1px solid; border-style:inset;">
-			<div style="float:left; width:900px; height:250px; margin-right:200px;" align="center">
-   		   		<div style="margin-right:300px; margin-top:80px;">
+   <jsp:include page="../common/menubar.jsp"/>
+      <div class="overlay"></div>
+         <div id="main" style="width:1278.4; height:250px; border-top:1px solid; border-bottom:1px solid; border-style:inset;">
+         <div style="float:left; width:900px; height:250px; margin-right:200px;" align="center">
+                  <div style="margin-right:300px; margin-top:80px;">
 
-   		   			<label style="font-size:50px; color:#696969;">${ sessionScope.loginUser.mNickName  }</label>
-   		   			
-   		   			<div style="margin-top:20px;">
-   		   			<label onclick="" style="color:#808080;">팔로워:1</label>
-   		   			<label onclick="" style="color:#808080;">팔로윙:1</label>
-   		   			
-   		   			<p><textarea cols="60" rows="3" style="outline:none; resize:none; border:0px; margin-left:200px" disabled;>몸매도좋아 얼굴도이뻐 다좋아.</textarea></p>
-   		   			</div>
-   		   		</div>
-			</div>			
-			<div style="float:left; width:300px; height:250px;">
-				<img src="<%= request.getContextPath() %>/resources/images/test2.jpg" id="MyImage" style="cursor: pointer;">
-			</div>
-		</div>   		      
+                     <label style="font-size:50px; color:#696969;">${ownerProfile.userNickName}</label>
+                     
+                     <div style="margin-top:20px;">
+                     
+                     <p><textarea cols="60" rows="3" style="outline:none; resize:none; border:0px; margin-left:200px" disabled;>${ownerProfile.userIntroduce} </textarea></p>
+                     </div>
+                  </div>
+         </div>
+         <div style="float:left; width:300px; height:250px;">
+            <img src="/tree/${ownerProfile.userProfile}" id="MyImage" style="cursor: pointer;">
+         </div>
+      </div>               
+         <button class="donate-btn" onclick="donate();">후원하기</button>         
     
-  		<br>
-		<div class="container text-center">    
- 		 <div class="selectmenu" style="margin-left:160px;">
- 		 <button class="btn btn-default">작품</button>
- 		 <!-- <button class="btn btn-default" onclick="location.href='myBoardFin.my'">핀</button> -->
- 		 <button class="btn btn-default">보드</button>
- 		 <button class="donate-btn" onclick="donate();">이 작가를 후원하시겠어요? 여기를 눌러주세요!</button>
- 				<select id="korea" class="btn btn-default" style="float:right; margin-right:-800px;">
- 			 		<option value="가나다순">가나다순</option>
- 			 		<option value="abcd순">abcd순</option>
- 				</select>
- 		 </div>
- 		 <br>
-  		<div class="row" id="SF" style="margin-left:150px;" >
-  		<input type="hidden" id="User_No" name="User_No" value="${ sessionScope.loginUser.mNo }">
-  		  <div class="col-sm-3">
-    		  <img id="boardAdd" src="<%= request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
-   		 </div>
-
-
-
-<!--  <div id="blurExample" class="bgBlur" style="background:url(/tree/0test4.jpg); width:380px; height:260px; ">
-	<img >
-</div>
-<div id="blurExample" class="bgBlur" style="background:url(/tree/0test4.jpg);">
-	<img style="background:url(/tree/0test4.jpg);">
-</div>
-<div id="blurExample" class="bgBlur" style="background:url(/tree/0test4.jpg);">
-	<img style="background:url(/tree/0test4.jpg);">
-</div>
-<div id="blurExample" class="bgBlur" style="background:url(/tree/0test4.jpg);">
-	<img style="background:url(/tree/0test4.jpg);">
-</div>	
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-   <filter id="blur">
-   <feGaussianBlur stdDeviation="6" />
-   </filter>
-</svg> -->
-
-		
-		</div>
- 		 <hr>
-		<div class="row">
-			<div align="center">
-				<p style="margin-right:490px"><img class="lockImages" src="<%= request.getContextPath() %>/resources/images/Lock.jpg"><label>비밀보드!</label></p>
-				<label>회원님과 회원님이 초대한 사람들만이 이 보드들을 볼 수있습니다. </label> <label><a style="cursor: pointer">자세히알아보기</a></label>
-			</div>
-		</div>
-		<hr>
-		<div class="col-sm-4" onclick="gomodal();" style="margin-left:150px;">
-    		  <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%;cursor: pointer;" alt="보드만들기">
-    		  <p>비밀보드</p>
-   		</div>
-		</div><br>
-		
-		
-		<hr>
-		<footer class="container-fluid text-center">
- 			<p>Footer Text</p>
-		</footer>
-
+        <br>
+        
+           <div class="selectmenu" style="margin-left:160px;">
+             <button class="btn btn-default">작품</button>
+             <!-- <button class="btn btn-default" onclick="location.href='myBoardFin.my'">핀</button> -->
+           </div>
+           
+           <div class="container ">    
+           <br>
+             <div class="col-sm-3">
+               <img id="boardAdd" src="<%= request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="cursor: pointer;" alt="보드만들기">
+             </div>
+             
+          </div>
+       
 
 
 <div id="modal" style="background:white; position:fixed; top:10%; right:23%; ">
 
-</div>		
+</div>      
 
 
 <script>
-	
-	/* 셀렉트 보드! */
-	$(function(){
-		var User_No = $("#User_No").val();
-		var korea = $("#korea").val();
-		console.log("hihi"+korea);
-		$.ajax({
-			url:"myBoardSelect.my",
-			method:"POST",
-			data:JSON.stringify(User_No),
-			contentType:"application/json",
-			dataType:"json",
-			success:function(data){
-				var arr = data.userNo;
-				var detail = data.userNo[i];
-				console.log(data.userNo);
-				for(var i = 0; i< arr.length; i++){
-					console.log(data.userNo[i].board_No);
-					var board = data.userNo[i].board_No;
-					$("#SF").append(
-							'<div style="text-align:center" class="col-sm-4" id="'+board +'">'+
-							'<img id="boardImages2" src="/tree/0test4.jpg" class="img-responsive" style=" cursor: pointer;">'+
-							'<lable>'+ data.userNo[i].board_Title +'</label>'+
-							'</div>'
-						);
-				}
-			}
-		});
-		var selectView = $("#selectView").val();
-		console.log(selectView);
-		$("#korea").click(function(){
-			console.log($("#korea").val());
-		})
-		
-	});
-	
-	$(document).on('click', function(e){
-	   if( $(e.target).is( $('.col-sm-4') ) || $(e.target).parent().is( $('.col-sm-4') )  ){
-		   if( $(e.target).is( $('.col-sm-4') ) ){
-			   console.log( $(e.target).attr('id') );
-		   }
-		   if( $(e.target).parent().is( $('.col-sm-4') )  ){
-			   console.log( $(e.target).parent().attr('id'));
-			   location.href="myBoardStore.my?board="+$(e.target).parent().attr('id');
-		   }
-	   }
+   
+   /* 셀렉트 보드! */
+   $(function(){
+      
+      var User_No = '${ ownerProfile.userNo}'
+      
+      $.ajax({
+         url:"myBoardSelect.my",
+         method:"POST",
+         data:JSON.stringify(User_No),
+         contentType:"application/json",
+         dataType:"json",
+         success:function(data){
+            var arr = data.userNo;
+            var detail = data.userNo[i];
+            console.log(data.userNo);
+            for(var i = 0; i< arr.length; i++){
+               console.log(data.userNo[i].board_No);
+               var board = data.userNo[i].board_No;
+               $(".container").append(
+                     '<div class="col-sm-4" id="'+board +'">'+
+                     '<img id="boardImages2" src="/tree/ouroboros181412111.PNG" class="img-responsive" alt="No image" style=" cursor: pointer;">'+
+                     '<label>'+ data.userNo[i].board_Title +'</label>'+
+                     '</div>'
+                  );
+            }
+         }
+      });
+      var selectView = $("#selectView").val();
+      console.log(selectView);
+      $("#korea").click(function(){
+         console.log($("#korea").val());
+      })
+      
+   });
+   
+   $(document).on('click', function(e){
+      if( $(e.target).is( $('.col-sm-4') ) || $(e.target).parent().is( $('.col-sm-4') )  ){
+         if( $(e.target).is( $('.col-sm-4') ) ){
+            console.log( $(e.target).attr('id') );
+         }
+         if( $(e.target).parent().is( $('.col-sm-4') )  ){
+            console.log( $(e.target).parent().attr('id'));
+            location.href="myBoardStore.my?board="+$(e.target).parent().attr('id');
+         }
+      }
+      
+   })
+   
+   $(document).on('click', function(e){
+      if( $(e.target).is('#boardAdd') ){
+         $('#modal').css('display','inline-block');
+         $('#modal').load('boardAddForm.my');
+         $('.overlay').css('display', 'inline-block');
+         
+      }
+   })
+   
+   $(document).on('click', function(e){
+      if( $(e.target).is('#action2') ){
+         $('#modal').css('display','none');
+         $('.overlay').css('display', 'none');
+      }
+   })   
+   
+   
+   
+   
+   
+   function donate(){
 	   
-	})
-	
-	$(document).on('click', function(e){
-		if( $(e.target).is('#boardAdd') ){
-			$('#modal').css('display','inline-block');
-			$('#modal').load('boardAddForm.my');
-			$('.overlay').css('display', 'inline-block');
-			
-		}
-	})
-	
-	$(document).on('click', function(e){
-		if( $(e.target).is('#action2') ){
-			$('#modal').css('display','none');
-			$('.overlay').css('display', 'none');
-		}
-	})	
-	
-	
-	
-	function donate(){
-		
-		
-		
-	}
-	
-	
-	
+	   var taker='${ownerProfile.userNickName}'
+	   console.log(taker);
+	   
+	   location.href="support.set?userNick="+taker;
+	   
+	   
+   }
+   
 </script>
 </body>
 </html>

@@ -223,6 +223,14 @@
 	<update id="setMemberStatusY" parameterType="String">
 		update member set status='Y' where USER_ID=#{user_id}
 	</update>
-
+	
+	
+	<select id="getInt" resultMap="memberResultSet">
+	
+		SELECT * FROM MEMBER 
+		WHERE NICK_NAME=#{mNickName}
+	</select>
+	
+	
 	</mapper>
 	

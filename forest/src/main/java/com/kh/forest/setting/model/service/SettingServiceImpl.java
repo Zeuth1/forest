@@ -80,6 +80,18 @@ public class SettingServiceImpl implements SettingService{
 		
 		return getar;
 	}
+	@Override
+	public Member getInt(String userNick) {
+		Member getInt= sd.getInt(userNick);
+		return getInt;
+	}
+	@Override
+	public void setArm(Notice2 notice) {
+
+		sd.setArm(notice);
+		
+		
+	}
 
 
 

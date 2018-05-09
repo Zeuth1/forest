@@ -32,6 +32,10 @@ public interface SettingDao {
 
 	List<Notice2> getAr(int getmNo);
 
+	Member getInt(String userNick);
+
+	void setArm(Notice2 notice);
+
 	
 
 }

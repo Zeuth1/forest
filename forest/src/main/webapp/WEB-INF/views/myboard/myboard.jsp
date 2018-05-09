@@ -44,24 +44,43 @@
 		background: #F9F0DA;
 	}
 	#boardAdd{
-		margin:10px;
+		
 		width:330px;
 		height:200px;
+		border-radius:10px;
 	}
+	
+	#boardImages1{
+	    width:330px;
+		height:200px;
+		border-radius:10px;
+	}
+	
 	#boardImages2{
-		margin:10px;
+		
 		width:330px;
 		height:200px;
+		border-radius:10px;
 	}
 	
 	.col-sm-4{
-		margin-right:10px;
+	    margin-right:5px;
+	    margin-left:5px;
+		display:flex;
+		flex-direction:column;
+		align-items:center;
+		justify-content:center;
 		width:360px;
 		height:260px;
 	}
 	
 	.col-sm-3{
-		margin-right:10px;
+		margin-right:5px;
+	    margin-left:5px;
+		display:flex;
+		flex-direction:column;
+		align-items:center;
+		justify-content:center;
 		width:360px;
 		height:260px;
 	}
@@ -93,7 +112,45 @@
 	  
 	  margin-left:auto;
 	  margin-right:auto;
+	  
+	  padding:10px;
 	}
+	
+	.col-sm-4{
+	  border-radius:10px;
+	}
+	
+	.col-sm-3{
+	  border-radius:10px;
+	}
+	
+	.col-sm-4:hover{
+	cursor:pointer;
+	  background:rgba(80,80,80,0.1);
+	}
+	
+	.col-sm-3:hover{
+	cursor:pointer;
+	 background:rgba(80,80,80,0.1);
+	}
+	
+	#StoreBtn{
+    width:80px;
+    margin-left:100px;
+	padding:15px;
+	
+	border-radius:50px;
+	font-weight: bolder;
+	font-size:medium;
+	color:rgba(0,0,0,0.8);
+   }
+   
+   #StoreBtn:hover{
+     background:rgba(80,80,80,0.1);
+     cursor:pointer;
+   }
+	
+	
 	
 #blurExample, #noneblurExample {
 
@@ -130,15 +187,15 @@ overflow:hidden;
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 		<div class="overlay"></div>
-   		<div id="main" style="width:1278.4; height:250px; border-top:1px solid; border-bottom:1px solid; border-style:inset;">
+   		<div id="main" style="width:1278.4; height:300px; border-bottom:1px solid rgba(80,80,80,0.2); ">
 			<div style="float:left; width:900px; height:250px; margin-right:200px;" align="center">
-   		   		<div style="margin-right:300px; margin-top:80px;">
+   		   		<div style="margin-left:400px; margin-top:80px;">
 
    		   			<label style="font-size:50px; color:#696969;">${ownerProfile.userNickName}</label>
    		   			
    		   			<div style="margin-top:20px;">
    		   			
-   		   			<p><textarea cols="60" rows="3" style="outline:none; resize:none; border:0px; margin-left:200px" disabled;>${ownerProfile.userIntroduce} </textarea></p>
+   		   			<p style="width:100px; margin:0px;">${ownerProfile.userIntroduce}</p>
    		   			</div>
    		   		</div>
 			</div>			
@@ -147,18 +204,20 @@ overflow:hidden;
 			</div>
 		</div>   		      
     
-  		<br>
-  		
-	 		 <div class="selectmenu" style="margin-left:160px;">
-	 		   <button class="btn btn-default">작품</button>
-	 		   <!-- <button class="btn btn-default" onclick="location.href='myBoardFin.my'">핀</button> -->
-	 		 </div>
+  		       <c:if test="${ownerProfile.userNo == loginUser.mNo}">
+	 		     <p id="StoreBtn">저장 보드</p>
+	 		   </c:if>
 	 		 
 		     <div class="container ">    
-	 		 <br>
+	 		 
+	 		 <c:if test="${ownerProfile.userNo == loginUser.mNo}">
 	  		  <div class="col-sm-3">
-	    		  <img id="boardAdd" src="<%= request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="cursor: pointer;" alt="보드만들기">
+	  		  <div id="boardImages1" style="display:flex; justify-content:center; align-items:center; background:rgba(80,80,80,0.1);">
+	  		  	  <img id="boardAdd" src="<%= request.getContextPath() %>/resources/images/plusBtn.PNG" class="img-responsive" style="width:50px; height:50px;cursor: pointer;" alt="보드만들기">
+	    	  </div>
+	  		  	  <label style="align-self:flex-start; margin-top:10px; margin-left:30px; font-family: Nanum Gothic, sans-serif; font-weight:bolder; color:rgba(80,80,80,0.8);">보드 추가하기</label>
 	   		 </div>
+	   		 </c:if>
 	   		 
 	 		</div>
        
@@ -170,11 +229,12 @@ overflow:hidden;
 
 
 <script>
+var User_No = "";
 	
 	/* 셀렉트 보드! */
 	$(function(){
 		
-		var User_No = '${ ownerProfile.userNo}'
+		User_No = '${ ownerProfile.userNo}'
 		
 		$.ajax({
 			url:"myBoardSelect.my",
@@ -191,9 +251,9 @@ overflow:hidden;
 					var board = data.userNo[i].board_No;
 					$(".container").append(
 							'<div class="col-sm-4" id="'+board +'">'+
-							'<img id="boardImages2" src="/tree/asdfasceafaeewfef122.PNG" class="img-responsive" style=" cursor: pointer;">'+
-							'<label>'+ data.userNo[i].board_Title +'</label>'+
-							'</div>'
+							'<div id="boardImages2" class="img-responsive" style="background:rgba(80,80,80,0.1);"></div>'+
+							'<label style="align-self:flex-start; margin-top:10px; margin-left:30px; font-family: Nanum Gothic, sans-serif; font-weight:bolder; color:rgba(80,80,80,0.8);">'+ data.userNo[i].board_Title +'</label></div>'
+						
 						);
 				}
 			}
@@ -225,6 +285,7 @@ overflow:hidden;
 			$('#modal').load('boardAddForm.my');
 			$('.overlay').css('display', 'inline-block');
 			
+			
 		}
 	})
 	
@@ -234,6 +295,12 @@ overflow:hidden;
 			$('.overlay').css('display', 'none');
 		}
 	})	
+	
+	$(document).on('click', function(e){
+		if( $(e.target).is('#StoreBtn') ){
+			location.href="myBoard.my?mno=" + '${ownerProfile.userNo}' + '&toStore';
+		}
+	})
 	
 	
 	

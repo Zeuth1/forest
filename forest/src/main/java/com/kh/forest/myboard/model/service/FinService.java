@@ -25,10 +25,13 @@ public interface FinService {
 
 	ArrayList selectBoard(String userNo);
 
-	void inserStore(Store s);
 
 	void insertFin2(Store s);
 
 	public BoardProfile boardProfileSelect(String userNo);
+	
+	public String tnoSelecter();
+
+	ArrayList selectStore(String userNo);
 
 }

@@ -67,7 +67,7 @@ function init() {
   }
   
   #searchBar{
-    width:65%;
+    width:1100px;
     height:38px;
     align-self:center;
     
@@ -93,14 +93,14 @@ function init() {
     background:white;
     border-radius:6px;
     
-    margin-left:5.5%;
+    margin-left:75px;
     display:none;
     
   }
   
 
   .historyArea p:hover{
-    background:rgba(80,80,80,0.1);
+    
     cursor:pointer;
   }
   .alertNav-inside{
@@ -421,11 +421,10 @@ function init() {
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< HEAD
   <div class="menubarOverlay"></div>
-=======
+
 <div class="g-signin2" data-onsuccess="onSignIn"></div>
->>>>>>> 2743c033e4a70ffca4d7cbf94bd286ba425ecf25
+
   <div class="overlay"></div>
     <div id="all">
     

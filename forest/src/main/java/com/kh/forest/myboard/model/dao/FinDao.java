@@ -27,6 +27,7 @@ public interface FinDao {
 
 	public BoardProfile boardProfileSelect(SqlSessionTemplate sqlSession, String userNo);
 
-	public String boardProfileSelect2(SqlSessionTemplate sqlSession, String userNo);
+	String tnoSelecter(SqlSessionTemplate sqlSession);
+
 	
 }

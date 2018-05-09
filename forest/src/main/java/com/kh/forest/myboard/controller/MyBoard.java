@@ -49,12 +49,9 @@ public class MyBoard {
 	@RequestMapping(value="myBoard.my")
 	public @ResponseBody ModelAndView myboard(ModelAndView mv, @RequestParam(value="mno")String userNo ){
 		
-		System.out.println(userNo);
-		
 		
 		BoardProfile boardProfile = fs.boardProfileSelect(userNo);
 		
-		System.out.println(boardProfile);
 		
 		mv.addObject("ownerProfile", boardProfile);
 		
@@ -65,7 +62,7 @@ public class MyBoard {
 	//마이보드에서 보드만들기
 	@RequestMapping(value="boardAddForm.my")
 	public ModelAndView boardAddForm(ModelAndView mv){
-		System.out.println("보드디테일!!!");
+		
 		mv.setViewName("boardAddForm");
 		
 		return mv;
@@ -73,7 +70,7 @@ public class MyBoard {
 	//마이보드에서 보드 클릭시 디테일 (핀보기) = 보드디테일
 	@RequestMapping(value="myBoardDetail.my")
 	public ModelAndView myBoardDetail(ModelAndView mv){
-		System.out.println("보드디테일!!!");
+	
 		mv.setViewName("myBoardDetail");
 		
 		return mv;
@@ -81,11 +78,10 @@ public class MyBoard {
 	//마이보드에서 핀으로!
 	@RequestMapping(value="myBoardFin.my")
 	public ModelAndView myBoardFin(ModelAndView mv,String Board_No){
-		System.out.println("핀으로!!");
-		System.out.println("보드번호를찾아서:"+Board_No);
+		
 		Board b = new Board();
 		b.setBoard_No(Board_No);
-		System.out.println("보드번호를찾아서2:"+b);
+		
 		mv.setViewName("myBoardFin");
 		
 		return mv;
@@ -93,7 +89,6 @@ public class MyBoard {
 	//핀에서 핀추가하기폼!!!
 	@RequestMapping(value="finAddForm.my")
 	public ModelAndView finAddForm(ModelAndView mv){
-		System.out.println("핀만들기");
 		
 		
 		mv.setViewName("finAddForm");
@@ -103,48 +98,54 @@ public class MyBoard {
 	//핀인설트+ 파일 업로드
 	@RequestMapping(value="finAdd.my")
 	public String finAdd(ModelAndView mv,@RequestParam(name="Tree_After",required=false)MultipartFile photo,HttpServletRequest request,
-			String Tree_Tag, String Tree_Type, String User_No, String board,String Tree_No){
+			String Tree_Tag, String Tree_Type, String User_No, String board){
 		/*String root = request.getSession().getServletContext().getRealPath("resources");
 		String filePath = root + "\\uploadFiles";*/
-		String filePath = "C:/Users/rnrgu/forest/tree";
+		String filePath = "C:/Users/zeuth/forest/tree";
 		
-		System.out.println("보드값no넘어오나?:"+board);
 		Store s = new Store();
-		s.setBoardNo(board);
-		System.out.println("가자:"+s);
-		
 		Fin f = new Fin();
+		
+		System.out.println("추가");
 		
 		Date date =new Date();
 		long time = System.currentTimeMillis(); 
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String str = dayTime.format(new Date(time));
-		System.out.println(str);
+
 		long start = System.currentTimeMillis(); 
 		long end = System.currentTimeMillis(); 
 		long Tree_After= end+start;
 		String afterName2=String.valueOf(Tree_After);
 		
-		//추가 부분
+		try {
+			
+			photo.transferTo(new File(filePath+"\\"+afterName2+photo.getOriginalFilename()));
+			
+		} catch (Exception e) {
+			System.out.println("transferTo 실패!");
+		}
+		
+		
+		
+		
+		String Tree_No = fs.tnoSelecter();
+		
+		System.out.println(Tree_No);
+		
 		f.setTree_After(afterName2+photo.getOriginalFilename());	
-		f.setTree_Tag(Tree_Tag);
 		f.setTree_No(Tree_No);
+		f.setTree_Tag(Tree_Tag);
 		f.setTree_Before(photo.getOriginalFilename());
 		f.setTree_Type(Tree_Type);
 		f.setUser_No(User_No);
-		try {
-			photo.transferTo(new File(filePath+"\\"+afterName2+photo.getOriginalFilename()));
-			System.out.println("photo:"+photo);
-			System.out.println("filepath:"+filePath);
-			fs.insertFin(f);
-			fs.insertFin2(s);
-			
-		} catch (IOException e) {
-			
-		}
-		System.out.println("트리는?"+f);
 		
-		System.out.println("성공");
+		s.setBoardNo(board);
+		s.setTree_No(Tree_No);
+		
+	
+		fs.insertFin(f);
+		fs.insertFin2(s);
 		
 		
 		return "redirect:/myBoardStore.my?board=" + board;
@@ -157,7 +158,7 @@ public class MyBoard {
 		String userNo=null;
 		try {
 			 userNo = (String)parser.parse(board);
-			 System.out.println("userNo1:"+userNo);
+			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -166,6 +167,9 @@ public class MyBoard {
 		fin.setUser_No(userNo);
 		System.out.println(fin);*/
 		ArrayList list = fs.selectFin(userNo);
+		
+		System.out.println("핀 리스트 : " + list);
+		
 		JSONArray array = JSONArray.fromObject(list);
 		
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -179,8 +183,6 @@ public class MyBoard {
 	public ModelAndView myBoardStore(ModelAndView mv, @RequestParam("board")String board){
 		Store s = new Store();
 		s.setBoardNo(board);
-		System.out.println("스토어어어:"+s);
-		
 		mv.addObject("board", board);
 		mv.setViewName("myBoardFin");
 		return mv;
@@ -193,15 +195,13 @@ public class MyBoard {
 		//BOARD_NO,USER_NO,BOARD_TYPE,BOARD_TITLE,BOARD_DATE
 		//보드번호     ,보드소유번호, 보드타입       , 보드이름     , 보드생성일
 		Board b = new Board();
-		System.out.println(User_No);
 		b.setUser_No(User_No);
 		b.setBoard_No(Board_No);
 		b.setBoard_Type(Board_Type);
 		b.setBoard_Title(Board_Title);
 		fs.insertBoard(b);
-		System.out.println("컨트로올~:"+b);
 		
-		return "redirect:/myBoard.my";
+		return "redirect:/myBoard.my?mno=" + User_No;
 	}
 	//보드불러오기!!
 	@RequestMapping(value="myBoardSelect.my")
@@ -211,12 +211,15 @@ public class MyBoard {
 		
 		try {
 			userNo = (String) parser.parse(User_No);
-			System.out.println("userNo는?:"+userNo);
+			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ArrayList list = fs.selectBoard(userNo);
+		
+		System.out.println(list);
+		
 		JSONArray array = JSONArray.fromObject(list);
 		
 		HashMap<String, Object> hashMap = new HashMap<String, Object>();

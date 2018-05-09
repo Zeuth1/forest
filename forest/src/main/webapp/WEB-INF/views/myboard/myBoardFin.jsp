@@ -1,37 +1,64 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <style>
 
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
+    .column-container{
+        display:flex;
+        margin-top:30px;
+        width:91%;
+        margin-left:auto;
+        margin-right:auto;
+      }
+      
+      .columns{
+        display:flex;
+        flex-direction:column;															
+        justify-content:flex-start;
+        
+        margin-right:10px;
+      }
+      
+
+      .columns .figure{
+        margin-bottom:10px;
+        border-radius:10px; 
+       
+        padding-top:8px;
+        padding-right:8px;
+        padding-left:8px;
+        padding-bottom:0.1px;
+ 
+      }
     
- .carousel-inner img {
-       /* Set width to 100% */
-      margin: auto;
-      min-height:250px;
-  } 
-  
-/*   #MyImage{
-  	border-radius:50%;
-    width: 300px;
-    height: 250px;
-    position: relative;
-    display: inline-block;
-  } */
-  
-  .selectmenu{
-  	margin-right:950px;
-  }
-  #main{
-  	margin-top:65px;
-  }
-  #follower:hover{
-  	
-  }
+      
+      .columns .figure:hover{
+        cursor:pointer;
+        background: rgba(80,80,80,0.1);
+      }
+      
+      .columns .figure img{
+        width:230px;
+
+        border-radius:10px;
+      }
+      
+      .columns .figure p{
+        margin-top:1px; 
+        max-height:80px; 
+        overflow:hidden; 
+        text-overflow: ellipsis; 
+        word-break:break-all;
+        font-size:14px;
+        font-weight:bold;
+        width:210px;
+        margin-left:auto;
+        margin-right:auto;
+
+      }
+      
   input,textarea {
   	  border: 2px solid #7BA7AB;
   	  border-radius: 5px;
@@ -75,48 +102,52 @@
 <body >
 	<jsp:include page="../common/menubar.jsp"/>
 	<div class="overlay"></div>
-		<div id="main" style="width:1278.4; height:250px; border-top:1px solid; border-bottom:1px solid; border-style:inset;">
-
-			<div style="float:left; width:900px; height:250px; margin-right:200px;" align="center">
-					<p style="font-size:70px; color:#696969;">${ sessionScope.loginUser.mNickName  }</p>
-
-			
-   		   		<div>
-   		   			<label onclick="" style="color:#808080;">팔로워:1</label>
-   		   			<label onclick="" style="margin-left:50px; margin-bottom:150px; color:#808080;">팔로윙:1</label>
-   		   		</div>
-			</div>
-			<div style="float:left; width:300px; height:250px;">
-
-				<img id="MyImage" src="<%=request.getContextPath() %>/resources/images/test.jpg" style="width:260px; height:250px; border-radius:50%; padding-top: 5px;padding-bottom: 5px;cursor: pointer;">
-			</div>
-		</div>
-		
-  		<br>
-		<div class="container text-center">    
- 		 <div class="selectmenu">
- 		 <button class="btn btn-default" onclick="location.href='myBoard.my'">보드</button>
- 		 <button class="btn btn-default">내 보드</button>
- 		 </div>
- 		 <br>
-  		<div class="row" id="SF">
-  		<input type="hidden" id="User_No" name="User_No" value="${ sessionScope.loginUser.mNo }">
-  		<input type="hidden" id="STORE_NO" name="STORE_NO">
-  		<input type="hidden" id="BOARD_NO" name="BOARD_NO">
-  		  <div class="col-sm-4">
-
-    		  <img id="finadd" src="<%= request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="cursor: pointer;" alt="보드만들기">
-    		  	<!-- <a data-toggle="modal" href="finAddForm.my" data-target="#testModal" role="button" data-backdrop="static"> -->
-					
-			    <!-- </a> -->
-   		 </div>
-
- 	 </div>
-	</div><br>
 	
-		<footer class="container-fluid text-center">
- 		 <p>푸터!!!!!!!</p>
-		</footer>
+	
+	
+		 
+ 	 <div class="column-container">
+ 	 <c:if test="${loginUser.mNo == ownerNo}">
+		<figure id="pluser">
+		<img id="finadd" src="<%= request.getContextPath() %>/resources/images/plusBtn.PNG" class="img-responsive" style="padding:20px;width:50px; height:50px;cursor: pointer;" alt="보드만들기">
+		</figure>
+    	 
+     </c:if>
+    
+    <div class="columns container1">
+     
+    </div>
+    
+    <div class="columns container2">
+     
+     
+    </div>
+    
+    <div class="columns container3">
+     
+     
+    </div>
+    
+    <div class="columns container4">
+     
+       
+     
+    </div>
+    
+    <div class="columns container5">
+     
+     
+    </div>
+    
+    <div class="columns container6">
+     
+      
+     
+    </div>
+    
+    </div>  	 
+
+	
 
 
 
@@ -127,41 +158,50 @@
 <script>
 
 //셀렉트 
-var board = '${board}';
-console.log(board);
-	$(function(){
-		var board = '${board}';
-		console.log(board);
-		var User_No = $("#User_No").val();
-		var board = '${board}';
-		var img = '<img id="boardImages" src="<%= request.getContextPath() %>/resources/images/test2.jpg" class="img-responsive" style="width:100%; cursor: pointer;">';
-		$.ajax({
-			url:"myBoardFinSelect.my",
-			method:"POST",
-			data:JSON.stringify(board),
-			contentType:"application/json",
-			dataType:"json",
-			success:function(data){
-				console.log(data.board);
-				var arr = data.board;
-				console.log(arr.length);
-				
-				for(var i = 0; i < arr.length; i++){
-					
-					$("#SF").append(
-							'<div class="col-sm-4">'+
-							'<img id="boardImages" src="/tree/' + data.board[i].tree_After + '"'+'class="img-responsive" style=" cursor: pointer;">' +
-							'</div>'
-						);
-				} 
-				
-			}
-		});
-		console.log("hi");
-	});
+$(document).on('click','.figure',function(){
+    	  console.log($(this).attr('id'));
+    	  location.href="detail.ma?treeNo=" + $(this).attr('id');
+      });
+      
+    
+      
+      var board = '${board}';
+      $(function(){
+    	  console.log(board);
+    	  $.ajax({
+    		  url:"myBoardFinSelect.my",
+    		  type:"POST",
+    	      data:JSON.stringify(board),
+    	      dataType:"json",
+    	      contentType:"application/json",
+    		  success:function(data){
+    			  var arr = data.board;
+    			  console.log(data);
+    			  if(data.board !== null){
+      				
+      				var arr = data.board;
+      				
+      				  for(var  j = 0; j < 7; j++){  
+      					
+  	    				for(var i = 1; i < 7; i++){
+  	    				    
+  		    				$('<div class="figure" id="' + arr[(j * 6) + (i - 1)].tree_No + '"><img src="/tree/' + 
+  		    						arr[(j * 6) + (i - 1)].tree_After + '"/><p>' + arr[(j * 6) + (i -1)].tree_Tag + '</p></div>').appendTo($('.container' + i ) );                                      
+  	    				    
+  	    				}
+      				  }
+      				
+      				
+      			}
+    		  }
+    	  })
+			
+      });
+
 	
 	$(document).on('click', function(e){
 		if( $(e.target).is('#finadd') ){
+    	  
 			$('#modal').css('display','inline-block');
 			$('#modal').load('finAddForm.my');
 			$('.overlay').css('display', 'inline-block');

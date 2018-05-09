@@ -48,7 +48,7 @@ public class FinServiceImpl implements FinService{
 
 	@Override
 	public void insertBoard(Board b) {
-		System.out.println("인설트보드!!:"+b);
+
 		int result = fd.insertBoard(sqlSession,b);
 		
 	}
@@ -61,16 +61,24 @@ public class FinServiceImpl implements FinService{
 	}
 
 	@Override
-	public void inserStore(Store s) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
 	public BoardProfile boardProfileSelect(String userNo) {
 		BoardProfile boardProfile = fd.boardProfileSelect(sqlSession, userNo);
-	
+		
 		
 		return boardProfile;
+	}
+	@Override
+	public String tnoSelecter() {
+		String tno = fd.tnoSelecter(sqlSession);
+		
+		return tno;
+	}
+	
+	@Override
+	public ArrayList selectStore(String userNo) {
+		ArrayList list = fd.selectStore(sqlSession,userNo);
+		
+		return list;
 	}
 
 

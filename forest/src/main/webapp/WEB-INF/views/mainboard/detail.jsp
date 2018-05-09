@@ -16,7 +16,7 @@
     border-radius:10px;
     margin-left:300px;
     margin-top:30px;
-    width:1100px;
+    width:750px;
     background:white;
     
   }
@@ -363,11 +363,9 @@
      flex-direction:column;
      align-items:center;
      justify-content:center;
-     
-
-
+     background:white;
      box-shadow:0px 3px 3px  rgba(80,80,80,0.3);
-     left:675px;
+     right:-60px;
      width:60px;
      height:110px;
      
@@ -393,6 +391,10 @@
    .commentMenu p:hover{
      background:rgba(80,80,80,0.1);
      cursor:pointer;
+   }
+   
+   .banMenu{
+     right:-180px;
    }
      
      
@@ -764,6 +766,10 @@
 		  }
 	  })
 	  
+	  
+	  function goBoard(){
+		  location.href="myBoard.my?mno=" + '${detail.mno}';
+	  }
 
       $('#erase').on('click', function(){
     	  $('#submit').css('display','none');
@@ -887,7 +893,7 @@
       				    //댓글 추가
       				    if( $(e.target).attr('id') == 'submit' ){
 	  						
-      				    	var comment = $('<div class="comment" style="display:flex; flex-wrap:wrap; margin-top:15px; margin-bottom:10px; width:680px;"  id="' + commentNo + '">');
+      				    	var comment = $('<div class="comment" style="position:relative; display:flex; flex-wrap:wrap; margin-top:15px; margin-bottom:10px; width:680px;"  id="' + commentNo + '">');
       				    	var menu = $('<img class="commentMenuBtn" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">')
     				  		var img = $('<img class="userProfile" src="' + getProfileImage() + '">'); 
     				  		var info = $('<div class="userProfile2" style="width:595px; display:flex; flex-direction:column; margin-left:15px; margin-bottom:0px;"><div style="display:flex;" flex-direction:row">' +
@@ -913,7 +919,7 @@
       				    
       				    //대댓글 추가 
       				    if( $(e.target).attr('id') == 'submit2' ){
-      				    	var gara = $('<div class="gara" style="display:flex; flex-wrap:wrap; margin-bottom:5px;margin-top:20px; margin-left:55px; width:630px;"  id="' 
+      				    	var gara = $('<div class="gara" style="position:relative;display:flex; flex-wrap:wrap; margin-bottom:5px;margin-top:20px; margin-left:55px; width:630px;"  id="' 
     				  		+ commentNo + '">');
       				    	var menu = $('<img class="commentMenuBtn" src="${ pageContext.request.contextPath }/resources/images/menu.png" style="width:30px; height:30px;">');
     				  		var img = $('<img class="userProfile" style="width:25px; height:25px;" src="' + getProfileImage() + '">'); 
@@ -1153,7 +1159,7 @@
 							  $(e.target).after(commentMenu);
 						  
 						  }else{
-							  var commentMenu = $('<div class="commentMenu" style="width:180px; height:70px;"><div><p class="banBtn">스팸 또는 악용사례 신고</p></div></div>');
+							  var commentMenu = $('<div class="commentMenu banMenu" style="width:180px; height:70px;"><div><p class="banBtn">스팸 또는 악용사례 신고</p></div></div>');
 							  $(e.target).after(commentMenu);
 						  }
 						  

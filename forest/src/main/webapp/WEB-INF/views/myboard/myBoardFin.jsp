@@ -125,8 +125,10 @@
 </div>
 
 <script>
-	
 
+//셀렉트 
+var board = '${board}';
+console.log(board);
 	$(function(){
 		var board = '${board}';
 		console.log(board);

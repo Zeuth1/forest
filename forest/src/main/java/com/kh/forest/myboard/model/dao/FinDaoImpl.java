@@ -19,56 +19,66 @@ import net.sf.json.JSONObject;
 public class FinDaoImpl implements FinDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
+	
+	
 	@Override
 	public int insertFin(SqlSessionTemplate sqlSession, Fin f) {
-		
-		System.out.println(f);
 		
 		return sqlSession.insert("Fin.insertFin",f);	//mapper네임스페이스 xx.xx , f , phto
 	}
 	@Override
 	public int insertFin2(SqlSessionTemplate sqlSession, Store s) {
 		
-		System.out.println("daofin2 스토어값:"+s);
 		
 		return sqlSession.insert("Store.insertFin2",s);
 	}
 
 	@Override
 	public ArrayList selectFin(SqlSessionTemplate sqlSession, String userNo) {
-		System.out.println("오나?:"+userNo);
 		
-		ArrayList list = (ArrayList) sqlSession.selectList("Fin.selectStore", userNo);
+		ArrayList list = (ArrayList) sqlSession.selectList("Fin.selectFin", userNo);
 		
-		System.out.println("dao셀렉트핀다불러와!:"+list);
 		
 		return list;
 	}
 	//인설트 보드!!
 	@Override
 	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
-		System.out.println("인설트보드 dao!!:"+b);
 		
 		return sqlSession.insert("Board.insertBoard",b);
 	}
 
 	@Override
 	public ArrayList selectBoard(SqlSessionTemplate sqlSession, String userNo) {
-		System.out.println("셀렉트보드dao:"+userNo);
+	
 		ArrayList list = (ArrayList) sqlSession.selectList("Board.selectBoard",userNo);
-		System.out.println("보드셀렉트dao리스트불러와~:"+list);
+		
 		return list;
 	}
 	
 	@Override
 	public BoardProfile boardProfileSelect(SqlSessionTemplate sqlSession, String userNo) {
 		BoardProfile boardProfile = sqlSession.selectOne("Fin.boardProfileSelect", userNo);
-		System.out.println("보드프로필"+boardProfile);
+
+		System.out.println(boardProfile);
 		
 		return boardProfile;
 	}
+	@Override
+	public String tnoSelecter(SqlSessionTemplate sqlSession) {
+	    String tno = sqlSession.selectOne("Fin.tnoSelecter");
+		return tno;
+	}
+	@Override
+	public ArrayList selectStore(SqlSessionTemplate sqlSession, String userNo) {
+		ArrayList list = (ArrayList) sqlSession.selectList("Board.selectStore",userNo);
 	
+		
+		return list;
+	}
+	
+
+
 
 	
 	

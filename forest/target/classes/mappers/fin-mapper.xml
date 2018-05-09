@@ -23,9 +23,9 @@
 	</resultMap>
 
 	<!-- 핀추가하기! -->
-	<insert id="insertFin" parameterType="String">
+	<insert id="insertFin" parameterType="java.lang.String">
 		INSERT INTO TREE
-		VALUES(SEQ_TNO.NEXTVAL, #{User_No} ,#{Tree_Before},#{Tree_After},#{Tree_Tag},#{Tree_Type},SYSDATE)
+		VALUES(#{Tree_No}, #{User_No} ,#{Tree_Before},#{Tree_After},#{Tree_Tag},#{Tree_Type},SYSDATE)
 	</insert>
 	
 	<!-- 핀셀렉트 -->
@@ -33,7 +33,7 @@
 		SELECT TREE_NO, USER_NO, TREE_BEFORE, TREE_AFTER, TREE_TAG, TREE_TYPE FROM TREE
 		WHERE USER_NO = #{User_No} ORDER BY 1
 	</select> -->
-	<select id="selectStore" resultMap="finResultSet" parameterType="java.lang.String">
+	<select id="selectFin" resultMap="finResultSet" parameterType="java.lang.String">
 		SELECT T.TREE_NO, T.USER_NO, T.TREE_BEFORE, T.TREE_AFTER, T.TREE_TAG, T.TREE_TYPE, S.BOARD_NO
 		FROM STORE S
 		JOIN TREE T ON(S.TREE_NO = T.TREE_NO)
@@ -41,12 +41,11 @@
 	</select>
 	
 	<select id="boardProfileSelect" resultMap="boardProfileMap" parameterType="java.lang.String">
-	  
-        SELECT M.USER_NO, M.NICK_NAME, (SELECT NOTICE_CONTENT FROM NOTICE WHERE NOTICE_TYPE = 'I' AND USER_NO =#{userNo}) NOTICE_CONTENT, (SELECT TREE_AFTER FROM TREE WHERE TREE_TYPE = 'P' AND USER_NO = #{userNo}) TREE_AFTER
+
+	      SELECT M.USER_NO, M.NICK_NAME, (SELECT NOTICE_CONTENT FROM NOTICE WHERE NOTICE_TYPE = 'I' AND USER_NO =#{userNo}) NOTICE_CONTENT, (SELECT TREE_AFTER FROM TREE WHERE TREE_TYPE = 'P' AND USER_NO = #{userNo}) TREE_AFTER
      FROM MEMBER M
      WHERE M.USER_NO = #{userNo}
-     
-   </select>
-
+	</select>
+	
 	
 </mapper>

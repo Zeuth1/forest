@@ -14,9 +14,9 @@
 		JOIN TREE T ON(S.TREE_NO = T.TREE_NO)
 		WHERE S.BOARD_NO = #{board}
 	</select> -->
- 	<insert id="insertFin2" parameterType="String">
+ 	<insert id="insertFin2" parameterType="java.lang.String">
 		INSERT INTO STORE
-		VALUES(SEQ_SNO.NEXTVAL,SEQ_TNO.CURRVAL,#{BoardNo})
+		VALUES(SEQ_SNO.NEXTVAL,#{Tree_No},#{BoardNo})
 	</insert>
 	
 </mapper>

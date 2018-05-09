@@ -93,8 +93,9 @@ input:checked + .slider:before {
 						<p>보드명<p>
 					</div>
 					<div style="float:right; margin-right:50px; margin-top:-38px; ">
-						<input type="hidden" name="User_No" value="${ sessionScope.loginUser.mNo }">
-						<input type="hidden" name="Board_No" >
+
+						<input type="hidden" name="User_No" id="User_No_AddForm" value="">
+						<input type="hidden" name="Board_No">
 						<input type="hidden" name="Board_Date">
 						<textarea id="content" name="Board_Title" cols="60" rows="1" style="resize:none"></textarea>
 					</div>
@@ -120,6 +121,9 @@ input:checked + .slider:before {
 	</form>
 		</div>
 	<script>
+	
+	    $('#User_No_AddForm').val(User_No);
+	
 		$("#box").click(function(){
 			console.log("1");
 		})

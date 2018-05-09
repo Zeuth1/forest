@@ -66,7 +66,7 @@ function init() {
   }
   
   #searchBar{
-    width:65%;
+    width:1100px;
     height:38px;
     align-self:center;
     
@@ -92,14 +92,14 @@ function init() {
     background:white;
     border-radius:6px;
     
-    margin-left:5.5%;
+    margin-left:75px;
     display:none;
     
   }
   
 
   .historyArea p:hover{
-    background:rgba(80,80,80,0.1);
+    
     cursor:pointer;
   }
   .alertNav-inside{

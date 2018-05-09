@@ -35,37 +35,57 @@
      height:40px;
   }
     input {
-       border: 2px solid #7BA7AB;
-       border-radius: 5px;
-      outline: none;
-     color: #9E9C9C;
-   }
-   input:active,input:hover{
-      background: #F9F0DA;
-   }
-   #boardAdd{
-      margin:10px;
-      width:330px;
-      height:200px;
-   }
-   #boardImages2{
-      margin:10px;
-      width:330px;
-      height:200px;
-   }
-   
-   .col-sm-4{
-      margin-right:10px;
-      width:360px;
-      height:260px;
-   }
-   
-   .col-sm-3{
-      margin-right:10px;
-      width:360px;
-      height:260px;
-   }
-   
+
+  	  border: 2px solid #7BA7AB;
+  	  border-radius: 5px;
+ 	  outline: none;
+	  color: #9E9C9C;
+	}
+	input:active,input:hover{
+		background: #F9F0DA;
+	}
+	#boardAdd{
+		
+		width:330px;
+		height:200px;
+		border-radius:10px;
+	}
+	
+	#boardImages1{
+	    width:330px;
+		height:200px;
+		border-radius:10px;
+	}
+	
+	#boardImages2{
+		
+		width:330px;
+		height:200px;
+		border-radius:10px;
+	}
+	
+	.col-sm-4{
+	    margin-right:5px;
+	    margin-left:5px;
+		display:flex;
+		flex-direction:column;
+		align-items:center;
+		justify-content:center;
+		width:360px;
+		height:260px;
+	}
+	
+	.col-sm-3{
+		margin-right:5px;
+	    margin-left:5px;
+		display:flex;
+		flex-direction:column;
+		align-items:center;
+		justify-content:center;
+		width:360px;
+		height:260px;
+	}
+	
 
    #mem{
       margin-top:65px;
@@ -85,16 +105,53 @@
     z-index:200;
   }
   
-   .container{
-     display:flex;
-     flex-wrap:wrap;
-     
-     width:90%;
-     
-     margin-left:auto;
-     margin-right:auto;
+
+	.container{
+	  display:flex;
+	  flex-wrap:wrap;
+	  
+	  width:90%;
+	  
+	  margin-left:auto;
+	  margin-right:auto;
+	  
+	  padding:10px;
+	}
+	
+	.col-sm-4{
+	  border-radius:10px;
+	}
+	
+	.col-sm-3{
+	  border-radius:10px;
+	}
+	
+	.col-sm-4:hover{
+	cursor:pointer;
+	  background:rgba(80,80,80,0.1);
+	}
+	
+	.col-sm-3:hover{
+	cursor:pointer;
+	 background:rgba(80,80,80,0.1);
+	}
+	
+	#StoreBtn{
+    width:80px;
+    margin-left:100px;
+	padding:15px;
+	
+	border-radius:50px;
+	font-weight: bolder;
+	font-size:medium;
+	color:rgba(0,0,0,0.8);
    }
    
+   #StoreBtn:hover{
+     background:rgba(80,80,80,0.1);
+     cursor:pointer;
+   }
+
 #blurExample, #noneblurExample {
 
 background-size:cover;
@@ -128,40 +185,43 @@ overflow:hidden;
 <title>Insert title here</title>
 </head>
 <body>
-   <jsp:include page="../common/menubar.jsp"/>
-      <div class="overlay"></div>
-         <div id="main" style="width:1278.4; height:250px; border-top:1px solid; border-bottom:1px solid; border-style:inset;">
-         <div style="float:left; width:900px; height:250px; margin-right:200px;" align="center">
-                  <div style="margin-right:300px; margin-top:80px;">
 
-                     <label style="font-size:50px; color:#696969;">${ownerProfile.userNickName}</label>
-                     
-                     <div style="margin-top:20px;">
-                     
-                     <p><textarea cols="60" rows="3" style="outline:none; resize:none; border:0px; margin-left:200px" disabled;>${ownerProfile.userIntroduce} </textarea></p>
-                     </div>
-                  </div>
-         </div>
-         <div style="float:left; width:300px; height:250px;">
-            <img src="/tree/${ownerProfile.userProfile}" id="MyImage" style="cursor: pointer;">
-         </div>
-      </div>               
-         <button class="donate-btn" onclick="donate();">후원하기</button>         
+	<jsp:include page="../common/menubar.jsp"/>
+		<div class="overlay"></div>
+   		<div id="main" style="width:1278.4; height:300px; border-bottom:1px solid rgba(80,80,80,0.2); ">
+			<div style="float:left; width:900px; height:250px; margin-right:200px;" align="center">
+   		   		<div style="margin-left:400px; margin-top:80px;">
+
+   		   			<label style="font-size:50px; color:#696969;">${ownerProfile.userNickName}</label>
+   		   			
+   		   			<div style="margin-top:20px;">
+   		   			
+   		   			<p style="width:100px; margin:0px;">${ownerProfile.userIntroduce}</p>
+   		   			</div>
+   		   		</div>
+			</div>			
+			<div style="float:left; width:300px; height:250px;">
+				<img src="/tree/${ownerProfile.userProfile}" id="MyImage" style="cursor: pointer;">
+			</div>
+		</div>   		      
     
-        <br>
-        
-           <div class="selectmenu" style="margin-left:160px;">
-             <button class="btn btn-default">작품</button>
-             <!-- <button class="btn btn-default" onclick="location.href='myBoardFin.my'">핀</button> -->
-           </div>
-           
-           <div class="container ">    
-           <br>
-             <div class="col-sm-3">
-               <img id="boardAdd" src="<%= request.getContextPath() %>/resources/images/addimages.jpg" class="img-responsive" style="cursor: pointer;" alt="보드만들기">
-             </div>
-             
-          </div>
+  		       <c:if test="${ownerProfile.userNo == loginUser.mNo}">
+	 		     <p id="StoreBtn">저장 보드</p>
+	 		   </c:if>
+	 		 
+		     <div class="container ">    
+	 		 
+	 		 <c:if test="${ownerProfile.userNo == loginUser.mNo}">
+	  		  <div class="col-sm-3">
+	  		  <div id="boardImages1" style="display:flex; justify-content:center; align-items:center; background:rgba(80,80,80,0.1);">
+	  		  	  <img id="boardAdd" src="<%= request.getContextPath() %>/resources/images/plusBtn.PNG" class="img-responsive" style="width:50px; height:50px;cursor: pointer;" alt="보드만들기">
+	    	  </div>
+	  		  	  <label style="align-self:flex-start; margin-top:10px; margin-left:30px; font-family: Nanum Gothic, sans-serif; font-weight:bolder; color:rgba(80,80,80,0.8);">보드 추가하기</label>
+	   		 </div>
+	   		 </c:if>
+	   		 
+	 		</div>
+
        
 
 
@@ -171,85 +231,80 @@ overflow:hidden;
 
 
 <script>
-   
-   /* 셀렉트 보드! */
-   $(function(){
-      
-      var User_No = '${ ownerProfile.userNo}'
-      
-      $.ajax({
-         url:"myBoardSelect.my",
-         method:"POST",
-         data:JSON.stringify(User_No),
-         contentType:"application/json",
-         dataType:"json",
-         success:function(data){
-            var arr = data.userNo;
-            var detail = data.userNo[i];
-            console.log(data.userNo);
-            for(var i = 0; i< arr.length; i++){
-               console.log(data.userNo[i].board_No);
-               var board = data.userNo[i].board_No;
-               $(".container").append(
-                     '<div class="col-sm-4" id="'+board +'">'+
-                     '<img id="boardImages2" src="/tree/ouroboros181412111.PNG" class="img-responsive" alt="No image" style=" cursor: pointer;">'+
-                     '<label>'+ data.userNo[i].board_Title +'</label>'+
-                     '</div>'
-                  );
-            }
-         }
-      });
-      var selectView = $("#selectView").val();
-      console.log(selectView);
-      $("#korea").click(function(){
-         console.log($("#korea").val());
-      })
-      
-   });
-   
-   $(document).on('click', function(e){
-      if( $(e.target).is( $('.col-sm-4') ) || $(e.target).parent().is( $('.col-sm-4') )  ){
-         if( $(e.target).is( $('.col-sm-4') ) ){
-            console.log( $(e.target).attr('id') );
-         }
-         if( $(e.target).parent().is( $('.col-sm-4') )  ){
-            console.log( $(e.target).parent().attr('id'));
-            location.href="myBoardStore.my?board="+$(e.target).parent().attr('id');
-         }
-      }
-      
-   })
-   
-   $(document).on('click', function(e){
-      if( $(e.target).is('#boardAdd') ){
-         $('#modal').css('display','inline-block');
-         $('#modal').load('boardAddForm.my');
-         $('.overlay').css('display', 'inline-block');
-         
-      }
-   })
-   
-   $(document).on('click', function(e){
-      if( $(e.target).is('#action2') ){
-         $('#modal').css('display','none');
-         $('.overlay').css('display', 'none');
-      }
-   })   
-   
-   
-   
-   
-   
-   function donate(){
+
+var User_No = "";
+	
+	/* 셀렉트 보드! */
+	$(function(){
+		
+		User_No = '${ ownerProfile.userNo}'
+		
+		$.ajax({
+			url:"myBoardSelect.my",
+			method:"POST",
+			data:JSON.stringify(User_No),
+			contentType:"application/json",
+			dataType:"json",
+			success:function(data){
+				var arr = data.userNo;
+				var detail = data.userNo[i];
+				console.log(data.userNo);
+				for(var i = 0; i< arr.length; i++){
+					console.log(data.userNo[i].board_No);
+					var board = data.userNo[i].board_No;
+					$(".container").append(
+							'<div class="col-sm-4" id="'+board +'">'+
+							'<div id="boardImages2" class="img-responsive" style="background:rgba(80,80,80,0.1);"></div>'+
+							'<label style="align-self:flex-start; margin-top:10px; margin-left:30px; font-family: Nanum Gothic, sans-serif; font-weight:bolder; color:rgba(80,80,80,0.8);">'+ data.userNo[i].board_Title +'</label></div>'
+						
+						);
+				}
+			}
+		});
+		var selectView = $("#selectView").val();
+		console.log(selectView);
+		$("#korea").click(function(){
+			console.log($("#korea").val());
+		})
+		
+	});
+	
+	$(document).on('click', function(e){
+	   if( $(e.target).is( $('.col-sm-4') ) || $(e.target).parent().is( $('.col-sm-4') )  ){
+		   if( $(e.target).is( $('.col-sm-4') ) ){
+			   console.log( $(e.target).attr('id') );
+		   }
+		   if( $(e.target).parent().is( $('.col-sm-4') )  ){
+			   console.log( $(e.target).parent().attr('id'));
+			   location.href="myBoardStore.my?board="+$(e.target).parent().attr('id');
+		   }
+	   }
 	   
-	   var taker='${ownerProfile.userNickName}'
-	   console.log(taker);
-	   
-	   location.href="support.set?userNick="+taker;
-	   
-	   
-   }
-   
+	})
+	
+	$(document).on('click', function(e){
+		if( $(e.target).is('#boardAdd') ){
+			$('#modal').css('display','inline-block');
+			$('#modal').load('boardAddForm.my');
+			$('.overlay').css('display', 'inline-block');
+			
+			
+		}
+	})
+	
+	$(document).on('click', function(e){
+		if( $(e.target).is('#action2') ){
+			$('#modal').css('display','none');
+			$('.overlay').css('display', 'none');
+		}
+	})	
+	
+	$(document).on('click', function(e){
+		if( $(e.target).is('#StoreBtn') ){
+			location.href="myBoard.my?mno=" + '${ownerProfile.userNo}' + '&toStore';
+		}
+	})
+	
 </script>
 </body>
 </html>

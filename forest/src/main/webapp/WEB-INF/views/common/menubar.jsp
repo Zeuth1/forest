@@ -331,7 +331,7 @@ function init() {
     margin-left:85%;
     position: fixed;
     width: 150px;
-    height: 50px;
+    height: 5px;
     padding: 40px;
     background: #FFFFFF;
     -webkit-border-radius: 13px;  
@@ -467,12 +467,9 @@ function init() {
   </div>
   <div id="menuNav">
     <table>
-      <c:if test="${ sessionScope.loginUser.mLevel == 1 }">
-        <tr><td id="t0">관리자 페이지</td></tr>
-        <script> $('#menuNav').css('height','153px')</script>
-      </c:if>
+     
       <tr><td id="t1">마이페이지</td></tr>
-      <tr><td id="t4">고객 센터(임시 결제페이지)</td></tr>
+      
       <tr><td id="t5" onclick="signOut();">로그아웃</td></tr>
     </table>
   </div>
@@ -819,6 +816,16 @@ function init() {
    
    
    </script>
+   <script>
+   function reload(){
+       
+       
+       $("#alertNav").load(window.location.href+" #alertNav");
+            /*     $("#alertNav").load('refresh.html').fadeIn("slow"); */
+   }
+   
+   </script>
+   
    
 </body>
 </html>

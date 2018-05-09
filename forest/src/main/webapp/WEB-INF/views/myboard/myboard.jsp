@@ -91,6 +91,27 @@
       margin-top:65px;
    }
    
+   #DonateBtn{
+    width:120px;
+    margin-left:0px;
+	padding:15px;
+	
+	border-radius:50px;
+	font-weight: bolder;
+	font-size:medium;
+	color:rgba(0,0,0,0.8);
+	
+	
+	position:absolute;
+	top:130px;
+	left:-23px;
+   }
+   
+   #DonateBtn:hover{
+     background:rgba(80,80,80,0.1);
+     cursor:pointer;
+   }
+   
    
       .overlay {
   display: none;
@@ -190,14 +211,19 @@ overflow:hidden;
 		<div class="overlay"></div>
    		<div id="main" style="width:1278.4; height:300px; border-bottom:1px solid rgba(80,80,80,0.2); ">
 			<div style="float:left; width:900px; height:250px; margin-right:200px;" align="center">
-   		   		<div style="margin-left:400px; margin-top:80px;">
+   		   		<div style="margin-left:400px; margin-top:80px; display:flex; flex-direction:column; position:relative">
 
-   		   			<label style="font-size:50px; color:#696969;">${ownerProfile.userNickName}</label>
+   		   			<label style="font-size:50px; color:#696969; text-align:left;">${ownerProfile.userNickName}</label>
    		   			
-   		   			<div style="margin-top:20px;">
-   		   			
-   		   			<p style="width:100px; margin:0px;">${ownerProfile.userIntroduce}</p>
+   		   			<div style="margin-top:20px; float:left;">
+   		   			<p style="width:500px; margin:0px; text-align:left;">${ownerProfile.userIntroduce}</p>
    		   			</div>
+   		   			
+   		   			<c:if test="${ ownerProfile.userNo != loginUser.mNo }">
+   		   			<p id="DonateBtn" style="margin:0px;">작가 후원하기</p>
+   		   			
+   		   			
+   		   			</c:if>
    		   		</div>
 			</div>			
 			<div style="float:left; width:300px; height:250px;">
@@ -276,7 +302,7 @@ var User_No = "";
 		   }
 		   if( $(e.target).parent().is( $('.col-sm-4') )  ){
 			   console.log( $(e.target).parent().attr('id'));
-			   location.href="myBoardStore.my?board="+$(e.target).parent().attr('id');
+			   location.href="myBoardStore.my?board="+$(e.target).parent().attr('id')+'&ownerNo='+'${ownerProfile.userNo}';
 		   }
 	   }
 	   
@@ -304,6 +330,22 @@ var User_No = "";
 			location.href="myBoard.my?mno=" + '${ownerProfile.userNo}' + '&toStore';
 		}
 	})
+	
+	$(document).on('click', function(e){
+		if( $(e.target).is('#DonateBtn') ){
+	      var taker='${ownerProfile.userNickName}'
+	      console.log(taker);
+	      
+	      location.href="support.set?userNick="+taker;
+
+		}
+	})
+	
+
+      
+      
+      
+   
 	
 </script>
 </body>

@@ -47,6 +47,8 @@
      WHERE M.USER_NO = #{userNo}
 	</select>
 	
-
+	<select id="tnoSelecter" resultType="java.lang.String">
+	  SELECT SEQ_TNO.NEXTVAL FROM DUAL
+	</select>
 	
 </mapper>

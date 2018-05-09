@@ -188,10 +188,11 @@ public class MyBoard {
 		return object.toString();
 	}
 	@RequestMapping(value="myBoardStore.my")
-	public ModelAndView myBoardStore(ModelAndView mv, @RequestParam("board")String board){
+	public ModelAndView myBoardStore(ModelAndView mv, @RequestParam("board")String board, @RequestParam(value="ownerNo",required=false)String ownerNo){
 		Store s = new Store();
 		s.setBoardNo(board);
 		mv.addObject("board", board);
+		mv.addObject("ownerNo", ownerNo);
 		mv.setViewName("myBoardFin");
 		return mv;
 	}

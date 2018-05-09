@@ -10,7 +10,7 @@
     <style>
       .column-container{
         display:flex;
-        margin-top:30px;
+        margin-top:80px;
         width:91%;
         margin-left:auto;
         margin-right:auto;

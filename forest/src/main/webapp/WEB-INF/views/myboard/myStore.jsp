@@ -189,21 +189,20 @@ overflow:hidden;
 		<div class="overlay"></div>
    		<div id="main" style="width:1278.4; height:300px; border-bottom:1px solid rgba(80,80,80,0.2); ">
 			<div style="float:left; width:900px; height:250px; margin-right:200px;" align="center">
-   		   		<div style="margin-left:400px; margin-top:80px;">
+   		   		<div style="margin-left:400px; margin-top:80px; display:flex; flex-direction:column; position:relative">
 
-   		   			<label style="font-size:50px; color:#696969;">${ownerProfile.userNickName}</label>
+   		   			<label style="font-size:50px; color:#696969; text-align:left;">${ownerProfile.userNickName}</label>
    		   			
-   		   			<div style="margin-top:20px;">
-   		   			
-   		   			<p style="width:100px; margin:0px;">${ownerProfile.userIntroduce}</p>
+   		   			<div style="margin-top:20px; float:left;">
+   		   			<p style="width:500px; margin:0px; text-align:left;">${ownerProfile.userIntroduce}</p>
    		   			</div>
+   		   			
    		   		</div>
 			</div>			
 			<div style="float:left; width:300px; height:250px;">
 				<img src="/tree/${ownerProfile.userProfile}" id="MyImage" style="cursor: pointer;">
 			</div>
-		</div>   		      
-    
+		</div>   	
   		       <c:if test="${ownerProfile.userNo == loginUser.mNo}">
 	 		     <p id="MineBtn">작품 보드</p>
 	 		   </c:if>

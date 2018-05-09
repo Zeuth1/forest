@@ -121,7 +121,7 @@ public class Setting {
 	}
 	@RequestMapping(value="changePic", method = RequestMethod.POST)
 	public ModelAndView changePic(ModelAndView mv ,MultipartHttpServletRequest multi,HttpSession session){
-		   String root = "C:/Users/Song/forest/tree/";
+		   String root = "C:/Users/zeuth/forest/tree/";
 		   String newFileName="";
 		   Member m =(Member) session.getAttribute("loginUser");
 		   

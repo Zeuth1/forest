@@ -29,5 +29,7 @@ public interface FinDao {
 
 	String tnoSelecter(SqlSessionTemplate sqlSession);
 
+	ArrayList selectStore(SqlSessionTemplate sqlSession, String userNo);
+
 	
 }

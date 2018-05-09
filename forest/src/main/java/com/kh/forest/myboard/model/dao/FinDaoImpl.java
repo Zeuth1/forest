@@ -35,7 +35,7 @@ public class FinDaoImpl implements FinDao {
 	@Override
 	public ArrayList selectFin(SqlSessionTemplate sqlSession, String userNo) {
 		
-		ArrayList list = (ArrayList) sqlSession.selectList("Fin.selectStore", userNo);
+		ArrayList list = (ArrayList) sqlSession.selectList("Fin.selectFin", userNo);
 		
 		
 		return list;
@@ -68,7 +68,13 @@ public class FinDaoImpl implements FinDao {
 	    String tno = sqlSession.selectOne("Fin.tnoSelecter");
 		return tno;
 	}
+	@Override
+	public ArrayList selectStore(SqlSessionTemplate sqlSession, String userNo) {
+		ArrayList list = (ArrayList) sqlSession.selectList("Board.selectStore",userNo);
 	
+		
+		return list;
+	}
 	
 
 	

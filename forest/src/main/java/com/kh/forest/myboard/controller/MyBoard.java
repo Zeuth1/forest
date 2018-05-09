@@ -47,7 +47,8 @@ public class MyBoard {
 	
 	//마이보드로가기
 	@RequestMapping(value="myBoard.my")
-	public @ResponseBody ModelAndView myboard(ModelAndView mv, @RequestParam(value="mno")String userNo ){
+	public @ResponseBody ModelAndView myboard(ModelAndView mv, @RequestParam(value="mno")String userNo,
+			@RequestParam(value="toMine", required=false)String toMine, @RequestParam(value="toStore", required=false)String toStore ){
 		
 		
 		BoardProfile boardProfile = fs.boardProfileSelect(userNo);
@@ -55,7 +56,14 @@ public class MyBoard {
 		
 		mv.addObject("ownerProfile", boardProfile);
 		
-		mv.setViewName("myboard");
+		if(toStore != null){
+			mv.setViewName("myStore");
+		}else if(toMine != null){
+			mv.setViewName("myboard");
+		}else{
+			mv.setViewName("myboard");
+		}
+		
 		
 		return mv;
 	}
@@ -217,6 +225,33 @@ public class MyBoard {
 			e.printStackTrace();
 		}
 		ArrayList list = fs.selectBoard(userNo);
+		
+		System.out.println(list);
+		
+		JSONArray array = JSONArray.fromObject(list);
+		
+		HashMap<String, Object> hashMap = new HashMap<String, Object>();
+		
+		hashMap.put("userNo", array);
+		JSONObject object = JSONObject.fromObject(hashMap);
+		
+		return object.toString();
+	}
+	
+	//저장보드 불러오기!!
+	@RequestMapping(value="myStoreSelect.my")
+	public @ResponseBody String selectStore(@RequestBody String User_No){
+		JSONParser parser = new JSONParser();
+		String userNo = null;
+		
+		try {
+			userNo = (String) parser.parse(User_No);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList list = fs.selectStore(userNo);
 		
 		System.out.println(list);
 		

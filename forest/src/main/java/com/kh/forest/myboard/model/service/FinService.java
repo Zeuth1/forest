@@ -32,4 +32,6 @@ public interface FinService {
 	
 	public String tnoSelecter();
 
+	ArrayList selectStore(String userNo);
+
 }

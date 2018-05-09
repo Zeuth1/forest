@@ -134,6 +134,22 @@
 	 background:rgba(80,80,80,0.1);
 	}
 	
+	#StoreBtn{
+    width:80px;
+    margin-left:100px;
+	padding:15px;
+	
+	border-radius:50px;
+	font-weight: bolder;
+	font-size:medium;
+	color:rgba(0,0,0,0.8);
+   }
+   
+   #StoreBtn:hover{
+     background:rgba(80,80,80,0.1);
+     cursor:pointer;
+   }
+	
 	
 	
 #blurExample, #noneblurExample {
@@ -188,11 +204,9 @@ overflow:hidden;
 			</div>
 		</div>   		      
     
-  		
-	 		 <div class="selectmenu" style="margin-left:0px;">
-	 		   <button class="btn btn-default">작품</button>
-	 		   <!-- <button class="btn btn-default" onclick="location.href='myBoardFin.my'">핀</button> -->
-	 		 </div>
+  		       <c:if test="${ownerProfile.userNo == loginUser.mNo}">
+	 		     <p id="StoreBtn">저장 보드</p>
+	 		   </c:if>
 	 		 
 		     <div class="container ">    
 	 		 
@@ -281,6 +295,12 @@ var User_No = "";
 			$('.overlay').css('display', 'none');
 		}
 	})	
+	
+	$(document).on('click', function(e){
+		if( $(e.target).is('#StoreBtn') ){
+			location.href="myBoard.my?mno=" + '${ownerProfile.userNo}' + '&toStore';
+		}
+	})
 	
 	
 	

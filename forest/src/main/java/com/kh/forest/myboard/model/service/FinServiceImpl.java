@@ -73,6 +73,13 @@ public class FinServiceImpl implements FinService{
 		
 		return tno;
 	}
+	
+	@Override
+	public ArrayList selectStore(String userNo) {
+		ArrayList list = fd.selectStore(sqlSession,userNo);
+		
+		return list;
+	}
 
 
 	
